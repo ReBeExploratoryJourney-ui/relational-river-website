@@ -94,7 +94,14 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 @keyframes lglow{0%,100%{filter:drop-shadow(0 0 2px rgba(232,199,122,.35))}50%{filter:drop-shadow(0 0 12px rgba(232,199,122,.85))}}
 .guidebtn{font-family:Jost,sans-serif;font-size:15px;font-weight:500;color:#F5EEE1;min-height:44px;padding:8px 16px;cursor:pointer;border:1px solid rgba(232,199,122,.55);background:rgba(232,199,122,.10);border-radius:22px 16px 24px 15px;transition:opacity 1.4s ease,background 1.4s ease,border-color 1.4s ease,box-shadow 1.4s ease}
 .guidebtn.glow{background:rgba(232,199,122,.22);animation:gpulse 1.8s ease-in-out infinite}
-@keyframes gpulse{0%,100%{box-shadow:0 0 4px rgba(232,199,122,.3);transform:scale(1)}50%{box-shadow:0 0 22px rgba(232,199,122,.7);transform:scale(1.04)}}
+@keyframes gpulse{0%,100%{box-shadow:0 0 4px rgba(232,199,122,.3)}50%{box-shadow:0 0 22px rgba(232,199,122,.75)}}
+.glogowrap{position:relative;display:inline-block}
+.glogowrap .guidebtn{position:absolute;left:calc(100% + 18px);top:50%;transform:translateY(-50%);white-space:nowrap}
+.glogo.glow{animation:lglow 1.8s ease-in-out infinite}
+.birdglow{position:absolute;left:72%;top:66%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;pointer-events:none;opacity:0;background:radial-gradient(circle,rgba(255,244,210,.95) 0%,rgba(232,199,122,.6) 38%,rgba(232,199,122,0) 72%)}
+.birdglow.on{animation:bglow .85s ease-in-out 2}
+@keyframes bglow{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:1;transform:scale(1.5)}}
+@media (max-width: 700px){.glogowrap{display:flex;flex-direction:column;align-items:center;gap:12px}.glogowrap .guidebtn{position:static;transform:none}}
 .guidebtn.faint{opacity:.6;background:transparent;border-color:rgba(237,237,237,.28)}
 .guidebtn.faint:hover,.guidebtn.faint:focus-visible{opacity:1;border-color:rgba(232,199,122,.7)}
 .glayer{position:absolute;left:0;top:0;width:100%;height:0;overflow:visible;z-index:60;pointer-events:none}
@@ -105,8 +112,10 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .rv-svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 3px rgba(245,238,225,.55)) drop-shadow(0 0 14px rgba(190,205,255,.35))}
 .rv-bodyg > path:nth-of-type(2),.rv-wing > path:first-child,.rv-fold > path:first-child,.rv-farwing path{stroke:rgba(178,192,245,.7);stroke-width:1;stroke-linejoin:round}
 .rv-wing,.rv-farwing{transform-box:view-box;transform-origin:60px 46px}
-.rv.flying .rv-wing{animation:flap .42s ease-in-out infinite alternate}
-.rv.flying .rv-farwing{animation:flap2 .42s ease-in-out infinite alternate}
+.rv.flying .rv-wing{animation:flap .8s ease-in-out infinite alternate}
+.rv.flying .rv-farwing{animation:flap2 .8s ease-in-out infinite alternate}
+.rv.flying.glide .rv-wing{animation:none;transform:scaleY(.22)}
+.rv.flying.glide .rv-farwing{animation:none;transform:scaleY(.18)}
 @keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(-.62)}}
 @keyframes flap2{from{transform:scaleY(.85)}to{transform:scaleY(-.5)}}
 .rv-fold,.rv-legs{display:none}
@@ -144,8 +153,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
 <header style="max-width: 1200px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
 <div class="gwrap">
-<a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 26px"><img class="{{logoCls}}" src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
-<button class="{{guideCls}}" onClick="{{startGuide}}" aria-pressed="{{guidingOn}}">{{guideLabel}}</button>
+<a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 26px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
 </div>
 <nav class="vnav" aria-label="Main">
 <div class="vgroup"><button class="vbtn here">Begin</button><div class="vmenu"><a href="/flow"><b>The River</b><span>the whole River at a glance</span></a><a href="/source"><b>The source</b><span>a minute of gentle questions</span></a><a href="/"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
@@ -165,7 +173,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <svg class="sky" viewBox="18 20 142 172" aria-hidden="true" style="left: 0; top: 290px; width: 112px; transform: rotate(7deg)"><g stroke="#EDEDED" stroke-opacity="0.28" stroke-width="1" fill="none"><path d="M28 38 L72 56 L98 30 M72 56 L84 104 L108 146 L80 182 L50 160 M108 146 L150 168"></path></g><g fill="#EDEDED"><circle class="star s2" cx="28" cy="38" r="2"></circle><circle class="star" cx="72" cy="56" r="4.2" fill="#E4F1FB"></circle><circle class="star s3" cx="98" cy="30" r="1.5"></circle><circle class="star s2" cx="84" cy="104" r="1.6"></circle><circle class="star" cx="108" cy="146" r="2.4"></circle><circle class="star s3" cx="80" cy="182" r="2.6"></circle><circle class="star s2" cx="50" cy="160" r="1.8"></circle><circle class="star s3" cx="150" cy="168" r="2"></circle></g></svg>
 <svg class="sky" viewBox="732 16 114 216" aria-hidden="true" style="right: 5%; top: 18px; width: 96px; transform: rotate(-7deg)"><path d="M782 26 L742 52 M782 26 L822 60 M742 52 L766 142 M822 60 L806 132 M766 142 L786 137 L806 132 M766 142 L750 222 M806 132 L836 216" stroke="#EDEDED" stroke-opacity="0.28" fill="none"></path><g fill="#EDEDED"><circle class="star s2" cx="782" cy="26" r="1.4"></circle><circle class="star" cx="742" cy="52" r="3" fill="#F4C6A0"></circle><circle class="star s3" cx="822" cy="60" r="2.2"></circle><circle class="star s2" cx="766" cy="142" r="2"></circle><circle class="star" cx="786" cy="137" r="2"></circle><circle class="star s3" cx="806" cy="132" r="2"></circle><circle class="star s2" cx="750" cy="222" r="2"></circle><circle class="star" cx="836" cy="216" r="3" fill="#CFE6F7"></circle></g></svg>
 <svg class="sky" viewBox="582 136 128 146" aria-hidden="true" style="right: 1%; top: 220px; width: 118px; transform: rotate(13deg)"><path d="M592 150 L606 168 M622 146 L606 168 M646 158 L606 168 M606 168 L612 192 L616 216 L626 240 L644 260 L668 272 L690 264 L700 246 L688 230" stroke="#EDEDED" stroke-opacity="0.28" fill="none"></path><g fill="#EDEDED"><circle class="star s2" cx="592" cy="150" r="1.6"></circle><circle class="star" cx="622" cy="146" r="2"></circle><circle class="star s3" cx="646" cy="158" r="1.6"></circle><circle class="star s2" cx="606" cy="168" r="1.8"></circle><circle class="star" cx="612" cy="192" r="3.4" fill="#F0A07A"></circle><circle class="star s3" cx="616" cy="216" r="1.7"></circle><circle class="star s2" cx="626" cy="240" r="1.8"></circle><circle class="star" cx="644" cy="260" r="1.9"></circle><circle class="star s3" cx="668" cy="272" r="2"></circle><circle class="star s2" cx="690" cy="264" r="2.1"></circle><circle class="star" cx="700" cy="246" r="2.4"></circle><circle class="star s3" cx="688" cy="230" r="2"></circle></g></svg>
-<img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 112px; height: 112px; display: block">
+<div class="glogowrap"><span style="position: relative; display: block"><img class="{{logoCls}}" src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 112px; height: 112px; display: block"><span class="{{birdCls}}" aria-hidden="true"></span></span><button class="{{guideCls}}" onClick="{{startGuide}}" aria-pressed="{{guidingOn}}">{{guideLabel}}</button></div>
 <div style="font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: #C9CCD6">An offering of the Institute of Relational Being</div>
 <h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 60px; line-height: 1.05; color: #DCDCDC; font-variant-ligatures: none; font-feature-settings: 'liga' 0; letter-spacing: 0.01em">Follow the flow</h1>
 <p style="margin: 0; font-size: 20px; line-height: 1.55; max-width: 760px">Wherever you are, you are navigating the present moment as a part of nature and this living world. Earth is every human’s first home. The Relational River is a Source, like the headwaters of any river, offered through the Institute of Relational Being. It is here to be of service to individuals, organizations, communities and the wider living world: an engaging re-source, and an open-source process and platform of reciprocity, curiosity and care for all life and this living world.</p>
@@ -286,7 +294,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { i: 0, tour: false, glow: true, guiding: false }; }
+  constructor(props) { super(props); this.state = { i: 0, tour: false, glow: true, guiding: false, emerging: false }; }
   guideScript() {
     var pre = [
       { at: 'moon', text: 'Before we begin, something true of every river: this one is alive. The Relational River is a provotype, a living prototype made to provoke new possibilities. It is always changing and evolving, just like life and reality itself, so no two journeys here will ever be the same.' },
@@ -340,7 +348,7 @@ class Component extends DCLogic {
     var L = e.layer.getBoundingClientRect();
     if (at === 'logo') {
       var img = document.querySelector('.glogo'); if (!img) { return null; }
-      var r = img.getBoundingClientRect(); return { x: r.left - L.left + r.width * 0.7, y: r.top - L.top + r.height * 0.7 };
+      var r = img.getBoundingClientRect(); return { x: r.left - L.left + r.width * 0.72, y: r.top - L.top + r.height * 0.66 + 10 };
     }
     if (at === 'moon') {
       var svg = document.querySelector('.mapinner svg'); if (!svg) { return null; }
@@ -368,15 +376,16 @@ class Component extends DCLogic {
     rv.classList.add('flying'); rv.classList.remove('perched');
     rv.classList.toggle('flip', to.x < from.x);
     var dx = to.x - from.x, dy = to.y - from.y, dist = Math.sqrt(dx * dx + dy * dy);
-    var dur = Math.max(650, Math.min(2000, dist / 0.55)), lift = 50 + dist * 0.18;
+    var dur = Math.max(1300, Math.min(4200, dist / 0.27)), lift = 50 + dist * 0.18, soar = dur > 2200;
     var L0 = this.gEls().layer.getBoundingClientRect(), topSafe = -L0.top + 70 + (opts.topPad || 0);
     var cx = (from.x + to.x) / 2, cy = Math.max(topSafe, Math.min(from.y, to.y) - (opts.lift != null ? opts.lift : lift)), t0 = null;
     var step = function (ts) {
       if (!t0) { t0 = ts; }
       var t = Math.min(1, (ts - t0) / dur), e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2, u = 1 - e;
-      var x = u * u * from.x + 2 * u * e * cx + e * e * to.x, y = u * u * from.y + 2 * u * e * cy + e * e * to.y + Math.sin(t * Math.PI * 4) * 3 * (1 - t);
+      var x = u * u * from.x + 2 * u * e * cx + e * e * to.x, y = u * u * from.y + 2 * u * e * cy + e * e * to.y + Math.sin(t * Math.PI * 3) * 4 * (1 - t);
+      if (soar) { rv.classList.toggle('glide', t > 0.22 && t < 0.78); }
       self.gPlace(x, y, s0 + (1 - s0) * Math.min(1, t * 1.6));
-      if (t < 1) { self.raf = requestAnimationFrame(step); } else { self.raf = null; if (done) { done(); } }
+      if (t < 1) { self.raf = requestAnimationFrame(step); } else { self.raf = null; rv.classList.remove('glide'); if (done) { done(); } }
     };
     this.raf = requestAnimationFrame(step);
   }
@@ -471,29 +480,44 @@ class Component extends DCLogic {
       var m = this.gPoint('moon'); if (m) { this.gPlace(m.x, m.y, 1); }
       e.rv.classList.add('on'); this.gGo('welcome', 0); return;
     }
-    this.gPlace(start.x, start.y, 0.25); e.rv.classList.add('on');
-    var L = e.layer.getBoundingClientRect(), W = L.width;
-    var top0 = -L.top, loop = [{ x: W * 0.3, y: top0 + 150 }, { x: W * 0.58, y: top0 + 110 }, { x: W * 0.84, y: top0 + 190 }, { x: W * 0.62, y: top0 + 250 }, { x: W * 0.38, y: top0 + 180 }];
+    // Raven slowly emerges from the bird in the logo while it glows, then soars.
+    this.setState({ emerging: true });
+    this.gPlace(start.x, start.y, 0.12);
+    e.rv.classList.add('flying', 'glide'); e.rv.classList.remove('perched', 'flip');
+    e.rv.style.transition = 'opacity 1.7s ease';
+    requestAnimationFrame(function () { e.rv.classList.add('on'); });
+    var g0 = null;
+    var grow = function (ts) {
+      if (!self.gActive) { return; }
+      if (!g0) { g0 = ts; }
+      var u = Math.min(1, (ts - g0) / 1800);
+      self.gPlace(start.x, start.y - 14 * u, 0.12 + 0.4 * u * u);
+      if (u < 1) { self.raf = requestAnimationFrame(grow); } else { e.rv.style.transition = ''; e.rv.classList.remove('glide'); self.setState({ emerging: false }); next(); }
+    };
+    var L = e.layer.getBoundingClientRect(), W = L.width, top0 = -L.top, vh = window.innerHeight || 800;
+    var loop = [{ x: W * 0.64, y: top0 + vh * 0.12 }, { x: W * 0.86, y: top0 + vh * 0.26 }, { x: W * 0.66, y: top0 + vh * 0.42 }, { x: W * 0.4, y: top0 + vh * 0.3 }];
+    if (W < 700) { loop = [{ x: W * 0.78, y: top0 + vh * 0.14 }, { x: W * 0.3, y: top0 + vh * 0.26 }]; }
     var k = 0;
     var next = function () {
       if (!self.gActive) { return; }
-      if (k < loop.length) { var p = loop[k]; self.gFly(p, k === 0 ? { fromScale: 0.25, lift: 30 } : { lift: 40 }, next); k++; return; }
+      if (k < loop.length) { var p = loop[k]; self.gFly(p, k === 0 ? { fromScale: 0.52, lift: 40 } : { lift: 30 }, next); k++; return; }
       self.gGo('welcome', 0);
     };
-    next();
+    this.raf = requestAnimationFrame(grow);
   }
   gStop() {
     var e = this.gEls();
     this.gActive = false; this.gAt = null;
     if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
     if (e.rv) { e.rv.classList.remove('on', 'flying', 'perched'); }
-    this.gHide(); this.setState({ guiding: false });
+    if (e.rv) { e.rv.style.transition = ''; e.rv.classList.remove('glide'); }
+    this.gHide(); this.setState({ guiding: false, emerging: false });
     try { var btn = document.querySelector('.guidebtn'); if (btn) { btn.focus({ preventScroll: true }); } } catch (x) {}
   }
   guideVals() {
     var self = this, s = this.state;
     return {
-      guideCls: s.glow ? 'guidebtn glow' : 'guidebtn faint', logoCls: s.glow ? 'glogo glow' : 'glogo',
+      guideCls: s.glow ? 'guidebtn glow' : 'guidebtn faint', logoCls: s.glow ? 'glogo glow' : 'glogo', birdCls: s.emerging ? 'birdglow on' : 'birdglow',
       guideLabel: s.guiding ? 'End the guide' : 'Would you like a guide?',
       startGuide: function () { if (self.gActive) { self.gStop(); } else { self.gStart(); } }
     };
@@ -558,7 +582,7 @@ class Component extends DCLogic {
     var go = function (k) { self.stopTour(); self.setState({ i: (k + count) % count, tour: false }); };
     var gv = this.guideVals();
     return {
-      guideCls: gv.guideCls, logoCls: gv.logoCls, guideLabel: gv.guideLabel, startGuide: gv.startGuide, guidingOn: this.state.guiding ? 'true' : 'false',
+      guideCls: gv.guideCls, logoCls: gv.logoCls, birdCls: gv.birdCls, guideLabel: gv.guideLabel, startGuide: gv.startGuide, guidingOn: this.state.guiding ? 'true' : 'false',
       moonLit: moon.d,
       nodes: N.map(function (n, k) { var on = k === i; return { name: n.k, x: n.x + '%', y: n.y + '%', on: on ? 'true' : 'false', cls: on ? 'node on' : 'node', pick: function () { go(k); self.showCard(); } }; }),
       hasIdLink: /Relational ID/.test((cur.eg || '') + ' ' + cur.text), hasInvite: !!cur.invite, invite: cur.invite || '', inviteCta: cur.inviteCta || '',
