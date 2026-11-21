@@ -17,10 +17,10 @@ python3 build.py
 
 ## Hosting
 
-Cloudflare Pages serves the `site/` folder. In the Pages project settings:
+Cloudflare serves the `site/` folder, using the settings in `wrangler.jsonc`. In the Cloudflare project:
 
 - Build command: *(leave empty)*
-- Build output directory: `site`
+- Deploy command: `npx wrangler deploy`
 
 Every push to `main` goes live automatically.
 
