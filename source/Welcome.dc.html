@@ -158,7 +158,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 </div>
 
-<aside aria-live="polite" style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 18px">
+<aside aria-live="polite" style="scroll-margin-top: 16px; flex: 1 1 320px; display: flex; flex-direction: column; gap: 18px">
 <div class="torn tall tl" style="background: #F5EEE1; padding: 36px 34px; display: flex; flex-direction: column; gap: 10px">
 <div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase">{{step}}</div>
 <h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 30px; line-height: 1.1">{{name}}</h2>
@@ -230,6 +230,20 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
 class Component extends DCLogic {
   constructor(props) { super(props); this.state = { i: 0, tour: false }; }
+  showCard() {
+    setTimeout(function () {
+      try {
+        var card = document.querySelector('aside');
+        if (!card) { return; }
+        var r = card.getBoundingClientRect(), map = document.querySelector('.mapscroll');
+        var stacked = map && r.top >= map.getBoundingClientRect().bottom - 2;
+        if (stacked && (r.top > window.innerHeight * 0.55 || r.bottom < 80)) {
+          var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          card.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+        }
+      } catch (e) {}
+    }, 60);
+  }
   componentDidMount() {
     try {
       var s = document.querySelector('.mapscroll');
@@ -271,7 +285,7 @@ class Component extends DCLogic {
     var go = function (k) { self.stopTour(); self.setState({ i: (k + count) % count, tour: false }); };
     return {
       moonLit: moon.d,
-      nodes: N.map(function (n, k) { var on = k === i; return { name: n.k, x: n.x + '%', y: n.y + '%', on: on ? 'true' : 'false', cls: on ? 'node on' : 'node', pick: function () { go(k); } }; }),
+      nodes: N.map(function (n, k) { var on = k === i; return { name: n.k, x: n.x + '%', y: n.y + '%', on: on ? 'true' : 'false', cls: on ? 'node on' : 'node', pick: function () { go(k); self.showCard(); } }; }),
       hasIdLink: /Relational ID/.test((cur.eg || '') + ' ' + cur.text), hasInvite: !!cur.invite, invite: cur.invite || '', inviteCta: cur.inviteCta || '',
       step: (i + 1) + ' of ' + count, name: cur.k, line: cur.line, text: cur.text, eg: cur.eg, href: cur.href, cta: cur.cta,
       prev: function () { go(i - 1); }, next: function () { go(i + 1); },
