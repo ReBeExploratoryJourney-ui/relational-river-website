@@ -100,6 +100,8 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .birdglow.on{animation:bglow .75s ease-in-out 2}
 .birdpeel{position:absolute;left:56.16%;top:62.29%;width:19.62%;height:7.71%;pointer-events:none;opacity:0;transform-origin:70% 60%}
 .birdpeel.peeling{animation:peel 1.6s ease-in-out forwards}
+.birdpeel.merging{animation:merge 1.3s ease-in-out forwards}
+@keyframes merge{0%{opacity:0;transform:translate(3px,-14px) rotate(-14deg) scale(1.5);filter:brightness(1.6) drop-shadow(0 0 5px rgba(255,240,200,.9))}35%{opacity:1;transform:translate(2px,-7px) rotate(-10deg) scale(1.25);filter:brightness(1.7) drop-shadow(0 0 5px rgba(255,240,200,.95))}75%{opacity:1;transform:none;filter:brightness(1.5) drop-shadow(0 0 3px rgba(255,240,200,.8))}100%{opacity:0;transform:none;filter:none}}
 @keyframes peel{0%{opacity:1;transform:none;filter:none}30%{opacity:1;transform:translate(0,-1px) rotate(-5deg) scale(1.08);filter:brightness(1.8) drop-shadow(0 0 3px rgba(255,240,200,.95))}70%{opacity:1;transform:translate(2px,-8px) rotate(-12deg) scale(1.3);filter:brightness(1.5) drop-shadow(0 0 5px rgba(255,240,200,.9))}100%{opacity:0;transform:translate(3px,-14px) rotate(-14deg) scale(1.5)}}
 @keyframes bglow{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:1;transform:scale(1.5)}}
 @media (max-width: 700px){.glogowrap{display:flex;flex-direction:column;align-items:center;gap:12px}.glogowrap .guidebtn{position:static;transform:none}}
@@ -292,7 +294,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { i: 0, tour: false, glow: true, guiding: false, emerging: false, peel: false }; }
+  constructor(props) { super(props); this.state = { i: 0, tour: false, glow: true, guiding: false, emerging: false, peel: false, merging: false }; }
   guideScript() {
     var pre = [
       { at: 'moon', text: 'Before we begin, something true of every river: this one is alive. The Relational River is a provotype, a living prototype made to provoke new possibilities. It is always changing and evolving, just like life and reality itself, so no two journeys here will ever be the same.' },
@@ -368,7 +370,7 @@ class Component extends DCLogic {
   gFly(to, opts, done) {
     var self = this, rv = this.gEls().rv; opts = opts || {};
     if (!rv || !to) { if (done) { done(); } return; }
-    var from = this.gPos || to, s0 = opts.fromScale || 1;
+    var from = this.gPos || to, s0 = opts.fromScale || 1, s1 = opts.toScale || 1;
     if (this.raf) { cancelAnimationFrame(this.raf); }
     if (this.still()) { rv.classList.remove('flying'); this.gPlace(to.x, to.y, 1); if (done) { setTimeout(done, 60); } return; }
     rv.classList.add('flying'); rv.classList.remove('perched');
@@ -382,7 +384,7 @@ class Component extends DCLogic {
       var t = Math.min(1, (ts - t0) / dur), e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2, u = 1 - e;
       var x = u * u * from.x + 2 * u * e * cx + e * e * to.x, y = u * u * from.y + 2 * u * e * cy + e * e * to.y + Math.sin(t * Math.PI * 3) * 4 * (1 - t);
       if (soar) { rv.classList.toggle('glide', t > 0.22 && t < 0.78); }
-      self.gPlace(x, y, s0 + (1 - s0) * Math.min(1, t * 1.6));
+      self.gPlace(x, y, s1 < s0 ? s0 + (s1 - s0) * Math.pow(t, 2.2) : s0 + (s1 - s0) * Math.min(1, t * 1.6));
       if (t < 1) { self.raf = requestAnimationFrame(step); } else { self.raf = null; rv.classList.remove('glide'); if (done) { done(); } }
     };
     this.raf = requestAnimationFrame(step);
@@ -402,7 +404,7 @@ class Component extends DCLogic {
     if (beat.choice) {
       mk('Tell me about the River', function () { self.gGo('deep', 0); }, true); mk('Show me around', function () { self.gGo('tour', 0); }, true); mk('Maybe later', function () { self.gStop(); });
     } else if (beat.final) {
-      mk('Begin at the Source', function () { self.gStop(); try { location.href = 'Main.dc.html'; } catch (x) {} }, true);
+      mk('Begin at the Source', function () { self.gStop(true); try { location.href = 'Main.dc.html'; } catch (x) {} }, true);
       if (g.seq === 'deep') { mk('Show me around', function () { self.gGo('tour', 0); }); }
       mk('Explore on my own', function () { self.gStop(); });
     } else {
@@ -452,7 +454,7 @@ class Component extends DCLogic {
     if (beat.node) { var ns = document.querySelectorAll('.mapinner .node'); for (var k = 0; k < ns.length; k++) { if (ns[k].textContent.trim() === beat.node) { nodeEl = ns[k]; } } }
     var el = nodeEl || target;
     this.gMoonScroll = !nodeEl; this.gScroll(el, nodeEl ? 0.45 : 0.18);
-    setTimeout(function () { self.gFly(self.gPoint(beat.at), {}, show); }, this.still() ? 30 : 420);
+    setTimeout(function () { if (!self.gActive) { return; } self.gFly(self.gPoint(beat.at), {}, show); }, this.still() ? 30 : 420);
   }
   gScroll(el, frac) {
     if (!el) { return; }
@@ -509,21 +511,44 @@ class Component extends DCLogic {
       self.gGo('welcome', 0);
     };
   }
-  gStop() {
-    var e = this.gEls();
+  gStop(quick) {
+    var self = this, e = this.gEls();
+    if (this.gReturning) { return; }
     this.gActive = false; this.gAt = null;
     if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
-    if (e.rv) { e.rv.classList.remove('on', 'flying', 'perched'); }
-    if (e.rv) { e.rv.style.transition = ''; e.rv.classList.remove('glide'); }
     this.gHide(); this.setState({ guiding: false, emerging: false, peel: false });
-    try { var btn = document.querySelector('.guidebtn'); if (btn) { btn.focus({ preventScroll: true }); } } catch (x) {}
+    var finish = function () {
+      if (e.rv) { e.rv.classList.remove('on', 'flying', 'perched', 'glide', 'flip'); e.rv.style.transition = ''; }
+      self.gPos = null; self.gReturning = false;
+      try { var btn = document.querySelector('.guidebtn'); if (btn) { btn.focus({ preventScroll: true }); } } catch (x) {}
+    };
+    var visible = e.rv && e.rv.classList.contains('on');
+    if (quick || this.still() || !visible || !this.gPos) { finish(); return; }
+    // Raven flies home to the IRB logo and merges back into the bird within it.
+    this.gReturning = true;
+    var goHome = function () {
+      var home = self.gPoint('logo');
+      if (!home) { finish(); return; }
+      self.gFly({ x: home.x, y: home.y - 10 }, { toScale: 0.2, lift: 60 }, function () {
+        self.setState({ merging: true, emerging: true });
+        e.rv.classList.add('glide');
+        e.rv.style.transition = 'opacity .7s ease';
+        e.rv.classList.remove('on');
+        setTimeout(function () { self.setState({ merging: false, emerging: false }); finish(); }, 1400);
+      });
+    };
+    var logo = document.querySelector('.glogo'), r = logo ? logo.getBoundingClientRect() : null;
+    if (r && (r.top < 0 || r.bottom > window.innerHeight)) {
+      try { window.scrollTo({ top: Math.max(0, (window.scrollY || 0) + r.top - 140), behavior: 'smooth' }); } catch (x) {}
+      setTimeout(goHome, 650);
+    } else { goHome(); }
   }
   guideVals() {
     var self = this, s = this.state;
     return {
-      guideCls: s.glow ? 'guidebtn glow' : 'guidebtn faint', logoCls: s.glow ? 'glogo glow' : 'glogo', birdCls: s.emerging ? 'birdglow on' : 'birdglow', peelCls: s.peel ? 'birdpeel peeling' : 'birdpeel',
+      guideCls: s.glow ? 'guidebtn glow' : 'guidebtn faint', logoCls: s.glow ? 'glogo glow' : 'glogo', birdCls: s.emerging ? 'birdglow on' : 'birdglow', peelCls: s.peel ? 'birdpeel peeling' : (s.merging ? 'birdpeel merging' : 'birdpeel'),
       guideLabel: s.guiding ? 'End the guide' : 'Would you like a guide?',
-      startGuide: function () { if (self.gActive) { self.gStop(); } else { self.gStart(); } }
+      startGuide: function () { if (self.gReturning) { return; } if (self.gActive) { self.gStop(); } else { self.gStart(); } }
     };
   }
 
