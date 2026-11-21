@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · the estuary</title>
+<meta name="description" content="Where personal change meets workplaces, schools and councils.">
+<meta property="og:title" content="Relational River · the estuary">
+<meta property="og:description" content="Where personal change meets workplaces, schools and councils.">
+<meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<meta name="theme-color" content="#0E2849">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#E6E2F2;border-color:#2F2B28;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:start}
+.card{padding:36px 32px 30px;display:flex;flex-direction:column;gap:8px;color:#2F2B28}
+.k{font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
+.h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:30px;letter-spacing:-0.02em}
+.h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:21px}
+.p{margin:0;font-size:16px;line-height:1.55}
+.lnk{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.note{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;color:#E8C77A;max-width:760px}
+.steps{margin:4px 0 0;padding-left:22px;font-size:16px;line-height:1.6}
+.steps li{margin-bottom:4px}
+.minor{font-size:14px;font-style:italic}
+.toggle{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:transparent;border:1.5px solid #2F2B28;border-radius:10px 14px 10px 12px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
+.chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chiplabel{font-size:14px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
+.care{background:#E6E2F2;padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
+@keyframes swirl{to{stroke-dashoffset:-120}}
+.eddy{stroke-dasharray:6 8;animation:swirl 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 14s linear infinite}
+.spin.ccw{animation-direction:reverse}
+</style>
+<style>body{background:#0E2849}</style>
+</head>
+<body>
+<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>
+<template id="rr-template">
+
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="/flow"><b>The River</b><span>the whole River at a glance</span></a><a href="/source"><b>The source</b><span>a minute of gentle questions</span></a><a href="/"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/streams"><b>Streams</b><span>small practices for ordinary days</span></a><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/eddies"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="/moon"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="/capital-journey"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="/lakes"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/estuary"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="/groundwater"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="/my-river" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 36px">
+<a href="/flow" style="font-size: 15px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">Back to the whole River</a>
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: -20px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Estuary</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 52px; letter-spacing: -0.03em; line-height: 1.02">Where personal change meets the places we work</h1>
+<p style="margin: 0; font-size: 19px; max-width: 760px; line-height: 1.55">An estuary is where river meets sea, fresh water mixing with salt: one of the most alive places on Earth. Here, the relational ways we practise on our own meet the workplaces, schools and councils where we spend our days.</p>
+</div>
+<div class="chips" role="group" aria-label="I’m thinking of"><span class="chiplabel">I’m thinking of</span>
+<sc-for list="{{placeChips}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+<div class="cards">
+<sc-for list="{{ideas}}" as="i" hint-placeholder-count="4">
+<article class="{{i.cls}}" style="background: {{i.bg}}">
+<div class="k">{{i.kind}}</div>
+<h3 class="h3">{{i.title}}</h3>
+<p class="p">{{i.text}}</p>
+</article>
+</sc-for>
+</div>
+<section class="torn tr" style="background: #CFE1E4; padding: 40px 44px; display: flex; flex-wrap: wrap; gap: 32px; color: #2F2B28">
+<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 12px">
+<div class="k">An IRB proposal</div>
+<h2 class="h2">Relational Resource Departments</h2>
+<p class="p" style="font-size: 17px">Alongside human resources, a small group that tends an organisation’s relationships with people, place and the more-than-human world: the creek behind the office, the Beings in its supply chain, the bioregion it belongs to.</p>
+<p class="p" style="font-size: 17px">It can begin very simply, with a few colleagues and a monthly walk.</p>
+</div>
+<ol class="steps" style="flex: 1 1 340px; font-size: 17px">
+<li>Find two or three colleagues who feel the same pull.</li>
+<li>Begin with a monthly walk, or a meeting that starts outside.</li>
+<li>Bring one small practice into ordinary work, such as a minute of noticing before decisions.</li>
+<li>Invite IRB for a conversation about what could grow from there.</li>
+</ol>
+</section>
+<section class="torn tl" style="background: #FBF7EF; padding: 36px 44px; display: flex; flex-direction: column; gap: 14px; color: #2F2B28">
+<h2 class="h2" style="font-size: 26px">Bring this to my workplace or school</h2>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}">
+<label for="where" class="p" style="font-weight: 600">Where do you work, study or serve?</label>
+<input id="where" class="field" value="{{where}}" onChange="{{typedWhere}}" placeholder="For example: a primary school in Ennis, or a design studio in Los Angeles">
+<label for="begin" class="p" style="font-weight: 600">What would you love to begin with?</label>
+<textarea id="begin" class="field" rows="3" value="{{begin}}" onChange="{{typedBegin}}" placeholder="A walk, a circle, a conversation…"></textarea>
+<button class="go tornbtn" style="align-self: flex-start; background: #F5EEE1" onClick="{{send}}">Share with IRB</button>
+<p class="minor" style="margin: 0">Nothing is sent until you choose to share, and only what you write here.</p>
+</sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
+<p class="p" style="font-size: 17px">Thank you. This form isn’t connected yet while the River is being tested, so nothing has been sent. For now, the best way to reach IRB is in its home on Hylo, where you can write to us directly.</p>
+<a href="https://www.hylo.com/groups/institute-of-relational-being/chat" class="lnk">Write to IRB on Hylo</a>
+</sc-if>
+</section>
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 class="h2">Where this flows next</h2>
+<div class="cards">
+<article class="torn tl card" style="background: #E6E2F2">
+<div class="k">Channels</div>
+<h3 class="h3">Other ways to act</h3>
+<p class="p">From your own life to planetary movements, with rest close by.</p>
+<a href="/channels" class="lnk">See the channels</a>
+</article>
+<article class="torn tr card" style="background: #F2D3BC">
+<div class="k">Capital journey</div>
+<h3 class="h3">Money as part of the living world</h3>
+<p class="p">A journey for organisations and philanthropy, open to everyone.</p>
+<a href="/capital-journey" class="lnk">Open the capital journey</a>
+</article>
+<article class="torn tl card" style="background: #DCE6D2">
+<div class="k">Lakes</div>
+<h3 class="h3">Start with a circle</h3>
+<p class="p">A Relational ID Circle can be a gentle first step for a team.</p>
+<a href="/lakes" class="lnk">Find a lake</a>
+</article>
+</div>
+</section>
+</main>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being. Every offering links to its makers. Examples in square brackets are placeholders while the River grows.</span></footer>
+</div>
+</template>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2100}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { place: 'work', where: '', begin: '', sent: false }; }
+
+  chipVals(opts, key) {
+    var self = this, cur = this.state[key];
+    return opts.map(function (o) { var on = cur === o[0]; return { label: o[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var s = {}; s[key] = o[0]; self.setState(s); } }; });
+  }
+  renderVals() {
+    var self = this, s = this.state, bgs = ['#DCE6D2', '#FBF7EF', '#E6E2F2', '#F2D3BC'];
+    var I = {
+ "work": [
+  [
+   "Workplace",
+   "Meetings that begin outside",
+   "A few minutes beside a tree or under the sky before the agenda changes the whole conversation."
+  ],
+  [
+   "Workplace",
+   "Nature time in the working week",
+   "An hour a week for a Sit Spot or a walk, protected like any other commitment."
+  ],
+  [
+   "Workplace",
+   "Know your bioregion",
+   "Learn the watershed your workplace sits in, and whose land it is, from Indigenous sources."
+  ],
+  [
+   "Workplace",
+   "Relationships in the supply chain",
+   "Ask which Beings, places and people your work depends on, and how those relationships could be kinder."
+  ]
+ ],
+ "school": [
+  [
+   "School",
+   "A Sit Spot for every class",
+   "The same patch of school ground, visited through the year, becomes a living textbook."
+  ],
+  [
+   "School",
+   "Making pictures with Beings",
+   "Students make pictures with trees, birds and clouds instead of of them, and talk about the difference."
+  ],
+  [
+   "School",
+   "Whose land is this?",
+   "Learning the history of the land’s First Peoples from their own websites, books and organisations."
+  ],
+  [
+   "School",
+   "Grief and care, held well",
+   "Space for young people’s feelings about the world, always with trained adults and care for their wellbeing."
+  ]
+ ],
+ "council": [
+  [
+   "Council or community",
+   "Listening by watershed",
+   "Gatherings organised around creeks and catchments rather than only administrative lines."
+  ],
+  [
+   "Council or community",
+   "Community Sit Spot maps",
+   "Neighbours sharing the places they return to, with sensitive species locations kept private."
+  ],
+  [
+   "Council or community",
+   "Rights of nature conversations",
+   "Exploring how rivers, forests and other Beings could be given standing in local decisions."
+  ],
+  [
+   "Council or community",
+   "Indigenous leadership on the land",
+   "Planning that follows the guidance of the land’s Indigenous communities, as they wish to be involved."
+  ]
+ ]
+};
+    return {
+      placeChips: this.chipVals([['work', 'A workplace'], ['school', 'A school'], ['council', 'A council or community body']], 'place'),
+      ideas: I[s.place].map(function (x, k) { return { kind: x[0], title: x[1], text: x[2], bg: bgs[k], cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') }; }),
+      where: s.where, begin: s.begin, sent: s.sent, notSent: !s.sent,
+      typedWhere: function (e) { self.setState({ where: e && e.target ? e.target.value : '' }); },
+      typedBegin: function (e) { self.setState({ begin: e && e.target ? e.target.value : '' }); },
+      send: function () { self.setState({ sent: true }); }
+    };
+  }
+}
+</script>
+<script src="/js/river-runtime.js"></script>
+</body>
+</html>

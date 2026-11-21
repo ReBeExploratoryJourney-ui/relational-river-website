@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Relational River: Moon</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#E6E2F2;border-color:#2F2B28;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:start}
+.card{padding:36px 32px 30px;display:flex;flex-direction:column;gap:8px;color:#2F2B28}
+.k{font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
+.h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:30px;letter-spacing:-0.02em}
+.h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:21px}
+.p{margin:0;font-size:16px;line-height:1.55}
+.lnk{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.note{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;color:#E8C77A;max-width:760px}
+.steps{margin:4px 0 0;padding-left:22px;font-size:16px;line-height:1.6}
+.steps li{margin-bottom:4px}
+.minor{font-size:14px;font-style:italic}
+.toggle{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:transparent;border:1.5px solid #2F2B28;border-radius:10px 14px 10px 12px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
+.chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chiplabel{font-size:14px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
+.care{background:#E6E2F2;padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
+@keyframes swirl{to{stroke-dashoffset:-120}}
+.eddy{stroke-dasharray:6 8;animation:swirl 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 14s linear infinite}
+.spin.ccw{animation-direction:reverse}
+</style>
+</helmet>
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Estuary.dc.html"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="Groundwater.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="Journey.dc.html" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 36px">
+<a href="Welcome.dc.html" style="font-size: 15px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">Back to the whole River</a>
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: center; margin-top: -20px">
+<div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Moon</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 52px; letter-spacing: -0.03em; line-height: 1.02">Moon moves the waters, and we are water too</h1>
+<p style="margin: 0; font-size: 19px; max-width: 700px; line-height: 1.55">Twice a day the seas rise and fall as Earth turns beneath Moon. For as long as people have lived beside coasts and rivers, Moon has shaped when we fish, plant, gather and rest. Pausing to notice Moon is a simple, embodied way to feel part of the same moving water as the oceans and the River.</p>
+</div>
+<div class="torn tr" style="flex: 0 1 300px; background: #FBF7EF; padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: #2F2B28">
+<svg viewBox="0 0 120 120" width="120" height="120" aria-hidden="true"><circle cx="60" cy="60" r="46" fill="#2B3566"></circle><path d="{{moonPath}}" fill="#F3E7C4"></path></svg>
+<div class="h3" style="text-align: center">Tonight Moon is {{moonName}}</div>
+<div class="minor" style="text-align: center">about {{moonLit}}% lit</div>
+</div>
+</div>
+<section class="torn tl" style="background: #CFE1E4; padding: 32px 40px; display: flex; flex-direction: column; gap: 10px; color: #2F2B28">
+<div class="k">Tides and turning points</div>
+<p class="p" style="font-size: 17px">{{tide}}</p>
+<p class="p" style="font-size: 17px"><b>Next new Moon:</b> {{nextNew}} &nbsp;·&nbsp; <b>Next full Moon:</b> {{nextFull}}</p>
+<p class="minor" style="margin: 0">Moon’s pull on the water within us is tiny. The invitation is to notice, not to measure.</p>
+</section>
+<div class="cards">
+<sc-for list="{{items}}" as="it" hint-placeholder-count="4">
+<article class="{{it.cls}}" style="background: {{it.bg}}">
+<div class="k">{{it.kind}}</div>
+<h3 class="h3">{{it.title}}</h3>
+<p class="p">{{it.text}}</p>
+<div class="minor">{{it.meta}}</div>
+<button class="toggle" aria-expanded="{{it.openAttr}}" onClick="{{it.toggle}}">{{it.toggleLabel}}</button>
+<sc-if value="{{it.open}}" hint-placeholder-val="{{ false }}">
+<ol class="steps"><sc-for list="{{it.steps}}" as="st" hint-placeholder-count="4"><li>{{st}}</li></sc-for></ol>
+</sc-if>
+<sc-if value="{{it.hasCredit}}" hint-placeholder-val="{{ false }}"><div class="minor">{{it.credit}}</div></sc-if>
+<sc-if value="{{it.hasLink}}" hint-placeholder-val="{{ false }}"><a href="{{it.href}}" class="lnk">{{it.cta}}</a></sc-if>
+</article>
+</sc-for>
+</div>
+<p class="note">Earth is every human’s first home, and Moon has kept Earth company for as long as there has been an Earth.</p>
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 class="h2">Where this flows next</h2>
+<div class="cards">
+<article class="torn tl card" style="background: #E6E2F2">
+<div class="k">Eddies</div>
+<h3 class="h3">Returning at turning points</h3>
+<p class="p">New and full Moon are natural times to come back to grief, gratitude and the source.</p>
+<a href="Eddies.dc.html" class="lnk">Visit the eddies</a>
+</article>
+<article class="torn tr card" style="background: #DCE6D2">
+<div class="k">Streams</div>
+<h3 class="h3">More small practices</h3>
+<p class="p">Sit Spots, listening to water, and making pictures with Beings.</p>
+<a href="Streams.dc.html" class="lnk">See the streams</a>
+</article>
+<article class="torn tl card" style="background: #F2D3BC">
+<div class="k">Lakes</div>
+<h3 class="h3">Gather under the same Moon</h3>
+<p class="p">Moon gatherings and circles, online and in person.</p>
+<a href="Lakes.dc.html" class="lnk">Find a lake</a>
+</article>
+</div>
+</section>
+</main>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being. Every offering links to its makers. Examples in square brackets are placeholders while the River grows.</span></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2000}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { open: {} }; }
+
+  practiceVals(list) {
+    var self = this, open = this.state.open || {}, bgs = ['#DCE6D2', '#FBF7EF', '#CFE1E4', '#F2D3BC', '#E6E2F2', '#F5EEE1'];
+    return list.map(function (p, k) {
+      var on = !!open[p.id];
+      return {
+        kind: p.kind, title: p.title, text: p.text, meta: p.meta || '', steps: p.steps || [],
+        credit: p.credit || '', hasCredit: !!p.credit, href: p.href || '', cta: p.cta || '', hasLink: !!p.href,
+        open: on, openAttr: on ? 'true' : 'false', toggleLabel: on ? 'Hide the steps' : (p.how || 'Show me how'),
+        cls: 'torn card ' + (k % 2 ? 'tr' : 'tl'), bg: p.bg || bgs[k % bgs.length],
+        toggle: function () { var o = {}; for (var x in open) { o[x] = open[x]; } o[p.id] = !on; self.setState({ open: o }); }
+      };
+    });
+  }
+  moonInfo() {
+    var syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14) / 86400000, now = Date.now() / 86400000;
+    var age = ((now - ref) % syn + syn) % syn, p = age / syn;
+    var name = age < 1.4 || age > 28.1 ? 'a new Moon' : age < 6.4 ? 'a waxing crescent' : age < 8.4 ? 'at first quarter' : age < 13.8 ? 'waxing gibbous' : age < 15.8 ? 'full' : age < 21.1 ? 'waning gibbous' : age < 23.1 ? 'at last quarter' : 'a waning crescent';
+    var lit = Math.round((1 - Math.cos(2 * Math.PI * p)) / 2 * 100);
+    var fmt = function (d) { return new Date(d * 86400000).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' }); };
+    var toNew = syn - age, toFull = age < syn / 2 ? syn / 2 - age : syn * 1.5 - age;
+    var tide = (age < 2.5 || age > 27 || (age > 12.3 && age < 17.3)) ? 'This is a time of spring tides, when Sun and Moon pull in line and the tides reach their highest and lowest.' : ((age > 5 && age < 9.8) || (age > 19.8 && age < 24.6)) ? 'This is a time of neap tides, when Sun and Moon pull at right angles and the tides are gentler.' : 'The tides are moving between their gentle neaps and their full spring reach.';
+    var cx = 60, cy = 60, r = 46, rx = Math.abs(Math.cos(2 * Math.PI * p)) * r, waxing = p < 0.5, crescent = (p < 0.25 || p > 0.75);
+    var outer = waxing ? 1 : 0, inner = waxing ? (crescent ? 0 : 1) : (crescent ? 1 : 0);
+    var d = 'M' + cx + ' ' + (cy - r) + ' A' + r + ' ' + r + ' 0 0 ' + outer + ' ' + cx + ' ' + (cy + r) + ' A' + rx.toFixed(1) + ' ' + r + ' 0 0 ' + inner + ' ' + cx + ' ' + (cy - r) + ' Z';
+    return { name: name, lit: lit, nextNew: fmt(now + toNew), nextFull: fmt(now + toFull), daysNew: Math.round(toNew), daysFull: Math.round(toFull), tide: tide, path: d };
+  }
+  renderVals() {
+    var m = this.moonInfo();
+    return {
+      moonPath: m.path, moonName: m.name, moonLit: m.lit, tide: m.tide, nextNew: m.nextNew, nextFull: m.nextFull,
+      items: this.practiceVals([
+ {
+  "id": "making",
+  "kind": "An invitation from ReBe",
+  "title": "Making with Moon",
+  "bg": "#E6E2F2",
+  "text": "Step outside, find Moon wherever they are in the sky, and pause long enough to really meet them. Then make a picture together, letting Moon’s light, the clouds and the night take part.",
+  "meta": "Ten minutes · at new and full Moon, or any night",
+  "steps": [
+   "Step outside and find Moon, or the place in the sky where they are tonight.",
+   "Pause and greet them, and notice how you feel.",
+   "Make a picture together, rather than taking a photo of Moon.",
+   "Over a lunar cycle, your pictures become a quiet record of a relationship."
+  ],
+  "credit": "ReBe can send a gentle note for new and full Moon sessions, only if you ask it to.",
+  "href": "Journey.dc.html",
+  "cta": "Make with Moon in ReBe"
+ },
+ {
+  "id": "journal",
+  "kind": "Noticing",
+  "title": "A lunar journal",
+  "bg": "#FBF7EF",
+  "text": "Each evening for one cycle, note where Moon is, their shape, and one word for your day. Patterns appear that no calendar shows.",
+  "meta": "Two minutes a night · twenty-nine nights",
+  "steps": [
+   "Keep a small notebook by the door or the window.",
+   "Each night, sketch Moon’s shape and where they sit in the sky.",
+   "Add a word for how you are.",
+   "At the next new Moon, read the whole cycle back."
+  ]
+ },
+ {
+  "id": "water",
+  "kind": "Embodied",
+  "title": "Feel the water within you",
+  "bg": "#CFE1E4",
+  "text": "Most of a human body is water. Pausing to feel that, under the same Moon that moves the seas, is a simple way to feel part of the moving water of the world.",
+  "meta": "Five minutes · anywhere",
+  "steps": [
+   "Sit or lie comfortably and feel the weight of your body.",
+   "Notice the places where water moves in you: breath, pulse, tears, saliva.",
+   "Picture the oceans rising and falling with Moon, and let yourself be part of that motion."
+  ]
+ },
+ {
+  "id": "gather",
+  "kind": "Together",
+  "title": "Moon gatherings",
+  "bg": "#DCE6D2",
+  "text": "At each new and full Moon, people gather online and then step outside together, wherever they are, before sharing what they noticed.",
+  "meta": "About an hour · online and outside · free",
+  "how": "How a gathering flows",
+  "steps": [
+   "A short welcome and a few minutes of quiet together online.",
+   "Everyone steps outside to spend time with Moon.",
+   "We return to share, only if we wish."
+  ],
+  "href": "Lakes.dc.html",
+  "cta": "See gatherings in Lakes"
+ }
+])
+    };
+  }
+}
+</script>
+</body>
+</html>

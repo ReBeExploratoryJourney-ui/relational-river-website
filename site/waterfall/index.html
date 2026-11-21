@@ -64,9 +64,9 @@ a:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible{
 <a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 26px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
 <nav class="vnav" aria-label="Main">
 <div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="/flow"><b>The River</b><span>the whole River at a glance</span></a><a href="/source"><b>The source</b><span>a minute of gentle questions</span></a><a href="/"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
-<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/tributaries"><b>Eddies</b><span>grief, gratitude and returning practices</span></a><a href="Capital/my-river"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
-<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
-<div class="vgroup"><button class="vbtn here">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/channels"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/streams"><b>Streams</b><span>small practices for ordinary days</span></a><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/eddies"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="/moon"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="/capital-journey"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="/lakes"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/estuary"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="/groundwater"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
 <a href="/my-river" class="vmine">My river</a>
 </nav>
 </header>
@@ -113,7 +113,7 @@ a:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible{
 <h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 26px">Before anything else, we'd like to check in</h2>
 <p style="margin: 0; font-size: 17px; line-height: 1.55">What you wrote sounds like it might be carrying a lot. You matter more than any idea. If you are in danger or thinking about ending your life, please contact local emergency services, or reach a crisis line where you are (in the US, call or text 988). Talking with someone you trust can help too.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.55">When you feel ready, the grief and care eddy offers gentle company with others who understand.</p>
-<a href="/tributaries" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Visit the grief and care eddy</a>
+<a href="/eddies" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Visit the grief and care eddy</a>
 </section>
 </sc-if>
 
@@ -216,7 +216,7 @@ class Component extends DCLogic {
         step: 'Invite two or three people who feel the same to sit together outside, once, with no agenda but listening.', q: 'What is your grief asking you to love more fiercely?' },
       { keys: ['school', 'child', 'children', 'kid', 'teach', 'teacher', 'student', 'youth', 'class', 'education'], theme: 'young people and learning', items: [
         { water: 'Estuary', title: 'Relational Resource Departments', text: 'Bringing seasons, place and the more-than-human world into how a school learns and decides.', by: 'Institute of Relational Being', href: '/channels', cta: 'See channels' },
-        { water: 'Stream', title: 'ReBe group sessions', text: 'A teacher-led way for a class to make pictures together with the Beings around their school.', by: 'ReBe, by the Institute of Relational Being', href: '/my-river', cta: 'See the streams' }],
+        { water: 'Stream', title: 'ReBe group sessions', text: 'A teacher-led way for a class to make pictures together with the Beings around their school.', by: 'ReBe, by the Institute of Relational Being', href: '/streams', cta: 'See the streams' }],
         step: 'Ask one teacher or parent whether they would walk the school grounds with you to meet the Beings who live there.', q: 'What do the children already notice that the adults have stopped seeing?' },
       { keys: ['seed', 'food', 'garden', 'farm', 'soil', 'compost', 'grow', 'harvest'], theme: 'food, soil and growing', items: [
         { water: 'Local currents', title: 'Transition groups near you', text: 'Local groups working on food, energy, repair and community.', by: 'Transition Network', href: 'https://maps.transitionnetwork.org/', cta: 'Open their map' },
@@ -227,7 +227,7 @@ class Component extends DCLogic {
         { water: 'Lake', title: 'Corra Woods, County Clare', text: 'IRB’s home for retreats and residencies, looking for partners in woodland care.', by: 'Institute of Relational Being', href: '/ocean', cta: 'See their profile' }],
         step: 'Spend an hour with one old tree near you and notice who else depends on them.', q: 'What would this land look like if it were allowed to remember itself?' },
       { keys: ['money', 'fund', 'funding', 'invest', 'capital', 'finance', 'grant', 'wealth', 'donor'], theme: 'money and value', items: [
-        { water: 'Confluence', title: 'The capital journey', text: 'Learning to see money as part of the living world, open to everyone.', by: 'With gratitude to Nate Hagens, Indy Johar and Dark Matter Labs', href: 'Capital/my-river', cta: 'Begin the journey' },
+        { water: 'Confluence', title: 'The capital journey', text: 'Learning to see money as part of the living world, open to everyone.', by: 'With gratitude to Nate Hagens, Indy Johar and Dark Matter Labs', href: '/capital-journey', cta: 'Begin the journey' },
         { water: 'Confluence', title: 'Bioregional Financing Facilities', text: 'Finance grown in dialogue with a place, under local governance.', by: 'BioFi Project and Dark Matter Labs', href: 'https://darkmatterlabs.org/Bioregional-Financing-Facilities', cta: 'Read on their site' }],
         step: 'Write down where the money for this idea might come from, and who would have a say in how it is used.', q: 'If this money could speak, what would it ask of you?' },
       { keys: ['energy', 'climate', 'oil', 'carbon', 'warming', 'heat', 'emission'], theme: 'energy and climate', items: [
@@ -236,7 +236,7 @@ class Component extends DCLogic {
         step: 'Notice one way energy reaches your day, and where it comes from.', q: 'What would you keep, even with far less energy?' },
       { keys: ['species', 'animal', 'wildlife', 'bird', 'endangered', 'habitat', 'cougar', 'insect', 'bee', 'pollinator'], theme: 'wild neighbours', items: [
         { water: 'Channel', title: 'Center for Biological Diversity', text: 'Standing up, in law and in public, for Beings who cannot speak in a courtroom.', by: 'Center for Biological Diversity', href: 'https://www.biologicaldiversity.org/', cta: 'See their actions' },
-        { water: 'Stream', title: 'Meeting the Beings near you', text: 'Making pictures together with the creatures and plants around your home.', by: 'ReBe', href: '/my-river', cta: 'See the streams' }],
+        { water: 'Stream', title: 'Meeting the Beings near you', text: 'Making pictures together with the creatures and plants around your home.', by: 'ReBe', href: '/streams', cta: 'See the streams' }],
         step: 'Learn the name of one wild neighbour you see often, and where they shelter.', q: 'Who lived here before the roads, and who is still trying to?' },
       { keys: ['work', 'organisation', 'organization', 'company', 'team', 'leader', 'business', 'workplace', 'council'], theme: 'organisations and leadership', items: [
         { water: 'Estuary', title: 'Relational Resource Departments', text: 'The living world in how an organisation meets, decides and cares.', by: 'Institute of Relational Being', href: '/channels', cta: 'See channels' },
@@ -244,13 +244,13 @@ class Component extends DCLogic {
         step: 'Hold one meeting outdoors, and begin by naming the place you are in.', q: 'Who is not in the room when your organisation decides?' },
       { keys: ['art', 'story', 'stories', 'film', 'music', 'design', 'photo', 'poem', 'paint', 'write'], theme: 'art and story', items: [
         { water: 'Groundwater', title: 'Sympoiesis', text: 'Storytelling and design made with the living world.', by: 'Sympoiesis', href: 'https://www.sympoiesis.world/', cta: 'Visit their site' },
-        { water: 'Stream', title: 'Co-create a poem with a Being', text: 'A ReBe practice of writing together with a tree, a creek or Moon.', by: 'ReBe', href: '/my-river', cta: 'See the streams' }],
+        { water: 'Stream', title: 'Co-create a poem with a Being', text: 'A ReBe practice of writing together with a tree, a creek or Moon.', by: 'ReBe', href: '/streams', cta: 'See the streams' }],
         step: 'Make one small piece with a Being, not about them, and share it with one person.', q: 'What does this place want to say through you?' },
       { keys: ['community', 'neighbour', 'neighbor', 'local', 'town', 'village', 'street'], theme: 'community', items: [
         { water: 'Local currents', title: 'Groups in your bioregion', text: 'People near you already tending the place you live.', by: 'Local currents', href: '/local-currents', cta: 'See who is near you' }],
         step: 'Knock on one door, or send one message, to someone nearby who might care about this too.', q: 'Who in your neighbourhood is already doing a version of this?' },
       { keys: ['water', 'river', 'creek', 'stream', 'ocean', 'sea', 'lake', 'watershed'], theme: 'water', items: [
-        { water: 'Stream', title: 'Listening to water', text: 'Five minutes beside a creek, fountain or the sea, noticing what changes.', by: 'ReBe', href: '/my-river', cta: 'See the streams' },
+        { water: 'Stream', title: 'Listening to water', text: 'Five minutes beside a creek, fountain or the sea, noticing what changes.', by: 'ReBe', href: '/streams', cta: 'See the streams' },
         { water: 'Ocean', title: 'Bioregional Learning Centre', text: 'Learning journeys that follow a watershed from source to sea.', by: 'Bioregional Learning Centre', href: 'https://www.bioregion.org.uk/about', cta: 'Visit their site' }],
         step: 'Trace where the water from your tap comes from, and where it goes after.', q: 'What would the creek ask of us, if we listened?' },
       { keys: ['system', 'systems', 'worldview', 'philosophy', 'metacrisis', 'complexity', 'imagination', 'emergence'], theme: 'systems and worldviews', items: [
@@ -270,7 +270,7 @@ class Component extends DCLogic {
     if (!hits.length) {
       return { reflection: 'Your idea is still finding its shape, and that is a good place to begin.', streams: [
         { water: 'Source', title: 'Return to the source', text: 'A few gentle questions about what you love may show where this idea wants to flow.', by: 'Institute of Relational Being', href: '/source', cta: 'Begin at the source' },
-        { water: 'Lake', title: 'A Relational ID Circle', text: 'Five weeks with a few others, mapping the web that makes each of you.', by: 'Institute of Relational Being', href: '/my-river', cta: 'See the lakes' },
+        { water: 'Lake', title: 'A Relational ID Circle', text: 'Five weeks with a few others, mapping the web that makes each of you.', by: 'Institute of Relational Being', href: '/lakes', cta: 'See the lakes' },
         { water: 'Groundwater', title: 'Perspectiva', text: 'Thinking about how the way we see shapes what we do.', by: 'Perspectiva', href: 'https://systems-souls-society.com/', cta: 'Visit Perspectiva' }],
         step: 'Tell one person about your idea and listen to what they add.', question: 'What first drew you to this?', careNote: indigenous };
     }

@@ -26,6 +26,12 @@ PAGES = {
     'Channels': ('channels.html', '/channels', 'Ways to act, from small to large.'),
     'Tributary': ('tributaries.html', '/tributaries', 'Films, talks and readings that help the moment make sense.'),
     'CapitalJourney': ('capital-journey.html', '/capital-journey', 'A journey about money as part of the living world.'),
+    'Streams': ('streams.html', '/streams', 'Small practices for ordinary days: Sit Spots, listening to water, making pictures with Beings.'),
+    'Lakes': ('lakes.html', '/lakes', 'Circles, fellowships and retreats where we slow down together.'),
+    'Eddies': ('eddies.html', '/eddies', 'Grief, gratitude and practices that return at turning points.'),
+    'Estuary': ('estuary.html', '/estuary', 'Where personal change meets workplaces, schools and councils.'),
+    'Groundwater': ('groundwater.html', '/groundwater', 'The hidden water that connects everything: the River as a living system.'),
+    'Moon': ('moon.html', '/moon', 'Moon moves the waters, and we are water too: tides, turning points and Making with Moon.'),
 }
 
 EXT = {}
@@ -80,8 +86,9 @@ def convert(name, text):
         + '</body>\n</html>\n'
     )
     # links between pages -> clean URLs
-    for src_name, (_, u, _) in PAGES.items():
-        page = page.replace(src_name + '.dc.html', u)
+    # longest names first, so 'CapitalJourney' isn't caught by 'Journey'
+    for src_name in sorted(PAGES, key=len, reverse=True):
+        page = page.replace(src_name + '.dc.html', PAGES[src_name][1])
     # mockup assets -> /assets/<id>.<ext>
     page = re.sub(r'/_blob/', '/assets/', page)
     for stem, fname in EXT.items():

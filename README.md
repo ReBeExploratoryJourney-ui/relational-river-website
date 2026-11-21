@@ -39,5 +39,11 @@ Every push to `main` goes live automatically.
 | `/channels` | Channels |
 | `/tributaries` | Tributaries |
 | `/capital-journey` | The capital journey |
+| `/streams` | Streams: small practices for ordinary days |
+| `/lakes` | Lakes: circles, fellowships and retreats |
+| `/eddies` | Eddies: grief, gratitude and returning |
+| `/estuary` | Estuary: workplaces, schools and councils |
+| `/groundwater` | Groundwater: the River as a living system |
+| `/moon` | Moon: tides and Making with Moon |
 
 While the River is being tested, every page asks search engines not to list it (`noindex`). Remove that line from `build.py` before public launch.

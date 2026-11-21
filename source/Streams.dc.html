@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Relational River: streams</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#E6E2F2;border-color:#2F2B28;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:start}
+.card{padding:36px 32px 30px;display:flex;flex-direction:column;gap:8px;color:#2F2B28}
+.k{font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
+.h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:30px;letter-spacing:-0.02em}
+.h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:21px}
+.p{margin:0;font-size:16px;line-height:1.55}
+.lnk{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.note{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;color:#E8C77A;max-width:760px}
+.steps{margin:4px 0 0;padding-left:22px;font-size:16px;line-height:1.6}
+.steps li{margin-bottom:4px}
+.minor{font-size:14px;font-style:italic}
+.toggle{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:transparent;border:1.5px solid #2F2B28;border-radius:10px 14px 10px 12px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
+.chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chiplabel{font-size:14px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
+.care{background:#E6E2F2;padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
+@keyframes swirl{to{stroke-dashoffset:-120}}
+.eddy{stroke-dasharray:6 8;animation:swirl 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 14s linear infinite}
+.spin.ccw{animation-direction:reverse}
+</style>
+</helmet>
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Estuary.dc.html"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="Groundwater.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="Journey.dc.html" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 36px">
+<a href="Welcome.dc.html" style="font-size: 15px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">Back to the whole River</a>
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: -20px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Streams</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 52px; letter-spacing: -0.03em; line-height: 1.02">Small practices for ordinary days</h1>
+<p style="margin: 0; font-size: 19px; max-width: 760px; line-height: 1.55">A stream is how water travels every day, quietly and without fuss. These practices are like that: a few minutes, woven into the day you already have. Begin with one, return to it, and let it change you slowly.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div class="chips" role="group" aria-label="Time"><span class="chiplabel">Time</span>
+<sc-for list="{{timeChips}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+<div class="chips" role="group" aria-label="Where"><span class="chiplabel">Where</span>
+<sc-for list="{{whereChips}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+</div>
+<sc-if value="{{none}}" hint-placeholder-val="{{ false }}"><p class="p" style="color: #EDEDED; font-size: 17px">Nothing quite fits that combination yet. Try another, or simply step outside for a moment.</p></sc-if>
+<div class="cards">
+<sc-for list="{{items}}" as="it" hint-placeholder-count="4">
+<article class="{{it.cls}}" style="background: {{it.bg}}">
+<div class="k">{{it.kind}}</div>
+<h3 class="h3">{{it.title}}</h3>
+<p class="p">{{it.text}}</p>
+<div class="minor">{{it.meta}}</div>
+<button class="toggle" aria-expanded="{{it.openAttr}}" onClick="{{it.toggle}}">{{it.toggleLabel}}</button>
+<sc-if value="{{it.open}}" hint-placeholder-val="{{ false }}">
+<ol class="steps"><sc-for list="{{it.steps}}" as="st" hint-placeholder-count="4"><li>{{st}}</li></sc-for></ol>
+</sc-if>
+<sc-if value="{{it.hasCredit}}" hint-placeholder-val="{{ false }}"><div class="minor">{{it.credit}}</div></sc-if>
+<sc-if value="{{it.hasLink}}" hint-placeholder-val="{{ false }}"><a href="{{it.href}}" class="lnk">{{it.cta}}</a></sc-if>
+</article>
+</sc-for>
+</div>
+<p class="note">Earth is every human’s first home. Each small practice is a way of coming home.</p>
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 class="h2">Where this flows next</h2>
+<div class="cards">
+<article class="torn tl card" style="background: #E6E2F2">
+<div class="k">Eddies</div>
+<h3 class="h3">When practices come round again</h3>
+<p class="p">Some streams return at turning points, a new season or a new Moon, and feel different each time.</p>
+<a href="Eddies.dc.html" class="lnk">Visit the eddies</a>
+</article>
+<article class="torn tr card" style="background: #CFE1E4">
+<div class="k">Lakes</div>
+<h3 class="h3">Practise in good company</h3>
+<p class="p">Circles and gatherings where people share these practices and slow down together.</p>
+<a href="Lakes.dc.html" class="lnk">Find a lake</a>
+</article>
+<article class="torn tl card" style="background: #DCE6D2">
+<div class="k">My river</div>
+<h3 class="h3">Keep what you try</h3>
+<p class="p">Your practices and pictures stay private in My river unless you choose to share them.</p>
+<a href="Journey.dc.html" class="lnk">Go to my river</a>
+</article>
+</div>
+</section>
+</main>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being. Every offering links to its makers. Examples in square brackets are placeholders while the River grows.</span></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2000}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { time: 'any', where: 'any', open: {} }; }
+
+  practiceVals(list) {
+    var self = this, open = this.state.open || {}, bgs = ['#DCE6D2', '#FBF7EF', '#CFE1E4', '#F2D3BC', '#E6E2F2', '#F5EEE1'];
+    return list.map(function (p, k) {
+      var on = !!open[p.id];
+      return {
+        kind: p.kind, title: p.title, text: p.text, meta: p.meta || '', steps: p.steps || [],
+        credit: p.credit || '', hasCredit: !!p.credit, href: p.href || '', cta: p.cta || '', hasLink: !!p.href,
+        open: on, openAttr: on ? 'true' : 'false', toggleLabel: on ? 'Hide the steps' : (p.how || 'Show me how'),
+        cls: 'torn card ' + (k % 2 ? 'tr' : 'tl'), bg: p.bg || bgs[k % bgs.length],
+        toggle: function () { var o = {}; for (var x in open) { o[x] = open[x]; } o[p.id] = !on; self.setState({ open: o }); }
+      };
+    });
+  }
+  chipVals(opts, key) {
+    var self = this, cur = this.state[key];
+    return opts.map(function (o) { var on = cur === o[0]; return { label: o[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var s = {}; s[key] = o[0]; self.setState(s); } }; });
+  }
+  renderVals() {
+    var s = this.state;
+    var P = [
+ {
+  "id": "sit",
+  "kind": "Sit Spot",
+  "title": "Return to the same place",
+  "time": "mid",
+  "where": "out",
+  "text": "Choose one place outside, close to home, and keep coming back. Over the weeks you begin to know the Beings who live there, and they come to know you.",
+  "meta": "Ten to twenty minutes · outside",
+  "steps": [
+   "Choose a place you can reach easily: a garden corner, a tree on your street, a bench by a creek.",
+   "Sit quietly and let your senses widen: sounds near and far, light, smell, the feel of the air.",
+   "Notice who is here today: birds, plants, insects, wind, clouds.",
+   "Before you leave, give thanks in whatever way feels right to you."
+  ],
+  "credit": "A practice kept in many forms by many peoples. ReBe can send a gentle Sit Spot reminder if you would like one.",
+  "href": "Journey.dc.html",
+  "cta": "Keep a Sit Spot with ReBe"
+ },
+ {
+  "id": "picture",
+  "kind": "Making with Beings",
+  "title": "Make a picture together",
+  "time": "short",
+  "where": "out",
+  "text": "Instead of taking a photo of a tree, a river or a bird, make a picture with them. Pause, greet them, and let the moment arrive.",
+  "meta": "About ten minutes · outside, or at a window",
+  "steps": [
+   "Let a Being catch your attention.",
+   "Pause and greet them. Ask, in your own way, whether you may make a picture together.",
+   "Wait. Notice the light, the angle and the moment as they come.",
+   "Make the picture, then stay with them a little longer before moving on."
+  ],
+  "credit": "The heart of ReBe, the Institute of Relational Being’s app.",
+  "href": "Journey.dc.html",
+  "cta": "Open in ReBe"
+ },
+ {
+  "id": "water",
+  "kind": "Listening",
+  "title": "Listen to water",
+  "time": "short",
+  "where": "any",
+  "text": "Rain on a window, a creek, a running tap, the sea. A few minutes of listening to water is a way of meeting the River wherever you are.",
+  "meta": "Five minutes · anywhere",
+  "steps": [
+   "Find water you can hear, even a tap or a kettle.",
+   "Close your eyes if that is comfortable, and listen for three slow breaths.",
+   "Notice the many sounds within the one sound.",
+   "Remember that this water has travelled through clouds, soil and other Beings to reach you."
+  ]
+ },
+ {
+  "id": "moon",
+  "kind": "Making with Moon",
+  "title": "Meet Moon at new and full Moon",
+  "time": "short",
+  "where": "out",
+  "text": "Twice a month, step outside and find Moon wherever they are in the sky. Over a lunar cycle your evenings become a quiet record of a relationship.",
+  "meta": "Ten minutes · evening, outside",
+  "steps": [
+   "Step outside at dusk or later and find Moon. On cloudy nights, Moon is there all the same.",
+   "Pause long enough to really meet them.",
+   "If it feels right, make a picture together, letting the clouds and night take part.",
+   "Note one word for how this evening felt."
+  ],
+  "href": "Moon.dc.html",
+  "cta": "More about Moon"
+ },
+ {
+  "id": "thanks",
+  "kind": "Gratitude",
+  "title": "Thank the Beings at your table",
+  "time": "short",
+  "where": "in",
+  "text": "Before a meal, name three Beings who made it possible: perhaps soil, rain, bees, growers, cooks. A small practice that changes how food tastes.",
+  "meta": "A minute or two · indoors",
+  "steps": [
+   "Look at what is on your plate.",
+   "Name, aloud or silently, three Beings who helped it reach you.",
+   "Let yourself feel the web of relationships behind one meal."
+  ]
+ },
+ {
+  "id": "sky",
+  "kind": "Noticing",
+  "title": "Watch the sky move",
+  "time": "short",
+  "where": "any",
+  "text": "Clouds are water travelling. Lying on the grass or looking from a window, five minutes of sky is enough to slow a whole afternoon.",
+  "meta": "Five minutes · outside or at a window",
+  "steps": [
+   "Find a patch of sky.",
+   "Follow one cloud as they change shape and drift.",
+   "Notice the wind you cannot see, carrying them."
+  ]
+ },
+ {
+  "id": "watershed",
+  "kind": "Walking",
+  "title": "Walk your watershed",
+  "time": "long",
+  "where": "out",
+  "text": "Follow water downhill near where you live. Learn your creek’s name, where they begin and where they reach the sea, and whose land they flow through.",
+  "meta": "An hour or more · outside",
+  "steps": [
+   "Look at a map and find the nearest creek or river, even one that now runs underground.",
+   "Walk along or towards them, noticing where the water goes.",
+   "Learn the name of the First Peoples of this land, from their own websites or organisations.",
+   "Finish by sitting beside the water for a few minutes."
+  ],
+  "href": "LocalCurrents.dc.html",
+  "cta": "See who tends your watershed"
+ },
+ {
+  "id": "ancestors",
+  "kind": "Remembering",
+  "title": "Remember the land of your ancestors",
+  "time": "mid",
+  "where": "in",
+  "text": "All our ancestors once lived in close relationship with the land and ecology they were a part of. Spend some time with where your people came from.",
+  "meta": "Twenty minutes · anywhere",
+  "steps": [
+   "Think of a place your ancestors lived, as far back as you know.",
+   "What grew there? What did the rivers, weather and seasons ask of them?",
+   "If you can, ask an elder in your family what they remember.",
+   "Notice what this awakens in how you relate to the place you live now."
+  ]
+ }
+];
+    var list = P.filter(function (p) { return (s.time === 'any' || p.time === s.time) && (s.where === 'any' || p.where === s.where || p.where === 'any'); });
+    return {
+      timeChips: this.chipVals([['any', 'Any time'], ['short', 'A few minutes'], ['mid', 'Ten to twenty minutes'], ['long', 'An hour or more']], 'time'),
+      whereChips: this.chipVals([['any', 'Anywhere'], ['out', 'Outside'], ['in', 'Indoors']], 'where'),
+      items: this.practiceVals(list), none: list.length === 0
+    };
+  }
+}
+</script>
+</body>
+</html>
