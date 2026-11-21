@@ -31,6 +31,7 @@ PAGES = {
     'Eddies': ('eddies.html', '/eddies', 'Grief, gratitude and practices that return at turning points.'),
     'Estuary': ('estuary.html', '/estuary', 'Where personal change meets workplaces, schools and councils.'),
     'Groundwater': ('groundwater.html', '/groundwater', 'The hidden water that connects everything: the River as a living system.'),
+    'Well': ('well.html', '/well', 'The Well of Wonder, Wit, Wisdom and Wealth: pour in what you can offer, and draw on others to bring projects to life.'),
     'Moon': ('moon.html', '/moon', 'Moon moves the waters, and we are water too: tides, turning points and Making with Moon.'),
 }
 

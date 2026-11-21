@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Relational River: the Well</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#E6E2F2;border-color:#2F2B28;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:start}
+.card{padding:36px 32px 30px;display:flex;flex-direction:column;gap:8px;color:#2F2B28}
+.k{font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
+.h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:30px;letter-spacing:-0.02em}
+.h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:21px}
+.p{margin:0;font-size:16px;line-height:1.55}
+.lnk{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.note{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;color:#E8C77A;max-width:760px}
+.steps{margin:4px 0 0;padding-left:22px;font-size:16px;line-height:1.6}
+.steps li{margin-bottom:4px}
+.minor{font-size:14px;font-style:italic}
+.toggle{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:transparent;border:1.5px solid #2F2B28;border-radius:10px 14px 10px 12px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
+.chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chiplabel{font-size:14px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
+.care{background:#E6E2F2;padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
+.hero{display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.wellart{flex:0 1 380px;width:100%;max-width:380px;height:auto}
+@keyframes flowdash{to{stroke-dashoffset:-60}}
+.flow{stroke-dasharray:14 10;animation:flowdash 3.2s linear infinite}
+.flow.f2{animation-duration:3.8s}.flow.f3{animation-duration:4.2s}.flow.f4{animation-duration:3.5s}
+@keyframes twinkle{50%{opacity:.35}}
+.twinkle{animation:twinkle 3s ease-in-out infinite}.twinkle.t2{animation-delay:1.4s}
+.lbl{font-weight:600;font-size:16px;margin-bottom:-8px}
+.pourgrid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:start}
+.pourgrid aside{position:sticky;top:20px}
+.constellation{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
+.stars{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:st}
+.stars li{display:flex;gap:10px;align-items:flex-start;counter-increment:st}
+.stars li::before{content:counter(st);font-weight:600;min-width:18px;font-size:15px;line-height:1.4}
+.stars .dot{width:12px;height:12px;border-radius:50% 40% 55% 45%;margin-top:5px;flex:none}
+.stars b{display:block;font-size:16px}
+.stars span{display:block;font-size:14px;line-height:1.45;color:#4A443F}
+@media (max-width: 860px){.pourgrid,.constellation{grid-template-columns:1fr}.pourgrid aside{position:static}}
+@media (max-width: 700px){.wellart{max-width:300px;margin:0 auto}}
+@keyframes swirl{to{stroke-dashoffset:-120}}
+.eddy{stroke-dasharray:6 8;animation:swirl 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 14s linear infinite}
+.spin.ccw{animation-direction:reverse}
+@media (max-width: 700px){
+.torn{-webkit-mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),linear-gradient(#000,#000)!important;mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,center!important;mask-position:top center,bottom center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+}
+@media (max-width: 700px){
+.vnav{position:relative;width:100%}
+.vgroup{position:static}
+.vmenu{left:0;right:0;min-width:0;width:auto}
+}
+</style>
+</helmet>
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Estuary.dc.html"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="Groundwater.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="Journey.dc.html" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 40px">
+<a href="Welcome.dc.html" style="font-size: 15px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">Back to the whole River</a>
+
+<div class="hero" style="margin-top: -24px">
+<div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">The Well</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 50px; letter-spacing: -0.03em; line-height: 1.04">The Well of Wonder, Wit, Wisdom and Wealth</h1>
+<p style="margin: 0; font-size: 19px; max-width: 640px; line-height: 1.55">Beneath every river lies groundwater, and a well is where a community draws on it together. Here, people pour in what they can offer a more vibrant, regenerative and relational future: their skills, experience, passions and ideas. Others draw from the well to resource the projects they care about, and the River helps gather the people who could make them happen.</p>
+<p style="margin: 0; font-size: 17px; max-width: 640px; line-height: 1.55">Everyone who pours in can also say what they need, so support can flow both ways, in money and in many other ways.</p>
+</div>
+<svg class="wellart" viewBox="0 0 400 360" role="img" aria-label="Four streams, wonder, wit, wisdom and wealth, flowing into a well that reflects the stars">
+<path d="M30 40 C 90 70, 120 120, 168 178" stroke="#B9A8E8" stroke-width="5" fill="none" stroke-linecap="round" class="flow"></path>
+<path d="M370 52 C 310 80, 280 130, 234 180" stroke="#7FC4D0" stroke-width="5" fill="none" stroke-linecap="round" class="flow f2"></path>
+<path d="M18 300 C 80 290, 120 260, 160 226" stroke="#E8A97A" stroke-width="5" fill="none" stroke-linecap="round" class="flow f3"></path>
+<path d="M384 296 C 320 292, 282 262, 242 228" stroke="#E8C77A" stroke-width="5" fill="none" stroke-linecap="round" class="flow f4"></path>
+<text x="24" y="28" fill="#D9CFF5" font-family="Jost, sans-serif" font-size="17">Wonder</text>
+<text x="330" y="40" fill="#BFE3EA" font-family="Jost, sans-serif" font-size="17">Wit</text>
+<text x="14" y="330" fill="#F4CDB0" font-family="Jost, sans-serif" font-size="17">Wisdom</text>
+<text x="324" y="330" fill="#F0DCA6" font-family="Jost, sans-serif" font-size="17">Wealth</text>
+<path d="M120 196 C 122 160, 170 146, 204 147 C 246 148, 284 166, 282 200 C 280 238, 240 256, 200 255 C 156 254, 118 236, 120 196 Z" fill="#8C8178"></path>
+<path d="M136 198 C 138 172, 174 162, 202 162 C 236 163, 266 176, 265 200 C 264 226, 232 240, 201 240 C 166 239, 134 226, 136 198 Z" fill="#0E2849"></path>
+<g fill="#EDEDED"><circle cx="178" cy="190" r="2"></circle><circle cx="214" cy="182" r="2.6" class="twinkle"></circle><circle cx="236" cy="206" r="1.8"></circle><circle cx="196" cy="216" r="2.2" class="twinkle t2"></circle><circle cx="160" cy="208" r="1.5"></circle></g>
+<path d="M150 186 L178 190 L214 182 L236 206 L196 216 L160 208" stroke="#EDEDED" stroke-opacity="0.35" fill="none"></path>
+<path d="M124 194 C 120 228, 150 262, 200 266 C 252 268, 286 238, 280 200" stroke="#6E655D" stroke-width="10" fill="none" stroke-linecap="round"></path>
+</svg>
+</div>
+
+<p class="note">An old folk tale tells of travellers who arrive in a hungry village with only a cooking pot and a stone. They set the pot to boil and say they are making stone soup. One neighbour adds a carrot, another a handful of herbs, another an onion, until there is a soup that feeds everyone. The well works the same way: no one has to bring everything, only what they have.</p>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 class="h2">What flows into the well</h2>
+<div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr))">
+<article class="torn tl card" style="background: #E6E2F2"><div class="k">Wonder</div><h3 class="h3">Visions, ideas and questions</h3><p class="p">The future you can picture, the idea that won’t leave you alone, the question worth gathering people around.</p></article>
+<article class="torn tr card" style="background: #CFE1E4"><div class="k">Wit</div><h3 class="h3">Skills and craft</h3><p class="p">What your hands and mind know how to do: building, growing, cooking, facilitating, designing, coding, mending, teaching.</p></article>
+<article class="torn tl card" style="background: #F2D3BC"><div class="k">Wisdom</div><h3 class="h3">Experience and lived knowledge</h3><p class="p">Years with a place or a practice, lessons learned the hard way, and the guidance of elders.</p></article>
+<article class="torn tr card" style="background: #F5E3B0"><div class="k">Wealth</div><h3 class="h3">Resources to share</h3><p class="p">Money, and also land, space, tools, transport, time and networks. Wealth is anything that can help something living grow.</p></article>
+</div>
+</section>
+
+<section class="torn tall tl" style="background: #FBF7EF; padding: 40px 44px; display: flex; flex-direction: column; gap: 18px; color: #2F2B28">
+<div class="chips" role="group" aria-label="I would like to"><span class="chiplabel">I would like to</span>
+<sc-for list="{{modeChips}}" as="c" hint-placeholder-count="2"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+
+<sc-if value="{{pourMode}}" hint-placeholder-val="{{ true }}">
+<div class="pourgrid">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<h2 class="h2" style="font-size: 28px">Pour into the well</h2>
+<div class="chips" role="group" aria-label="What are you pouring in?"><span class="chiplabel">I’m offering</span>
+<sc-for list="{{wChips}}" as="c" hint-placeholder-count="4"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+<label for="w-skills" class="lbl">Skills and craft</label>
+<input id="w-skills" class="field" value="{{skills}}" onChange="{{typedSkills}}" placeholder="For example: native plant propagation, bookkeeping, facilitation">
+<label for="w-exp" class="lbl">Experience</label>
+<input id="w-exp" class="field" value="{{exp}}" onChange="{{typedExp}}" placeholder="For example: twenty years as a hydrologist in the Santa Monica Mountains">
+<label for="w-pass" class="lbl">Passions and ideas for how to be of service</label>
+<textarea id="w-pass" class="field" rows="3" value="{{pass}}" onChange="{{typedPass}}" placeholder="What would you love to help bring about?"></textarea>
+<label for="w-need" class="lbl">What I need, in return or simply in life</label>
+<input id="w-need" class="field" value="{{need}}" onChange="{{typedNeed}}" placeholder="For example: help with my garden, a place to stay, learning a new skill, paid work">
+<label for="w-where" class="lbl">Where I am</label>
+<input id="w-where" class="field" value="{{where}}" onChange="{{typedWhere}}" placeholder="A town, a watershed or a bioregion is plenty">
+<div class="chips" role="group" aria-label="How much time I have"><span class="chiplabel">Time</span>
+<sc-for list="{{timeChips}}" as="c" hint-placeholder-count="4"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+<div class="chips" role="group" aria-label="How far I can reach"><span class="chiplabel">Reach</span>
+<sc-for list="{{reachChips}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+<div class="chips" role="group" aria-label="Kinds of exchange I welcome"><span class="chiplabel">Exchange</span>
+<sc-for list="{{exChips}}" as="c" hint-placeholder-count="5"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+<div class="chips" role="group" aria-label="Who can see my offering"><span class="chiplabel">Who can see this</span>
+<sc-for list="{{visChips}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+<sc-if value="{{notPoured}}" hint-placeholder-val="{{ true }}">
+<button class="go tornbtn" style="align-self: flex-start; background: #CFE1E4" onClick="{{pour}}">Pour into the well</button>
+<p class="minor" style="margin: 0">Nothing leaves this page until you choose to share it. You can change or withdraw your offering at any time.</p>
+</sc-if>
+<sc-if value="{{poured}}" hint-placeholder-val="{{ false }}">
+<p class="p" style="font-size: 17px">Thank you. The well isn’t connected yet while the River is being tested, so nothing has been saved or sent. When it opens, your offering will be kept exactly as private as you chose.</p>
+<a href="https://www.hylo.com/groups/institute-of-relational-being/chat" class="lnk">Tell IRB on Hylo that you’d like to pour in</a>
+</sc-if>
+</div>
+<aside style="display: flex; flex-direction: column; gap: 10px">
+<div class="k">How your offering would appear</div>
+<article class="torn tr card" style="background: {{previewBg}}">
+<div class="k">{{previewW}}</div>
+<h3 class="h3">{{previewTitle}}</h3>
+<p class="p">{{previewExp}}</p>
+<p class="p" style="font-style: italic">{{previewPass}}</p>
+<p class="p"><b>Needs:</b> {{previewNeed}}</p>
+<p class="p" style="font-size: 14px">{{previewMeta}}</p>
+</article>
+<p class="minor" style="margin: 0">{{visNote}}</p>
+</aside>
+</div>
+</sc-if>
+
+<sc-if value="{{drawMode}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<h2 class="h2" style="font-size: 28px">Draw from the well</h2>
+<p class="p" style="font-size: 17px; max-width: 760px">Describe what you hope to bring about, and the River gathers a constellation of people whose offerings fit: nearby first, and further afield where a skill isn’t found close to home. Try one of these examples, or write your own.</p>
+<div class="chips" role="group" aria-label="Example projects"><sc-for list="{{needChips}}" as="c" hint-placeholder-count="4"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for></div>
+<sc-if value="{{ownNeed}}" hint-placeholder-val="{{ false }}">
+<label for="w-own" class="lbl">What would you love to bring about?</label>
+<textarea id="w-own" class="field" rows="3" value="{{own}}" onChange="{{typedOwn}}" placeholder="For example: a seed library and repair café in our town, with help on funding and a website"></textarea>
+<div class="chips" role="group" aria-label="Where"><span class="chiplabel">Where</span><sc-for list="{{ownWhereChips}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for></div>
+</sc-if>
+<div class="constellation">
+<svg viewBox="0 0 600 420" role="img" aria-label="{{constLabel}}" style="width: 100%; height: auto; display: block; background: #0E2849; border-radius: 22px 30px 18px 34px">
+<g stroke="#EDEDED" stroke-width="1.4" fill="none">
+<line x1="300" y1="210" x2="300" y2="62" stroke-opacity="{{l0}}"></line>
+<line x1="300" y1="210" x2="452" y2="104" stroke-opacity="{{l1}}"></line>
+<line x1="300" y1="210" x2="512" y2="236" stroke-opacity="{{l2}}"></line>
+<line x1="300" y1="210" x2="420" y2="350" stroke-opacity="{{l3}}"></line>
+<line x1="300" y1="210" x2="268" y2="372" stroke-opacity="{{l4}}"></line>
+<line x1="300" y1="210" x2="128" y2="318" stroke-opacity="{{l5}}"></line>
+<line x1="300" y1="210" x2="92" y2="186" stroke-opacity="{{l6}}"></line>
+<line x1="300" y1="210" x2="160" y2="78" stroke-opacity="{{l7}}"></line>
+<path d="M300 62 L452 104 L512 236 L420 350 L268 372 L128 318 L92 186 L160 78 Z" stroke-opacity="{{ring}}" stroke-dasharray="4 7"></path>
+</g>
+<path d="M276 210 C 276 190, 290 184, 302 184 C 318 184, 326 196, 326 210 C 326 226, 314 236, 300 236 C 286 236, 276 228, 276 210 Z" fill="#F5EEE1"></path>
+<g font-family="Jost, sans-serif" font-size="15" font-weight="600" text-anchor="middle">
+<g opacity="{{v0}}"><circle cx="300" cy="62" r="17" fill="{{c0}}"></circle><text x="300" y="67" fill="#2F2B28">1</text></g>
+<g opacity="{{v1}}"><circle cx="452" cy="104" r="17" fill="{{c1}}"></circle><text x="452" y="109" fill="#2F2B28">2</text></g>
+<g opacity="{{v2}}"><circle cx="512" cy="236" r="17" fill="{{c2}}"></circle><text x="512" y="241" fill="#2F2B28">3</text></g>
+<g opacity="{{v3}}"><circle cx="420" cy="350" r="17" fill="{{c3}}"></circle><text x="420" y="355" fill="#2F2B28">4</text></g>
+<g opacity="{{v4}}"><circle cx="268" cy="372" r="17" fill="{{c4}}"></circle><text x="268" y="377" fill="#2F2B28">5</text></g>
+<g opacity="{{v5}}"><circle cx="128" cy="318" r="17" fill="{{c5}}"></circle><text x="128" y="323" fill="#2F2B28">6</text></g>
+<g opacity="{{v6}}"><circle cx="92" cy="186" r="17" fill="{{c6}}"></circle><text x="92" y="191" fill="#2F2B28">7</text></g>
+<g opacity="{{v7}}"><circle cx="160" cy="78" r="17" fill="{{c7}}"></circle><text x="160" y="83" fill="#2F2B28">8</text></g>
+</g>
+<g font-family="Jost, sans-serif" font-size="13" fill="#EDEDED">
+<circle cx="26" cy="398" r="6" fill="#B9A8E8"></circle><text x="38" y="403">Wonder</text>
+<circle cx="112" cy="398" r="6" fill="#7FC4D0"></circle><text x="124" y="403">Wit</text>
+<circle cx="170" cy="398" r="6" fill="#E8A97A"></circle><text x="182" y="403">Wisdom</text>
+<circle cx="254" cy="398" r="6" fill="#E8C77A"></circle><text x="266" y="403">Wealth</text>
+</g>
+</svg>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div class="k">A constellation the River might gather</div>
+<h3 class="h3">{{needTitle}}</h3>
+<ol class="stars">
+<sc-for list="{{stars}}" as="s" hint-placeholder-count="5"><li><span class="dot" style="background: {{s.color}}"></span><div><b>{{s.role}}</b><span>{{s.meta}}</span></div></li></sc-for>
+</ol>
+<sc-if value="{{hasGaps}}" hint-placeholder-val="{{ true }}"><p class="p"><b>Still to find:</b> {{gaps}}. The River would keep looking, and say so honestly.</p></sc-if>
+<sc-if value="{{noStars}}" hint-placeholder-val="{{ false }}"><p class="p">Say a little more about the skills, places or resources you hope for, and a constellation will begin to appear.</p></sc-if>
+<sc-if value="{{notInvited}}" hint-placeholder-val="{{ true }}"><button class="go tornbtn" style="align-self: flex-start; background: #F5E3B0" onClick="{{invite}}">Invite this constellation</button></sc-if>
+<sc-if value="{{invited}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-size: 16px">When the well opens, each person would receive a gentle invitation describing the project, and decides for themselves whether to say yes. No one’s details are shared until they do. For now this is an example, and no invitations have been sent.</p></sc-if>
+</div>
+</div>
+<p class="minor" style="margin: 0">The people in these examples are imagined, to show how the well could work. Real offerings appear only with the consent of the people who pour them in.</p>
+</div>
+</sc-if>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 class="h2">Reciprocity, in many currencies</h2>
+<p class="p" style="font-size: 18px; max-width: 780px; color: #EDEDED">Money is one current among many. Each offering says which kinds of exchange it welcomes, and each person can name what they need, so support can circle back in the form that truly helps.</p>
+<div class="cards">
+<article class="torn tl card" style="background: #DCE6D2"><div class="k">Gift</div><h3 class="h3">Freely given</h3><p class="p">Offered for the love of the place or the work, with nothing asked in return.</p></article>
+<article class="torn tr card" style="background: #CFE1E4"><div class="k">Time exchange</div><h3 class="h3">An hour for an hour</h3><p class="p">Every hour given is honoured equally, whoever gives it, and can be drawn on later.</p></article>
+<article class="torn tl card" style="background: #E6E2F2"><div class="k">Skill swap</div><h3 class="h3">Your craft for mine</h3><p class="p">A website for a vegetable garden, a workshop for a weekend of help on the land.</p></article>
+<article class="torn tr card" style="background: #F2D3BC"><div class="k">Paid</div><h3 class="h3">Fair pay for good work</h3><p class="p">Many people need income to keep giving their best. Paid offerings are welcome and honoured.</p></article>
+<article class="torn tl card" style="background: #F5E3B0"><div class="k">Funded</div><h3 class="h3">A whole constellation, resourced</h3><p class="p">Funders and family offices can resource a constellation together, so everyone in it is supported.</p></article>
+</div>
+</section>
+
+<section class="torn tr" style="background: #F5E3B0; padding: 40px 44px; display: flex; flex-wrap: wrap; gap: 32px; color: #2F2B28">
+<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 12px">
+<div class="k">For funders, foundations and family offices</div>
+<h2 class="h2">Wealth that listens</h2>
+<p class="p" style="font-size: 17px">The well can show where the capacity to act already exists, and where a little money would unlock it: a constellation of skilled, willing people in a bioregion, ready to begin and waiting only for resources.</p>
+<p class="p" style="font-size: 17px">Instead of funding a single organisation from afar, you can resource a whole constellation, meet its people as relationships, and see the skills, care and local knowledge your money joins.</p>
+</div>
+<ul class="steps" style="flex: 1 1 320px; font-size: 17px; list-style: none; padding-left: 0">
+<li><b>See constellations, not profiles.</b> Funders see what a constellation can do and needs, never people’s private details, until those people choose to meet.</li>
+<li><b>Fund the gaps.</b> The well shows which skills and resources are still missing in a place.</li>
+<li><b>Begin with learning.</b> The capital journey is a good first step before giving.</li>
+<li style="margin-top: 10px"><a href="CapitalJourney.dc.html" class="go tornbtn" style="background: #FBF7EF">Open the capital journey</a></li>
+</ul>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 class="h2">What the well can reveal</h2>
+<p class="p" style="font-size: 18px; max-width: 780px; color: #EDEDED">Imagine hundreds, then thousands, of people pouring in their skills and visions. Seen together, the well becomes a living picture of what is possible, in the spirit of ecological design and systems thinking: patterns, relationships and potential that no one could see alone.</p>
+<div class="cards">
+<article class="torn tl card" style="background: #CFE1E4"><div class="k">Abundance maps</div><h3 class="h3">What a place already holds</h3><p class="p">The skills, wisdom and resources gathered in each bioregion, shown together and never person by person.</p></article>
+<article class="torn tr card" style="background: #F2D3BC"><div class="k">Gaps worth tending</div><h3 class="h3">What is still missing</h3><p class="p">Where a community’s hopes need a skill or resource it doesn’t yet have, and where help from further afield could flow.</p></article>
+<article class="torn tl card" style="background: #E6E2F2"><div class="k">Constellations ready to move</div><h3 class="h3">People who could begin tomorrow</h3><p class="p">Groups the River has helped gather who have said yes, have the time, and are ready for support.</p></article>
+</div>
+</section>
+
+<section class="torn tl care">
+<div class="k">How the well keeps care</div>
+<h2 class="h2" style="font-size: 26px">Your offering is yours</h2>
+<ul class="steps">
+<li>Private by default. You choose who can see your offering, and you can change or withdraw it at any time.</li>
+<li>The River suggests; people decide. No one joins a constellation without saying yes to an invitation.</li>
+<li>No ranking or scoring of people, ever. Every kind of offering is honoured.</li>
+<li>Only what an offering needs is asked for. There is no tracking and nothing is sold.</li>
+<li>Stewards tend the well, help new people pour in, and keep it a kind place.</li>
+</ul>
+</section>
+
+<p class="note">Earth is every human’s first home, and it has always been tended by many hands. The well is one more way for those hands to find each other.</p>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 class="h2">Where the well flows</h2>
+<div class="cards">
+<article class="torn tl card" style="background: #DCE6D2"><div class="k">Waterfall</div><h3 class="h3">Offer an idea</h3><p class="p">An idea at the falls can draw the people it needs from the well.</p><a href="Waterfall.dc.html" class="lnk">Visit the waterfall</a></article>
+<article class="torn tr card" style="background: #CFE1E4"><div class="k">Local currents</div><h3 class="h3">Near you</h3><p class="p">Groups already tending your bioregion, who may need just what you offer.</p><a href="LocalCurrents.dc.html" class="lnk">See who is near you</a></article>
+<article class="torn tl card" style="background: #E6E2F2"><div class="k">Groundwater</div><h3 class="h3">Threads between projects</h3><p class="p">The connections forming between organisations, which the well can help resource.</p><a href="Groundwater.dc.html" class="lnk">See emerging threads</a></article>
+<article class="torn tr card" style="background: #F2D3BC"><div class="k">Ocean and confluences</div><h3 class="h3">Projects worldwide</h3><p class="p">Organisations sharing what they offer and what they need.</p><a href="Ocean.dc.html" class="lnk">Explore the ocean</a></article>
+</div>
+</section>
+</main>
+
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being. The well is in its early days: the examples here are imagined, and nothing is saved yet.</span></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { mode: 'pour', w: { wit: true }, skills: '', exp: '', pass: '', need: '', where: '', time: 'month', reach: 'local', ex: { gift: true, swap: true }, vis: 'river', poured: false,
+      needKey: 'creek', own: '', ownWhere: 'anywhere', invited: false };
+  }
+  chips(opts, key) {
+    var self = this, cur = this.state[key];
+    return opts.map(function (o) { var on = cur === o[0]; return { label: o[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var s = {}; s[key] = o[0]; s.invited = false; self.setState(s); } }; });
+  }
+  multi(opts, key) {
+    var self = this, cur = this.state[key];
+    return opts.map(function (o) { var on = !!cur[o[0]]; return { label: o[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var n = Object.assign({}, self.state[key]); if (n[o[0]]) { delete n[o[0]]; } else { n[o[0]] = true; } var s = {}; s[key] = n; self.setState(s); } }; });
+  }
+  typed(key) { var self = this; return function (e) { var s = {}; s[key] = e && e.target ? e.target.value : ''; s.invited = false; self.setState(s); }; }
+  renderVals() {
+    var self = this, s = this.state;
+    var W = { wonder: ['Wonder', '#B9A8E8', '#E6E2F2'], wit: ['Wit', '#7FC4D0', '#CFE1E4'], wisdom: ['Wisdom', '#E8A97A', '#F2D3BC'], wealth: ['Wealth', '#E8C77A', '#F5E3B0'] };
+    var TIME = [['hours', 'A few hours'], ['month', 'A few hours a month'], ['week', 'A day a week'], ['season', 'A season'], ['project', 'Project by project']];
+    var REACH = [['local', 'Close to home'], ['online', 'Close to home and online'], ['anywhere', 'Anywhere']];
+    var EX = [['gift', 'Gift'], ['time', 'Time exchange'], ['swap', 'Skill swap'], ['paid', 'Paid'], ['funded', 'Funded']];
+    var VIS = [['river', 'Only the River, to suggest me privately'], ['members', 'River members'], ['anyone', 'Anyone']];
+    var label = function (list, k) { for (var i = 0; i < list.length; i++) { if (list[i][0] === k) { return list[i][1]; } } return ''; };
+    var v = {};
+    v.modeChips = this.chips([['pour', 'Pour into the well'], ['draw', 'Draw from the well']], 'mode');
+    v.pourMode = s.mode === 'pour'; v.drawMode = s.mode === 'draw';
+
+    // pour
+    v.wChips = this.multi([['wonder', 'Wonder'], ['wit', 'Wit'], ['wisdom', 'Wisdom'], ['wealth', 'Wealth']], 'w');
+    v.timeChips = this.chips(TIME, 'time'); v.reachChips = this.chips(REACH, 'reach'); v.exChips = this.multi(EX, 'ex'); v.visChips = this.chips(VIS, 'vis');
+    v.skills = s.skills; v.exp = s.exp; v.pass = s.pass; v.need = s.need; v.where = s.where;
+    v.typedSkills = this.typed('skills'); v.typedExp = this.typed('exp'); v.typedPass = this.typed('pass'); v.typedNeed = this.typed('need'); v.typedWhere = this.typed('where');
+    var ws = ['wonder', 'wit', 'wisdom', 'wealth'].filter(function (k) { return s.w[k]; });
+    v.previewW = ws.length ? ws.map(function (k) { return W[k][0]; }).join(' · ') : 'Choose what you are offering';
+    v.previewBg = ws.length ? W[ws[0]][2] : '#F5EEE1';
+    v.previewTitle = s.skills || 'Your skills and craft';
+    v.previewExp = s.exp || 'Your experience will appear here.';
+    v.previewPass = s.pass || 'And how you would love to be of service.';
+    v.previewNeed = s.need || 'whatever would help you, in return or simply in life';
+    var exs = EX.filter(function (x) { return s.ex[x[0]]; }).map(function (x) { return x[1].toLowerCase(); });
+    v.previewMeta = [(s.where || 'Your place'), label(TIME, s.time).toLowerCase(), label(REACH, s.reach).toLowerCase(), exs.length ? 'welcomes ' + exs.join(', ') : ''].filter(Boolean).join(' · ');
+    v.visNote = s.vis === 'river' ? 'Only the River would see this, to suggest you privately when a project needs what you offer. You decide each time.' : s.vis === 'members' ? 'Signed-in River members could find this offering. Your contact details stay private until you reply.' : 'Anyone visiting the River could find this offering. Your contact details stay private until you reply.';
+    v.poured = s.poured; v.notPoured = !s.poured;
+    v.pour = function () { self.setState({ poured: true }); };
+
+    // draw
+    var POOL = [
+      { role: 'Retired hydrologist', w: 'wisdom', at: 'la', place: 'Topanga', tags: ['water', 'creek', 'survey', 'mentoring'], ex: 'gift', time: 'a few days a season' },
+      { role: 'Native plant grower', w: 'wit', at: 'la', place: 'Sun Valley', tags: ['plants', 'restoration', 'seed'], ex: 'skill swap', time: 'weekends' },
+      { role: 'Neighbourhood organiser', w: 'wit', at: 'la', place: 'Studio City', tags: ['organising', 'events', 'outreach'], ex: 'time exchange', time: 'a few hours a month' },
+      { role: 'Muralist and illustrator', w: 'wonder', at: 'la', place: 'Silver Lake', tags: ['art', 'storytelling', 'design'], ex: 'paid or skill swap', time: 'project by project' },
+      { role: 'Family with a truck and garden tools', w: 'wealth', at: 'la', place: 'Sherman Oaks', tags: ['tools', 'transport'], ex: 'gift', time: 'when asked' },
+      { role: 'Youth naturalist club, with adult leaders', w: 'wonder', at: 'la', place: 'Studio City', tags: ['youth', 'species', 'survey'], ex: 'gift', time: 'after school' },
+      { role: 'Cook who works with local food', w: 'wit', at: 'la', place: 'Burbank', tags: ['food', 'events'], ex: 'paid at cost', time: 'for gatherings' },
+      { role: 'Woodland ecologist', w: 'wisdom', at: 'clare', place: 'Ennis', tags: ['survey', 'woodland', 'species', 'restoration'], ex: 'paid', time: 'a week in spring' },
+      { role: 'Dry-stone waller', w: 'wit', at: 'clare', place: 'the Burren', tags: ['building', 'craft', 'land'], ex: 'skill swap', time: 'a season' },
+      { role: 'Retired farmer who knows the land', w: 'wisdom', at: 'clare', place: 'Scarriff', tags: ['land', 'farming', 'mentoring', 'food'], ex: 'gift', time: 'a few hours a month' },
+      { role: 'Facilitator of community circles', w: 'wit', at: 'clare', place: 'Tulla', tags: ['facilitation', 'events', 'organising'], ex: 'time exchange', time: 'weekends' },
+      { role: 'Community energy co-op', w: 'wealth', at: 'clare', place: 'County Clare', tags: ['energy', 'funding'], ex: 'funded', time: 'project by project' },
+      { role: 'Systems mapper and ecological designer', w: 'wonder', at: 'online', place: 'online', tags: ['systems', 'design', 'mapping', 'land'], ex: 'paid or gift', time: 'a few hours a month' },
+      { role: 'Bookkeeper for co-operatives', w: 'wit', at: 'online', place: 'online', tags: ['finance', 'legal', 'funding'], ex: 'paid', time: 'a few hours a month' },
+      { role: 'Grant writer', w: 'wit', at: 'online', place: 'online', tags: ['funding', 'writing', 'storytelling'], ex: 'paid', time: 'a day a week' },
+      { role: 'Family office exploring regenerative food', w: 'wealth', at: 'online', place: 'anywhere', tags: ['funding', 'food', 'land'], ex: 'funded', time: 'after the capital journey' },
+      { role: 'Web developer', w: 'wit', at: 'online', place: 'online', tags: ['website', 'data', 'design'], ex: 'skill swap', time: 'project by project' },
+      { role: 'Seed saver', w: 'wisdom', at: 'clare', place: 'East Clare', tags: ['seed', 'food', 'plants'], ex: 'gift', time: 'a few hours a month' }
+    ];
+    var TAGL = { water: 'water knowledge', creek: 'creek care', survey: 'survey skills', mentoring: 'mentoring', plants: 'native plants', restoration: 'restoration', seed: 'seed saving', organising: 'organising', events: 'gatherings', outreach: 'outreach', art: 'art', storytelling: 'storytelling', design: 'design', tools: 'tools', transport: 'transport', youth: 'young people', species: 'species knowledge', food: 'food', woodland: 'woodland ecology', building: 'building', craft: 'craft', land: 'land', farming: 'farming', facilitation: 'facilitation', energy: 'energy', funding: 'funding', systems: 'systems thinking', mapping: 'mapping', finance: 'finance', legal: 'legal help', writing: 'writing', website: 'a website', data: 'data', repair: 'repair skills', permits: 'permits' };
+    var NEEDS = {
+      creek: { title: 'Restore a stretch of creek in Fryman Canyon', at: 'la', tags: ['creek', 'restoration', 'plants', 'water', 'organising', 'youth', 'tools', 'food', 'permits'] },
+      survey: { title: 'A woodland baseline survey at Corra Woods', at: 'clare', tags: ['survey', 'woodland', 'species', 'mentoring', 'land', 'facilitation'] },
+      hub: { title: 'A bioregional food hub, looking for funding', at: 'anywhere', tags: ['food', 'funding', 'finance', 'systems', 'land', 'organising', 'legal', 'website'] }
+    };
+    var KW = { creek: 'creek', river: 'water', water: 'water', stream: 'creek', restor: 'restoration', plant: 'plants', native: 'plants', seed: 'seed', garden: 'plants', tree: 'plants', wood: 'woodland', forest: 'woodland', survey: 'survey', species: 'species', bird: 'species', organis: 'organising', organiz: 'organising', neighbour: 'organising', neighbor: 'organising', volunteer: 'organising', event: 'events', gather: 'events', festival: 'events', art: 'art', mural: 'art', story: 'storytelling', film: 'storytelling', design: 'design', tool: 'tools', truck: 'transport', youth: 'youth', school: 'youth', child: 'youth', food: 'food', cook: 'food', farm: 'farming', land: 'land', build: 'building', wall: 'building', craft: 'craft', circle: 'facilitation', facilitat: 'facilitation', energy: 'energy', solar: 'energy', fund: 'funding', money: 'funding', grant: 'funding', capital: 'funding', finance: 'finance', account: 'finance', legal: 'legal', system: 'systems', map: 'mapping', writ: 'writing', web: 'website', site: 'website', data: 'data', mentor: 'mentoring', repair: 'repair', mend: 'repair' };
+    var need;
+    if (s.needKey === 'own') {
+      var txt = (s.own || '').toLowerCase(), tags = [];
+      Object.keys(KW).forEach(function (k) { if (txt.indexOf(k) >= 0 && tags.indexOf(KW[k]) < 0) { tags.push(KW[k]); } });
+      need = { title: s.own ? 'Your project' : 'Your own project', at: s.ownWhere, tags: tags };
+    } else { need = NEEDS[s.needKey]; }
+    v.needChips = this.chips([['creek', 'A creek restoration day'], ['survey', 'A woodland survey'], ['hub', 'A food hub seeking funding'], ['own', 'My own project']], 'needKey');
+    v.ownNeed = s.needKey === 'own'; v.own = s.own; v.typedOwn = this.typed('own');
+    v.ownWhereChips = this.chips([['la', 'Los Angeles'], ['clare', 'County Clare'], ['anywhere', 'Anywhere or online']], 'ownWhere');
+    var near = function (p) { return need.at === 'anywhere' || p.at === need.at || p.at === 'online'; };
+    var scored = POOL.map(function (p) { var hit = p.tags.filter(function (t) { return need.tags.indexOf(t) >= 0; }); var bonus = (p.at === need.at) ? 0.5 : 0; return { p: p, hit: hit, sc: hit.length + bonus }; })
+      .filter(function (x) { return x.hit.length && near(x.p); }).sort(function (a, b) { return b.sc - a.sc; }).slice(0, 8);
+    var covered = {}; scored.forEach(function (x) { x.hit.forEach(function (t) { covered[t] = true; }); });
+    var gaps = need.tags.filter(function (t) { return !covered[t]; }).map(function (t) { return TAGL[t] || t; });
+    v.needTitle = need.title;
+    v.stars = scored.map(function (x) { var p = x.p; return { role: p.role, color: W[p.w][1], meta: W[p.w][0] + ' · ' + (p.place === 'online' ? 'online' : p.place) + ' · ' + p.time + ' · ' + p.ex + ' · offers ' + x.hit.map(function (t) { return TAGL[t]; }).join(', ') }; });
+    for (var k = 0; k < 8; k++) { var on = k < scored.length; v['v' + k] = on ? 1 : 0; v['l' + k] = on ? 0.55 : 0; v['c' + k] = on ? W[scored[k].p.w][1] : '#2F2B28'; }
+    v.ring = scored.length > 2 ? 0.25 : 0;
+    v.constLabel = scored.length ? 'A constellation of ' + scored.length + ' offerings gathered around ' + need.title : 'No constellation yet';
+    v.hasGaps = gaps.length > 0 && need.tags.length > 0; v.gaps = gaps.join(', ');
+    v.noStars = scored.length === 0;
+    v.invited = s.invited && scored.length > 0; v.notInvited = !v.invited && scored.length > 0;
+    v.invite = function () { self.setState({ invited: true }); };
+    return v;
+  }
+}
+</script>
+</body>
+</html>
