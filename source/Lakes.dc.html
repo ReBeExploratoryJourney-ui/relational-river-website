@@ -98,6 +98,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="k">{{l.kind}}</div>
 <h3 class="h3">{{l.title}}</h3>
 <p class="p">{{l.text}}</p>
+<sc-if value="{{l.idLink}}" hint-placeholder-val="{{ false }}"><a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality" class="minor" style="min-height: 44px; display: inline-flex; align-items: center">What is Relational ID? Read the exploration on IRB’s Substack</a></sc-if>
 <div class="minor">{{l.notes}}</div>
 <a href="{{l.href}}" class="lnk">{{l.cta}}</a>
 </article>
@@ -220,7 +221,7 @@ class Component extends DCLogic {
     var list = L.filter(function (l) { return s.fmt === 'all' || l.fmt.indexOf(s.fmt) >= 0; });
     return {
       fmtChips: this.chipVals([['all', 'All'], ['online', 'Online'], ['person', 'In person']], 'fmt'),
-      lakes: list.map(function (l, k) { return { kind: l.kind, title: l.title, text: l.text, notes: l.notes, href: l.href, cta: l.cta, bg: l.bg, cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') }; })
+      lakes: list.map(function (l, k) { return { idLink: /Relational ID/.test(l.title), kind: l.kind, title: l.title, text: l.text, notes: l.notes, href: l.href, cta: l.cta, bg: l.bg, cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') }; })
     };
   }
 }

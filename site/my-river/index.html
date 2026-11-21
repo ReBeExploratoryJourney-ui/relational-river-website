@@ -97,6 +97,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">{{o.kind}}</div>
 <h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 20px; line-height: 1.2">{{o.title}}</h3>
 <p style="margin: 0; font-size: 15px; line-height: 1.5">{{o.text}}</p>
+<sc-if value="{{o.idLink}}" hint-placeholder-val="{{ false }}"><a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality" style="font-size: 14px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">What is Relational ID? Read the exploration on IRB’s Substack</a></sc-if>
 <div style="font-size: 14px; font-style: italic">{{o.by}}</div>
 <a href="{{o.href}}" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">{{o.cta}}</a>
 </article>
@@ -128,7 +129,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center"><a href="/hylo" class="go tornbtn" style="background: #F5EEE1">Connect Hylo, if you wish</a><span style="font-size: 14px; font-style: italic">Optional: everything else works without it.</span></div>
 </div>
 <ul style="flex: 1 1 300px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px" aria-label="Example of connected groups">
-<li style="background: #FBF7EF; padding: 14px 18px; border-radius: 12px 16px 12px 18px"><b>Institute of Relational Being</b><br><span style="font-size: 14px; font-style: italic">[Next: a Relational ID Circle, Thursday evening]</span></li>
+<li style="background: #FBF7EF; padding: 14px 18px; border-radius: 12px 16px 12px 18px"><b>Institute of Relational Being</b><br><span style="font-size: 14px; font-style: italic">[Next: a <a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality">Relational ID</a> Circle, Thursday evening]</span></li>
 <li style="background: #FBF7EF; padding: 14px 18px; border-radius: 12px 16px 12px 18px"><b>[A private network you belong to]</b><br><span style="font-size: 14px; font-style: italic">[Next: a monthly gathering, online · visible only to you]</span></li>
 </ul>
 </section>
@@ -171,7 +172,7 @@ class Component extends DCLogic {
     return {
       waters: keys.map(function (k) { var on = k === at; return { name: W[k][0], hint: W[k][1], cls: on ? 'water on' : 'water', cur: on ? 'location' : 'false', pick: function () { self.setState({ at: k }); } }; }),
       here: cur[2] === 'You are here: streams' ? 'Where you are now' : 'Exploring',
-      title: cur[2], text: cur[3], offers: cur[4]
+      title: cur[2], text: cur[3], offers: cur[4].map(function (o) { var c = {}; for (var k in o) { c[k] = o[k]; } c.idLink = /Relational ID/.test(o.title || ''); return c; })
     };
   }
 }

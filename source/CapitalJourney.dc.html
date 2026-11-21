@@ -93,6 +93,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase">{{water}}</div>
 <h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 34px; letter-spacing: -0.02em">{{title}}</h2>
 <p style="margin: 0; font-size: 18px; line-height: 1.55; max-width: 640px">{{text}}</p>
+<sc-if value="{{hasIdLink}}" hint-placeholder-val="{{ false }}"><a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality" style="font-size: 15px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">What is Relational ID? Read the exploration on IRB’s Substack</a></sc-if>
 <ul style="margin: 0; padding-left: 22px; font-size: 17px; line-height: 1.8; font-style: italic">
 <sc-for list="{{prompts}}" as="p" hint-placeholder-count="3"><li>{{p.t}}</li></sc-for>
 </ul>
@@ -132,7 +133,7 @@ class Component extends DCLogic {
     var cur = S[i];
     return {
       steps: S.map(function (s, k) { var on = k === i; return { n: String(k + 1), name: s[1], cls: on ? 'step on' : 'step', cur: on ? 'step' : 'false', pick: function () { self.setState({ i: k }); } }; }),
-      water: 'Step ' + (i + 1) + ' · ' + cur[0], title: cur[1], stepNum: String(i + 1),
+      water: 'Step ' + (i + 1) + ' · ' + cur[0], title: cur[1], hasIdLink: /Relational ID/.test(cur[1]), stepNum: String(i + 1),
       offers: O[i].map(function (o, k) { return { kind: o[0], title: o[1], text: o[2], href: o[3], cta: o[4], bg: bgs[k % bgs.length], cls: 'torn ' + (k % 2 ? 'tr' : 'tl') }; }), text: cur[2], prompts: cur[3].map(function (t) { return { t: t }; })
     };
   }

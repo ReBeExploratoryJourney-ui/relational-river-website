@@ -134,6 +134,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">{{k.water}}</div>
 <h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 22px; line-height: 1.15">{{k.title}}</h3>
 <p style="margin: 0; font-size: 16px; line-height: 1.5">{{k.text}}</p>
+<sc-if value="{{k.idLink}}" hint-placeholder-val="{{ false }}"><a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality" style="font-size: 14px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">What is Relational ID? Read the exploration on IRB’s Substack</a></sc-if>
 <div style="font-size: 14px; font-style: italic">{{k.by}}</div>
 <a href="{{k.href}}" style="margin-top: 6px; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">{{k.cta}}</a>
 </article>
@@ -188,7 +189,7 @@ class Component extends DCLogic {
     var tribCards = s.way.map(function (k) { var tb = tribs[k]; return { water: 'Tributary · understanding the moment', title: tb[0], text: tb[1], by: tb[2], href: tb[3], cta: 'Open this', bg: '#CFE1E4' }; });
     var heavy = s.feel.indexOf('overwhelmed') >= 0 || s.feel.indexOf('worried') >= 0 || s.feel.indexOf('rather') >= 0;
     var all = heavy ? eddyCards.concat(streamCards, tribCards) : streamCards.concat(tribCards, eddyCards);
-    all.forEach(function (c, i) { c.tilt = i % 2 ? 'tr' : 'tl'; });
+    all.forEach(function (c, i) { c.tilt = i % 2 ? 'tr' : 'tl'; c.idLink = /Relational ID/.test(c.title); });
     return {
       feelings: this.chips([['curious', 'Curious'], ['worried', 'Worried'], ['numb', 'Numb'], ['overwhelmed', 'Overwhelmed'], ['hopeful', 'Hopeful'], ['rather', "I'd rather not think about it"]], 'feel'),
       loves: this.chips([['tree', 'A tree'], ['water', 'Water'], ['garden', 'A garden'], ['animals', 'Animals and birds'], ['sky', 'The sky and Moon'], ['park', 'A city park']], 'love'),

@@ -108,6 +108,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">{{g.kind}}</div>
 <h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 21px">{{g.name}}</h2>
 <p style="margin: 0; font-size: 16px; line-height: 1.5">{{g.text}}</p>
+<sc-if value="{{g.idLink}}" hint-placeholder-val="{{ false }}"><a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality" style="font-size: 14px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">What is Relational ID? Read the exploration on IRB’s Substack</a></sc-if>
 <div style="font-size: 14px; font-style: italic">{{g.notes}}</div>
 <sc-if value="{{g.hylo}}" hint-placeholder-val="{{ false }}"><div style="display: inline-flex; align-self: flex-start; gap: 6px; align-items: center; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; background: #DCE6D2; padding: 4px 10px; border-radius: 10px 14px 10px 12px">Meets on Hylo</div></sc-if>
 <a href="{{g.href}}" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">{{g.cta}}</a>
@@ -176,7 +177,7 @@ class Component extends DCLogic {
     return {
       hasBeings: list.length > 0, noBeings: list.length === 0, beings: list, beingsNote: note,
       regions: keys.map(function (k) { var on = k[0] === r; return { label: k[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ r: k[0] }); } }; }),
-      mapLabel: cur[1], groups: cur[2]
+      mapLabel: cur[1], groups: cur[2].map(function (g) { var c = {}; for (var k in g) { c[k] = g[k]; } c.idLink = /Relational ID/.test(g.name + ' ' + g.text); return c; })
     };
   }
 }

@@ -138,6 +138,7 @@ a:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible{
 <div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">{{o.water}}</div>
 <h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 20px">{{o.title}}</h3>
 <p style="margin: 0; font-size: 15px; line-height: 1.5">{{o.text}}</p>
+<sc-if value="{{o.idLink}}" hint-placeholder-val="{{ false }}"><a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality" style="font-size: 14px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">What is Relational ID? Read the exploration on IRB’s Substack</a></sc-if>
 <div style="font-size: 14px; font-style: italic">{{o.by}}</div>
 <a href="{{o.href}}" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">{{o.cta}}</a>
 </article>
@@ -323,7 +324,7 @@ class Component extends DCLogic {
       showCare: s.care,
       hasResult: !!res,
       reflection: res ? res.reflection : '',
-      streams: res ? res.streams.map(function (o, i) { var c = {}; for (var k in o) { c[k] = o[k]; } c.bg = palette[i % 3]; c.tilt = i % 2 ? 'tr' : 'tl'; return c; }) : [],
+      streams: res ? res.streams.map(function (o, i) { var c = {}; for (var k in o) { c[k] = o[k]; } c.bg = palette[i % 3]; c.tilt = i % 2 ? 'tr' : 'tl'; c.idLink = /Relational ID/.test(c.title || ''); return c; }) : [],
       step: res ? res.step : '', question: res ? res.question : '', careNote: !!(res && res.careNote),
       canShare: !!res && !s.shared,
       share: function () { var title = self.state.idea.trim(); if (title.length > 140) { title = title.slice(0, 137) + '…'; } self.setState({ shared: true, pool: [{ id: 'mine' + Date.now(), title: title, where: 'Your bioregion', join: 1, skill: 0, space: 0, mine: true }].concat(self.state.pool) }); },
