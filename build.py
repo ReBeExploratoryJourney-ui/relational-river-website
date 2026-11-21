@@ -45,6 +45,17 @@ HEAD = '''<meta charset="utf-8">
 '''
 
 
+NOT_FOUND = '''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>Relational River · this way</title>
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#231C4D 0%,#0E2849 42%,#174A5B 100%);color:#EDEDED;font-family:Georgia,serif;text-align:center}a{color:#9FD3DC}</style>
+</head><body><main><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" width="96" height="96">
+<h1 style="font-weight:400">This part of the River hasn't formed yet.</h1>
+<p><a href="/flow">Follow the flow</a> &nbsp;·&nbsp; <a href="/">Return to the arrival</a></p></main></body></html>
+'''
+
+
 def convert(name, text):
     out_file, url, desc = PAGES[name]
     title = re.search(r'<title>(.*?)</title>', text, re.S).group(1).strip()
@@ -83,15 +94,21 @@ def main():
     for name in PAGES:
         text = (SRC / (name + '.dc.html')).read_text()
         out_file, page = convert(name, text)
-        (OUT / out_file).write_text(page)
-        print('built', out_file)
+        if out_file == 'index.html':
+            target = OUT / 'index.html'
+        else:
+            folder = OUT / out_file[:-5]
+            folder.mkdir(exist_ok=True)
+            target = folder / 'index.html'
+        target.write_text(page)
+        print('built', target.relative_to(OUT))
     # copy shared files
     for sub in ('assets', 'js'):
         dest = OUT / sub
         dest.mkdir(exist_ok=True)
         for f in (ROOT / sub).iterdir():
             (dest / f.name).write_bytes(f.read_bytes())
-    (OUT / '404.html').write_text((OUT / 'index.html').read_text())
+    (OUT / '404.html').write_text(NOT_FOUND)
 
 
 if __name__ == '__main__':
