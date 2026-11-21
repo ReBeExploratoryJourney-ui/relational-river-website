@@ -31,9 +31,12 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .line{transition:opacity 1.08s ease,transform 1.08s ease}
 .line.off{opacity:0;transform:translateY(10px)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.desc{max-height:none}
+@media (max-height: 900px){.desc{top:26%!important;padding:30px 44px!important;gap:12px!important}.desc h1{font-size:44px!important}.desc p{font-size:16px!important}.desc p:first-of-type{font-size:19px!important}}
+@media (max-height: 720px), (max-width: 600px){.desc{top:22%!important;padding:24px 28px!important}.desc h1{font-size:36px!important}}
 </style>
 </helmet>
-<div style="position: relative; overflow: hidden; min-height: 100vh; background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED">
+<div style="position: relative; overflow: hidden; overflow-x: clip; overflow-y: visible; min-height: 100vh; background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED">
 
 <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: {{riverOpacity}}; transition: opacity 1.08s ease">
 <defs>
@@ -65,7 +68,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <button class="pill" onClick="{{skip}}" style="position: absolute; right: 24px; top: 20px">Skip the arrival</button>
 </sc-if>
 
-<section aria-live="polite" style="position: absolute; left: 50%; top: 34%; transform: translateX(-50%); width: min(720px, 88vw); box-sizing: border-box; padding: 44px 52px; text-align: left; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; background: radial-gradient(ellipse at center, rgba(14,40,73,0.92) 0%, rgba(14,40,73,0.75) 55%, rgba(14,40,73,0) 100%); visibility: {{descVis}}">
+<section class="desc" aria-live="polite" style="position: absolute; left: 50%; top: 34%; transform: translateX(-50%); width: min(720px, 88vw); box-sizing: border-box; padding: 44px 52px; text-align: left; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; background: radial-gradient(ellipse at center, rgba(14,40,73,0.92) 0%, rgba(14,40,73,0.75) 55%, rgba(14,40,73,0) 100%); visibility: {{descVis}}">
 <div class="{{lineCls}}" style="font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: #C9CCD6">Welcome to</div>
 <h1 class="{{lineCls}}" style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 52px; line-height: 1.05; color: #DCDCDC; font-variant-ligatures: none; font-feature-settings: 'liga' 0">The Relational River</h1>
 <p class="{{lineCls}}" style="transition-delay: 0.61s; margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.45; color: #EDEDED">A Source, like the headwaters of any river, offered through the Institute of Relational Being.</p>
