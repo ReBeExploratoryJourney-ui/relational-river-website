@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Relational River: the capital journey</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.step{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font-family:Jost,sans-serif;font-size:17px;color:#2F2B28;background:transparent;border:none;padding:10px 12px;min-height:52px;cursor:pointer;border-radius:16px 20px 14px 22px}
+.step:hover{background:#EDE4D3}
+.step.on{background:#F2D3BC;font-weight:600}
+.num{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;width:30px;height:30px;border-radius:48% 52% 46% 54%;border:2px solid #9A5B32;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+</style>
+</helmet>
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Learn</button><div class="vmenu"><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Tributary.dc.html"><b>Eddies</b><span>grief, gratitude and returning practices</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Channels.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="Journey.dc.html" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">The capital journey · open to everyone</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 56px; letter-spacing: -0.03em; line-height: 1">Money is part of the living world</h1>
+<p style="margin: 0; font-size: 19px; max-width: 760px; line-height: 1.55">Every coin and account is a claim on soil, water, energy and other people's work. This journey is for anyone who wants a new relationship with money, and especially for those who steward wealth: philanthropists, family offices, foundations. It teaches and introduces. It never sells.</p>
+</div>
+
+<blockquote class="torn tl" style="margin: 0; background: #F2D3BC; padding: 36px 44px; display: flex; flex-direction: column; gap: 8px">
+<p style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 28px; line-height: 1.25">Money is "just a marker, a claim on the real physical work."</p>
+<footer style="font-size: 15px; font-style: italic">Nate Hagens, The Great Simplification</footer>
+</blockquote>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 30px; letter-spacing: -0.02em">Five shifts in how we see capital</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px">
+<div class="torn tl" style="background: #FBF7EF; padding: 24px 22px; display: flex; flex-direction: column; gap: 6px"><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 18px">A claim on energy</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">We can print money, but not energy, soil or time.</p></div>
+<div class="torn tr" style="background: #FBF7EF; padding: 24px 22px; display: flex; flex-direction: column; gap: 6px"><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 18px">Optionality</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">The range of futures we can still reach, and how to widen it. (Indy Johar)</p></div>
+<div class="torn tl" style="background: #FBF7EF; padding: 24px 22px; display: flex; flex-direction: column; gap: 6px"><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 18px">Risk-in, not risk-on</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">All capital is already exposed; it can choose to secure the conditions it depends on. (Dark Matter Labs)</p></div>
+<div class="torn tr" style="background: #FBF7EF; padding: 24px 22px; display: flex; flex-direction: column; gap: 6px"><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 18px">Entangled value</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Value lives in water, trust, culture and relationship, not only returns.</p></div>
+<div class="torn tl" style="background: #FBF7EF; padding: 24px 22px; display: flex; flex-direction: column; gap: 6px"><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 18px">Bioregional finance</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Finance grown in dialogue with a place, under local governance.</p></div>
+</div>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; gap: 36px; align-items: flex-start">
+<nav aria-label="Steps of the capital journey" class="torn tall tl" style="flex: 1 1 300px; max-width: 360px; background: #FBF7EF; padding: 30px 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; padding: 0 12px 10px">The journey</div>
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="6"><button class="{{s.cls}}" aria-current="{{s.cur}}" onClick="{{s.pick}}"><span class="num" aria-hidden="true">{{s.n}}</span><span>{{s.name}}</span></button></sc-for>
+</nav>
+<article aria-live="polite" style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase">{{water}}</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 34px; letter-spacing: -0.02em">{{title}}</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; max-width: 640px">{{text}}</p>
+<ul style="margin: 0; padding-left: 22px; font-size: 17px; line-height: 1.8; font-style: italic">
+<sc-for list="{{prompts}}" as="p" hint-placeholder-count="3"><li>{{p.t}}</li></sc-for>
+</ul>
+</article>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 30px; letter-spacing: -0.02em">First offerings</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px">
+<article class="torn tl" style="background: #CFE1E4; padding: 28px 26px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Podcast · Oct 2026</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 19px">Optionality Collapse</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Nate Hagens with Indy Johar on coupled risks, capital and investing for the future.</p><a href="https://www.thegreatsimplification.com/podcast/episodes" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Listen on their site</a></article>
+<article class="torn tr" style="background: #CFE1E4; padding: 28px 26px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Talk · Long Now</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 19px">Civilizational Optioneering</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Indy Johar on optionality as the measure of a civilisation's long life.</p><a href="https://longnow.org/ideas/02026-johar/" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Watch on Long Now</a></article>
+<article class="torn tl" style="background: #CFE1E4; padding: 28px 26px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Reading list</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 19px">Expanding civilizational optionality</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Dark Matter Labs on risk-in capital and a capital stack from philanthropy to institutions.</p><a href="https://optionality.darkmatterlabs.org/" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Read on their site</a></article>
+<article class="torn tr" style="background: #CFE1E4; padding: 28px 26px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Book · 2024</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 19px">Bioregional Financing Facilities</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">BioFi Project, Dark Matter Labs and the Buckminster Fuller Institute.</p><a href="https://darkmatterlabs.org/Bioregional-Financing-Facilities" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Read on their site</a></article>
+</div>
+</section>
+
+<section class="torn tr" style="background: #E6E2F2; padding: 34px 42px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 24px">Care around money</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; max-width: 800px">The River informs and introduces; it never sells, ranks projects for profit or takes a cut that bends what you see. Gifts flow through trusted hosts such as Reculture. Any investment happens elsewhere, through licensed platforms or directly between parties with their own advisers. Communities keep a real voice in how money reaching their place is used.</p>
+</section>
+</main>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>With gratitude to Nate Hagens, Indy Johar, Dark Matter Labs and the BioFi Project, whose work this journey points to.</span></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1960}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { i: 0 }; }
+  renderVals() {
+    var self = this, i = this.state.i;
+    var S = [
+      ['Source', 'A Relational ID for wealth', 'A private reflection, before any giving or investing, on where this money came from and who is in its "we".', ['Which lands, waters and people made this wealth possible?', 'What has it cost, and whom?', 'If this money could speak, what would it ask of you?']],
+      ['Tributary', 'Money, energy and value', 'The Great Simplification animation, then the Optionality Collapse conversation, then Dark Matter Labs on optionality and bioregional finance.', ['What does my money actually claim in the physical world?', 'Which futures is it widening, and which is it closing?', 'Where am I already risk-in?']],
+      ['Eddy', 'Grief and courage', 'Some of this is confronting. Peer circles and grief-tending practices help, so that fear is never the motivator.', ['What am I afraid of losing?', 'What would courage look like for me, this season?', 'Who could I sit with in this?']],
+      ['Lake', 'Funder circles and place-based journeys', 'Small circles of peers, and slow time with Beings and communities in a bioregion, such as Corra Woods, at plant pace.', ['What did the place teach that the numbers could not?', 'Whose voice was missing from our circle?', 'What would reciprocity look like here?']],
+      ['Estuary', 'Practising in your own house', 'Bringing this home to a family office or foundation: values, governance and conversations across generations.', ['What would we change first?', 'Who decides, and who should?', 'What do we want our grandchildren to inherit?']],
+      ['Ocean', 'Meeting projects as relationships', 'Getting to know place-based projects and the vehicles that already exist: fiscal hosts, pooled bioregional funds, Bioregional Financing Facilities.', ['What does this project need beyond money?', 'How could the community keep a real voice?', 'How long a relationship am I ready for?']]
+    ];
+    var cur = S[i];
+    return {
+      steps: S.map(function (s, k) { var on = k === i; return { n: String(k + 1), name: s[1], cls: on ? 'step on' : 'step', cur: on ? 'step' : 'false', pick: function () { self.setState({ i: k }); } }; }),
+      water: 'Step ' + (i + 1) + ' · ' + cur[0], title: cur[1], text: cur[2], prompts: cur[3].map(function (t) { return { t: t }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

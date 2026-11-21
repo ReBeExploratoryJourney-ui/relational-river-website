@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · my river</title>
+<meta name="description" content="Your private place on the Relational River.">
+<meta property="og:title" content="Relational River · my river">
+<meta property="og:description" content="Your private place on the Relational River.">
+<meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<meta name="theme-color" content="#0E2849">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.water{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font-family:Jost,sans-serif;font-size:17px;color:#2F2B28;background:transparent;border:none;padding:10px 12px;min-height:52px;cursor:pointer;border-radius:16px 20px 14px 22px}
+.water:hover{background:#EDE4D3}
+.water.on{background:#CFE1E4;font-weight:600}
+.dot{width:18px;height:18px;border-radius:48% 52% 46% 54%;border:2px solid #4F7A84;background:#F3ECDF;flex-shrink:0}
+.water.on .dot{background:#4F7A84}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+</style>
+<style>body{background:#0E2849}</style>
+</head>
+<body>
+<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>
+<template id="rr-template">
+
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="/flow"><b>The River</b><span>the whole River at a glance</span></a><a href="/source"><b>The source</b><span>a minute of gentle questions</span></a><a href="/"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/tributaries"><b>Eddies</b><span>grief, gratitude and returning practices</span></a><a href="Capital/my-river"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/channels"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="/my-river" class="vmine here">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 52px; letter-spacing: -0.03em; line-height: 1">My river</h1>
+<p style="margin: 0; font-size: 19px; max-width: 680px; line-height: 1.5">Wherever you are is the right place. Move downstream when you feel ready, sideways when something calls, and back when an eddy brings you round.</p>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+<nav aria-label="The waters" class="torn tall tl" style="flex: 1 1 300px; max-width: 360px; background: #FBF7EF; padding: 34px 22px; display: flex; flex-direction: column; gap: 4px; box-sizing: border-box">
+<div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; padding: 0 12px 10px">The waters</div>
+<sc-for list="{{waters}}" as="w" hint-placeholder-count="9">
+<button class="{{w.cls}}" aria-current="{{w.cur}}" onClick="{{w.pick}}"><span class="dot" aria-hidden="true"></span><span style="display: flex; flex-direction: column"><span>{{w.name}}</span><span style="font-size: 13px; font-weight: 400; font-style: italic">{{w.hint}}</span></span></button>
+</sc-for>
+</nav>
+
+<section aria-live="polite" style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase">{{here}}</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 36px; letter-spacing: -0.02em">{{title}}</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.5; max-width: 620px">{{text}}</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px">
+<sc-for list="{{offers}}" as="o" hint-placeholder-count="3">
+<article class="torn {{o.tilt}}" style="background: {{o.bg}}; padding: 28px 26px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">{{o.kind}}</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 20px; line-height: 1.2">{{o.title}}</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">{{o.text}}</p>
+<div style="font-size: 14px; font-style: italic">{{o.by}}</div>
+<a href="{{o.href}}" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">{{o.cta}}</a>
+</article>
+</sc-for>
+</div>
+</section>
+</div>
+
+<section class="torn tr" style="background: #E6E2F2; padding: 40px 44px; display: flex; flex-wrap: wrap; gap: 36px; align-items: center">
+<svg viewBox="0 0 260 200" role="img" aria-label="A constellation of relationships: you in the centre, joined to a tree, water, food, ancestors, neighbours and Moon" style="flex: 0 1 260px; width: 100%; max-width: 260px; height: auto">
+<g stroke="#5B4A8B" stroke-width="1.3" fill="none"><path d="M130 100 L60 50 M130 100 L200 44 M130 100 L226 118 M130 100 L180 172 M130 100 L76 166 M130 100 L32 112"></path></g>
+<circle cx="130" cy="100" r="13" fill="#5B4A8B"></circle>
+<g fill="#FBF7EF" stroke="#5B4A8B" stroke-width="1.5"><circle cx="60" cy="50" r="9"></circle><circle cx="200" cy="44" r="9"></circle><circle cx="226" cy="118" r="9"></circle><circle cx="180" cy="172" r="9"></circle><circle cx="76" cy="166" r="9"></circle><circle cx="32" cy="112" r="9"></circle></g>
+<g font-family="Jost, sans-serif" font-size="12" fill="#2F2B28"><text x="44" y="30">Oak</text><text x="186" y="24">Moon</text><text x="214" y="146">Creek</text><text x="168" y="196">Bread</text><text x="44" y="194">Ancestors</text><text x="4" y="92">Neighbours</text></g>
+</svg>
+<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 28px; letter-spacing: -0.02em">Your constellation</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55">A private map of the relationships that make up your "we": Beings you have met through ReBe, places, foods, waters, ancestors, communities. When an eddy brings you back to the source, your earlier constellation sits beside the new one, so you can see how your "we" has grown.</p>
+<p style="margin: 0; font-size: 14px; font-style: italic">Yours alone: never shared unless you choose, downloadable and deletable any time.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center"><a href="/source" class="go tornbtn" style="background: #F5EEE1">Keep my constellation</a><span style="font-size: 14px; font-style: italic">(the only part that needs an account)</span></div>
+</div>
+</section>
+
+<section class="torn tl" style="background: #DCE6D2; padding: 36px 44px; display: flex; flex-wrap: wrap; gap: 28px; align-items: center">
+<div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase">Your circles</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 28px; letter-spacing: -0.02em">Where you gather, on Hylo</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55">If you choose to connect Hylo, the groups you belong to appear here beside your River, such as IRB’s circles or a private network you belong to, with their next gatherings. Private groups stay private: only you see them here. Only group names and public events flow in, and nothing from your River flows out.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center"><a href="/hylo" class="go tornbtn" style="background: #F5EEE1">Connect Hylo, if you wish</a><span style="font-size: 14px; font-style: italic">Optional: everything else works without it.</span></div>
+</div>
+<ul style="flex: 1 1 300px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px" aria-label="Example of connected groups">
+<li style="background: #FBF7EF; padding: 14px 18px; border-radius: 12px 16px 12px 18px"><b>Institute of Relational Being</b><br><span style="font-size: 14px; font-style: italic">[Next: a Relational ID Circle, Thursday evening]</span></li>
+<li style="background: #FBF7EF; padding: 14px 18px; border-radius: 12px 16px 12px 18px"><b>[A private network you belong to]</b><br><span style="font-size: 14px; font-style: italic">[Next: a monthly gathering, online · visible only to you]</span></li>
+</ul>
+</section>
+</main>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being, with gratitude to every project it points to.</span></footer>
+</div>
+</template>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { at: 'streams' }; }
+  renderVals() {
+    var self = this, at = this.state.at;
+    var W = {
+      source: ['Source', 'who is in my "we"?', 'Return to the source', 'Come back to the opening questions any time. Your answers, and your constellation, will have changed.', [
+        { kind: 'Inquiry', title: 'The Relational ID inquiry', text: 'A few gentle questions about how you are and what you love.', by: 'Institute of Relational Being', href: '/source', cta: 'Begin again', bg: '#FBF7EF', tilt: 'tl' }]],
+      streams: ['Streams', 'everyday practice', 'You are here: streams', 'Small practices of relationship that fit into ordinary days. Pick one and stay with it a while.', [
+        { kind: 'Practice', title: 'A Sit Spot with a tree near you', text: 'Ten minutes with the same tree, day by day, noticing what changes.', by: 'ReBe, by the Institute of Relational Being', href: '/source', cta: 'Open in ReBe', bg: '#C8D9B9', tilt: 'tl' },
+        { kind: 'Practice', title: 'Making with Moon', text: 'At each new and full Moon, a short reflection with paper and pen.', by: 'ReBe', href: '/source', cta: 'See the next session', bg: '#E3D2F7', tilt: 'tr' },
+        { kind: 'Eddy · returns later', title: 'Gratitude for one Being', text: 'Thank one Being who helped you today. It deepens each time it comes round.', by: 'Inspired by the Work That Reconnects', href: '/tributaries', cta: 'Try it now', bg: '#E6E2F2', tilt: 'tl' }]],
+      tributaries: ['Tributaries', 'understanding the moment', 'Tributaries', 'Themes that help make sense of the moment, from energy and money to nature’s rights and identity.', [
+        { kind: 'Film · 32 minutes', title: 'The Great Simplification', text: 'An animation in four acts on energy, our economy and the transition ahead.', by: 'Nate Hagens and team', href: '/tributaries', cta: 'Open the tributary', bg: '#CFE1E4', tilt: 'tl' },
+        { kind: 'Theme', title: 'Money, energy and value', text: 'Seeing money as a claim on the living world. Open to everyone.', by: 'The capital journey', href: 'Capital/my-river', cta: 'Open the capital journey', bg: '#F2D3BC', tilt: 'tr' }]],
+      eddies: ['Eddies', 'practices that return', 'Eddies', 'Practices that circle back at natural turning points, a new season or a new Moon, and are met more deeply each time.', [
+        { kind: 'Circle', title: 'Good Grief Network', text: 'Peer support for anyone overwhelmed by the state of the world.', by: 'LaUra Schmidt and team', href: '/tributaries', cta: 'Learn more', bg: '#E6E2F2', tilt: 'tl' },
+        { kind: 'Practice', title: 'The Work That Reconnects', text: 'Gratitude, honouring pain for the world, and going forth.', by: 'Joanna Macy and a global network', href: '/tributaries', cta: 'Learn more', bg: '#E6E2F2', tilt: 'tr' }]],
+      lakes: ['Lakes', 'gatherings', 'Lakes', 'Places to slow down together: circles, fellowships and retreats.', [
+        { kind: 'Circle · 5 weeks', title: 'Relational ID Circle', text: 'Map the web that makes you with a small group. The fee is shared between the platform, local micro-grants and the open commons.', by: 'Institute of Relational Being', href: '/my-river', cta: 'Join the waitlist', bg: '#C8D9B9', tilt: 'tl' },
+        { kind: 'Retreat', title: 'Corra Woods, County Clare', text: 'Residencies and workshops between Lough Derg and Lough Graney.', by: 'Institute of Relational Being', href: '/my-river', cta: 'Hear when dates open', bg: '#DCE6D2', tilt: 'tr' }]],
+      local: ['Local currents', 'groups near you', 'Local currents', 'The people and places near you, by bioregion. The River points you there, then steps aside.', [
+        { kind: 'Map', title: 'Groups in your bioregion', text: 'Grief circles, food growers, restoration, repair and more.', by: 'Many movements’ own maps, gathered', href: '/local-currents', cta: 'Open local currents', bg: '#DCE6D2', tilt: 'tl' }]],
+      estuary: ['Estuary', 'organisations', 'Estuary', 'Where personal change meets workplaces, schools and councils.', [
+        { kind: 'Programme', title: 'Relational Resource Departments', text: 'Bringing seasons, place and the more-than-human world into how an organisation works.', by: 'Institute of Relational Being', href: '/my-river', cta: 'Bring this to my workplace', bg: '#F2D3BC', tilt: 'tl' }]],
+      ocean: ['Ocean', 'projects worldwide', 'Ocean', 'The meshwork of place-based projects already tending the living world.', [
+        { kind: 'Meshwork', title: 'Explore the ocean', text: 'Find projects by place, theme and what they need.', by: 'Partners of the Relational River', href: '/ocean', cta: 'Open the ocean', bg: '#CFE1E4', tilt: 'tl' }]],
+      confluences: ['Confluences', 'partners and capital', 'Confluences', 'Organisations finding each other, and a learning journey for everyone about money and the living world.', [
+        { kind: 'Learning journey', title: 'The capital journey', text: 'For anyone, and especially for those who hold wealth.', by: 'With gratitude to Nate Hagens, Indy Johar and Dark Matter Labs', href: 'Capital/my-river', cta: 'Begin', bg: '#F2D3BC', tilt: 'tl' }]]
+    };
+    var keys = ['source', 'streams', 'tributaries', 'eddies', 'lakes', 'local', 'estuary', 'ocean', 'confluences'];
+    var cur = W[at];
+    return {
+      waters: keys.map(function (k) { var on = k === at; return { name: W[k][0], hint: W[k][1], cls: on ? 'water on' : 'water', cur: on ? 'location' : 'false', pick: function () { self.setState({ at: k }); } }; }),
+      here: cur[2] === 'You are here: streams' ? 'Where you are now' : 'Exploring',
+      title: cur[2], text: cur[3], offers: cur[4]
+    };
+  }
+}
+</script>
+<script src="/js/river-runtime.js"></script>
+</body>
+</html>

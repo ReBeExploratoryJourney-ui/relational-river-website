@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · local currents</title>
+<meta name="description" content="Groups and circles already tending the place you live, by bioregion.">
+<meta property="og:title" content="Relational River · local currents">
+<meta property="og:description" content="Groups and circles already tending the place you live, by bioregion.">
+<meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<meta name="theme-color" content="#0E2849">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.beings{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.being{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:#2F2B28}
+.being img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;border-radius:46% 54% 50% 50% / 52% 46% 54% 48%;border:3px solid #FBF7EF;box-shadow:0 3px 8px rgba(47,43,40,0.18)}
+.being.b2 img{border-radius:54% 46% 48% 52% / 46% 54% 48% 52%}
+.being.tl{transform:rotate(-1.6deg)}.being.tr{transform:rotate(1.4deg)}
+.bname{font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:16px;line-height:1.2;text-align:center}
+.bcredit{font-size:11px;line-height:1.3;text-align:center;color:#4A443F}
+.being:hover .bname{text-decoration:underline}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#DCE6D2;border-color:#2F2B28;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#DCE6D2;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+</style>
+<style>body{background:#0E2849}</style>
+</head>
+<body>
+<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>
+<template id="rr-template">
+
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="/flow"><b>The River</b><span>the whole River at a glance</span></a><a href="/source"><b>The source</b><span>a minute of gentle questions</span></a><a href="/"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/tributaries"><b>Eddies</b><span>grief, gratitude and returning practices</span></a><a href="Capital/my-river"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/channels"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="/my-river" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Local currents</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 52px; letter-spacing: -0.03em; line-height: 1">The people already near you</h1>
+<p style="margin: 0; font-size: 19px; max-width: 720px; line-height: 1.5">Groups by bioregion: your watershed and its living neighbours, not just a postcode. We only ever use a rough area, and you can browse without sharing one at all.</p>
+</div>
+
+<div role="group" aria-label="Choose a bioregion" style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{regions}}" as="r" hint-placeholder-count="3"><button class="{{r.cls}}" aria-pressed="{{r.on}}" onClick="{{r.pick}}">{{r.label}}</button></sc-for>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 36px; align-items: flex-start">
+<figure class="torn tall tl" style="flex: 1 1 340px; max-width: 420px; margin: 0; background: #DCE6D2; padding: 30px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">Beings of this watershed</div>
+<sc-if value="{{hasBeings}}" hint-placeholder-val="{{ false }}">
+<div class="beings">
+<sc-for list="{{beings}}" as="b" hint-placeholder-count="4">
+<a class="{{b.cls}}" href="{{b.url}}" target="_blank" rel="noopener"><img src="{{b.img}}" alt="{{b.alt}}" loading="lazy"><span class="bname">{{b.name}}</span><span class="bcredit">{{b.credit}}</span></a>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{noBeings}}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 320 260" role="img" aria-label="{{mapLabel}}" style="width: 100%; height: auto">
+<path d="M40 70 C 70 20, 170 10, 230 40 S 310 120, 280 180 S 170 250, 100 230 S 10 130, 40 70 Z" fill="#F3ECDF" stroke="#4F7A84" stroke-width="2" stroke-dasharray="6 5"></path>
+<path d="M150 40 C 140 90, 170 120, 150 160 S 120 210, 140 240" fill="none" stroke="#4F7A84" stroke-width="4" stroke-linecap="round"></path>
+<path d="M90 100 C 110 120, 130 130, 152 140 M230 90 C 210 120, 180 140, 158 150" fill="none" stroke="#4F7A84" stroke-width="2.5" stroke-linecap="round"></path>
+<circle cx="110" cy="80" r="8" fill="#7E9A6B"></circle><circle cx="205" cy="70" r="8" fill="#7E9A6B"></circle><circle cx="120" cy="180" r="8" fill="#7E9A6B"></circle><circle cx="220" cy="170" r="8" fill="#7E9A6B"></circle><circle cx="170" cy="120" r="8" fill="#7E9A6B"></circle>
+</svg>
+</sc-if>
+<figcaption style="font-size: 15px; font-style: italic">{{mapLabel}}</figcaption>
+<p style="margin: 0; font-size: 14px; line-height: 1.5">{{beingsNote}}</p>
+<a href="/my-river" style="font-weight: 600; font-size: 15px; min-height: 44px; display: inline-flex; align-items: center">Meet a Being near you in ReBe</a>
+</figure>
+
+<section aria-live="polite" style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+<article class="torn {{g.tilt}}" style="background: #FBF7EF; padding: 26px 30px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">{{g.kind}}</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 21px">{{g.name}}</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.5">{{g.text}}</p>
+<div style="font-size: 14px; font-style: italic">{{g.notes}}</div>
+<sc-if value="{{g.hylo}}" hint-placeholder-val="{{ false }}"><div style="display: inline-flex; align-self: flex-start; gap: 6px; align-items: center; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; background: #DCE6D2; padding: 4px 10px; border-radius: 10px 14px 10px 12px">Meets on Hylo</div></sc-if>
+<a href="{{g.href}}" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">{{g.cta}}</a>
+</article>
+</sc-for>
+</section>
+</div>
+
+<section class="torn tr" style="background: #E6E2F2; padding: 32px 40px; display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between">
+<p style="margin: 0; font-size: 17px; max-width: 680px">Run a local group? Add it yourself and keep it up to date. Already gathering on Hylo? Add your Hylo link and people can find and join you there. Listings are reviewed lightly against the River's principles, and you can change or remove yours at any time.</p>
+<a href="/ocean" class="go tornbtn" style="background: #F5EEE1">Add our group</a>
+</section>
+</main>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>Groups in square brackets are examples for this mockup. Indigenous-led groups appear only as their communities wish.</span></footer>
+</div>
+</template>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { r: 'la', n: 0 }; this.cache = {}; this.loading = {}; }
+  fetchBeings(key, q) {
+    var self = this;
+    if (this.cache[key] || this.loading[key]) { return; }
+    this.loading[key] = true;
+    var url = 'https://api.inaturalist.org/v1/observations?' + q + '&quality_grade=research&photos=true&photo_license=cc0,cc-by,cc-by-sa&threatened=false&captive=false&order_by=votes&per_page=30&locale=en';
+    fetch(url).then(function (res) { return res.json(); }).then(function (data) {
+      var seen = {}, out = [];
+      (data.results || []).forEach(function (o) {
+        var t = o.taxon, p = o.photos && o.photos[0];
+        if (!t || !p || !p.url || out.length >= 4) { return; }
+        var group = t.iconic_taxon_name || 'other';
+        if (seen[group]) { return; }
+        seen[group] = true;
+        var name = t.preferred_common_name || t.name;
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+        var who = (o.user && (o.user.name || o.user.login)) || 'an iNaturalist naturalist';
+        out.push({ name: name, img: p.url.replace('/square.', '/medium.'), url: 'https://www.inaturalist.org/observations/' + o.id, credit: p.attribution || '', alt: name + ', a photo by ' + who + ' on iNaturalist' });
+      });
+      self.cache[key] = out; self.loading[key] = false; self.setState({ n: self.state.n + 1 });
+    }).catch(function () { self.cache[key] = []; self.loading[key] = false; self.setState({ n: self.state.n + 1 }); });
+  }
+  renderVals() {
+    var self = this, r = this.state.r;
+    var R = {
+      la: ['Santa Monica Mountains and the LA basin', 'The Santa Monica Mountains and LA basin, with creeks running to the sea', [
+        { kind: 'Indigenous-led stewardship', name: 'Land stewardship in Tovaangar', text: 'Tongva-led care for land and culture in the LA basin. The River will share this only in the words, and with the permission, of its keepers.', notes: 'Listed as its community wishes', href: '/local-currents', cta: 'Pending their blessing', tilt: 'tl' },
+        { kind: 'Home group', name: 'Institute of Relational Being', text: 'Relational ID Circles, sit spots in Laurel and Fryman Canyons and ReBe group sessions gather in IRB’s own Hylo group.', notes: 'Online and in person · open to all', href: 'https://www.hylo.com/groups/institute-of-relational-being/chat', cta: 'Join IRB on Hylo', tilt: 'tl', hylo: true },
+        { kind: 'Grief and care', name: '[A local grief circle]', text: 'A small peer circle meeting monthly to hold feelings about the state of the world.', notes: 'In person · free · newcomers welcome', href: '/hylo', cta: 'See how to join', tilt: 'tr', hylo: true },
+        { kind: 'Restoration', name: '[A native plant restoration day]', text: 'Monthly volunteer mornings removing invasives and planting natives along a creek.', notes: 'In person · free · step-free access to part of the site', href: '/hylo', cta: 'See dates', tilt: 'tl', hylo: true },
+        { kind: 'Transition', name: 'Transition groups near you', text: 'Local groups working on food, energy, repair and community, self-listed on the Transition Network map.', notes: 'From the Transition Network’s own map', href: 'https://maps.transitionnetwork.org/', cta: 'Open their map', tilt: 'tr' }]],
+      clare: ['County Clare and Lough Derg', 'County Clare and the Lough Derg catchment, around Corra Woods', [
+        { kind: 'Native woodland', name: 'Hometree', text: 'A nature restoration charity in Ennistymon, restoring native woodland and temperate rainforest in the west of Ireland.', notes: 'Workshops, volunteering and talks', href: 'https://www.hometree.ie/', cta: 'Visit Hometree', tilt: 'tl' },
+        { kind: 'Gatherings', name: 'Corra Woods', text: 'IRB’s home in Clare, between Lough Derg and Lough Graney, for retreats, workshops and residencies.', notes: 'Dates to come', href: '/hylo', cta: 'Hear when dates open', tilt: 'tr', hylo: true },
+        { kind: 'Grief and care', name: '[A Work That Reconnects circle]', text: 'A circle practising gratitude, honouring pain for the world and going forth.', notes: 'In person · donation-based', href: '/hylo', cta: 'See how to join', tilt: 'tl', hylo: true },
+        { kind: 'Transition', name: 'Transition groups in Ireland', text: 'Self-listed local groups on the Transition Network map.', notes: 'From the Transition Network’s own map', href: 'https://maps.transitionnetwork.org/', cta: 'Open their map', tilt: 'tr' }]],
+      else: ['Somewhere else', 'Anywhere in the world', [
+        { kind: 'Find more near you', name: 'Hylo’s public map', text: 'Public groups and posts from around the world: a good way to find who is already gathering in your watershed.', notes: 'Only groups that choose to be public appear', href: '/hylo', cta: 'Gather on Hylo', tilt: 'tr', hylo: true },
+        { kind: 'Grief and care', name: 'Good Grief Network', text: 'Peer-support programmes online and in communities worldwide.', notes: 'Online and in person', href: 'https://www.goodgriefnetwork.org/', cta: 'Visit Good Grief Network', tilt: 'tl' },
+        { kind: 'Transition', name: 'Transition Network map', text: 'A world map of local groups working on food, energy, repair and community.', notes: 'Groups list themselves', href: 'https://maps.transitionnetwork.org/', cta: 'Open their map', tilt: 'tr' }]]
+    };
+    var keys = [['la', 'Santa Monica Mountains'], ['clare', 'County Clare and Lough Derg'], ['else', 'Somewhere else']];
+    var cur = R[r];
+    var Q = { la: 'lat=34.12&lng=-118.39&radius=14', clare: 'lat=52.93&lng=-8.47&radius=25' };
+    if (Q[r]) { this.fetchBeings(r, Q[r]); }
+    var list = (this.cache[r] || []).map(function (b, k) { return { name: b.name, img: b.img, url: b.url, credit: b.credit, alt: b.alt, cls: 'being ' + (k % 2 ? 'tr b2' : 'tl') }; });
+    var note = !Q[r] ? 'Choose a place, or let ReBe use a rough area, to meet the Beings living near you.' : list.length ? 'Beings recently met in this watershed, in photos shared openly by naturalists on iNaturalist and credited to them. Rare and threatened species are never shown.' : (this.cache[r] ? 'On the live site, photos of Beings recently met in this watershed appear here, shared openly by naturalists on iNaturalist and credited to them.' : 'Gathering Beings of this watershed from iNaturalist…');
+    return {
+      hasBeings: list.length > 0, noBeings: list.length === 0, beings: list, beingsNote: note,
+      regions: keys.map(function (k) { var on = k[0] === r; return { label: k[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ r: k[0] }); } }; }),
+      mapLabel: cur[1], groups: cur[2]
+    };
+  }
+}
+</script>
+<script src="/js/river-runtime.js"></script>
+</body>
+</html>

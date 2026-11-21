@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Relational River: channels</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply}
+.tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip{-webkit-mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#E8C77A;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:700;font-size:18px;color:#2F2B28;background:#F5EEE1;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+</style>
+</helmet>
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 26px"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Tributary.dc.html"><b>Eddies</b><span>grief, gratitude and returning practices</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Channels.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="Journey.dc.html" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 34px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #C9CCD6">Channels</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 54px; line-height: 1.05; color: #DCDCDC">Where the river waters the land</h1>
+<p style="margin: 0; font-size: 19px; max-width: 760px; line-height: 1.55">Channels carry the river's water out to where it is needed. These are ways to act, from a change in your own life to movements that span the planet. Start wherever you have the capacity today. Action and rest belong together.</p>
+</div>
+
+<div role="group" aria-label="Choose a scale of action" style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{scales}}" as="c" hint-placeholder-count="6"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+
+<div aria-live="polite" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px">
+<sc-for list="{{actions}}" as="a" hint-placeholder-count="6">
+<article class="torn {{a.tilt}}" style="background: {{a.bg}}; padding: 30px 28px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase"><span>{{a.scale}}</span><span style="letter-spacing: 0; text-transform: none; font-style: italic">{{a.time}}</span></div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 21px; line-height: 1.2">{{a.title}}</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">{{a.text}}</p>
+<div style="font-size: 14px; font-style: italic">{{a.by}}</div>
+<a href="{{a.href}}" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">{{a.cta}}</a>
+</article>
+</sc-for>
+</div>
+
+<section class="torn tr" style="background: #E6E2F2; padding: 30px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+<p style="margin: 0; font-size: 17px; max-width: 700px">Feeling stretched? Rest is part of the work. The grief and courage eddy is always close by.</p>
+<a href="Tributary.dc.html" class="go tornbtn">Rest in an eddy</a>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #C9CCD6">Groundwater</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 38px; color: #DCDCDC">Emerging threads</h2>
+<p style="margin: 0; font-size: 18px; max-width: 760px; line-height: 1.55">Beneath the river runs groundwater: the hidden connections between people, projects and places. A systems view helps us notice where threads are quietly forming, and where something new might emerge if two things were introduced.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px">
+<article class="torn tl" style="background: #CFE1E4; padding: 28px 28px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">A thread forming · example</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 20px">Native woodland in County Clare</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">Hometree is restoring native woodland in the west of Ireland, and Corra Woods is looking for local partners in woodland care. The River would gently suggest an introduction.</p>
+</article>
+<article class="torn tr" style="background: #CFE1E4; padding: 28px 28px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">A thread forming · example</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 20px">[Grief and restoration in one watershed]</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">A grief circle and a creek restoration day meeting in the same watershed, each holding half of what people need.</p>
+</article>
+<article class="torn tl" style="background: #FBF7EF; padding: 28px 28px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Questions for noticing emergence</div>
+<ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.7; font-style: italic"><li>What wants to connect here?</li><li>Where is energy already gathering?</li><li>What small move could help two things meet?</li></ul>
+</article>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px">
+<article class="torn tr" style="background: #F2D3BC; padding: 30px 30px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Feeding the groundwater · UK charity and community</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 21px">Perspectiva</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">A community of scholars, artists, activists and seekers who see our deepest challenges as a crisis of perception and imagination. Essays on worldviews and the metacrisis, the Emerge gathering, the Realisation Festival, Perspectiva Press, and the Antidebate, which welcomes volunteers.</p>
+<a href="https://systems-souls-society.com/" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Visit Perspectiva</a>
+</article>
+<article class="torn tl" style="background: #F2D3BC; padding: 30px 30px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Feeding the groundwater · collaborator</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 21px">Sympoiesis</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">A Berlin experience and design lab whose name means making-with. Through workshops, storytelling and design, they help people and organisations grow their response-ability to metabolise loss and regenerate living systems.</p>
+<a href="https://www.sympoiesis.world/" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Visit Sympoiesis</a>
+</article>
+</div>
+</section>
+</main>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>Items in square brackets are examples for this mockup. Every offering links to its makers and is listed with their blessing.</span></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { s: 'all' }; }
+  renderVals() {
+    var self = this, s = this.state.s;
+    var A = [
+      { k: 'personal', scale: 'Personal', time: 'a few minutes to a season', title: 'A change in your own life', text: 'Food, travel, energy and money are where most of our daily footprint lives. Choose one small, lasting change and let it grow.', by: '[Personal action resources to come]', href: 'CapitalJourney.dc.html', cta: 'Begin with money and value', bg: '#FBF7EF' },
+      { k: 'local', scale: 'Local', time: 'an afternoon, then ongoing', title: 'Join the people near you', text: 'Restoration days, grief circles, food growers and repair cafés, gathered by bioregion.', by: 'Local currents', href: 'LocalCurrents.dc.html', cta: 'See who is near you', bg: '#DCE6D2' },
+      { k: 'civic', scale: 'Civic and legal', time: '5 minutes to ongoing', title: 'Center for Biological Diversity', text: 'Standing up, in law and in public, for Beings who cannot speak in a courtroom: action alerts, petitions for endangered species and their homes, and membership.', by: 'Center for Biological Diversity', href: 'https://www.biologicaldiversity.org/', cta: 'See their current actions', bg: '#E8C77A' },
+      { k: 'org', scale: 'Organisational', time: 'a season or longer', title: 'Relational Resource Departments', text: 'Bringing seasons, place and the more-than-human world into how a workplace, school or council decides and cares.', by: 'Institute of Relational Being', href: 'Journey.dc.html', cta: 'Bring this to my workplace', bg: '#F2D3BC' },
+      { k: 'org', scale: 'Organisational', time: 'a season or longer', title: 'Healing-centred leadership', text: 'Strengths before deficits, protective parts met with curiosity, and power that circulates rather than accumulates, for leaders and teams working toward a more just world.', by: 'Lana Jelenjev', href: 'https://lanajelenjev.com/practice-with-me', cta: 'Practise with Lana', bg: '#F2D3BC' },
+      { k: 'planetary', scale: 'Planetary', time: 'ongoing', title: 'Join the Antidebate', text: 'A praxis project from Perspectiva exploring better ways of disagreeing together, currently welcoming volunteers.', by: 'Perspectiva', href: 'https://systems-souls-society.com/', cta: 'Learn more', bg: '#CFE1E4' },
+      { k: 'planetary', scale: 'Planetary', time: 'ongoing', title: '[Planetary movements to come]', text: 'Coalitions and campaigns working across borders, to be added as action resources arrive.', by: 'Relational River stewards', href: 'Ocean.dc.html', cta: 'Explore the ocean meanwhile', bg: '#CFE1E4' }
+    ];
+    var S = [['all', 'All'], ['personal', 'Personal'], ['local', 'Local'], ['civic', 'Civic and legal'], ['org', 'Organisational'], ['planetary', 'Planetary']];
+    var shown = A.filter(function (a) { return s === 'all' || a.k === s; }).map(function (a, i) { var o = {}; for (var key in a) { o[key] = a[key]; } o.tilt = i % 2 ? 'tr' : 'tl'; return o; });
+    return {
+      scales: S.map(function (x) { var on = x[0] === s; return { label: x[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ s: x[0] }); } }; }),
+      actions: shown
+    };
+  }
+}
+</script>
+</body>
+</html>

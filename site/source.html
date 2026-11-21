@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · the source</title>
+<meta name="description" content="Arrive wherever you are: a few gentle questions to find your way into the River.">
+<meta property="og:title" content="Relational River · the source">
+<meta property="og:description" content="Arrive wherever you are: a few gentle questions to find your way into the River.">
+<meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<meta name="theme-color" content="#0E2849">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer;transition:transform .2s}
+.chip:hover{transform:rotate(-1deg)}
+.chip.on{background:#C8D9B9;border-color:#2F2B28;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:19px;color:#2F2B28;background:#CFE1E4;border:none;padding:16px 30px;min-height:52px;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s}
+.go:hover{transform:rotate(-1deg) scale(1.03)}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+</style>
+<style>body{background:#0E2849}</style>
+</head>
+<body>
+<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>
+<template id="rr-template">
+
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn here">Begin</button><div class="vmenu"><a href="/flow"><b>The River</b><span>the whole River at a glance</span></a><a href="/source"><b>The source</b><span>a minute of gentle questions</span></a><a href="/"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/tributaries"><b>Eddies</b><span>grief, gratitude and returning practices</span></a><a href="Capital/my-river"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/channels"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="/my-river" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 64px; display: flex; flex-direction: column; gap: 40px">
+<section style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
+<div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 18px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">The source</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 64px; line-height: 0.98; letter-spacing: -0.03em">Arrive wherever you are.</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; max-width: 560px">The Relational River is a free guide to the living world and the many people already tending it. There is nothing to know first and nothing to get right. A few gentle questions help us suggest where to begin.</p>
+<p style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-style: italic; font-size: 18px; line-height: 1.5; max-width: 560px; color: #E8C77A">Earth is every human’s first home. All our ancestors once lived in close relationship with the land and ecology they were a part of, and that belonging is still here for each of us.</p>
+<p style="margin: 0; font-size: 15px; font-style: italic; color: #C9CCD6">No account needed. Nothing is scored. You can always choose differently.</p>
+</div>
+<svg viewBox="0 0 360 300" role="img" aria-label="A spring rising from the ground and becoming a stream" style="flex: 0 1 360px; width: 100%; max-width: 360px; height: auto">
+<path d="M20 240 C 90 225, 130 250, 190 238 S 300 228, 340 244" fill="none" stroke="#9FB6BE" stroke-width="2"></path>
+<path d="M176 236 C 170 200, 190 170, 178 130 S 150 70, 176 30" fill="none" stroke="#9FD3DC" stroke-width="5" stroke-linecap="round"></path>
+<path d="M190 236 C 196 205, 214 182, 206 150" fill="none" stroke="#9FD3DC" stroke-width="3" stroke-linecap="round"></path>
+<circle cx="176" cy="30" r="8" fill="#CFE1E4" stroke="#9FD3DC" stroke-width="2"></circle>
+<path d="M120 238 C 120 220, 110 205, 98 196 M120 238 C 122 222, 134 210, 146 204" fill="none" stroke="#A9C79A" stroke-width="2.5" stroke-linecap="round"></path>
+<path d="M250 236 C 252 214, 262 200, 274 192" fill="none" stroke="#A9C79A" stroke-width="2.5" stroke-linecap="round"></path>
+</svg>
+</section>
+
+<section class="torn tl" style="background: #FBF7EF; padding: 48px 52px; display: flex; flex-direction: column; gap: 34px" aria-labelledby="q-title">
+<h2 id="q-title" style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 30px; letter-spacing: -0.02em">A few questions, if you'd like</h2>
+
+<fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+<legend style="font-size: 19px; font-weight: 600; padding: 0; margin-bottom: 12px">How are you feeling about the state of the world right now? <span style="font-weight: 400; font-style: italic; font-size: 15px">(choose as many as feel true)</span></legend>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{feelings}}" as="c" hint-placeholder-count="6"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+</fieldset>
+
+<fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+<legend style="font-size: 19px; font-weight: 600; padding: 0; margin-bottom: 12px">What do you already love outside? <span style="font-weight: 400; font-style: italic; font-size: 15px">(choose any)</span></legend>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{loves}}" as="c" hint-placeholder-count="6"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+</fieldset>
+
+<fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+<legend style="font-size: 19px; font-weight: 600; padding: 0; margin-bottom: 12px">How do you most like to take things in? <span style="font-weight: 400; font-style: italic; font-size: 15px">(choose any)</span></legend>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{ways}}" as="c" hint-placeholder-count="5"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+</fieldset>
+
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 420px">
+<label for="area" style="font-size: 19px; font-weight: 600">Where do you live, roughly? <span style="font-weight: 400; font-style: italic; font-size: 15px">(optional, only to find groups near you)</span></label>
+<input id="area" type="text" placeholder="A town, a valley, a watershed" style="font-family: Jost, sans-serif; font-size: 16px; padding: 12px 14px; min-height: 44px; box-sizing: border-box; border: 1.5px solid #8C8178; border-radius: 10px 14px 10px 16px; background: #FFFFFF; color: #2F2B28">
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+<button class="go tornbtn" onClick="{{show}}">Show me where to begin</button>
+<span style="font-size: 15px; font-style: italic; color: #5A524B">or <a href="/my-river">just wander the river</a></span>
+</div>
+</section>
+
+<sc-if value="{{done}}" hint-placeholder-val="{{ false }}">
+<section aria-live="polite" style="display: flex; flex-direction: column; gap: 22px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 34px; letter-spacing: -0.02em">Here is one gentle way in</h2>
+<p style="margin: 0; font-size: 17px; font-style: italic; max-width: 700px">{{intro}}</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px">
+<sc-for list="{{cards}}" as="k" hint-placeholder-count="3">
+<article class="torn {{k.tilt}}" style="background: {{k.bg}}; padding: 32px 30px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">{{k.water}}</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 22px; line-height: 1.15">{{k.title}}</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.5">{{k.text}}</p>
+<div style="font-size: 14px; font-style: italic">{{k.by}}</div>
+<a href="{{k.href}}" style="margin-top: 6px; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">{{k.cta}}</a>
+</article>
+</sc-for>
+</div>
+<div class="torn tr" style="background: #E6E2F2; padding: 28px 34px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+<p style="margin: 0; font-size: 17px; max-width: 640px">Would you like to keep a private <strong>constellation</strong> of the relationships that make up your "we"? It grows each time you return. This is the only thing that needs an account.</p>
+<a href="/my-river" class="go tornbtn" style="background: #F5EEE1">Keep my constellation</a>
+</div>
+</section>
+</sc-if>
+</main>
+
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being, with gratitude to every project it points to.</span></footer>
+</div>
+</template>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1640}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { feel: ['overwhelmed'], love: ['tree'], way: ['watching'], done: false }; }
+  chips(list, key) {
+    var self = this;
+    return list.map(function (x) { var cur = self.state[key], on = cur.indexOf(x[0]) >= 0; return { label: x[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var c = self.state[key].slice(), i = c.indexOf(x[0]); if (i >= 0) { c.splice(i, 1); } else { c.push(x[0]); } var s = {}; s[key] = c; self.setState(s); } }; });
+  }
+  renderVals() {
+    var self = this, s = this.state;
+    var streams = {
+      tree: ['A Sit Spot with a tree near you', 'Choose one tree you pass often and sit with them for ten minutes. ReBe can keep you company along the way.'],
+      water: ['Listening to water', 'Find a creek, a fountain or the sea, and simply listen for five minutes, noticing what changes.'],
+      garden: ['Making a picture with a garden Being', 'Pick one plant and make a picture together with them through ReBe, at their pace.'],
+      animals: ['Meeting the creatures nearby', 'Notice the birds, insects and animals around your home this week, one at a time.'],
+      sky: ['Making with Moon', 'Step outside at dusk and notice where Moon is tonight, and how the light changes.'],
+      park: ['A city Being', 'Every city park holds old trees and visiting birds. Choose one to return to.']
+    };
+    var tribs = {
+      watching: ['The Great Simplification', 'A 32-minute animation in four acts about energy, our economy and the transition ahead.', 'Nate Hagens and team', '/tributaries'],
+      reading: ['What might it mean to live as a Relational Being?', 'A short essay from IRB on the ecological self, with honesty about harm and room for joy.', 'Institute of Relational Being', '/tributaries'],
+      listening: ['Optionality Collapse (podcast)', 'Nate Hagens and Indy Johar on how coupled risks are reshaping capital and the future.', 'The Great Simplification, Ep. 238', '/tributaries'],
+      doing: ['Join a local group', 'People near you are already planting, repairing, growing food and tending grief together.', 'Local currents', '/local-currents'],
+      others: ['A Relational ID Circle', 'A five-week circle mapping the web that makes each of us, with a few others.', 'Institute of Relational Being', '/my-river']
+    };
+    var eddies = {
+      curious: ['Gratitude for one Being', 'Before anything else, thank one Being who helped you today.'],
+      worried: ['Grief and care, together', 'Worry is a form of love. Good Grief Network circles help people hold it together.'],
+      numb: ['Coming back to the senses', 'Numbness is common and kind to ourselves. Start with one breath outside, nothing more.'],
+      overwhelmed: ['Grief and care, together', 'You are not alone in this. Good Grief Network and the Work That Reconnects offer circles to hold it with others.'],
+      hopeful: ['Gratitude, shared', 'Share one thing that gives you hope with someone today.'],
+      rather: ['Just five minutes outside', 'No need to think about any of it today. Step outside for five minutes and notice one living thing.']
+    };
+    var seen = {};
+    var eddyCards = s.feel.map(function (k) { return eddies[k]; }).filter(function (e) { if (seen[e[0]]) { return false; } seen[e[0]] = true; return true; }).map(function (e) { return { water: 'Eddy · returns later too', title: e[0], text: e[1], by: 'Good Grief Network · The Work That Reconnects', href: '/local-currents', cta: 'Find a circle', bg: '#E6E2F2' }; });
+    var streamCards = s.love.map(function (k) { var st = streams[k]; return { water: 'Stream · everyday practice', title: st[0], text: st[1], by: 'ReBe, by the Institute of Relational Being', href: '/my-river', cta: 'Begin this practice', bg: '#C8D9B9' }; });
+    var tribCards = s.way.map(function (k) { var tb = tribs[k]; return { water: 'Tributary · understanding the moment', title: tb[0], text: tb[1], by: tb[2], href: tb[3], cta: 'Open this', bg: '#CFE1E4' }; });
+    var heavy = s.feel.indexOf('overwhelmed') >= 0 || s.feel.indexOf('worried') >= 0 || s.feel.indexOf('rather') >= 0;
+    var all = heavy ? eddyCards.concat(streamCards, tribCards) : streamCards.concat(tribCards, eddyCards);
+    all.forEach(function (c, i) { c.tilt = i % 2 ? 'tr' : 'tl'; });
+    return {
+      feelings: this.chips([['curious', 'Curious'], ['worried', 'Worried'], ['numb', 'Numb'], ['overwhelmed', 'Overwhelmed'], ['hopeful', 'Hopeful'], ['rather', "I'd rather not think about it"]], 'feel'),
+      loves: this.chips([['tree', 'A tree'], ['water', 'Water'], ['garden', 'A garden'], ['animals', 'Animals and birds'], ['sky', 'The sky and Moon'], ['park', 'A city park']], 'love'),
+      ways: this.chips([['watching', 'Watching'], ['reading', 'Reading'], ['listening', 'Listening'], ['doing', 'Doing'], ['others', 'Being with others']], 'way'),
+      show: function () { self.setState({ done: true }); },
+      done: s.done,
+      intro: all.length === 0 ? 'Nothing chosen, and that is fine. Wander the river, or come back to these questions any time.' : heavy ? 'Since things feel heavy, we have put care first. The rest can wait until you are ready.' : 'A few small offerings: some to practise, some to understand, one or two to return to.',
+      cards: all
+    };
+  }
+}
+</script>
+<script src="/js/river-runtime.js"></script>
+</body>
+</html>

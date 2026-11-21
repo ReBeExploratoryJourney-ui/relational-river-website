@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · the waterfall</title>
+<meta name="description" content="Offer an idea to the falls and see which streams it might feed.">
+<meta property="og:title" content="Relational River · the waterfall">
+<meta property="og:description" content="Offer an idea to the falls and see which streams it might feed.">
+<meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<meta name="theme-color" content="#0E2849">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply}
+.tornbtn{-webkit-mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip{-webkit-mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:15px;color:#2F2B28;background:#FBF7EF;padding:9px 16px;min-height:44px;cursor:pointer}
+.chip.on{background:#9FD3DC;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:700;font-size:19px;color:#2F2B28;background:#F5EEE1;border:none;padding:16px 30px;min-height:52px;cursor:pointer;text-decoration:none;display:inline-block}
+.go:disabled{opacity:.55;cursor:not-allowed}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@keyframes fall{to{stroke-dashoffset:-60}}
+.curtain{stroke-dasharray:10 14;animation:fall 1.4s linear infinite}
+.curtain.c2{animation-duration:1.9s}.curtain.c3{animation-duration:1.6s}
+@keyframes mist{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:.55;transform:translateY(-4px)}}
+.mist{animation:mist 4s ease-in-out infinite}
+@keyframes drop{0%{transform:translate(0,0);opacity:1}55%{transform:translate(0,190px);opacity:1}100%{transform:translate(0,230px);opacity:0}}
+.drop{animation:drop 1.6s cubic-bezier(.5,0,.8,.6) forwards}
+@keyframes spread{from{stroke-dashoffset:200}to{stroke-dashoffset:0}}
+.spread{stroke-dasharray:200;animation:spread 1.2s ease-out .9s both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .6s ease-out both}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}.drop{opacity:0}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+</style>
+<style>body{background:#0E2849}</style>
+</head>
+<body>
+<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>
+<template id="rr-template">
+
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 26px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="/flow"><b>The River</b><span>the whole River at a glance</span></a><a href="/source"><b>The source</b><span>a minute of gentle questions</span></a><a href="/"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/tributaries"><b>Eddies</b><span>grief, gratitude and returning practices</span></a><a href="Capital/my-river"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/channels"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="/my-river" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 34px">
+<div style="display: flex; flex-wrap: wrap; gap: 36px; align-items: center">
+<div style="flex: 1 1 480px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #C9CCD6">The waterfall</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 54px; line-height: 1.05; color: #DCDCDC">Where gathered energy spills into new streams</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55">Water gathers quietly in the lake until it reaches an edge, then cascades into motion. Offer an idea, a hope or a question to the falls, and see which streams it might feed: offerings already in the River, people who might care, and one small first step.</p>
+</div>
+<div style="flex: 0 1 360px; width: 100%; max-width: 360px; position: relative">
+<img src="/assets/3e2f8e1980a595d86c0e38594cf1309d.svg" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: auto; display: block">
+<svg viewBox="0 0 360 340" aria-hidden="true" style="position: relative; width: 100%; height: auto; display: block">
+<g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-opacity="0.85"><path class="curtain" d="M128 101 C 123 118, 111 190, 96 274" stroke-width="2.4"></path><path class="curtain c2" d="M140 101 C 136 118, 126 190, 115 281" stroke-width="3"></path><path class="curtain c3" d="M152 102 C 149 118, 142 190, 134 288" stroke-width="2"></path><path class="curtain" d="M163 103 C 161 118, 156 190, 151 279" stroke-width="3.2"></path><path class="curtain c2" d="M174 104 C 173 118, 171 190, 168 286" stroke-width="2.6"></path><path class="curtain c3" d="M186 104 C 186 118, 187 190, 187 277" stroke-width="2.4"></path><path class="curtain" d="M197 103 C 198 118, 201 190, 204 284" stroke-width="3"></path><path class="curtain c2" d="M208 102 C 210 118, 215 190, 222 275" stroke-width="2"></path><path class="curtain c3" d="M219 102 C 222 118, 230 190, 239 282" stroke-width="3.2"></path><path class="curtain" d="M231 101 C 235 118, 246 190, 258 289" stroke-width="2.6"></path><path class="curtain c2" d="M241 100 C 246 118, 259 190, 273 280" stroke-width="2.4"></path></g>
+<g class="mist" fill="#FFFFFF" fill-opacity="0.55"><path d="M148 290 Q137 296 130 297 Q123 297 115 296 Q107 296 100 295 Q93 294 96 290 Q98 286 106 284 Q115 283 123 283 Q131 284 139 285 Q146 287 147 289 L148 290 Z"></path><path d="M215 294 Q206 302 199 303 Q192 303 184 303 Q176 303 166 301 Q156 300 151 297 Q146 294 151 291 Q156 288 166 286 Q176 284 184 284 Q192 285 199 286 Q206 287 210 291 L215 294 Z"></path><path d="M275 290 Q262 296 255 296 Q248 297 240 297 Q233 296 226 295 Q219 294 222 290 Q225 286 233 285 Q240 283 249 283 Q257 283 265 285 Q272 287 274 288 L275 290 Z"></path></g>
+<g class="mist" fill="#DFF3F6" fill-opacity="0.3"><circle cx="110" cy="272" r="14"></circle><circle cx="150" cy="266" r="18"></circle><circle cx="196" cy="262" r="20"></circle><circle cx="240" cy="268" r="16"></circle><circle cx="270" cy="276" r="12"></circle><circle cx="176" cy="278" r="22"></circle></g>
+<sc-if value="{{falling}}" hint-placeholder-val="{{ false }}">
+<circle class="drop" cx="180" cy="70" r="9" fill="#E8C77A"></circle>
+</sc-if>
+<sc-if value="{{hasResult}}" hint-placeholder-val="{{ false }}">
+<g fill="none" stroke="#E8C77A" stroke-width="3" stroke-linecap="round"><path class="spread" d="M190 305 C 150 315, 100 320, 40 334"></path><path class="spread" d="M190 305 C 190 318, 188 326, 186 338"></path><path class="spread" d="M190 305 C 230 315, 280 322, 330 334"></path></g>
+</sc-if>
+</svg>
+</div>
+</div>
+
+<section class="torn tl" style="background: #FBF7EF; padding: 44px 48px; display: flex; flex-direction: column; gap: 18px" aria-labelledby="offer-title">
+<h2 id="offer-title" style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 28px">Offer something to the falls</h2>
+<label for="idea" style="font-size: 17px; font-weight: 600">Your idea, hope or question</label>
+<textarea id="idea" rows="4" value="{{idea}}" onChange="{{typed}}" placeholder="For example: a seed library for our watershed, or bringing grief circles into my school" style="font-family: Jost, sans-serif; font-size: 17px; line-height: 1.5; padding: 14px 16px; box-sizing: border-box; width: 100%; border: 1.5px solid #8C8178; border-radius: 12px 16px 12px 18px; background: #FFFFFF; color: #2F2B28; resize: vertical"></textarea>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center"><span style="font-size: 14px; font-style: italic">Or try one:</span>
+<sc-for list="{{samples}}" as="s" hint-placeholder-count="3"><button class="chip" onClick="{{s.pick}}">{{s.label}}</button></sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+<button class="go tornbtn" onClick="{{offer}}" disabled="{{cannotOffer}}">Offer it to the falls</button>
+<span style="font-size: 14px; font-style: italic; color: #5A524B">{{remaining}}</span>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5A524B">Your idea stays private to you. Nothing is shared unless you choose to add it to the pool below, and you can withdraw it at any time. In this mockup nothing is saved at all.</p>
+</section>
+
+<sc-if value="{{showCare}}" hint-placeholder-val="{{ false }}">
+<section class="torn tr rise" aria-live="polite" style="background: #E6E2F2; padding: 38px 44px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 26px">Before anything else, we'd like to check in</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55">What you wrote sounds like it might be carrying a lot. You matter more than any idea. If you are in danger or thinking about ending your life, please contact local emergency services, or reach a crisis line where you are (in the US, call or text 988). Talking with someone you trust can help too.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.55">When you feel ready, the grief and care eddy offers gentle company with others who understand.</p>
+<a href="/tributaries" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Visit the grief and care eddy</a>
+</section>
+</sc-if>
+
+<sc-if value="{{hasResult}}" hint-placeholder-val="{{ false }}">
+<section aria-live="polite" class="rise" style="display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #C9CCD6">What the falls noticed</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 34px; color: #DCDCDC">{{reflection}}</h2>
+<p style="margin: 0; font-size: 15px; font-style: italic; color: #C9CCD6">These are suggestions from the River's own library, not answers. The real wisdom is in the people and places they point to.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px">
+<sc-for list="{{streams}}" as="o" hint-placeholder-count="3">
+<article class="torn {{o.tilt}}" style="background: {{o.bg}}; padding: 28px 26px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">{{o.water}}</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 20px">{{o.title}}</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">{{o.text}}</p>
+<div style="font-size: 14px; font-style: italic">{{o.by}}</div>
+<a href="{{o.href}}" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">{{o.cta}}</a>
+</article>
+</sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px">
+<div class="torn tl" style="background: #E8C77A; padding: 28px 30px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">One small first step</div><p style="margin: 0; font-size: 17px; line-height: 1.5">{{step}}</p></div>
+<div class="torn tr" style="background: #E6E2F2; padding: 28px 30px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">A question to sit with</div><p style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-style: italic; font-size: 19px; line-height: 1.4">{{question}}</p></div>
+</div>
+<sc-if value="{{careNote}}" hint-placeholder-val="{{ false }}">
+<p class="torn tl" style="margin: 0; background: #FBF7EF; padding: 22px 28px; font-size: 15px; line-height: 1.5">A note of care: ideas involving Indigenous land, knowledge or stories begin with relationship and consent. The River will only connect you with Indigenous-led groups in the ways they choose.</p>
+</sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center">
+<sc-if value="{{canShare}}" hint-placeholder-val="{{ true }}"><button class="go tornbtn" onClick="{{share}}">Add it to the pool above the falls</button></sc-if>
+<button class="chip" onClick="{{again}}">Offer something else</button>
+</div>
+</section>
+</sc-if>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #C9CCD6">The pool above the falls</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 36px; color: #DCDCDC">Ideas gathering energy</h2>
+<p style="margin: 0; font-size: 17px; max-width: 760px; line-height: 1.55">Shared ideas gather here. Add your energy if you'd join, have a skill, or have space to offer. There are no likes or rankings. When enough energy gathers, an idea spills over into a new stream: a circle, a local project, or a new channel. Stewards welcome each shared idea before it appears.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px">
+<sc-for list="{{pool}}" as="p" hint-placeholder-count="2">
+<article class="torn {{p.tilt}}" style="background: {{p.bg}}; padding: 28px 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase"><span>{{p.where}}</span><span style="text-transform: none; letter-spacing: 0; font-style: italic">{{p.status}}</span></div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 20px">{{p.title}}</h3>
+<div role="img" aria-label="{{p.meterLabel}}" style="display: flex; gap: 6px">
+<sc-for list="{{p.dots}}" as="d" hint-placeholder-count="5"><span style="width: 18px; height: 18px; border-radius: 48% 52% 46% 54%; border: 2px solid #4F7A84; background: {{d.fill}}; display: block"></span></sc-for>
+</div>
+<div style="font-size: 14px; font-style: italic">{{p.gathered}}</div>
+<sc-if value="{{p.open}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button class="chip" onClick="{{p.join}}">I'd join</button>
+<button class="chip" onClick="{{p.skill}}">I have a skill</button>
+<button class="chip" onClick="{{p.space}}">I have space</button>
+</div>
+</sc-if>
+<sc-if value="{{p.spilled}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; font-size: 15px; font-weight: 600">It has spilled over into a new stream. A steward will help the people gathered meet for the first time, and can open a Hylo group so the stream has a home.</p>
+<a href="/hylo" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">See how new streams gather on Hylo</a>
+</sc-if>
+<sc-if value="{{p.mine}}" hint-placeholder-val="{{ false }}"><button class="chip" onClick="{{p.withdraw}}">Withdraw my idea</button></sc-if>
+</article>
+</sc-for>
+</div>
+</section>
+
+<section class="torn tr" style="background: #CFE1E4; padding: 32px 40px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 22px">How the falls is cared for</h2>
+<ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.7">
+<li>Suggestions come only from offerings, partners and practices already in the River, each credited and linked to its makers.</li>
+<li>Your ideas are private by default; sharing is a clear choice, and anything shared can be withdrawn.</li>
+<li>Stewards welcome shared ideas before they appear, and nothing is ranked or scored.</li>
+<li>If something you write sounds heavy, the falls pauses and offers care first.</li>
+<li>Ideas touching Indigenous land, knowledge or stories begin with relationship and consent.</li>
+<li>A gentle limit of a few offerings a day keeps the falls sustainable and unhurried.</li>
+<li>When a stream spills over, the people who added energy are asked before anyone shares their name, and its new home on Hylo is opened only with their agreement.</li>
+</ul>
+</section>
+</main>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>In this mockup the falls matches your words to the River's library. In the real River, AI would help draw these connections, always from the River's own offerings. Ideas in square brackets are examples.</span></footer>
+</div>
+</template>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { idea: '', falling: false, result: null, care: false, used: 0, shared: false, pool: [
+      { id: 'p1', title: '[A seed library for the Santa Monica Mountains watershed]', where: 'Santa Monica Mountains', join: 2, skill: 1, space: 0, mine: false },
+      { id: 'p2', title: '[A monthly grief circle at Corra Woods]', where: 'County Clare', join: 3, skill: 1, space: 0, mine: false }
+    ] };
+  }
+  componentWillUnmount() { if (this.t) { clearTimeout(this.t); } }
+  library() {
+    return [
+      { keys: ['grief', 'loss', 'sad', 'anxiety', 'anxious', 'overwhelm', 'despair', 'mourning', 'heartbreak'], theme: 'grief and care', items: [
+        { water: 'Eddy', title: 'Good Grief Network', text: 'Peer circles for people overwhelmed by the state of the world.', by: 'Good Grief Network', href: 'https://www.goodgriefnetwork.org/', cta: 'Visit their site' },
+        { water: 'Eddy', title: 'The Work That Reconnects', text: 'Gratitude, honouring pain for the world, and going forth.', by: 'Joanna Macy and a global network', href: 'https://workthatreconnects.org/', cta: 'Visit their site' },
+        { water: 'Groundwater', title: 'Sympoiesis', text: 'Workshops that help people and organisations metabolise loss and regenerate living systems.', by: 'Sympoiesis', href: 'https://www.sympoiesis.world/', cta: 'Visit their site' }],
+        step: 'Invite two or three people who feel the same to sit together outside, once, with no agenda but listening.', q: 'What is your grief asking you to love more fiercely?' },
+      { keys: ['school', 'child', 'children', 'kid', 'teach', 'teacher', 'student', 'youth', 'class', 'education'], theme: 'young people and learning', items: [
+        { water: 'Estuary', title: 'Relational Resource Departments', text: 'Bringing seasons, place and the more-than-human world into how a school learns and decides.', by: 'Institute of Relational Being', href: '/channels', cta: 'See channels' },
+        { water: 'Stream', title: 'ReBe group sessions', text: 'A teacher-led way for a class to make pictures together with the Beings around their school.', by: 'ReBe, by the Institute of Relational Being', href: '/my-river', cta: 'See the streams' }],
+        step: 'Ask one teacher or parent whether they would walk the school grounds with you to meet the Beings who live there.', q: 'What do the children already notice that the adults have stopped seeing?' },
+      { keys: ['seed', 'food', 'garden', 'farm', 'soil', 'compost', 'grow', 'harvest'], theme: 'food, soil and growing', items: [
+        { water: 'Local currents', title: 'Transition groups near you', text: 'Local groups working on food, energy, repair and community.', by: 'Transition Network', href: 'https://maps.transitionnetwork.org/', cta: 'Open their map' },
+        { water: 'Local currents', title: 'Growers in your bioregion', text: 'Community gardens and food growers gathered by watershed.', by: 'Local currents', href: '/local-currents', cta: 'See who is near you' }],
+        step: 'Find out who already saves seeds or grows food within a few miles of you, and ask what they need.', q: 'Which plants have fed the people of this place for the longest?' },
+      { keys: ['tree', 'wood', 'woodland', 'forest', 'native', 'restore', 'restoration', 'plant'], theme: 'woodland and restoration', items: [
+        { water: 'Ocean', title: 'Hometree', text: 'Restoring native woodland and temperate rainforest in the west of Ireland.', by: 'Hometree', href: 'https://www.hometree.ie/', cta: 'Visit their site' },
+        { water: 'Lake', title: 'Corra Woods, County Clare', text: 'IRB’s home for retreats and residencies, looking for partners in woodland care.', by: 'Institute of Relational Being', href: '/ocean', cta: 'See their profile' }],
+        step: 'Spend an hour with one old tree near you and notice who else depends on them.', q: 'What would this land look like if it were allowed to remember itself?' },
+      { keys: ['money', 'fund', 'funding', 'invest', 'capital', 'finance', 'grant', 'wealth', 'donor'], theme: 'money and value', items: [
+        { water: 'Confluence', title: 'The capital journey', text: 'Learning to see money as part of the living world, open to everyone.', by: 'With gratitude to Nate Hagens, Indy Johar and Dark Matter Labs', href: 'Capital/my-river', cta: 'Begin the journey' },
+        { water: 'Confluence', title: 'Bioregional Financing Facilities', text: 'Finance grown in dialogue with a place, under local governance.', by: 'BioFi Project and Dark Matter Labs', href: 'https://darkmatterlabs.org/Bioregional-Financing-Facilities', cta: 'Read on their site' }],
+        step: 'Write down where the money for this idea might come from, and who would have a say in how it is used.', q: 'If this money could speak, what would it ask of you?' },
+      { keys: ['energy', 'climate', 'oil', 'carbon', 'warming', 'heat', 'emission'], theme: 'energy and climate', items: [
+        { water: 'Tributary', title: 'The Great Simplification', text: 'A 32-minute animation on energy, our economy and the transition ahead.', by: 'Nate Hagens and team', href: '/tributaries', cta: 'Open the tributary' },
+        { water: 'Channel', title: 'Center for Biological Diversity', text: 'Climate law, public lands and campaigns you can join.', by: 'Center for Biological Diversity', href: 'https://www.biologicaldiversity.org/', cta: 'See their actions' }],
+        step: 'Notice one way energy reaches your day, and where it comes from.', q: 'What would you keep, even with far less energy?' },
+      { keys: ['species', 'animal', 'wildlife', 'bird', 'endangered', 'habitat', 'cougar', 'insect', 'bee', 'pollinator'], theme: 'wild neighbours', items: [
+        { water: 'Channel', title: 'Center for Biological Diversity', text: 'Standing up, in law and in public, for Beings who cannot speak in a courtroom.', by: 'Center for Biological Diversity', href: 'https://www.biologicaldiversity.org/', cta: 'See their actions' },
+        { water: 'Stream', title: 'Meeting the Beings near you', text: 'Making pictures together with the creatures and plants around your home.', by: 'ReBe', href: '/my-river', cta: 'See the streams' }],
+        step: 'Learn the name of one wild neighbour you see often, and where they shelter.', q: 'Who lived here before the roads, and who is still trying to?' },
+      { keys: ['work', 'organisation', 'organization', 'company', 'team', 'leader', 'business', 'workplace', 'council'], theme: 'organisations and leadership', items: [
+        { water: 'Estuary', title: 'Relational Resource Departments', text: 'The living world in how an organisation meets, decides and cares.', by: 'Institute of Relational Being', href: '/channels', cta: 'See channels' },
+        { water: 'Estuary', title: 'Healing-centred leadership', text: 'Strengths first, power that circulates, care for the people doing the work.', by: 'Lana Jelenjev', href: 'https://lanajelenjev.com/practice-with-me', cta: 'Practise with Lana' }],
+        step: 'Hold one meeting outdoors, and begin by naming the place you are in.', q: 'Who is not in the room when your organisation decides?' },
+      { keys: ['art', 'story', 'stories', 'film', 'music', 'design', 'photo', 'poem', 'paint', 'write'], theme: 'art and story', items: [
+        { water: 'Groundwater', title: 'Sympoiesis', text: 'Storytelling and design made with the living world.', by: 'Sympoiesis', href: 'https://www.sympoiesis.world/', cta: 'Visit their site' },
+        { water: 'Stream', title: 'Co-create a poem with a Being', text: 'A ReBe practice of writing together with a tree, a creek or Moon.', by: 'ReBe', href: '/my-river', cta: 'See the streams' }],
+        step: 'Make one small piece with a Being, not about them, and share it with one person.', q: 'What does this place want to say through you?' },
+      { keys: ['community', 'neighbour', 'neighbor', 'local', 'town', 'village', 'street'], theme: 'community', items: [
+        { water: 'Local currents', title: 'Groups in your bioregion', text: 'People near you already tending the place you live.', by: 'Local currents', href: '/local-currents', cta: 'See who is near you' }],
+        step: 'Knock on one door, or send one message, to someone nearby who might care about this too.', q: 'Who in your neighbourhood is already doing a version of this?' },
+      { keys: ['water', 'river', 'creek', 'stream', 'ocean', 'sea', 'lake', 'watershed'], theme: 'water', items: [
+        { water: 'Stream', title: 'Listening to water', text: 'Five minutes beside a creek, fountain or the sea, noticing what changes.', by: 'ReBe', href: '/my-river', cta: 'See the streams' },
+        { water: 'Ocean', title: 'Bioregional Learning Centre', text: 'Learning journeys that follow a watershed from source to sea.', by: 'Bioregional Learning Centre', href: 'https://www.bioregion.org.uk/about', cta: 'Visit their site' }],
+        step: 'Trace where the water from your tap comes from, and where it goes after.', q: 'What would the creek ask of us, if we listened?' },
+      { keys: ['system', 'systems', 'worldview', 'philosophy', 'metacrisis', 'complexity', 'imagination', 'emergence'], theme: 'systems and worldviews', items: [
+        { water: 'Groundwater', title: 'Perspectiva', text: 'Essays, gatherings and books on worldviews, imagination and the metacrisis.', by: 'Perspectiva', href: 'https://systems-souls-society.com/', cta: 'Visit Perspectiva' },
+        { water: 'Tributary', title: 'Honesty, Reasonableness, Kindness', text: 'Alan Rayner on natural inclusionality: how we are made of relationship.', by: 'Alan Rayner', href: 'https://admrayner.medium.com/honesty-reasonableness-kindness-the-three-core-values-of-natural-inclusionality-1cd6e24816ed', cta: 'Read the essay' }],
+        step: 'Draw your idea as a small map: what feeds it, and what it would feed.', q: 'Where is energy already gathering around this, without anyone planning it?' }
+    ];
+  }
+  think(text) {
+    var t = (' ' + text.toLowerCase() + ' ');
+    var crisis = ['suicide', 'kill myself', 'end my life', 'want to die', 'self harm', 'self-harm', 'hurt myself', 'no reason to live', 'end it all'];
+    for (var c = 0; c < crisis.length; c++) { if (t.indexOf(crisis[c]) >= 0) { return { care: true }; } }
+    var lib = this.library(), hits = [];
+    lib.forEach(function (g) { var n = 0; g.keys.forEach(function (k) { if (t.indexOf(k) >= 0) { n++; } }); if (n) { hits.push({ g: g, n: n }); } });
+    hits.sort(function (a, b) { return b.n - a.n; });
+    var indigenous = /indigenous|native land|tongva|land back|first nations|sacred/.test(t);
+    if (!hits.length) {
+      return { reflection: 'Your idea is still finding its shape, and that is a good place to begin.', streams: [
+        { water: 'Source', title: 'Return to the source', text: 'A few gentle questions about what you love may show where this idea wants to flow.', by: 'Institute of Relational Being', href: '/source', cta: 'Begin at the source' },
+        { water: 'Lake', title: 'A Relational ID Circle', text: 'Five weeks with a few others, mapping the web that makes each of you.', by: 'Institute of Relational Being', href: '/my-river', cta: 'See the lakes' },
+        { water: 'Groundwater', title: 'Perspectiva', text: 'Thinking about how the way we see shapes what we do.', by: 'Perspectiva', href: 'https://systems-souls-society.com/', cta: 'Visit Perspectiva' }],
+        step: 'Tell one person about your idea and listen to what they add.', question: 'What first drew you to this?', careNote: indigenous };
+    }
+    var themes = hits.slice(0, 2).map(function (h) { return h.g.theme; });
+    var seen = {}, items = [];
+    hits.forEach(function (h) { h.g.items.forEach(function (it) { if (!seen[it.title] && items.length < 3) { seen[it.title] = true; items.push(it); } }); });
+    return { reflection: 'Your idea flows toward ' + themes.join(' and ') + '.', streams: items, step: hits[0].g.step, question: hits[0].g.q, careNote: indigenous };
+  }
+  renderVals() {
+    var self = this, s = this.state, LIMIT = 5;
+    var palette = ['#CFE1E4', '#DCE6D2', '#F2D3BC'];
+    var res = s.result;
+    var pool = s.pool.map(function (p, i) {
+      var total = p.join + p.skill + p.space, spilled = total >= 5;
+      var add = function (key) { return function () { var np = self.state.pool.map(function (q) { if (q.id !== p.id) { return q; } var c = {}; for (var k in q) { c[k] = q[k]; } c[key] = q[key] + 1; return c; }); self.setState({ pool: np }); }; };
+      var dots = []; for (var d = 0; d < 5; d++) { dots.push({ fill: d < total ? '#4F7A84' : 'transparent' }); }
+      return { title: p.title, where: p.where, tilt: i % 2 ? 'tr' : 'tl', bg: p.mine ? '#E8C77A' : '#FBF7EF', dots: dots, meterLabel: Math.min(total, 5) + ' of 5 gatherings of energy',
+        gathered: p.join + ' would join · ' + p.skill + ' with skills · ' + p.space + ' with space', open: !spilled, spilled: spilled,
+        status: p.mine ? 'Welcomed by a steward (instant in this demo)' : (spilled ? 'Spilled over' : 'Gathering'),
+        join: add('join'), skill: add('skill'), space: add('space'), mine: p.mine,
+        withdraw: function () { self.setState({ pool: self.state.pool.filter(function (q) { return q.id !== p.id; }), shared: false }); } };
+    });
+    var setIdea = function (v) { return function () { self.setState({ idea: v }); }; };
+    return {
+      idea: s.idea,
+      typed: function (e) { self.setState({ idea: e && e.target ? e.target.value : '' }); },
+      samples: [
+        { label: 'A seed library for our watershed', pick: setIdea('A seed library for our watershed, run with local growers') },
+        { label: 'Grief circles in my school', pick: setIdea('Bringing grief circles and time with trees into my school') },
+        { label: 'Funding creek restoration', pick: setIdea('How could we fund restoring the creek near our home?') }
+      ],
+      cannotOffer: !s.idea || s.idea.trim().length < 3 || s.used >= LIMIT || s.falling,
+      remaining: s.used >= LIMIT ? 'The falls rests now. Come back tomorrow.' : (LIMIT - s.used) + ' offerings left today',
+      offer: function () {
+        var out = self.think(self.state.idea);
+        if (out.care) { self.setState({ care: true, result: null, falling: false }); return; }
+        var reduce = false; try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+        self.setState({ falling: true, result: null, care: false, used: self.state.used + 1, shared: false });
+        self.t = setTimeout(function () { self.setState({ falling: false, result: out }); }, reduce ? 0 : 1700);
+      },
+      falling: s.falling,
+      showCare: s.care,
+      hasResult: !!res,
+      reflection: res ? res.reflection : '',
+      streams: res ? res.streams.map(function (o, i) { var c = {}; for (var k in o) { c[k] = o[k]; } c.bg = palette[i % 3]; c.tilt = i % 2 ? 'tr' : 'tl'; return c; }) : [],
+      step: res ? res.step : '', question: res ? res.question : '', careNote: !!(res && res.careNote),
+      canShare: !!res && !s.shared,
+      share: function () { var title = self.state.idea.trim(); if (title.length > 140) { title = title.slice(0, 137) + '…'; } self.setState({ shared: true, pool: [{ id: 'mine' + Date.now(), title: title, where: 'Your bioregion', join: 1, skill: 0, space: 0, mine: true }].concat(self.state.pool) }); },
+      again: function () { self.setState({ result: null, idea: '', care: false, shared: false }); },
+      pool: pool
+    };
+  }
+}
+</script>
+<script src="/js/river-runtime.js"></script>
+</body>
+</html>

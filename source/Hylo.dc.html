@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Relational River: gathering on Hylo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply}
+.tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip{-webkit-mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important;font-family:Jost,sans-serif;font-size:15px;color:#2F2B28;background:#FBF7EF;padding:9px 16px;min-height:44px;cursor:pointer}
+.chip.on{background:#A9C79A;font-weight:600}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:700;font-size:19px;color:#2F2B28;background:#F5EEE1;border:none;padding:16px 30px;min-height:52px;cursor:pointer;text-decoration:none;display:inline-block}
+.toggle{display:flex;gap:14px;align-items:flex-start;padding:12px 4px;min-height:44px;cursor:pointer;font-size:16px;line-height:1.45}
+.toggle input{width:22px;height:22px;margin-top:2px;accent-color:#4F7A84;flex:none}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+@keyframes flow{to{stroke-dashoffset:-240}}
+.flow{stroke-dasharray:4 20;animation:flow 7s linear infinite}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 26px"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Tributary.dc.html"><b>Eddies</b><span>grief, gratitude and returning practices</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Channels.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="Journey.dc.html" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 36px; align-items: center">
+<div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #C9CCD6">Connect · gather on Hylo</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 52px; line-height: 1.05; color: #DCDCDC">The River points the way. Hylo is where we meet.</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55">Hylo is a not-for-profit, open-source community platform made for purpose-driven and place-based groups, with a living map, nested groups, events, and requests and offers. Rather than building its own social network, the Relational River flows into Hylo, so circles, projects and networks can gather in a commons that shares the River’s values.</p>
+</div>
+<svg viewBox="0 0 340 260" aria-hidden="true" style="flex: 0 1 340px; width: 100%; max-width: 340px; height: auto">
+<path d="M40 20 C 80 60, 60 110, 120 140 C 170 165, 190 200, 170 250" fill="none" stroke="#9FD3DC" stroke-width="10" stroke-linecap="round"></path>
+<path class="flow" d="M40 20 C 80 60, 60 110, 120 140 C 170 165, 190 200, 170 250" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"></path>
+<path d="M120 140 C 160 120, 200 110, 236 112" fill="none" stroke="#A9C79A" stroke-width="4" stroke-linecap="round"></path>
+<g fill="#A9C79A"><circle cx="250" cy="112" r="15"></circle><circle cx="292" cy="78" r="11"></circle><circle cx="300" cy="140" r="11"></circle><circle cx="268" cy="182" r="9"></circle></g>
+<g stroke="#A9C79A" stroke-width="2" fill="none"><path d="M250 112 L292 78 M250 112 L300 140 M250 112 L268 182 M292 78 L300 140"></path></g>
+<g font-family="Jost, sans-serif" font-size="13" fill="#EDEDED"><text x="10" y="14">the River</text><text x="232" y="214">circles on Hylo</text></g>
+</svg>
+</div>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 34px; color: #DCDCDC">How the River and Hylo flow together</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px">
+<div class="torn tl" style="background: #CFE1E4; padding: 26px 26px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">1 · Find</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 20px">The River shows the way in</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Local currents and the Ocean show which circles and networks gather on Hylo near you, by bioregion.</p></div>
+<div class="torn tr" style="background: #DCE6D2; padding: 26px 26px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">2 · Gather</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 20px">Circles meet on Hylo</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Relational ID Circles, lakes, local currents and channels keep their conversations, events and offers in their own Hylo groups.</p></div>
+<div class="torn tl" style="background: #F2D3BC; padding: 26px 26px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">3 · Spill over</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 20px">New streams find a home</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">When an idea at the waterfall gathers enough energy, a steward can open a Hylo group or project so the people who joined can meet.</p></div>
+<div class="torn tr" style="background: #E6E2F2; padding: 26px 26px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">4 · Flow back</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 20px">What is public flows back</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Public events and requests and offers from Hylo groups can appear along the River, and only what each group has chosen to make public.</p></div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 34px; color: #DCDCDC">Groups to begin with</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px">
+<article class="torn tl" style="background: #FBF7EF; padding: 32px 32px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">Home group</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 24px">Institute of Relational Being</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55">IRB’s own Hylo group: the home for Relational ID Circles, gatherings in Laurel and Fryman Canyons and at Corra Woods, ReBe group sessions, and people tending the Relational River together.</p>
+<div style="font-size: 14px; font-style: italic">Smaller groups can grow inside it, for each circle and place.</div>
+<a href="https://www.hylo.com/groups/institute-of-relational-being/chat" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Join IRB on Hylo</a>
+</article>
+<article class="torn tr" style="background: #FBF7EF; padding: 32px 32px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">Networks and private groups</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 24px">Networks that choose to be found</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55">Many networks on Hylo are private, held by invitation. They appear on the River only if their members decide together to be listed, and then with a gentle way to ask to join. A private network can stay entirely unlisted, and still show up in a member’s own My river if they connect Hylo.</p>
+<div style="font-size: 14px; font-style: italic">[A network that has chosen to be listed]</div>
+<a href="#connect" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">How connecting works</a>
+</article>
+<article class="torn tl" style="background: #FBF7EF; padding: 32px 32px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">Near you</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 24px">Hylo’s public map</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55">A map of public groups and public posts from around the world. A good way to find who is already gathering in your watershed.</p>
+<div style="font-size: 14px; font-style: italic">Only groups that choose to be public appear.</div>
+<a href="https://www.hylo.com/" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Explore Hylo</a>
+</article>
+</div>
+</section>
+
+<section aria-live="polite" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 34px; color: #DCDCDC">Requests and offers along the River</h2>
+<p style="margin: 0; font-size: 17px; max-width: 760px; line-height: 1.55">Mutual support from Hylo groups in a bioregion, shown where it can help. Replies happen on Hylo, with the people who posted them.</p>
+</div>
+<div role="group" aria-label="Choose a bioregion" style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{regions}}" as="r" hint-placeholder-count="2"><button class="{{r.cls}}" aria-pressed="{{r.on}}" onClick="{{r.pick}}">{{r.label}}</button></sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
+<sc-for list="{{offers}}" as="o" hint-placeholder-count="3">
+<article class="torn {{o.tilt}}" style="background: {{o.bg}}; padding: 24px 26px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">{{o.kind}}</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 19px">{{o.title}}</h3>
+<div style="font-size: 14px; font-style: italic">{{o.group}}</div>
+<a href="https://www.hylo.com/" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Reply on Hylo</a>
+</article>
+</sc-for>
+</div>
+</section>
+
+<section id="connect" class="torn tl" style="background: #FBF7EF; padding: 40px 44px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 30px">Connect your Hylo, only if you wish</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; max-width: 760px">Everything on the River works without a Hylo account. Connecting simply lets the two meet in My river. You choose exactly what flows between them, and you can change your mind at any time.</p>
+<label class="toggle"><input type="checkbox" checked="{{a}}" onChange="{{toggleA}}"><span><b>Show my Hylo groups in My river</b><br>The River sees the names of groups you belong to, nothing else.</span></label>
+<label class="toggle"><input type="checkbox" checked="{{b}}" onChange="{{toggleB}}"><span><b>Let me post requests and offers from the River</b><br>Posts go to the Hylo group you choose, under your name, only when you press post.</span></label>
+<label class="toggle"><input type="checkbox" checked="{{c}}" onChange="{{toggleC}}"><span><b>Tell me about public events near my bioregion</b><br>Uses only the rough area you have already chosen on the River.</span></label>
+<p style="margin: 0; font-size: 14px; font-style: italic; color: #5A524B">Never shared: your constellation, your source answers, your waterfall ideas and anything else private on the River. You sign in on Hylo’s own page, so the River never sees your Hylo password.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+<sc-if value="{{notConnected}}" hint-placeholder-val="{{ true }}"><button class="go tornbtn" onClick="{{connect}}">Connect with Hylo</button></sc-if>
+<sc-if value="{{connected}}" hint-placeholder-val="{{ false }}"><span style="font-size: 16px; font-weight: 600">Connected (in this mockup, nothing is really connected).</span><button class="chip" onClick="{{disconnect}}">Disconnect</button></sc-if>
+</div>
+</section>
+
+<section class="torn tr" style="background: #DCE6D2; padding: 36px 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between">
+<div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 26px">Steward a group on Hylo?</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.55">Add your group to the River with its Hylo link and bioregion. It will appear in Local currents or the Ocean, lightly reviewed against the River’s principles, and you can change or remove it at any time.</p>
+</div>
+<a href="LocalCurrents.dc.html" class="go tornbtn">Add a Hylo group</a>
+</section>
+</main>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>Hylo is an open-source project stewarded by Terran Collective with partners, contributors and donors around the world. With gratitude to the Hylo team. Items in square brackets are examples or links to add.</span></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2200}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { r: 'la', a: true, b: false, c: true, connected: false }; }
+  renderVals() {
+    var self = this, s = this.state;
+    var O = {
+      la: [
+        { kind: 'Offer', title: '[Native seeds to share from a backyard in the Valley]', group: '[A Santa Monica Mountains group on Hylo]' },
+        { kind: 'Request', title: '[Hands for a creek clean-up morning]', group: '[A watershed care group on Hylo]' },
+        { kind: 'Offer', title: '[A sit spot walk in Laurel Canyon]', group: 'Institute of Relational Being' }],
+      clare: [
+        { kind: 'Offer', title: '[A woodland walk at Corra Woods]', group: 'Institute of Relational Being' },
+        { kind: 'Request', title: '[Help planting native trees this winter]', group: '[A County Clare group on Hylo]' },
+        { kind: 'Offer', title: '[A grief circle by Lough Derg]', group: '[A Work That Reconnects circle on Hylo]' }]
+    };
+    var bgs = ['#CFE1E4', '#DCE6D2', '#F2D3BC'];
+    var keys = [['la', 'Santa Monica Mountains'], ['clare', 'County Clare and Lough Derg']];
+    return {
+      regions: keys.map(function (k) { var on = k[0] === s.r; return { label: k[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ r: k[0] }); } }; }),
+      offers: O[s.r].map(function (o, i) { return { kind: o.kind, title: o.title, group: o.group, bg: bgs[i % 3], tilt: i % 2 ? 'tr' : 'tl' }; }),
+      a: s.a, b: s.b, c: s.c,
+      toggleA: function () { self.setState({ a: !self.state.a }); },
+      toggleB: function () { self.setState({ b: !self.state.b }); },
+      toggleC: function () { self.setState({ c: !self.state.c }); },
+      connected: s.connected, notConnected: !s.connected,
+      connect: function () { self.setState({ connected: true }); },
+      disconnect: function () { self.setState({ connected: false }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

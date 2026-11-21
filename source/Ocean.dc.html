@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Relational River: the ocean</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#CFE1E4;border-color:#2F2B28;font-weight:600}
+.tag{font-size:13px;background:#F3ECDF;border:1px solid #8C8178;border-radius:12px 14px 10px 16px;padding:4px 10px}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#F5EEE1;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+</style>
+</helmet>
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Tributary.dc.html"><b>Eddies</b><span>grief, gratitude and returning practices</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Channels.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="Journey.dc.html" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">The ocean</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 52px; letter-spacing: -0.03em; line-height: 1">Everything already flowing</h1>
+<p style="margin: 0; font-size: 19px; max-width: 740px; line-height: 1.5">A meshwork of projects around the world, tending land, water, culture and one another. Find them by theme, place or what they need, and meet them as relationships.</p>
+</div>
+
+<div role="group" aria-label="Filter by theme" style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{themes}}" as="t" hint-placeholder-count="5"><button class="{{t.cls}}" aria-pressed="{{t.on}}" onClick="{{t.pick}}">{{t.label}}</button></sc-for>
+</div>
+
+<div aria-live="polite" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px">
+<sc-for list="{{projects}}" as="p" hint-placeholder-count="6">
+<article class="torn {{p.tilt}}" style="background: #FBF7EF; padding: 28px 28px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">{{p.place}}</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 21px">{{p.name}}</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">{{p.text}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px"><span class="tag">{{p.theme}}</span></div>
+<a href="{{p.href}}" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Visit their site</a>
+</article>
+</sc-for>
+</div>
+<p style="margin: -12px 0 0; font-size: 14px; font-style: italic; color: #C9CCD6">Sample listings for this mockup. Each project appears only once it has said yes.</p>
+
+<section style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Networks gathering on Hylo</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 30px; letter-spacing: -0.02em">Where the conversation lives</h2>
+<p style="margin: 0; font-size: 17px; max-width: 740px; line-height: 1.5">Many networks in the ocean already gather on Hylo, a not-for-profit, open-source commons with nested groups and a living map. The River shows the way to them, and the conversations stay with the groups themselves.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px">
+<article class="torn tl" style="background: #DCE6D2; padding: 28px 28px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Home group · on Hylo</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 21px">Institute of Relational Being</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Circles, gatherings in Laurel and Fryman Canyons and at Corra Woods, and the people tending the Relational River together.</p><a href="https://www.hylo.com/groups/institute-of-relational-being/chat" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Join IRB on Hylo</a></article>
+<article class="torn tr" style="background: #DCE6D2; padding: 28px 28px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Networks · on Hylo</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 21px">[A network that has chosen to be listed]</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Many networks on Hylo are private and held by invitation. They appear here only if their members decide together to be found.</p><a href="Hylo.dc.html" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Gather on Hylo</a></article>
+<article class="torn tl" style="background: #FBF7EF; padding: 28px 28px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Your network?</div><h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 21px">[A network you steward on Hylo]</h3><p style="margin: 0; font-size: 15px; line-height: 1.5">Add your Hylo network with its link, themes and bioregions, and it can appear here and in Local currents.</p><a href="Hylo.dc.html" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Add a Hylo group</a></article>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Confluences</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 34px; letter-spacing: -0.02em">Where streams meet</h2>
+<p style="margin: 0; font-size: 18px; max-width: 720px; line-height: 1.5">Each project keeps a simple profile of what it offers and what it needs, so organisations working in parallel can find each other. The River suggests connections; the projects decide.</p>
+</div>
+<article class="torn tl" style="background: #CFE1E4; padding: 38px 44px; display: flex; flex-wrap: wrap; gap: 32px">
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Example profile</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px">Corra Woods</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.5">County Clare, between Lough Derg and Lough Graney. A home for retreats, workshops and residencies of the Institute of Relational Being.</p>
+</div>
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 8px">
+<h4 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 17px">Offers</h4>
+<ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.7"><li>Space for gatherings</li><li>Relational practice and facilitation</li><li>[Seasonal residencies]</li></ul>
+</div>
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 8px">
+<h4 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 17px">Looking for</h4>
+<ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.7"><li>Local partners in woodland care</li><li>Ecologists for a baseline survey</li><li>[Volunteers for spring]</li></ul>
+</div>
+<div style="flex: 1 1 100%; display: flex; flex-wrap: wrap; gap: 14px; align-items: center"><a href="Ocean.dc.html" class="go tornbtn">Suggest a connection</a><span style="font-size: 14px; font-style: italic">A possible match nearby: Hometree, native woodland restoration in Clare</span></div>
+</article>
+<div class="torn tr" style="background: #F2D3BC; padding: 28px 38px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+<p style="margin: 0; font-size: 17px; max-width: 680px">Holding wealth and wondering where it might help? Begin with the capital journey: learning first, then meeting projects as relationships.</p>
+<a href="CapitalJourney.dc.html" class="go tornbtn">Open the capital journey</a>
+</div>
+</section>
+</main>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being, with gratitude to every project it points to.</span></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { t: 'all' }; }
+  renderVals() {
+    var self = this, t = this.state.t;
+    var P = [
+      { name: 'Hometree', place: 'Co. Clare, Ireland', text: 'Restoring native woodland and temperate rainforest in the west of Ireland.', theme: 'Woodland and land', k: 'land', href: 'https://www.hometree.ie/' },
+      { name: 'Bioregional Learning Centre', place: 'South Devon, England', text: 'Bioregioning and learning journeys toward a resilient region.', theme: 'Bioregional', k: 'bio', href: 'https://www.bioregion.org.uk/about' },
+      { name: 'Good Grief Network', place: 'Worldwide', text: 'Peer support for people overwhelmed by the state of the world.', theme: 'Grief and care', k: 'grief', href: 'https://www.goodgriefnetwork.org/' },
+      { name: 'Regenerative Communities Network', place: 'Worldwide', text: 'Place-based transformation toward regenerative economies, convened by Capital Institute.', theme: 'Economics and finance', k: 'money', href: 'https://capitalinstitute.org/regenerative-communities/' },
+      { name: 'Transition Network', place: 'Worldwide', text: 'Local groups working on food, energy, repair and community.', theme: 'Bioregional', k: 'bio', href: 'https://maps.transitionnetwork.org/' },
+      { name: 'Dark Matter Labs', place: 'Worldwide', text: 'Optionality, risk-in capital and bioregional finance.', theme: 'Economics and finance', k: 'money', href: 'https://optionality.darkmatterlabs.org/' }
+    ];
+    var T = [['all', 'All'], ['land', 'Woodland and land'], ['bio', 'Bioregional'], ['grief', 'Grief and care'], ['money', 'Economics and finance']];
+    var shown = P.filter(function (p) { return t === 'all' || p.k === t; }).map(function (p, i) { return { name: p.name, place: p.place, text: p.text, theme: p.theme, href: p.href, tilt: i % 2 ? 'tr' : 'tl' }; });
+    return {
+      themes: T.map(function (x) { var on = x[0] === t; return { label: x[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ t: x[0] }); } }; }),
+      projects: shown
+    };
+  }
+}
+</script>
+</body>
+</html>
