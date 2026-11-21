@@ -110,7 +110,7 @@ def main():
         target.write_text(page)
         print('built', target.relative_to(OUT))
     # copy shared files
-    for sub in ('assets', 'js'):
+    for sub in ('assets', 'js', 'data'):
         dest = OUT / sub
         dest.mkdir(exist_ok=True)
         for f in (ROOT / sub).iterdir():
