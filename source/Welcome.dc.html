@@ -86,11 +86,60 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .vgroup{position:static}
 .vmenu{left:0;right:0;min-width:0;width:auto}
 }
+.gwrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.glogo{transition:filter 1.2s ease}
+.glogo.glow{animation:lglow 1.8s ease-in-out infinite}
+@keyframes lglow{0%,100%{filter:drop-shadow(0 0 2px rgba(232,199,122,.35))}50%{filter:drop-shadow(0 0 12px rgba(232,199,122,.85))}}
+.guidebtn{font-family:Jost,sans-serif;font-size:15px;font-weight:500;color:#F5EEE1;min-height:44px;padding:8px 16px;cursor:pointer;border:1px solid rgba(232,199,122,.55);background:rgba(232,199,122,.10);border-radius:22px 16px 24px 15px;transition:opacity 1.4s ease,background 1.4s ease,border-color 1.4s ease,box-shadow 1.4s ease}
+.guidebtn.glow{background:rgba(232,199,122,.22);animation:gpulse 1.8s ease-in-out infinite}
+@keyframes gpulse{0%,100%{box-shadow:0 0 4px rgba(232,199,122,.3);transform:scale(1)}50%{box-shadow:0 0 22px rgba(232,199,122,.7);transform:scale(1.04)}}
+.guidebtn.faint{opacity:.6;background:transparent;border-color:rgba(237,237,237,.28)}
+.guidebtn.faint:hover,.guidebtn.faint:focus-visible{opacity:1;border-color:rgba(232,199,122,.7)}
+.glayer{position:absolute;left:0;top:0;width:100%;height:0;overflow:visible;z-index:60;pointer-events:none}
+.rv{position:absolute;left:0;top:0;width:112px;height:76px;opacity:0;transition:opacity .5s ease;will-change:transform}
+.rv.on{opacity:1}
+.rv-flip{width:100%;height:100%;transition:transform .25s ease}
+.rv.flip .rv-flip{transform:scaleX(-1)}
+.rv-svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 3px rgba(245,238,225,.55)) drop-shadow(0 0 14px rgba(190,205,255,.35))}
+.rv-bodyg > path:nth-of-type(2),.rv-wing > path:first-child,.rv-fold > path:first-child,.rv-farwing path{stroke:rgba(178,192,245,.7);stroke-width:1;stroke-linejoin:round}
+.rv-wing,.rv-farwing{transform-box:view-box;transform-origin:60px 46px}
+.rv.flying .rv-wing{animation:flap .42s ease-in-out infinite alternate}
+.rv.flying .rv-farwing{animation:flap2 .42s ease-in-out infinite alternate}
+@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(-.62)}}
+@keyframes flap2{from{transform:scaleY(.85)}to{transform:scaleY(-.5)}}
+.rv-fold,.rv-legs{display:none}
+.rv.perched .rv-fold,.rv.perched .rv-legs{display:inline}
+.rv.perched .rv-wing,.rv.perched .rv-farwing{display:none}
+.rv-bodyg,.rv-fold{transform-box:view-box;transform-origin:71px 66px}
+.rv.perched .rv-bodyg,.rv.perched .rv-fold{transform:rotate(-22deg)}
+.rv-eye{transform-box:fill-box;transform-origin:center}
+.rv.perched .rv-eye{animation:blink 5s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.rv.perched .rv-sheen{animation:sheen 4s ease-in-out infinite}
+@keyframes sheen{0%,100%{opacity:.25}50%{opacity:.6}}
+.gbubble{position:absolute;width:340px;max-width:calc(100vw - 32px);box-sizing:border-box;pointer-events:auto;background:#FBF7EF;color:#2F2B28;padding:20px 22px 14px;border-radius:24px 30px 20px 34px;box-shadow:0 10px 30px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:10px;opacity:0;transition:opacity .35s ease}
+.gbubble.placed{opacity:1}
+.gwho{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6B625A}
+.gtext{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-size:18px;line-height:1.5}
+.gopts{display:flex;flex-wrap:wrap;gap:8px}
+.gopt{font-family:Jost,sans-serif;font-size:15px;font-weight:600;min-height:44px;padding:8px 14px;cursor:pointer;border:none;border-radius:16px 12px 18px 11px;background:#E6E2F2;color:#2F2B28}
+.gopt.main{background:#F5E3B0}
+.gopt:hover,.gopt:focus-visible{outline:2px solid #2B4A5E;outline-offset:2px}
+.gfoot{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#6B625A}
+.glink{font-family:Jost,sans-serif;font-size:14px;background:none;border:none;color:#2B4A5E;text-decoration:underline;cursor:pointer;min-height:44px;padding:0 4px}
+@media (max-width: 760px){
+.rv{width:84px;height:57px}
+.gbubble{position:fixed!important;left:12px!important;right:12px!important;top:auto!important;bottom:12px!important;width:auto;max-width:none;max-height:58vh;overflow:auto}
+.gtext{font-size:17px}
+}
 </style>
 </helmet>
 <div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
 <header style="max-width: 1200px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
-<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 26px"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<div class="gwrap">
+<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 26px"><img class="{{logoCls}}" src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<button class="{{guideCls}}" onClick="{{startGuide}}" aria-pressed="{{guidingOn}}">{{guideLabel}}</button>
+</div>
 <nav class="vnav" aria-label="Main">
 <div class="vgroup"><button class="vbtn here">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
@@ -230,7 +279,219 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { i: 0, tour: false }; }
+  constructor(props) { super(props); this.state = { i: 0, tour: false, glow: true, guiding: false }; }
+  guideScript() {
+    var pre = [
+      { at: 'moon', text: 'Before we begin, something true of every river: this one is alive. The Relational River is a provotype, a living prototype made to provoke new possibilities. It is always changing and evolving, just like life and reality itself, so no two journeys here will ever be the same.' },
+      { at: 'moon', text: 'So come as curious as you can. Welcome the unexpected, and the generative transformations that may arise along your relational journey. You can wander anywhere, in any order, and return whenever you like.' },
+      { at: 'moon', text: 'ReBe, the Relational Being app, is a provotype too, still being made. ReBe and the River are designed to complement each other: ReBe for everyday moments with the Beings around you, the River for finding your way, and finding each other. You never need ReBe to journey here.' },
+      { at: 'moon', text: 'Above all, the River is meant to be made together, by people and like-hearted organisations who wish to be of service to a kinder, more caring, loving and reciprocal reality with all life, as part of this living world. You are warmly invited to help shape it.' }
+    ];
+    var deep = [
+      { at: 'moon', text: 'The Relational River is a free, open-source guide. It meets you wherever you are in your awareness of what is happening to the living world, and carries you, at your own pace, toward relationship with it, and with the many people and projects already tending it.' },
+      { at: 'moon', text: 'Upstream is the Source: a few gentle questions about how you feel and what you love outside. From there run the streams, small everyday practices, and the tributaries, films, talks and readings that help this moment make sense.' },
+      { at: 'moon', text: 'Along the way are eddies, where water swirls back: grief, gratitude and rest, returning at the turning of seasons and Moons. In the lakes we slow down together, in circles, fellowships and retreats.' },
+      { at: 'moon', text: 'At the waterfall, ideas gather energy and spill into motion. Downstream, the channels carry us into action, local currents lead to the people tending your place, and the estuary brings the living world into workplaces, schools and councils.' },
+      { at: 'moon', text: 'At the confluences, organisations meet and join forces, and a capital journey helps money flow as part of the living world. Everything reaches the ocean: a worldwide meshwork of place-based projects, met as relationships.' },
+      { at: 'moon', text: 'Beneath it all runs the groundwater, the hidden threads forming between projects and places. Beside it is the Well of Wonder, Wit, Wisdom and Wealth, where people pour in what they can offer and draw on one another. And above, Moon moves the waters, and us too.' },
+      { at: 'moon', text: 'The River serves people, communities, organisations and the wider living world. Earth is every human’s first home, and all our ancestors once lived in close relationship with the land and ecology they were a part of. The River is one way of remembering that relationship.' },
+      { at: 'moon', text: 'It is tended with care: private by default, nothing ever ranked, Indigenous voices and sources first, and every project credited and linked to its makers. The River points the way, then steps aside, so the real relationships can happen out in the world.' }
+    ];
+    var T = [
+      ['Source', 'Everything begins here, at the Source. A few gentle questions help you notice where you are and who is in your “we”. Your answers suggest which waters to visit first, and you can return whenever you like.'],
+      ['Streams', 'From the Source run the streams: small everyday practices, like sitting with a tree or making a picture with Moon. Many flow through ReBe, and they feed everything downstream.'],
+      ['Tributaries', 'Tributaries bring understanding in from every side: films, talks and readings that help this moment make sense, always credited to their makers.'],
+      ['Eddies', 'Here the water swirls back. Eddies hold grief, gratitude and rest, practices that return at natural turning points. Whenever action feels heavy, the eddies are close by.'],
+      ['Lakes', 'In the lakes we slow down together, in circles, fellowships and retreats. Many ideas that later tumble over the waterfall first rise here.'],
+      ['Waterfall', 'At the waterfall, gathered energy spills into motion. Offer an idea, and the River shows which streams, people and first steps it might feed.'],
+      ['Channels', 'Channels carry the water out to the land: ways to act, from your own life to planetary movements.'],
+      ['Local currents', 'Local currents are the people already tending the place where you live. The River points you to them, then steps aside.'],
+      ['Estuary', 'In the estuary, personal change meets the places we work and learn: workplaces, schools and councils.'],
+      ['Confluences', 'At the confluences, organisations meet and join forces, and the capital journey helps money flow as part of the living world.'],
+      ['Ocean', 'Everything reaches the ocean: a worldwide meshwork of place-based projects, ready to be met as relationships.'],
+      ['Groundwater', 'Beneath it all runs the groundwater: hidden threads between projects and places. The River notices them from open sources, so new collaborations can emerge.'],
+      ['The Well', 'And here is the Well of Wonder, Wit, Wisdom and Wealth. Pour in what you can offer, say what you need, and the River helps gather people to bring projects to life. Like stone soup, no one has to bring everything.'],
+      ['Moon', 'Above the River, Moon moves the waters, and us too, reminding us to pause, notice and return. Every part of the River feeds the others, and now you are part of the flow.']
+    ];
+    var tour = T.map(function (t) { return { at: t[0], node: t[0], text: t[1] }; });
+    var end = { at: 'moon', text: 'That is the River, for now. It will keep changing, and so will you. Where would you like to begin?', final: true };
+    return { welcome: [{ at: 'moon', text: 'Welcome to the Relational River. I am Raven, and I would be glad to be your guide. Shall I tell you about the River in depth, or show you around, from the Source to the sea?', choice: true }], deep: pre.concat(deep, [end]), tour: pre.concat(tour, [end]) };
+  }
+  gEls() {
+    if (!this.glayer || !document.body.contains(this.glayer)) {
+      var d = document.createElement('div');
+      d.className = 'glayer';
+      d.innerHTML = '<div class="rv" aria-hidden="true"><div class="rv-flip"><svg class="rv-svg" viewBox="0 0 124 84" width="96" height="65"><defs><linearGradient id="rvBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1B1A2E"></stop><stop offset="0.45" stop-color="#121119"></stop><stop offset="0.7" stop-color="#2C3466"></stop><stop offset="1" stop-color="#0D0C14"></stop></linearGradient><linearGradient id="rvWing" x1="0" y1="1" x2="0.6" y2="0"><stop offset="0" stop-color="#15141F"></stop><stop offset="0.55" stop-color="#26305E"></stop><stop offset="1" stop-color="#0E0D16"></stop></linearGradient></defs><g class="rv-farwing"><path d="M64 46 C 60 32, 52 20, 40 12 L44 19 L36 16 L43 24 L34 24 L44 30 L37 33 L50 38 C 54 42, 58 45, 62 47 Z" fill="#0B0A12"></path></g><g class="rv-bodyg"><path d="M26 48 L5 41 L9 48 L3 56 L26 54 Z" fill="#100F18"></path><path d="M22 47 C 38 55, 64 55, 84 47 C 90 44, 94 40, 99 38 C 104 36, 110 36.5, 113.5 39 L123 41.5 L113 43.5 C 109 46, 104 48, 99 50 C 93 54, 85 58, 72 59 C 56 61, 38 59, 26 53 Z" fill="url(#rvBody)"></path><path d="M112.5 38.6 L123 41.5 L112.5 43.6 C 113.5 42, 113.5 40.2, 112.5 38.6 Z" fill="#1E1D26"></path><path d="M113 39.6 L120.5 41.3" stroke="#6E7396" stroke-width="0.7" stroke-linecap="round" opacity="0.7"></path><path d="M100 49.5 l-2.6 3.6 l3.4 -0.9 l-0.8 3.4 l3.2 -2.6" fill="none" stroke="#2C3466" stroke-width="1" stroke-linejoin="round"></path><g class="rv-eye"><circle cx="106.4" cy="39.6" r="1.9" fill="#050508"></circle><circle cx="107" cy="39" r="0.6" fill="#F5EEE1"></circle></g><path class="rv-sheen" d="M46 50 C 60 53, 74 52, 86 46" fill="none" stroke="#6F86D9" stroke-width="1.4" stroke-linecap="round" opacity="0.35"></path></g><g class="rv-wing"><path d="M58 46 C 52 30, 40 15, 22 7 L30 15 L19 13 L30 21 L17 21 L31 27 L21 31 L39 37 C 45 42, 51 46, 57 49 Z" fill="url(#rvWing)"></path><path d="M54 44 C 48 32, 40 22, 28 14" fill="none" stroke="#5363A8" stroke-width="0.9" opacity="0.45"></path></g><g class="rv-fold"><path d="M40 46 C 54 40, 74 41, 88 47 C 80 55, 60 59, 42 57 L20 60 L32 53 Z" fill="url(#rvWing)"></path><path d="M46 51 C 58 49, 72 49, 84 48" fill="none" stroke="#5363A8" stroke-width="0.9" opacity="0.45"></path></g><g class="rv-legs" stroke="#2A2A36" stroke-width="2.2" stroke-linecap="round" fill="none"><path d="M67 57 L66 70 M66 70 L61 73 M66 70 L70 73.5"></path><path d="M75 56 L76 70 M76 70 L71.5 73.5 M76 70 L80.5 73"></path></g></svg></div></div>' + '<div class="gbubble" role="dialog" aria-label="Raven, your guide to the River" aria-live="polite" style="display:none"></div>';
+      document.body.appendChild(d);
+      this.glayer = d;
+    }
+    return { layer: this.glayer, rv: this.glayer.querySelector('.rv'), bubble: this.glayer.querySelector('.gbubble') };
+  }
+  still() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
+  gPoint(at) {
+    var e = this.gEls(); if (!e.layer) { return null; }
+    var L = e.layer.getBoundingClientRect();
+    if (at === 'logo') {
+      var img = document.querySelector('.glogo'); if (!img) { return null; }
+      var r = img.getBoundingClientRect(); return { x: r.left - L.left + r.width * 0.7, y: r.top - L.top + r.height * 0.7 };
+    }
+    if (at === 'moon') {
+      var svg = document.querySelector('.mapinner svg'); if (!svg) { return null; }
+      var s = svg.getBoundingClientRect(); return { x: s.left - L.left + s.width * 0.92, y: s.top - L.top + s.height * 0.06 };
+    }
+    if (at && at.sky) { return { x: L.width * at.sky[0], y: at.sky[1] + (window.scrollY || 0) * 0 }; }
+    var nodes = document.querySelectorAll('.mapinner .node');
+    for (var i = 0; i < nodes.length; i++) {
+      if (nodes[i].textContent.trim() === at) { var b = nodes[i].getBoundingClientRect(); return { x: b.left - L.left + b.width / 2, y: b.top - L.top + 2 }; }
+    }
+    return null;
+  }
+  gPlace(x, y, scale) {
+    var rv = this.gEls().rv; if (!rv) { return; }
+    var w = rv.offsetWidth, h = rv.offsetHeight;
+    this.gPos = { x: x, y: y };
+    rv.style.transform = 'translate(' + (x - w * 0.57).toFixed(1) + 'px,' + (y - h * 0.87).toFixed(1) + 'px) scale(' + (scale || 1) + ')';
+  }
+  gFly(to, opts, done) {
+    var self = this, rv = this.gEls().rv; opts = opts || {};
+    if (!rv || !to) { if (done) { done(); } return; }
+    var from = this.gPos || to, s0 = opts.fromScale || 1;
+    if (this.raf) { cancelAnimationFrame(this.raf); }
+    if (this.still()) { rv.classList.remove('flying'); this.gPlace(to.x, to.y, 1); if (done) { setTimeout(done, 60); } return; }
+    rv.classList.add('flying'); rv.classList.remove('perched');
+    rv.classList.toggle('flip', to.x < from.x);
+    var dx = to.x - from.x, dy = to.y - from.y, dist = Math.sqrt(dx * dx + dy * dy);
+    var dur = Math.max(650, Math.min(2000, dist / 0.55)), lift = 50 + dist * 0.18;
+    var L0 = this.gEls().layer.getBoundingClientRect(), topSafe = -L0.top + 70 + (opts.topPad || 0);
+    var cx = (from.x + to.x) / 2, cy = Math.max(topSafe, Math.min(from.y, to.y) - (opts.lift != null ? opts.lift : lift)), t0 = null;
+    var step = function (ts) {
+      if (!t0) { t0 = ts; }
+      var t = Math.min(1, (ts - t0) / dur), e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2, u = 1 - e;
+      var x = u * u * from.x + 2 * u * e * cx + e * e * to.x, y = u * u * from.y + 2 * u * e * cy + e * e * to.y + Math.sin(t * Math.PI * 4) * 3 * (1 - t);
+      self.gPlace(x, y, s0 + (1 - s0) * Math.min(1, t * 1.6));
+      if (t < 1) { self.raf = requestAnimationFrame(step); } else { self.raf = null; if (done) { done(); } }
+    };
+    this.raf = requestAnimationFrame(step);
+  }
+  gPerch(at) {
+    var rv = this.gEls().rv; if (!rv) { return; }
+    rv.classList.remove('flying'); rv.classList.add('perched');
+    var L = this.gEls().layer.getBoundingClientRect();
+    rv.classList.toggle('flip', this.gPos && this.gPos.x > L.width * 0.55);
+    this.gAt = at;
+  }
+  gRender() {
+    var self = this, b = this.gEls().bubble, g = this.g || {}, beats = this.guideScript()[g.seq] || [], beat = beats[g.idx];
+    if (!b || !beat) { return; }
+    var opts = [];
+    var mk = function (label, fn, main) { opts.push({ label: label, fn: fn, main: main }); };
+    if (beat.choice) {
+      mk('Tell me about the River', function () { self.gGo('deep', 0); }, true); mk('Show me around', function () { self.gGo('tour', 0); }, true); mk('Maybe later', function () { self.gStop(); });
+    } else if (beat.final) {
+      mk('Begin at the Source', function () { self.gStop(); try { location.href = 'Main.dc.html'; } catch (x) {} }, true);
+      if (g.seq === 'deep') { mk('Show me around', function () { self.gGo('tour', 0); }); }
+      mk('Explore on my own', function () { self.gStop(); });
+    } else {
+      mk('Next', function () { self.gGo(g.seq, g.idx + 1); }, true);
+      if (g.idx > 0) { mk('Back', function () { self.gGo(g.seq, g.idx - 1); }); }
+    }
+    b.innerHTML = '';
+    var who = document.createElement('div'); who.className = 'gwho'; who.textContent = 'Raven'; b.appendChild(who);
+    var p = document.createElement('p'); p.className = 'gtext'; p.textContent = beat.text; b.appendChild(p);
+    var row = document.createElement('div'); row.className = 'gopts';
+    opts.forEach(function (o) { var btn = document.createElement('button'); btn.type = 'button'; btn.className = o.main ? 'gopt main' : 'gopt'; btn.textContent = o.label; btn.addEventListener('click', o.fn); row.appendChild(btn); });
+    b.appendChild(row);
+    var foot = document.createElement('div'); foot.className = 'gfoot';
+    var count = document.createElement('span'); count.textContent = (beat.choice || beat.final) ? '' : (g.idx + 1) + ' of ' + (beats.length - 1); foot.appendChild(count);
+    var endb = document.createElement('button'); endb.type = 'button'; endb.className = 'glink'; endb.textContent = 'End the guide'; endb.addEventListener('click', function () { self.gStop(); }); foot.appendChild(endb);
+    b.appendChild(foot);
+    b.classList.remove('placed'); b.style.display = 'flex';
+    this.gBubble();
+  }
+  gBubble() {
+    var self = this;
+    requestAnimationFrame(function () {
+      var e = self.gEls(), b = e.bubble;
+      if (!b || !e.layer || !self.gPos) { return; }
+      var L = e.layer.getBoundingClientRect(), W = L.width, bw = b.offsetWidth, bh = b.offsetHeight;
+      var x = self.gPos.x, y = self.gPos.y, left = x > W * 0.5 ? x - bw - 60 : x + 60;
+      left = Math.max(12, Math.min(W - bw - 12, left));
+      var top = y - 40, vTop = -L.top + (window.innerHeight ? 0 : 0);
+      var minTop = -L.top + 12, maxTop = -L.top + window.innerHeight - bh - 12;
+      if (maxTop > minTop) { top = Math.max(minTop, Math.min(maxTop, top)); }
+      b.style.left = left + 'px'; b.style.top = top + 'px';
+      b.classList.add('placed');
+      var first = b.querySelector('.gopt'); if (first && self.gFocus) { try { first.focus({ preventScroll: true }); } catch (x2) {} self.gFocus = false; }
+    });
+  }
+  gGo(seq, idx) {
+    var self = this, beats = this.guideScript()[seq], beat = beats[idx];
+    if (!beat) { this.gStop(); return; }
+    var nodeIndex = -1;
+    if (beat.node) { nodeIndex = this.nodeNames.indexOf(beat.node); }
+    var show = function () { if (!self.gActive) { return; } self.gPerch(beat.at); self.gFocus = true; self.g = { seq: seq, idx: idx }; self.gRender(); };
+    if (nodeIndex >= 0 && this.state.i !== nodeIndex) { this.stopTour(); this.setState({ i: nodeIndex, tour: false }); }
+    if (this.gAt === beat.at) { show(); return; }
+    this.gHide();
+    var target = beat.at === 'moon' ? document.querySelector('.mapinner svg') : null;
+    var nodeEl = null;
+    if (beat.node) { var ns = document.querySelectorAll('.mapinner .node'); for (var k = 0; k < ns.length; k++) { if (ns[k].textContent.trim() === beat.node) { nodeEl = ns[k]; } } }
+    var el = nodeEl || target;
+    this.gMoonScroll = !nodeEl; this.gScroll(el, nodeEl ? 0.45 : 0.18);
+    setTimeout(function () { self.gFly(self.gPoint(beat.at), {}, show); }, this.still() ? 30 : 420);
+  }
+  gScroll(el, frac) {
+    if (!el) { return; }
+    try {
+      var r = el.getBoundingClientRect(), H = window.innerHeight, beh = this.still() ? 'auto' : 'smooth';
+      var ms = el.closest ? el.closest('.mapscroll') : null;
+      if (ms && ms.scrollWidth > ms.clientWidth) { var mr = ms.getBoundingClientRect(), cxp = this.gMoonScroll ? r.left + r.width * 0.92 : r.left + r.width / 2; ms.scrollTo({ left: ms.scrollLeft + cxp - (mr.left + mr.width / 2), behavior: beh }); }
+      var mobile = window.innerWidth <= 760, f = mobile ? Math.min(frac, 0.22) : frac;
+      var want = H * f, delta = r.top - want;
+      if (Math.abs(delta) > 40) { window.scrollTo({ top: (window.scrollY || 0) + delta, behavior: beh }); }
+    } catch (x) {}
+  }
+  gHide() { var b = this.gEls().bubble; if (b) { b.classList.remove('placed'); b.style.display = 'none'; } }
+  gStart() {
+    var self = this, e = this.gEls(); if (!e.rv) { return; }
+    this.stopTour();
+    this.gActive = true; this.gAt = null;
+    if (!this.keyFn) { this.keyFn = function (ev) { if (ev.key === 'Escape' && self.gActive) { self.gStop(); } }; document.addEventListener('keydown', this.keyFn); }
+    if (!this.resizeFn) { this.resizeFn = function () { if (self.gActive && self.gAt) { var p = self.gPoint(self.gAt); if (p) { self.gPlace(p.x, p.y, 1); self.gBubble(); } } }; window.addEventListener('resize', this.resizeFn); }
+    this.gHide(); this.setState({ glow: false, guiding: true });
+    var start = this.gPoint('logo');
+    if (this.still() || !start) {
+      var m = this.gPoint('moon'); if (m) { this.gPlace(m.x, m.y, 1); }
+      e.rv.classList.add('on'); this.gGo('welcome', 0); return;
+    }
+    this.gPlace(start.x, start.y, 0.25); e.rv.classList.add('on');
+    var L = e.layer.getBoundingClientRect(), W = L.width;
+    var top0 = -L.top, loop = [{ x: W * 0.3, y: top0 + 150 }, { x: W * 0.58, y: top0 + 110 }, { x: W * 0.84, y: top0 + 190 }, { x: W * 0.62, y: top0 + 250 }, { x: W * 0.38, y: top0 + 180 }];
+    var k = 0;
+    var next = function () {
+      if (!self.gActive) { return; }
+      if (k < loop.length) { var p = loop[k]; self.gFly(p, k === 0 ? { fromScale: 0.25, lift: 30 } : { lift: 40 }, next); k++; return; }
+      self.gGo('welcome', 0);
+    };
+    next();
+  }
+  gStop() {
+    var e = this.gEls();
+    this.gActive = false; this.gAt = null;
+    if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
+    if (e.rv) { e.rv.classList.remove('on', 'flying', 'perched'); }
+    this.gHide(); this.setState({ guiding: false });
+    try { var btn = document.querySelector('.guidebtn'); if (btn) { btn.focus({ preventScroll: true }); } } catch (x) {}
+  }
+  guideVals() {
+    var self = this, s = this.state;
+    return {
+      guideCls: s.glow ? 'guidebtn glow' : 'guidebtn faint', logoCls: s.glow ? 'glogo glow' : 'glogo',
+      guideLabel: s.guiding ? 'End the guide' : 'Would you like a guide?',
+      startGuide: function () { if (self.gActive) { self.gStop(); } else { self.gStart(); } }
+    };
+  }
+
   showCard() {
     setTimeout(function () {
       try {
@@ -246,12 +507,14 @@ class Component extends DCLogic {
     }, 60);
   }
   componentDidMount() {
+    var self = this;
+    this.glowTimer = setTimeout(function () { self.setState({ glow: false }); }, 5000);
     try {
       var s = document.querySelector('.mapscroll');
       if (s && s.scrollWidth > s.clientWidth) { s.scrollLeft = (s.scrollWidth - s.clientWidth) / 2; }
     } catch (e) {}
   }
-  componentWillUnmount() { if (this.timer) { clearInterval(this.timer); } }
+  componentWillUnmount() { if (this.timer) { clearInterval(this.timer); } if (this.glowTimer) { clearTimeout(this.glowTimer); } if (this.raf) { cancelAnimationFrame(this.raf); } if (this.keyFn) { document.removeEventListener('keydown', this.keyFn); } if (this.glayer && this.glayer.parentNode) { this.glayer.parentNode.removeChild(this.glayer); } if (this.resizeFn) { window.removeEventListener('resize', this.resizeFn); } }
   stopTour() { if (this.timer) { clearInterval(this.timer); this.timer = null; } }
   renderVals() {
     var self = this, i = this.state.i;
@@ -283,9 +546,12 @@ class Component extends DCLogic {
       { k: 'The Well', x: 28, y: 88, line: 'Where we pour in what we can offer, and draw on one another.', text: 'A well of wonder, wit, wisdom and wealth. People pour in their skills, experience, passions and ideas for a regenerative and relational future, and say what they need too. Others draw from the well to resource projects big and small, and the River helps gather constellations of people, nearby and worldwide, to make them happen. Like stone soup, no one has to bring everything.', eg: 'Gifts, time exchange, skill swaps, paid work and funded constellations', href: 'Well.dc.html', cta: 'Visit the Well' },
       { k: 'Moon', x: 92, y: 16, line: 'Moon moves the waters of Earth, and we are made of water too.', text: 'Twice a day the seas rise and fall as Earth turns beneath Moon. ' + moon.tide + ' Our bodies are mostly water, and for as long as people have lived beside coasts and rivers, Moon has shaped when we fish, plant, gather and rest. Moon’s pull on the water within us is tiny, yet pausing to notice Moon each night is a simple, embodied way to feel part of the same moving water as the oceans and the River.', eg: 'Tonight Moon is ' + moon.name + ', about ' + moon.lit + '% lit', href: 'Moon.dc.html', cta: 'Explore Moon practices in the River', invite: 'An invitation from ReBe: Making with Moon. Step outside, find Moon wherever they are in the sky, and pause long enough to really meet them. Then make a picture together, letting Moon’s light, the clouds and the night take part, rather than taking a photo of Moon. Over a lunar cycle, your pictures become a quiet record of a relationship. If you like, ReBe can send a gentle note for new and full Moon sessions.', inviteCta: 'Make with Moon in ReBe' }
     ];
+    this.nodeNames = N.map(function (n) { return n.k; });
     var cur = N[i], count = N.length;
     var go = function (k) { self.stopTour(); self.setState({ i: (k + count) % count, tour: false }); };
+    var gv = this.guideVals();
     return {
+      guideCls: gv.guideCls, logoCls: gv.logoCls, guideLabel: gv.guideLabel, startGuide: gv.startGuide, guidingOn: this.state.guiding ? 'true' : 'false',
       moonLit: moon.d,
       nodes: N.map(function (n, k) { var on = k === i; return { name: n.k, x: n.x + '%', y: n.y + '%', on: on ? 'true' : 'false', cls: on ? 'node on' : 'node', pick: function () { go(k); self.showCard(); } }; }),
       hasIdLink: /Relational ID/.test((cur.eg || '') + ' ' + cur.text), hasInvite: !!cur.invite, invite: cur.invite || '', inviteCta: cur.inviteCta || '',

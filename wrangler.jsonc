@@ -12,7 +12,9 @@
     "run_worker_first": ["/api/*"]
   },
   // Once a week, delete Well offerings older than three years.
-  "triggers": { "crons": ["17 4 * * 1"] }
-  // To keep offerings, create a D1 database and add it here, for example:
-  // "d1_databases": [{ "binding": "WELL_DB", "database_name": "relational-river-well", "database_id": "<id>" }]
+  "triggers": { "crons": ["17 4 * * 1"] },
+  // The Well's offerings live in this D1 database (the table is created on first use).
+  "d1_databases": [
+    { "binding": "WELL_DB", "database_name": "relational-river-well", "database_id": "a49a43a3-682e-4801-a69c-8c05e5f39619" }
+  ]
 }
