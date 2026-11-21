@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Relational River: islands of coherence</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#E6E2F2;border-color:#2F2B28;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:start}
+.card{padding:36px 32px 30px;display:flex;flex-direction:column;gap:8px;color:#2F2B28}
+.k{font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
+.h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:30px;letter-spacing:-0.02em}
+.h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:21px}
+.p{margin:0;font-size:16px;line-height:1.55}
+.lnk{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.note{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;color:#E8C77A;max-width:760px}
+.steps{margin:4px 0 0;padding-left:22px;font-size:16px;line-height:1.6}
+.steps li{margin-bottom:4px}
+.minor{font-size:14px;font-style:italic}
+.toggle{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:transparent;border:1.5px solid #2F2B28;border-radius:10px 14px 10px 12px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
+.chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chiplabel{font-size:14px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
+.care{background:#E6E2F2;padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
+.hero{display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.islandart{flex:0 1 380px;width:100%;max-width:380px;height:auto}
+@keyframes iflowk{to{stroke-dashoffset:-48}}
+.iflow{stroke-dasharray:16 12;animation:iflowk 4s linear infinite}.iflow.f2{animation-duration:5s}.iflow.f3{animation-duration:6s}
+@keyframes rip{0%,100%{opacity:.5;transform:scale(.96)}50%{opacity:1;transform:scale(1.04)}}
+.ripple{transform-box:fill-box;transform-origin:center;animation:rip 5s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:.35}}
+.twinkle{animation:twinkle 3s ease-in-out infinite}.twinkle.t2{animation-delay:1.4s}
+.islandread{display:flex;flex-direction:column;gap:8px;max-width:820px}
+.isle-meter{display:flex;gap:8px;align-items:center}
+.isle-dot{width:22px;height:14px;border-radius:50% 44% 52% 40%;background:#CFC3AC;transition:background .4s ease,transform .4s ease}
+.isle-dot.on{background:#3E6B5A;transform:scale(1.15)}
+.tendlist li{font-size:16px}
+@media (max-width: 700px){.islandart{max-width:300px;margin:0 auto}}
+@keyframes swirl{to{stroke-dashoffset:-120}}
+.eddy{stroke-dasharray:6 8;animation:swirl 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 14s linear infinite}
+.spin.ccw{animation-direction:reverse}
+@media (max-width: 700px){
+.torn{-webkit-mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),linear-gradient(#000,#000)!important;mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,center!important;mask-position:top center,bottom center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+}
+@media (max-width: 700px){
+.vnav{position:relative;width:100%}
+.vgroup{position:static}
+.vmenu{left:0;right:0;min-width:0;width:auto}
+}
+/* Torn edges of a fixed, shallow depth on every side, so text is never covered. */
+.torn,.torn.tall{-webkit-mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),url(/_blob/c670d821c61bd5632427dd25511aefc5),url(/_blob/c6f17e04b860c11da92369e1279f3e80),linear-gradient(#000,#000)!important;mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),url(/_blob/c670d821c61bd5632427dd25511aefc5),url(/_blob/c6f17e04b860c11da92369e1279f3e80),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,left center,right center,center!important;mask-position:top center,bottom center,left center,right center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+</style>
+</helmet>
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="Islands.dc.html"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Estuary.dc.html"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="Groundwater.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="Journey.dc.html" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 40px">
+<a href="Welcome.dc.html" style="font-size: 15px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">Back to the whole River</a>
+
+<div class="hero" style="margin-top: -24px">
+<div style="flex: 1 1 480px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Islands of coherence</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 50px; letter-spacing: -0.03em; line-height: 1.04">Steady places in turbulent water</h1>
+<p style="margin: 0; font-size: 19px; max-width: 640px; line-height: 1.55">When a river runs high and fast, islands are where the water slows, where seeds take root and birds can rest. In times like these, islands of coherence are the circles, households, organisations and places that stay grounded, kind and capable while much around them shakes, and that help the whole river find a new shape.</p>
+</div>
+<svg class="islandart" viewBox="0 0 400 300" role="img" aria-label="Three small islands in a flowing river, with water parting around them and light rippling outward">
+<path d="M0 120 C 90 100, 160 150, 240 130 S 360 110, 400 126" stroke="#9FD3DC" stroke-opacity="0.55" stroke-width="2" fill="none" class="iflow"></path>
+<path d="M0 175 C 100 160, 170 205, 250 186 S 350 165, 400 180" stroke="#9FD3DC" stroke-opacity="0.45" stroke-width="2" fill="none" class="iflow f2"></path>
+<path d="M0 230 C 80 214, 180 250, 260 236 S 360 222, 400 236" stroke="#9FD3DC" stroke-opacity="0.35" stroke-width="2" fill="none" class="iflow f3"></path>
+<g class="ripple"><ellipse cx="200" cy="168" rx="70" ry="30" fill="none" stroke="#E8C77A" stroke-opacity="0.35"></ellipse><ellipse cx="200" cy="168" rx="104" ry="46" fill="none" stroke="#E8C77A" stroke-opacity="0.2"></ellipse></g>
+<path d="M150 168 C 152 150, 182 142, 206 146 C 232 150, 248 160, 244 172 C 240 186, 214 192, 190 190 C 166 188, 148 182, 150 168 Z" fill="#E8D9B5"></path>
+<path d="M160 166 C 164 154, 186 150, 204 152 C 224 155, 236 162, 233 171 C 229 181, 210 185, 192 183 C 174 181, 157 176, 160 166 Z" fill="#3E6B5A"></path>
+<circle cx="190" cy="160" r="6" fill="#5E8C6A"></circle><circle cx="204" cy="158" r="7.5" fill="#4E7C5E"></circle><circle cx="216" cy="164" r="5.5" fill="#5E8C6A"></circle>
+<path d="M276 142 C 280 134, 296 132, 306 136 C 316 140, 316 148, 306 151 C 294 154, 280 152, 276 142 Z" fill="#E8D9B5"></path>
+<path d="M281 142 C 285 137, 296 136, 303 139 C 310 142, 309 147, 302 148 C 294 150, 284 148, 281 142 Z" fill="#3E6B5A"></path>
+<path d="M92 196 C 96 186, 116 184, 128 189 C 138 194, 134 203, 122 205 C 108 207, 90 205, 92 196 Z" fill="#E8D9B5"></path>
+<path d="M98 196 C 102 190, 115 189, 123 192 C 130 196, 127 201, 119 202 C 110 203, 97 202, 98 196 Z" fill="#3E6B5A"></path>
+<path d="M282 132 l3 -8 l3 8" stroke="#F5EEE1" stroke-width="1.4" fill="none" stroke-linecap="round"></path>
+<g fill="#F5EEE1"><circle cx="40" cy="40" r="1.6" class="twinkle"></circle><circle cx="120" cy="22" r="1.2"></circle><circle cx="300" cy="30" r="1.8" class="twinkle t2"></circle><circle cx="362" cy="70" r="1.3"></circle></g>
+</svg>
+</div>
+
+<section class="torn tl" style="background: #F5EEE1; padding: 34px 40px; display: flex; flex-direction: column; gap: 12px; color: #2F2B28">
+<div class="k">Where the idea comes from</div>
+<h2 class="h2">Small coherence can shift a whole system</h2>
+<p class="p" style="font-size: 17px">The phrase grew from the work of the chemist and Nobel laureate Ilya Prigogine, who studied systems far from equilibrium. His insight, as it is often shared, is that when a complex system is far from balance, small islands of coherence can shift the whole system to a new order. Turbulent times are exactly when small, steady, well-related groups matter most.</p>
+<p class="p" style="font-size: 17px">Isabel Carlisle, writing in Kosmos, suggests that bioregions, the places shaped by their own geology, waters, plants and animals, can give these islands their cultural grounding, tying what has been true of a place to what its future needs.</p>
+<p class="minor" style="margin: 0">Read more: <a href="https://www.garrisoninstitute.org/pathways-to-planetary-health/islands-of-coherence/" style="color: #2B4A5E">Islands of Coherence, Garrison Institute</a> · <a href="https://kosmosjournal.org/kj_article/bioregioning-sense-of-place/" style="color: #2B4A5E">Bioregioning and Our Felt Sense of Place, Kosmos</a></p>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; gap: 28px; align-items: stretch">
+<div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Why now</div>
+<h2 class="h2">Glitch happens</h2>
+<p class="p" style="font-size: 18px; color: #EDEDED">In <i>Glitch Happens: Organizational Adaptation at the End of Growth</i> (Frankly 167, November 2026), Nate Hagens reflects on a run of high-profile technology and infrastructure outages, and on the fragility they reveal beneath the systems that sustain modern life. They may not mean immediate catastrophe, he suggests, but they show how interconnected, and how vulnerable, everything has become.</p>
+<p class="p" style="font-size: 18px; color: #EDEDED">His question for organisations is not only how to make today’s institutions sturdier, but which qualities will make them worth keeping as the assumptions of endless growth weaken. He points toward organisations built around slack and robustness instead of relentless efficiency, able to adapt as conditions change, and held by networks of trusted relationships that protect their purpose from short-term financial pressure.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px">
+<a href="https://natehagens.substack.com/p/glitch-happens-organizational-adaptation" class="go tornbtn" style="background: #F5E3B0">Read or listen to Frankly 167</a>
+<a href="Tributary.dc.html" class="lnk" style="color: #EDEDED; align-self: center">More from The Great Simplification</a>
+</div>
+</div>
+<div class="torn tr card" style="flex: 1 1 320px; background: #E6E2F2">
+<div class="k">What future stewards may need</div>
+<h3 class="h3">Qualities, not just structures</h3>
+<ul class="steps" style="font-size: 16px">
+<li>Deep commitment, and real competence</li>
+<li>Maturity in uncertain times</li>
+<li>The ability to work across political and cultural divides</li>
+<li>A good sense of humour</li>
+</ul>
+<p class="minor" style="margin: 0">Drawn from Nate Hagens’ reflections in Frankly 167.</p>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 class="h2">What makes an island of coherence</h2>
+<p class="p" style="font-size: 18px; max-width: 780px; color: #EDEDED">No two islands are alike, but steady ones tend to share a few qualities. These are offered as an invitation to notice, not a checklist to pass.</p>
+<div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))">
+<sc-for list="{{qualities}}" as="q" hint-placeholder-count="8">
+<article class="{{q.cls}}" style="background: {{q.bg}}"><div class="k">{{q.k}}</div><h3 class="h3">{{q.title}}</h3><p class="p">{{q.text}}</p></article>
+</sc-for>
+</div>
+</section>
+
+<section class="torn tall tl" style="background: #FBF7EF; padding: 40px 44px; display: flex; flex-direction: column; gap: 16px; color: #2F2B28">
+<div class="k">For your circle, household or organisation</div>
+<h2 class="h2">Notice your island</h2>
+<p class="p" style="font-size: 17px; max-width: 760px">Choose the qualities your group already has. The River will reflect back what is strong, and suggest where to tend next. Nothing you choose here is saved or sent.</p>
+<div class="chips" role="group" aria-label="Qualities your group already has">
+<sc-for list="{{qChips}}" as="c" hint-placeholder-count="8"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+<div class="islandread" aria-live="polite">
+<div class="isle-meter" aria-hidden="true"><sc-for list="{{meter}}" as="m" hint-placeholder-count="8"><span class="{{m.cls}}"></span></sc-for></div>
+<h3 class="h3">{{readTitle}}</h3>
+<p class="p">{{readText}}</p>
+<sc-if value="{{hasTend}}" hint-placeholder-val="{{ true }}">
+<div class="k" style="margin-top: 4px">Where to tend next</div>
+<ul class="steps tendlist"><sc-for list="{{tend}}" as="t" hint-placeholder-count="3"><li><b>{{t.q}}:</b> {{t.text}} <a href="{{t.href}}" style="color: #2B4A5E">{{t.cta}}</a></li></sc-for></ul>
+</sc-if>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 18px">
+<h2 class="h2">From islands to archipelagos</h2>
+<p class="p" style="font-size: 18px; max-width: 800px; color: #EDEDED">An island alone can become a fortress. The River’s hope is for islands that stay porous and in relationship, so that together they form archipelagos: distinct initiatives, connected through relationships that let resources, knowledge and care circulate between them. Natasha Hulst describes this shift as <a href="https://wiki.p2pfoundation.net/From_Islands_of_Coherence_to_Archipelagos_of_Coherence" style="color: #EDEDED">from islands of coherence to archipelagos of coherence</a>.</p>
+<div class="cards">
+<article class="torn tl card" style="background: #DCE6D2"><div class="k">Lakes</div><h3 class="h3">Where islands often begin</h3><p class="p">A circle that meets with care, again and again, is often the first island.</p><a href="Lakes.dc.html" class="lnk">Find a lake</a></article>
+<article class="torn tr card" style="background: #CFE1E4"><div class="k">Local currents</div><h3 class="h3">Islands near you</h3><p class="p">Groups already tending your bioregion, who may welcome another steady hand.</p><a href="LocalCurrents.dc.html" class="lnk">See who is near you</a></article>
+<article class="torn tl card" style="background: #F5E3B0"><div class="k">The Well</div><h3 class="h3">Resourcing islands</h3><p class="p">Pour in your skills and draw on others, so an island has what it needs to hold steady.</p><a href="Well.dc.html" class="lnk">Visit the Well</a></article>
+<article class="torn tr card" style="background: #E6E2F2"><div class="k">Groundwater</div><h3 class="h3">Threads between islands</h3><p class="p">The connections forming between projects and places, so islands can become archipelagos.</p><a href="Groundwater.dc.html" class="lnk">See emerging threads</a></article>
+<article class="torn tl card" style="background: #F2D3BC"><div class="k">Eddies</div><h3 class="h3">Steadiness within</h3><p class="p">Coherence begins inside: grief, gratitude and rest help us stay present when things shake.</p><a href="Eddies.dc.html" class="lnk">Visit the eddies</a></article>
+</div>
+</section>
+
+<section class="torn tl care">
+<div class="k">A note of care</div>
+<h2 class="h2" style="font-size: 26px">Coherence, not retreat</h2>
+<ul class="steps">
+<li>Islands of coherence are not bunkers. They stay open to the river, generous with what they learn, and welcoming to newcomers.</li>
+<li>Coherence is not sameness. Steady groups make room for difference, disagreement and repair.</li>
+<li>Many peoples, Indigenous communities among them, have long kept place-rooted, relational ways of living through great upheaval. Where the River shares such knowledge, it does so from their own voices and with their consent.</li>
+</ul>
+</section>
+
+<p class="note">All our ancestors once lived in close relationship with the land and ecology they were a part of. Every island of coherence is, in its way, a remembering of that.</p>
+</main>
+
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 64px; height: 64px; display: block"></a><span>An open commons tended by the Institute of Relational Being. Ideas here are credited to their makers; follow the links to their own words.</span><a href="Privacy.dc.html" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3400}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { have: {} }; }
+  renderVals() {
+    var self = this, have = this.state.have;
+    var Q = [
+      { id: 'slack', k: 'Slack', title: 'Room to breathe', text: 'Spare time, savings, energy and capacity, so a shock bends the group rather than breaking it.', tend: 'Build in spare time and a small shared reserve; pause before adding more.', href: 'Eddies.dc.html', cta: 'Rest in the eddies' },
+      { id: 'trust', k: 'Trust', title: 'Trusted relationships', text: 'People who know each other well enough to call at 2am, and to disagree honestly.', tend: 'Meet regularly and in person; share meals; keep small promises.', href: 'Lakes.dc.html', cta: 'Find a lake' },
+      { id: 'purpose', k: 'Purpose', title: 'A shared reason to be', text: 'A clear purpose held together, and protected from short-term pressure.', tend: 'Write down why you exist together, in a few plain sentences, and revisit it with the seasons.', href: 'Main.dc.html', cta: 'Begin at the Source' },
+      { id: 'place', k: 'Place', title: 'Rooted in a place', text: 'Knowing the land, waters and Beings around you, and the people who were there first.', tend: 'Learn your watershed, the Beings who live there, and whose land it is.', href: 'LocalCurrents.dc.html', cta: 'Explore local currents' },
+      { id: 'skills', k: 'Robustness', title: 'Skills held in many hands', text: 'More than one person can do each essential thing, and tools and know-how are shared.', tend: 'Map who can do what, and teach one skill to someone new.', href: 'Well.dc.html', cta: 'Pour into the Well' },
+      { id: 'adapt', k: 'Adaptability', title: 'Able to change course', text: 'Plans held lightly, with ways to notice, decide and adjust together.', tend: 'Try a short monthly check-in: what changed, what we learned, what we will try.', href: 'Channels.dc.html', cta: 'Find a channel' },
+      { id: 'inner', k: 'Steadiness', title: 'Inner steadiness', text: 'People able to stay present with grief and uncertainty without freezing or fleeing.', tend: 'Make room for grief and gratitude together, not only for tasks.', href: 'Eddies.dc.html', cta: 'Visit the eddies' },
+      { id: 'bridges', k: 'Bridges', title: 'Open to the wider river', text: 'Porous, generous and connected to other islands, across divides.', tend: 'Reach out to one nearby group whose work runs alongside yours.', href: 'Groundwater.dc.html', cta: 'See emerging threads' }
+    ];
+    var bgs = ['#DCE6D2', '#CFE1E4', '#E6E2F2', '#F2D3BC', '#F5E3B0', '#DCE6D2', '#F2D3BC', '#CFE1E4'];
+    var v = {};
+    v.qualities = Q.map(function (q, i) { return { k: q.k, title: q.title, text: q.text, bg: bgs[i], cls: 'torn card ' + (i % 2 ? 'tr' : 'tl') }; });
+    v.qChips = Q.map(function (q) { var on = !!have[q.id]; return { label: q.title, on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var n = Object.assign({}, self.state.have); if (n[q.id]) { delete n[q.id]; } else { n[q.id] = true; } self.setState({ have: n }); } }; });
+    var count = Q.filter(function (q) { return have[q.id]; }).length;
+    v.meter = Q.map(function (q) { return { cls: have[q.id] ? 'isle-dot on' : 'isle-dot' }; });
+    var reads = [
+      ['Every island begins as a shoal', 'Choose any qualities your group already has. Even one is a beginning: islands grow grain by grain.'],
+      ['A shoal is forming', 'There is something steady here to build on. Tend one more quality at a time, gently.'],
+      ['An island is rising', 'Your group already holds real coherence. The next step may be to strengthen what is quieter, and to connect with other islands.'],
+      ['A steady island', 'Your group holds many of the qualities of coherence. Consider how you might share what you have learned, and help other islands grow.'],
+      ['Part of an archipelago in the making', 'All eight qualities are present. The River’s hope is that islands like yours stay generous and connected, helping the whole river find its new shape.']
+    ];
+    var r = count === 0 ? reads[0] : count <= 2 ? reads[1] : count <= 5 ? reads[2] : count <= 7 ? reads[3] : reads[4];
+    v.readTitle = r[0]; v.readText = r[1];
+    var missing = Q.filter(function (q) { return !have[q.id]; });
+    v.tend = (count === 0 ? [] : missing.slice(0, 3)).map(function (q) { return { q: q.title, text: q.tend, href: q.href, cta: q.cta }; });
+    v.hasTend = v.tend.length > 0;
+    return v;
+  }
+}
+</script>
+</body>
+</html>
