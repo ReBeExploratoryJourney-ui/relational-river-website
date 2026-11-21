@@ -96,6 +96,11 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .guidebtn.glow{background:rgba(232,199,122,.22);animation:gpulse 1.8s ease-in-out infinite}
 @keyframes gpulse{0%,100%{box-shadow:0 0 4px rgba(232,199,122,.3)}50%{box-shadow:0 0 22px rgba(232,199,122,.75)}}
 .glogowrap{position:relative;display:inline-block}
+.herotext{display:flex;flex-direction:column;gap:14px;align-items:center;transition:opacity 1.6s ease}
+.herotext.faded{opacity:0;pointer-events:none}
+.gbubble.inhero{width:560px;padding:26px 30px 16px;background:rgba(251,247,239,.93);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.gbubble.inhero .gtext{font-size:20px}
+@media (max-width: 760px){.herotext.faded{opacity:1;pointer-events:auto}}
 .glogowrap .guidebtn{position:absolute;left:calc(100% + 18px);top:50%;transform:translateY(-50%);white-space:nowrap}
 .glogo.glow{animation:lglow 1.8s ease-in-out infinite}
 .birdglow{position:absolute;left:67%;top:66%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;pointer-events:none;opacity:0;background:radial-gradient(circle,rgba(255,244,210,.95) 0%,rgba(232,199,122,.6) 38%,rgba(232,199,122,0) 72%)}
@@ -181,9 +186,11 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <svg class="sky" viewBox="732 16 114 216" aria-hidden="true" style="right: 5%; top: 18px; width: 96px; transform: rotate(-7deg)"><path d="M782 26 L742 52 M782 26 L822 60 M742 52 L766 142 M822 60 L806 132 M766 142 L786 137 L806 132 M766 142 L750 222 M806 132 L836 216" stroke="#EDEDED" stroke-opacity="0.28" fill="none"></path><g fill="#EDEDED"><circle class="star s2" cx="782" cy="26" r="1.4"></circle><circle class="star" cx="742" cy="52" r="3" fill="#F4C6A0"></circle><circle class="star s3" cx="822" cy="60" r="2.2"></circle><circle class="star s2" cx="766" cy="142" r="2"></circle><circle class="star" cx="786" cy="137" r="2"></circle><circle class="star s3" cx="806" cy="132" r="2"></circle><circle class="star s2" cx="750" cy="222" r="2"></circle><circle class="star" cx="836" cy="216" r="3" fill="#CFE6F7"></circle></g></svg>
 <svg class="sky" viewBox="582 136 128 146" aria-hidden="true" style="right: 1%; top: 220px; width: 118px; transform: rotate(13deg)"><path d="M592 150 L606 168 M622 146 L606 168 M646 158 L606 168 M606 168 L612 192 L616 216 L626 240 L644 260 L668 272 L690 264 L700 246 L688 230" stroke="#EDEDED" stroke-opacity="0.28" fill="none"></path><g fill="#EDEDED"><circle class="star s2" cx="592" cy="150" r="1.6"></circle><circle class="star" cx="622" cy="146" r="2"></circle><circle class="star s3" cx="646" cy="158" r="1.6"></circle><circle class="star s2" cx="606" cy="168" r="1.8"></circle><circle class="star" cx="612" cy="192" r="3.4" fill="#F0A07A"></circle><circle class="star s3" cx="616" cy="216" r="1.7"></circle><circle class="star s2" cx="626" cy="240" r="1.8"></circle><circle class="star" cx="644" cy="260" r="1.9"></circle><circle class="star s3" cx="668" cy="272" r="2"></circle><circle class="star s2" cx="690" cy="264" r="2.1"></circle><circle class="star" cx="700" cy="246" r="2.4"></circle><circle class="star s3" cx="688" cy="230" r="2"></circle></g></svg>
 <div class="glogowrap"><span style="position: relative; display: block"><img class="{{logoCls}}" src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 112px; height: 112px; display: block"><span class="{{birdCls}}" aria-hidden="true"></span><img class="{{peelCls}}" src="/assets/06a473276b1395ed8a373f1ba204a122.png" alt="" aria-hidden="true"></span><button class="{{guideCls}}" onClick="{{startGuide}}" aria-pressed="{{guidingOn}}">{{guideLabel}}</button></div>
+<div class="{{heroCls}}">
 <div style="font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: #C9CCD6">An offering of the Institute of Relational Being</div>
 <h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 60px; line-height: 1.05; color: #DCDCDC; font-variant-ligatures: none; font-feature-settings: 'liga' 0; letter-spacing: 0.01em">Follow the flow</h1>
 <p style="margin: 0; font-size: 20px; line-height: 1.55; max-width: 760px">Wherever you are, you are navigating the present moment as a part of nature and this living world. Earth is every human’s first home. The Relational River is a Source, like the headwaters of any river, offered through the Institute of Relational Being. It is here to be of service to individuals, organizations, communities and the wider living world: an engaging re-source, and an open-source process and platform of reciprocity, curiosity and care for all life and this living world.</p>
+</div>
 </section>
 
 <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
@@ -301,7 +308,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { i: 0, tour: false, glow: true, guiding: false, emerging: false, peel: false, merging: false }; }
+  constructor(props) { super(props); this.state = { i: 0, tour: false, glow: true, guiding: false, emerging: false, peel: false, merging: false, heroFaded: false }; }
   guideScript() {
     var pre = [
       { at: 'moon', text: 'Before we begin, something true of every river: this one is alive. The Relational River is a provotype, a living prototype made to provoke new possibilities. It is always changing and evolving, just like life and reality itself, so no two journeys here will ever be the same.' },
@@ -438,7 +445,19 @@ class Component extends DCLogic {
     requestAnimationFrame(function () {
       var e = self.gEls(), b = e.bubble;
       if (!b || !e.layer || !self.gPos) { return; }
-      var L = e.layer.getBoundingClientRect(), W = L.width, bw = b.offsetWidth, bh = b.offsetHeight;
+      var L0 = e.layer.getBoundingClientRect(), hero = document.querySelector('.herotext'), hr = hero ? hero.getBoundingClientRect() : null;
+      var wide = window.innerWidth > 760, inHero = !!(wide && self.state.heroFaded && hr && hr.top > -30 && hr.top < window.innerHeight - 260);
+      b.classList.toggle('inhero', inHero);
+      if (inHero) {
+        var hw = b.offsetWidth, hh = b.offsetHeight;
+        var hl = hr.left - L0.left + (hr.width - hw) / 2, ht = hr.top - L0.top + (hr.height - hh) / 2;
+        var minT = -L0.top + 12, maxT = -L0.top + window.innerHeight - hh - 12;
+        if (maxT > minT) { ht = Math.max(minT, Math.min(maxT, ht)); }
+        b.style.left = Math.max(12, hl) + 'px'; b.style.top = ht + 'px'; b.classList.add('placed');
+        var f0 = b.querySelector('.gopt'); if (f0 && self.gFocus) { try { f0.focus({ preventScroll: true }); } catch (x3) {} self.gFocus = false; }
+        return;
+      }
+      var L = L0, W = L.width, bw = b.offsetWidth, bh = b.offsetHeight;
       var x = self.gPos.x, y = self.gPos.y, left = x > W * 0.5 ? x - bw - 60 : x + 60;
       left = Math.max(12, Math.min(W - bw - 12, left));
       var top = y - 40, vTop = -L.top + (window.innerHeight ? 0 : 0);
@@ -473,7 +492,7 @@ class Component extends DCLogic {
       if (ms && ms.scrollWidth > ms.clientWidth) { var mr = ms.getBoundingClientRect(), cxp = this.gMoonScroll ? r.left + r.width * 0.92 : r.left + r.width / 2; ms.scrollTo({ left: ms.scrollLeft + cxp - (mr.left + mr.width / 2), behavior: beh }); }
       var mobile = window.innerWidth <= 760, f = mobile ? Math.min(frac, 0.22) : frac;
       var pt = this.gMoonScroll ? r.top + r.height * 0.06 : r.top + r.height / 2;
-      if (pt > 90 && pt < H - 160) { return; }
+      if (pt > 90 && pt < H - 70) { return; }
       var want = H * f, delta = (this.gMoonScroll ? pt : r.top) - want;
       if (Math.abs(delta) > 40) { window.scrollTo({ top: (window.scrollY || 0) + delta, behavior: beh }); }
     } catch (x) {}
@@ -485,7 +504,7 @@ class Component extends DCLogic {
     this.gActive = true; this.gAt = null;
     if (!this.keyFn) { this.keyFn = function (ev) { if (ev.key === 'Escape' && self.gActive) { self.gStop(); } }; document.addEventListener('keydown', this.keyFn); }
     if (!this.resizeFn) { this.resizeFn = function () { if (self.gActive && self.gAt) { var p = self.gPoint(self.gAt); if (p) { self.gPlace(p.x, p.y, 1); self.gBubble(); } } }; window.addEventListener('resize', this.resizeFn); }
-    this.gHide(); this.setState({ glow: false, guiding: true });
+    this.gHide(); this.setState({ glow: false, guiding: true, heroFaded: true });
     var start = this.gPoint('logo');
     if (this.still() || !start) {
       var m = this.gPoint('moon'); if (m) { this.gPlace(m.x, m.y, 1); }
@@ -525,7 +544,7 @@ class Component extends DCLogic {
     if (this.gReturning) { return; }
     this.gActive = false; this.gAt = null;
     if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
-    this.gHide(); this.setState({ guiding: false, emerging: false, peel: false });
+    this.gHide(); this.setState({ guiding: false, emerging: false, peel: false, heroFaded: false });
     var finish = function () {
       if (e.rv) { e.rv.classList.remove('on', 'flying', 'perched', 'glide', 'flip'); e.rv.style.transition = ''; }
       self.gPos = null; self.gReturning = false;
@@ -555,7 +574,7 @@ class Component extends DCLogic {
   guideVals() {
     var self = this, s = this.state;
     return {
-      guideCls: s.glow ? 'guidebtn glow' : 'guidebtn faint', logoCls: s.glow ? 'glogo glow' : 'glogo', birdCls: s.emerging ? 'birdglow on' : 'birdglow', peelCls: s.peel ? 'birdpeel peeling' : (s.merging ? 'birdpeel merging' : 'birdpeel'),
+      guideCls: s.glow ? 'guidebtn glow' : 'guidebtn faint', logoCls: s.glow ? 'glogo glow' : 'glogo', birdCls: s.emerging ? 'birdglow on' : 'birdglow', heroCls: s.heroFaded ? 'herotext faded' : 'herotext', peelCls: s.peel ? 'birdpeel peeling' : (s.merging ? 'birdpeel merging' : 'birdpeel'),
       guideLabel: s.guiding ? 'End the guide' : 'Would you like a guide?',
       startGuide: function () { if (self.gReturning) { return; } if (self.gActive) { self.gStop(); } else { self.gStart(); } }
     };
@@ -620,7 +639,7 @@ class Component extends DCLogic {
     var go = function (k) { self.stopTour(); self.setState({ i: (k + count) % count, tour: false }); };
     var gv = this.guideVals();
     return {
-      guideCls: gv.guideCls, logoCls: gv.logoCls, birdCls: gv.birdCls, peelCls: gv.peelCls, guideLabel: gv.guideLabel, startGuide: gv.startGuide, guidingOn: this.state.guiding ? 'true' : 'false',
+      guideCls: gv.guideCls, logoCls: gv.logoCls, birdCls: gv.birdCls, peelCls: gv.peelCls, heroCls: gv.heroCls, guideLabel: gv.guideLabel, startGuide: gv.startGuide, guidingOn: this.state.guiding ? 'true' : 'false',
       moonLit: moon.d,
       nodes: N.map(function (n, k) { var on = k === i; return { name: n.k, x: n.x + '%', y: n.y + '%', on: on ? 'true' : 'false', cls: on ? 'node on' : 'node', pick: function () { go(k); self.showCard(); } }; }),
       hasIdLink: /Relational ID/.test((cur.eg || '') + ' ' + cur.text), hasInvite: !!cur.invite, invite: cur.invite || '', inviteCta: cur.inviteCta || '',
