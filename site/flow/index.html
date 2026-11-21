@@ -370,9 +370,10 @@ class Component extends DCLogic {
   }
   gPlace(x, y, scale) {
     var rv = this.gEls().rv; if (!rv) { return; }
-    var w = rv.offsetWidth, h = rv.offsetHeight;
+    var w = rv.offsetWidth, h = rv.offsetHeight, ax = rv.classList.contains('flip') ? 0.43 : 0.57;
     this.gPos = { x: x, y: y };
-    rv.style.transform = 'translate(' + (x - w * 0.57).toFixed(1) + 'px,' + (y - h * 0.87).toFixed(1) + 'px) scale(' + (scale || 1) + ')';
+    rv.style.transformOrigin = (ax * 100) + '% 87%';
+    rv.style.transform = 'translate(' + (x - w * ax).toFixed(1) + 'px,' + (y - h * 0.87).toFixed(1) + 'px) scale(' + (scale || 1) + ')';
   }
   gFly(to, opts, done) {
     var self = this, rv = this.gEls().rv; opts = opts || {};
@@ -400,7 +401,8 @@ class Component extends DCLogic {
     var rv = this.gEls().rv; if (!rv) { return; }
     rv.classList.remove('flying'); rv.classList.add('perched');
     var L = this.gEls().layer.getBoundingClientRect();
-    rv.classList.toggle('flip', this.gPos && this.gPos.x > L.width * 0.55);
+    rv.classList.toggle('flip', !!(this.gPos && this.gPos.x > L.width * 0.55));
+    if (this.gPos) { this.gPlace(this.gPos.x, this.gPos.y, 1); }
     this.gAt = at;
   }
   gRender() {
