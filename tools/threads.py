@@ -7,10 +7,12 @@ Each thread is built only from public information and links to its sources.
   kind 'noticed':    a resonance the River notices from public listings (same
                      watershed, same work). It does not claim the organisations
                      know each other.
+Each thread also lists regions (la, clare, world) for Local currents and
+themes (land, bio, grief, money) for the Ocean filter.
 People are never threaded here: connections between people stay consent-based.
 
-Run this to refresh data/threads.json and the copy embedded in the Groundwater
-page (used by the mockup, and as a fallback when the JSON can't be loaded):
+Run this to refresh data/threads.json and the copy embedded in each page
+that shows threads (Groundwater, Local currents, Ocean) (used by the mockup, and as a fallback when the JSON can't be loaded):
 
     python3 tools/threads.py
 """
@@ -24,6 +26,7 @@ AS_OF = 'November 2026'
 THREADS = [
     {
         'id': 'seed-keepers',
+        'regions': ['la', 'clare'], 'themes': ['land'],
         'kind': 'noticed',
         'title': 'Seed keepers on two shores',
         'waters': ['streams', 'local', 'ocean'],
@@ -43,6 +46,7 @@ THREADS = [
     },
     {
         'id': 'la-watershed',
+        'regions': ['la'], 'themes': ['land'],
         'kind': 'noticed',
         'title': 'Carers of the Los Angeles watershed',
         'waters': ['local', 'channels'],
@@ -61,6 +65,7 @@ THREADS = [
     },
     {
         'id': 'land-return',
+        'regions': ['la'], 'themes': ['land'],
         'kind': 'documented',
         'title': 'Land returning to the Tongva',
         'waters': ['channels', 'confluences', 'local'],
@@ -78,6 +83,7 @@ THREADS = [
     },
     {
         'id': 'irish-environmental-network',
+        'regions': ['clare'], 'themes': ['land', 'bio'],
         'kind': 'documented',
         'title': 'One network beneath Clare and Tipperary',
         'waters': ['local', 'confluences'],
@@ -94,6 +100,7 @@ THREADS = [
     },
     {
         'id': 'ecovillages',
+        'regions': ['clare', 'world'], 'themes': ['bio'],
         'kind': 'documented',
         'title': 'A local ecovillage in a global web',
         'waters': ['ocean', 'lakes'],
@@ -111,6 +118,7 @@ THREADS = [
     },
     {
         'id': 'burren',
+        'regions': ['clare'], 'themes': ['land'],
         'kind': 'noticed',
         'title': 'Farming with nature in the west of Clare',
         'waters': ['estuary', 'local'],
@@ -128,6 +136,7 @@ THREADS = [
     },
     {
         'id': 'learning-places',
+        'regions': ['clare'], 'themes': ['bio'],
         'kind': 'noticed',
         'title': 'Places that teach by doing',
         'waters': ['tributaries', 'estuary'],
@@ -144,6 +153,7 @@ THREADS = [
     },
     {
         'id': 'murmurations',
+        'regions': ['world'], 'themes': ['bio'],
         'kind': 'documented',
         'title': 'Maps that talk to each other',
         'waters': ['source', 'confluences', 'ocean'],
@@ -161,6 +171,7 @@ THREADS = [
     },
     {
         'id': 'hylo-farms',
+        'regions': ['world'], 'themes': ['land'],
         'kind': 'documented',
         'title': 'Farms finding each other on Hylo',
         'waters': ['confluences', 'waterfall'],
@@ -177,6 +188,7 @@ THREADS = [
     },
     {
         'id': 'open-gatherings',
+        'regions': ['world', 'la'], 'themes': ['bio'],
         'kind': 'noticed',
         'title': 'Gatherings anyone can find',
         'waters': ['lakes', 'waterfall', 'ocean'],
@@ -194,6 +206,7 @@ THREADS = [
     },
     {
         'id': 'bioregional-weavers',
+        'regions': ['world'], 'themes': ['bio'],
         'kind': 'documented',
         'title': 'Bioregional weavers, near and far',
         'waters': ['ocean', 'confluences', 'local'],
@@ -214,6 +227,7 @@ THREADS = [
     },
     {
         'id': 'after-fire',
+        'regions': ['la'], 'themes': ['land', 'grief'],
         'kind': 'noticed',
         'title': 'Tending land after fire',
         'waters': ['eddies', 'local'],
@@ -228,6 +242,98 @@ THREADS = [
             ['TreePeople', 'https://www.treepeople.org/home'],
         ],
     },
+    {
+        'id': 'mountain-watersheds',
+        'kind': 'noticed',
+        'title': 'Two carers of the Santa Monica Mountains',
+        'waters': ['local', 'channels'],
+        'regions': ['la'], 'themes': ['land'],
+        'text': 'Since 1961 the Resource Conservation District of the Santa Monica Mountains has run programmes in watershed management, restoration, research and education across the range, from Point Mugu to Topanga. TreePeople tends the eastern end of the same mountains from Coldwater Canyon Park.',
+        'how': 'Noticed by the River: two organisations caring for the creeks and slopes of one mountain range, Laurel Canyon’s own.',
+        'orgs': [
+            ['Resource Conservation District of the Santa Monica Mountains', 'https://rcdsmm.org/who-we-are/', 'Santa Monica Mountains'],
+            ['TreePeople', 'https://www.treepeople.org/home', 'Coldwater Canyon'],
+        ],
+        'sources': [
+            ['RCDSMM: who we are', 'https://rcdsmm.org/who-we-are/'],
+            ['RCDSMM: about the district', 'https://rcdsmm.org/who-we-are/about-the-rcdsmm/'],
+            ['TreePeople: Coldwater Canyon Park', 'https://treepeople.org/?p=6682'],
+        ],
+    },
+    {
+        'id': 'burren-learning-landscape',
+        'kind': 'noticed',
+        'title': 'The Burren as a learning landscape',
+        'waters': ['local', 'tributaries'],
+        'regions': ['clare'], 'themes': ['land', 'bio'],
+        'text': 'Burrenbeo Trust, a landscape charity founded in 2008 and based in Kinvara, works to connect people to their places and their part in caring for them. It promotes the Burren as a learning landscape whose models others can use. Its neighbour the Burren Programme pays farmers for the health of the habitats they tend.',
+        'how': 'Noticed by the River: two Burren organisations, one teaching people to care for the landscape and one rewarding farmers who do.',
+        'orgs': [
+            ['Burrenbeo Trust', 'https://burrenbeo.com/?p=69', 'Kinvara, the Burren'],
+            ['Burren Programme', 'https://www.burrenprogramme.com/', 'The Burren, County Clare'],
+        ],
+        'sources': [
+            ['Burrenbeo Trust: about', 'https://burrenbeo.com/?p=69'],
+            ['Burrenbeo Trust: learning landscape', 'https://burrenbeo.com/?p=73'],
+            ['gov.ie: Burren Programme', 'https://www.gov.ie/en/press-release/2383e-minister-hackett-announces-the-commencement-of-2020-farmer-payments-under-the-burren-programme'],
+        ],
+    },
+    {
+        'id': 'restoration-communities',
+        'kind': 'noticed',
+        'title': 'Restoring land, many communities at a time',
+        'waters': ['ocean', 'channels'],
+        'regions': ['world'], 'themes': ['land', 'bio'],
+        'text': 'Ecosystem Restoration Communities, called Ecosystem Restoration Camps until 2023, grew from an idea of the ecologist and filmmaker John D. Liu in 2016. Local people and volunteers restore degraded land together, and the network now offers courses and a global knowledge exchange. Liu is also an Ecosystem Ambassador for Commonland, which co-leads the Bioregional Weaving Labs Collective.',
+        'how': 'Noticed by the River: Commonland appears in the public story of both networks.',
+        'orgs': [
+            ['Ecosystem Restoration Communities', 'https://ecosystemrestorationcamps.org/the-evolution-of-the-camps-movement/', 'Worldwide'],
+            ['Commonland', 'https://www.commonland.com/', 'Worldwide'],
+        ],
+        'sources': [
+            ['ERC: the evolution of the camps movement', 'https://ecosystemrestorationcamps.org/the-evolution-of-the-camps-movement/'],
+            ['GlobalGiving: Ecosystem Restoration Communities report, May 2023', 'https://cl.globalgiving.org/projects/empower-local-communities-to-restore-their-ecosystems/reports/?pageNo=3'],
+            ['MIT Solve: Ecosystem Restoration Camps', 'https://solve.mit.edu/solutions/29920'],
+            ['GIY: about the Bioregional Weaving Labs Collective', 'https://giy.ie/?p=4250'],
+        ],
+    },
+    {
+        'id': 'grief-to-action',
+        'kind': 'documented',
+        'title': 'From grief for the world, to action',
+        'waters': ['eddies', 'ocean'],
+        'regions': ['world'], 'themes': ['grief'],
+        'text': 'Good Grief Network, a US nonprofit, brings people together to work through collective grief and eco-distress, in 10-week peer groups led by people it has trained. Its founder, LaUra Schmidt, has spoken of the Work That Reconnects, developed by Joanna Macy, as a model for resisting the privatisation of our pain. Facilitators in the Work That Reconnects Network hold similar spaces around the world.',
+        'how': 'Documented in reporting by Inside Climate News, and in each organisation’s own pages.',
+        'orgs': [
+            ['Good Grief Network', 'https://www.goodgriefnetwork.org/', 'Worldwide, online'],
+            ['Work That Reconnects Network', 'https://workthatreconnects.org/', 'Worldwide'],
+        ],
+        'sources': [
+            ['Inside Climate News: group sessions for eco-distress', 'https://insideclimatenews.org/?p=85867'],
+            ['Good Grief Network: about', 'https://www.goodgriefnetwork.org/?p=4550'],
+            ['Psychiatric Times: group interventions for climate distress', 'https://psychiatrictimes.com/view/group-interventions-climate-change-distress'],
+        ],
+    },
+    {
+        'id': 'bioregional-finance',
+        'kind': 'documented',
+        'title': 'Money flowing toward bioregions',
+        'waters': ['ocean', 'confluences'],
+        'regions': ['world'], 'themes': ['money', 'bio'],
+        'text': 'The Regenerative Communities Network is a global learning and action network for regenerative economies rooted in place. It began forming in 2017 with Capital Institute and has been run by its members since 2021. The BioFi Project grew out of a 2024 book on Bioregional Financing Facilities by the BioFi Project, Dark Matter Labs and the Buckminster Fuller Institute, and now helps bioregions design ways to fund regeneration.',
+        'how': 'Documented on the organisations’ own pages. The River noticed they share one aim: money that serves the health of a whole bioregion.',
+        'orgs': [
+            ['Regenerative Communities Network', 'https://capitalinstitute.org/regenerative-communities/', 'Worldwide'],
+            ['The BioFi Project', 'https://www.bfi.org/programs/bfi-design-lab/the-biofi-project/', 'Worldwide'],
+            ['Dark Matter Labs', 'https://darkmatterlabs.org/', 'Worldwide'],
+        ],
+        'sources': [
+            ['Capital Institute: Regenerative Communities Network', 'https://capitalinstitute.org/regenerative-communities/'],
+            ['Cascadia Department of Bioregion: on the RCN', 'https://cascadiabioregion.org/department-of-bioregion/tag/Bioregional+Organizing'],
+            ['Buckminster Fuller Institute: the BioFi Project', 'https://www.bfi.org/programs/bfi-design-lab/the-biofi-project/'],
+        ],
+    }
 ]
 
 
@@ -236,14 +342,15 @@ def main():
     out = ROOT / 'data' / 'threads.json'
     out.parent.mkdir(exist_ok=True)
     out.write_text(json.dumps(data, ensure_ascii=False, indent=1) + '\n')
-    page = ROOT / 'source' / 'Groundwater.dc.html'
-    t = page.read_text()
     block = '/*THREADS*/' + json.dumps(data, ensure_ascii=False) + '/*END THREADS*/'
-    t, n = re.subn(r'/\*THREADS\*/.*?/\*END THREADS\*/', lambda m: block, t, flags=re.S)
-    if n != 1:
-        raise SystemExit('Groundwater page has no THREADS marker')
-    page.write_text(t)
-    print(f'{len(THREADS)} threads written to data/threads.json and the Groundwater page')
+    pages = []
+    for page in sorted((ROOT / 'source').glob('*.dc.html')):
+        t = page.read_text()
+        t2, n = re.subn(r'/\*THREADS\*/.*?/\*END THREADS\*/', lambda m: block, t, flags=re.S)
+        if n:
+            page.write_text(t2)
+            pages.append(page.name.split('.')[0])
+    print(f'{len(THREADS)} threads written to data/threads.json and', ', '.join(pages))
 
 
 if __name__ == '__main__':
