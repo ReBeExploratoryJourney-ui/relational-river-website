@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · privacy</title>
+<meta name="description" content="How the Relational River cares for your information: what is kept, why, for how long, and your rights under GDPR.">
+<meta property="og:title" content="Relational River · privacy">
+<meta property="og:description" content="How the Relational River cares for your information: what is kept, why, for how long, and your rights under GDPR.">
+<meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<meta name="theme-color" content="#0E2849">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#E6E2F2;border-color:#2F2B28;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:start}
+.card{padding:36px 32px 30px;display:flex;flex-direction:column;gap:8px;color:#2F2B28}
+.k{font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
+.h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:30px;letter-spacing:-0.02em}
+.h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:21px}
+.p{margin:0;font-size:16px;line-height:1.55}
+.lnk{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.note{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;color:#E8C77A;max-width:760px}
+.steps{margin:4px 0 0;padding-left:22px;font-size:16px;line-height:1.6}
+.steps li{margin-bottom:4px}
+.minor{font-size:14px;font-style:italic}
+.toggle{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:transparent;border:1.5px solid #2F2B28;border-radius:10px 14px 10px 12px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
+.chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chiplabel{font-size:14px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
+.care{background:#E6E2F2;padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
+.pv{background:#FBF7EF;color:#2F2B28;padding:34px 40px;display:flex;flex-direction:column;gap:10px}
+.pv h2,.pvplain h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:26px;letter-spacing:-0.01em}
+.pv p,.pv li,.pvplain p,.pvplain li{margin:0;font-size:17px;line-height:1.6}
+.pv ul,.pvplain ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.pv a{color:#2B4A5E}
+.pvplain{display:flex;flex-direction:column;gap:12px}
+.pvplain a{color:#EDEDED}
+.pvtable{overflow-x:auto;border-radius:18px 24px 16px 26px;background:#FBF7EF}
+.pvtable table{width:100%;min-width:640px;border-collapse:collapse;color:#2F2B28;font-size:15px;line-height:1.5}
+.pvtable th{text-align:left;padding:12px 14px;font-weight:600;border-bottom:1.5px solid #8C8178}
+.pvtable td{padding:12px 14px;vertical-align:top;border-bottom:1px dashed #C9BFB2}
+.pvtable tr:last-child td{border-bottom:none}
+code{font-size:15px;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:5px}
+@media (max-width: 700px){.pv{padding:28px 22px}.pvtable table{min-width:0}.pvtable thead{display:none}.pvtable tr,.pvtable td{display:block}.pvtable tr{padding:10px 4px;border-bottom:1.5px solid #C9BFB2}.pvtable td{border:none;padding:6px 14px}.pvtable td::before{content:attr(data-label);display:block;font-weight:600;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:#6B625A}}
+@keyframes swirl{to{stroke-dashoffset:-120}}
+.eddy{stroke-dasharray:6 8;animation:swirl 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 14s linear infinite}
+.spin.ccw{animation-direction:reverse}
+@media (max-width: 700px){
+.torn{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,center!important;mask-position:top center,bottom center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+}
+@media (max-width: 700px){
+.vnav{position:relative;width:100%}
+.vgroup{position:static}
+.vmenu{left:0;right:0;min-width:0;width:auto}
+}
+</style>
+<style>body{background:#0E2849}</style>
+</head>
+<body>
+<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>
+<template id="rr-template">
+
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="/flow"><b>The River</b><span>the whole River at a glance</span></a><a href="/source"><b>The source</b><span>a minute of gentle questions</span></a><a href="/"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/streams"><b>Streams</b><span>small practices for ordinary days</span></a><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/eddies"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="/moon"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="/capital-journey"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="/lakes"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="/well"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/estuary"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="/groundwater"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="/my-river" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 900px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 30px">
+<a href="/flow" style="font-size: 15px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">Back to the whole River</a>
+<div style="display: flex; flex-direction: column; gap: 12px; margin-top: -16px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Privacy</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 46px; letter-spacing: -0.03em; line-height: 1.06">How the River cares for your information</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55">The River asks for very little. You can walk all of it without giving your name, and nothing about your visit is tracked. This notice explains, in plain words, what is kept when you choose to share something, why, for how long, and the rights you have. It is written to meet the EU and UK General Data Protection Regulation (GDPR), and we offer the same care to everyone, wherever you live.</p>
+<p style="margin: 0; font-size: 15px; font-style: italic; color: #C9CCD6">Last updated 21 November 2026. This notice is being reviewed before the River fully opens.</p>
+</div>
+
+<section class="torn tl pv">
+<h2>Who looks after your information</h2>
+<p>The Relational River is offered by the Institute of Relational Being (IRB), [legal name and registered address, once the company is formed]. IRB is the “controller” of the information described here: we decide why and how it is used, and we are responsible for it.</p>
+<p>Write to us any time at <a href="mailto:privacy@relationalriver.org">privacy@relationalriver.org</a>. Our representative in the European Union, for people there who would rather write to someone in the EU, is [to be appointed].</p>
+</section>
+
+<section class="pvplain">
+<h2>What is kept, why, and for how long</h2>
+<div class="pvtable" role="region" aria-label="What is kept, why and for how long" tabindex="0">
+<table>
+<thead><tr><th scope="col">When you…</th><th scope="col">What is used</th><th scope="col">Why, and the lawful basis</th><th scope="col">How long</th></tr></thead>
+<tbody>
+<tr><td data-label="When you…">Visit any page</td><td data-label="What is used">Your IP address, browser type and the page asked for, handled by our host Cloudflare to deliver the page and keep the site safe. The River itself keeps no visit logs and uses no analytics.</td><td data-label="Why, and the lawful basis">To run a working, secure website. Legitimate interests (GDPR Article 6(1)(f)).</td><td data-label="How long">Cloudflare’s short-lived operational logs only.</td></tr>
+<tr><td data-label="When you…">Answer questions, filter or explore</td><td data-label="What is used">Your choices at the source, in My river, and in filters stay in your browser while the page is open. They are never sent to us.</td><td data-label="Why, and the lawful basis">So the page can respond to you. Nothing is collected.</td><td data-label="How long">Gone when you close the page.</td></tr>
+<tr><td data-label="When you…">Pour an offering into the Well</td><td data-label="What is used">What you write and choose (skills, experience, passions, needs, place, time, reach, kinds of exchange, who may see it), the date, and your email if you give one.</td><td data-label="Why, and the lawful basis">To keep your offering and suggest you, as you chose, for projects you might like to join. Your consent (Article 6(1)(a)), which you can withdraw at any time.</td><td data-label="How long">Until you withdraw it, and never longer than three years.</td></tr>
+<tr><td data-label="When you…">Write to us</td><td data-label="What is used">Your email address and what you tell us.</td><td data-label="Why, and the lawful basis">To reply and help. Legitimate interests (Article 6(1)(f)).</td><td data-label="How long">As long as needed to help, then deleted within 12 months.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Photos of the Beings of a watershed come from iNaturalist, but our own server fetches them on your behalf, so your browser does not contact iNaturalist. Our fonts are kept on our own server too, so no request goes to Google.</p>
+<p>When you follow a link to another site, such as Hylo, Substack or an organisation’s own page, that site’s privacy notice applies from then on.</p>
+</section>
+
+<section class="torn tr pv">
+<h2>Who it is shared with</h2>
+<p>We never sell your information, never use it for advertising, and never share it for anyone else’s marketing.</p>
+<ul>
+<li><b>Cloudflare, Inc.</b> hosts the website and the Well’s database, as our processor under its Data Processing Addendum, and may only use the information to provide that service.</li>
+<li><b>Projects and constellations,</b> only when you say yes to an invitation, and only what you agree to share.</li>
+<li><b>River stewards,</b> a few trusted people who help tend the Well, under a duty of confidentiality.</li>
+<li><b>Authorities,</b> only if the law truly requires it.</li>
+</ul>
+</section>
+
+<section class="pvplain">
+<h2>Information travelling beyond Europe</h2>
+<p>IRB and Cloudflare are based in the United States, so information may be handled there. Cloudflare is certified under the EU-U.S. Data Privacy Framework and its UK extension, and its Data Processing Addendum also includes the European Commission’s Standard Contractual Clauses, so your information keeps the protection GDPR requires.</p>
+</section>
+
+<section class="torn tl pv">
+<h2>Cookies and your browser</h2>
+<p>The River uses no cookies for tracking, analytics or advertising, and stores nothing in your browser that isn’t essential, so there is no cookie banner to click through. Cloudflare may set one strictly necessary security cookie, <code>__cf_bm</code>, which helps tell people from automated bots, is not used to track you, and expires after 30 minutes of inactivity. If this ever changes, we will ask you first.</p>
+</section>
+
+<section class="pvplain">
+<h2>Your rights</h2>
+<p>Under GDPR you have the right to:</p>
+<ul>
+<li><b>see</b> what we hold about you, and receive a copy;</li>
+<li><b>correct</b> anything that is wrong;</li>
+<li><b>delete</b> your information;</li>
+<li><b>limit</b> how we use it, or <b>object</b> to uses based on our legitimate interests;</li>
+<li><b>take it with you,</b> in a common file format;</li>
+<li><b>withdraw your consent</b> at any time, without affecting what happened before.</li>
+</ul>
+<p>Your offering in the Well comes with a private link where you can read it, download a copy and withdraw it yourself, straight away. For anything else, write to <a href="mailto:privacy@relationalriver.org">privacy@relationalriver.org</a>. It is free, and we will answer within one month. We may ask a question to make sure a request really comes from you.</p>
+<p>The River may suggest people for a project, but it never makes decisions about you on its own: nothing happens without your yes.</p>
+</section>
+
+<section class="torn tr pv">
+<h2>If you have a concern</h2>
+<p>Please tell us first, and we will do our best to put it right. You can also complain to a data protection authority, in the country where you live or work, or where you think something went wrong. In Ireland, that is the <a href="https://www.dataprotection.ie/">Data Protection Commission</a>; in the UK, the <a href="https://ico.org.uk/">Information Commissioner’s Office</a>. The <a href="https://www.edpb.europa.eu/about-edpb/about-edpb/members_en">European Data Protection Board</a> lists the authority for every EU country.</p>
+</section>
+
+<section class="pvplain">
+<h2>Young people</h2>
+<p>Anyone may visit the River. The Well is for people aged 16 and over, and we do not knowingly keep information about anyone younger. If you think a young person has poured in an offering, please write to us and we will delete it.</p>
+<h2>Keeping it safe</h2>
+<p>The site is only served over a secure connection. Each private link is stored only in scrambled form, so even we cannot rebuild it, and only stewards who need to can read offerings. If something ever went wrong in a way that put your information at risk, we would tell the relevant authority within 72 hours, and tell you directly if the risk to you were high.</p>
+<h2>Changes</h2>
+<p>If this notice changes, we will update the date above. If a change affects what you agreed to, we will ask you again before it applies to you.</p>
+</section>
+
+<p class="note">Earth is every human’s first home. We try to tend your information the way we hope to tend the places we love: gently, honestly, and only taking what is needed.</p>
+</main>
+
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
+</div>
+</template>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3200}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+<script src="/js/river-runtime.js"></script>
+</body>
+</html>

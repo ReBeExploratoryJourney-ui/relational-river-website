@@ -31,6 +31,7 @@ PAGES = {
     'Eddies': ('eddies.html', '/eddies', 'Grief, gratitude and practices that return at turning points.'),
     'Estuary': ('estuary.html', '/estuary', 'Where personal change meets workplaces, schools and councils.'),
     'Groundwater': ('groundwater.html', '/groundwater', 'The hidden water that connects everything: the River as a living system.'),
+    'Privacy': ('privacy.html', '/privacy', 'How the Relational River cares for your information: what is kept, why, for how long, and your rights under GDPR.'),
     'Well': ('well.html', '/well', 'The Well of Wonder, Wit, Wisdom and Wealth: pour in what you can offer, and draw on others to bring projects to life.'),
     'Moon': ('moon.html', '/moon', 'Moon moves the waters, and we are water too: tides, turning points and Making with Moon.'),
 }
@@ -64,6 +65,9 @@ NOT_FOUND = '''<!doctype html>
 
 
 def convert(name, text):
+    # Self-hosted fonts instead of Google Fonts, so no visitor data goes to Google (GDPR).
+    text = re.sub(r'<link rel="preconnect" href="https://fonts\.(googleapis|gstatic)\.com"[^>]*>\n?', '', text)
+    text = re.sub(r'<link href="https://fonts\.googleapis\.com/css2[^"]*" rel="stylesheet">', '<link href="/fonts/fonts.css" rel="stylesheet">', text)
     out_file, url, desc = PAGES[name]
     title = re.search(r'<title>(.*?)</title>', text, re.S).group(1).strip()
     title = title.replace('Relational River: ', 'Relational River · ').strip()
@@ -111,7 +115,7 @@ def main():
         target.write_text(page)
         print('built', target.relative_to(OUT))
     # copy shared files
-    for sub in ('assets', 'js', 'data'):
+    for sub in ('assets', 'js', 'data', 'fonts'):
         dest = OUT / sub
         dest.mkdir(exist_ok=True)
         for f in (ROOT / sub).iterdir():

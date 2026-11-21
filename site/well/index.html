@@ -11,8 +11,7 @@
 <meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
 <link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
 <meta name="theme-color" content="#0E2849">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<link href="/fonts/fonts.css" rel="stylesheet">
 <style>
 body{margin:0}
 a{color:#EDEDED}a:hover{color:#FFFFFF}
@@ -168,7 +167,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <h3 class="h3">{{mineTitle}}</h3>
 <p class="p">{{mineText}}</p>
 <p class="p" style="font-size: 14px">{{mineMeta}}</p>
-<button class="go tornbtn" style="align-self: flex-start; background: #F2D3BC" onClick="{{withdraw}}">Withdraw my offering</button>
+<div style="display: flex; flex-wrap: wrap; gap: 12px"><button class="go tornbtn" style="background: #FBF7EF" onClick="{{download}}">Download a copy</button><button class="go tornbtn" style="background: #F2D3BC" onClick="{{withdraw}}">Withdraw my offering</button></div>
 <p class="minor" style="margin: 0">Withdrawing deletes it from the River completely. You are always welcome to pour in again.</p>
 </sc-if>
 <p class="p">{{mineNote}}</p>
@@ -212,6 +211,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 <sc-if value="{{notPoured}}" hint-placeholder-val="{{ true }}">
 <button class="{{consentCls}}" aria-pressed="{{consentOn}}" onClick="{{toggleConsent}}" style="align-self: flex-start; text-align: left">{{consentLabel}}</button>
+<a href="/privacy" class="lnk" style="font-size: 15px">Read how the River cares for your information</a>
 <button class="go tornbtn" style="align-self: flex-start; background: #CFE1E4" onClick="{{pour}}">{{pourLabel}}</button>
 <p class="minor" style="margin: 0" aria-live="polite">{{pourNote}}</p>
 </sc-if>
@@ -363,11 +363,12 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="k">How the well keeps care</div>
 <h2 class="h2" style="font-size: 26px">Your offering is yours</h2>
 <ul class="steps">
-<li>Private by default. You choose who can see your offering, and you can read or withdraw it at any time with your private link. Withdrawing deletes it completely.</li>
+<li>Private by default. You choose who can see your offering, and you can read, download or withdraw it at any time with your private link. Withdrawing deletes it completely, and nothing is kept longer than three years.</li>
 <li>The River suggests; people decide. No one joins a constellation without saying yes to an invitation.</li>
 <li>No ranking or scoring of people, ever. Every kind of offering is honoured.</li>
 <li>Kept in the River itself, with only what an offering needs. Your email, if you give it, is never shown and is used only for invitations. There is no tracking, and nothing is sold or shared.</li>
 <li>Stewards tend the well, help new people pour in, and keep it a kind place.</li>
+<li>The well follows GDPR wherever it applies. <a href="/privacy" style="color: inherit">Read the River’s privacy notice</a>.</li>
 </ul>
 </section>
 
@@ -384,7 +385,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </section>
 </main>
 
-<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being. The well is in its early days: the people in the examples are imagined.</span></footer>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being. The well is in its early days: the people in the examples are imagined.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
 </div>
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2600}}'>
@@ -445,7 +446,7 @@ class Component extends DCLogic {
     v.visNote = s.vis === 'river' ? 'Only the River would see this, to suggest you privately when a project needs what you offer. You decide each time.' : s.vis === 'members' ? 'Signed-in River members could find this offering. Your contact details stay private until you reply.' : 'Anyone visiting the River could find this offering. Your contact details stay private until you reply.';
     v.contact = s.contact; v.typedContact = this.typed('contact'); v.hp = s.hp; v.typedHp = this.typed('hp');
     v.consentOn = s.consent ? 'true' : 'false'; v.consentCls = s.consent ? 'chip on' : 'chip';
-    v.consentLabel = (s.consent ? '✓ ' : '') + 'I’m happy for the River to keep this offering, as described under “How the well keeps care”';
+    v.consentLabel = (s.consent ? '✓ ' : '') + 'I’m 16 or older, and happy for the River to keep this offering as its privacy notice describes';
     v.toggleConsent = function () { self.setState({ consent: !self.state.consent, status: self.state.status === 'consent' ? 'idle' : self.state.status }); };
     v.kept = s.status === 'kept'; v.notConnected = s.status === 'offline'; v.notPoured = !v.kept && !v.notConnected;
     v.pourLabel = s.status === 'sending' ? 'Pouring…' : 'Pour into the well';
@@ -484,6 +485,13 @@ class Component extends DCLogic {
     v.mineText = m ? [m.exp, m.pass, m.need ? 'Needs: ' + m.need : ''].filter(Boolean).join(' · ') : '';
     v.mineMeta = m ? [m.w.map(function (k) { return W[k][0]; }).join(' · '), m.where, 'poured in ' + m.created, label(VIS, m.vis).toLowerCase() ? 'seen by: ' + label(VIS, m.vis).toLowerCase() : ''].filter(Boolean).join(' · ') : '';
     v.mineNote = { loading: 'Finding your offering…', shown: '', gone: 'Your offering has been withdrawn and deleted. Thank you for the time it spent in the well.', missing: 'This link doesn’t match an offering in the well. It may already have been withdrawn.', offline: 'The well can’t be reached right now. Please try again later.' }[s.mineStatus] || '';
+    v.download = function () {
+      try {
+        var blob = new Blob([JSON.stringify(self.state.mine, null, 2)], { type: 'application/json' });
+        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'my-offering-in-the-well.json';
+        document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      } catch (e) {}
+    };
     v.withdraw = function () {
       try {
         fetch('/api/well/mine', { method: 'DELETE', headers: { 'x-well-key': self.state.manage } })

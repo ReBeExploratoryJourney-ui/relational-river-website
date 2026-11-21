@@ -11,8 +11,7 @@
 <meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
 <link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
 <meta name="theme-color" content="#0E2849">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<link href="/fonts/fonts.css" rel="stylesheet">
 <style>
 body{margin:0}
 a{color:#EDEDED}a:hover{color:#FFFFFF}
@@ -164,7 +163,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <a href="/ocean" class="go tornbtn" style="background: #F5EEE1">Add our group</a>
 </section>
 </main>
-<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>Groups in square brackets are examples for this mockup. Indigenous-led groups appear only as their communities wish.</span></footer>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>Groups in square brackets are examples for this mockup. Indigenous-led groups appear only as their communities wish.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
 </div>
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
@@ -178,7 +177,7 @@ class Component extends DCLogic {
     var self = this;
     if (this.cache[key] || this.loading[key]) { return; }
     this.loading[key] = true;
-    var url = 'https://api.inaturalist.org/v1/observations?' + q + '&quality_grade=research&photos=true&photo_license=cc0,cc-by,cc-by-sa&threatened=false&captive=false&order_by=votes&per_page=30&locale=en';
+    var url = '/api/inat/observations?' + q + '&quality_grade=research&photos=true&photo_license=cc0,cc-by,cc-by-sa&threatened=false&captive=false&order_by=votes&per_page=30&locale=en';
     fetch(url).then(function (res) { return res.json(); }).then(function (data) {
       var seen = {}, out = [];
       (data.results || []).forEach(function (o) {
@@ -190,7 +189,7 @@ class Component extends DCLogic {
         var name = t.preferred_common_name || t.name;
         name = name.charAt(0).toUpperCase() + name.slice(1);
         var who = (o.user && (o.user.name || o.user.login)) || 'an iNaturalist naturalist';
-        out.push({ name: name, img: p.url.replace('/square.', '/medium.'), url: 'https://www.inaturalist.org/observations/' + o.id, credit: p.attribution || '', alt: name + ', a photo by ' + who + ' on iNaturalist' });
+        out.push({ name: name, img: '/api/inat/photo?u=' + encodeURIComponent(p.url.replace('/square.', '/medium.')), url: 'https://www.inaturalist.org/observations/' + o.id, credit: p.attribution || '', alt: name + ', a photo by ' + who + ' on iNaturalist' });
       });
       self.cache[key] = out; self.loading[key] = false; self.setState({ n: self.state.n + 1 });
     }).catch(function () { self.cache[key] = []; self.loading[key] = false; self.setState({ n: self.state.n + 1 }); });

@@ -118,9 +118,66 @@ async function steward(request, env) {
   return json({ ok: true, offerings: results.map(shape) });
 }
 
+// iNaturalist, fetched by the worker on the visitor's behalf, so visitors'
+// browsers make no requests to iNaturalist or its photo hosts (GDPR).
+const PHOTO_HOSTS = ['inaturalist-open-data.s3.amazonaws.com', 'static.inaturalist.org'];
+
+async function cached(request, ctx, make) {
+  const cache = caches.default;
+  const hit = await cache.match(request);
+  if (hit) return hit;
+  const res = await make();
+  if (res.ok) ctx.waitUntil(cache.put(request, res.clone()));
+  return res;
+}
+
+async function inat(request, url, ctx) {
+  if (request.method !== 'GET') return json({ error: 'not_found' }, 404);
+  if (url.pathname === '/api/inat/observations') {
+    return cached(request, ctx, async () => {
+      const r = await fetch('https://api.inaturalist.org/v1/observations' + url.search, {
+        headers: { accept: 'application/json', 'user-agent': 'RelationalRiver/1.0 (relationalriver.org)' },
+      });
+      if (!r.ok) return json({ error: 'upstream' }, 502);
+      return new Response(await r.text(), {
+        headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=86400' },
+      });
+    });
+  }
+  if (url.pathname === '/api/inat/photo') {
+    let src;
+    try { src = new URL(url.searchParams.get('u') || ''); } catch (e) { return json({ error: 'bad_request' }, 400); }
+    if (src.protocol !== 'https:' || !PHOTO_HOSTS.includes(src.hostname) || !/^\/photos\//.test(src.pathname)) {
+      return json({ error: 'bad_request' }, 400);
+    }
+    return cached(request, ctx, async () => {
+      const r = await fetch(src.toString());
+      if (!r.ok || !/^image\//.test(r.headers.get('content-type') || '')) return json({ error: 'upstream' }, 502);
+      return new Response(r.body, {
+        headers: { 'content-type': r.headers.get('content-type'), 'cache-control': 'public, max-age=604800' },
+      });
+    });
+  }
+  return json({ error: 'not_found' }, 404);
+}
+
+// Offerings are kept no longer than three years.
+async function tidy(env) {
+  if (!env.WELL_DB) return;
+  await ready(env);
+  const cutoff = new Date(Date.now() - 3 * 365 * 24 * 3600 * 1000).toISOString().slice(0, 10);
+  await env.WELL_DB.prepare('DELETE FROM offerings WHERE created < ?').bind(cutoff).run();
+}
+
 export default {
-  async fetch(request, env) {
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(tidy(env));
+  },
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (url.pathname.startsWith('/api/inat/')) {
+      try { return await inat(request, url, ctx); } catch (e) { return json({ error: 'server' }, 500); }
+    }
     if (url.pathname.startsWith('/api/')) {
       if (!env.WELL_DB) return json({ error: 'not_connected' }, 503);
       try {

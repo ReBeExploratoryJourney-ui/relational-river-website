@@ -10,7 +10,9 @@
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash",
     "run_worker_first": ["/api/*"]
-  }
+  },
+  // Once a week, delete Well offerings older than three years.
+  "triggers": { "crons": ["17 4 * * 1"] }
   // To keep offerings, create a D1 database and add it here, for example:
   // "d1_databases": [{ "binding": "WELL_DB", "database_name": "relational-river-well", "database_id": "<id>" }]
 }
