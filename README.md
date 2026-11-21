@@ -47,3 +47,22 @@ Every push to `main` goes live automatically.
 | `/moon` | Moon: tides and Making with Moon |
 
 While the River is being tested, every page asks search engines not to list it (`noindex`). Remove that line from `build.py` before public launch.
+
+## The Well: keeping offerings
+
+`worker/index.js` serves the site and answers `/api/well/...`. Offerings are kept in a
+Cloudflare D1 database bound as `WELL_DB` (the table is created on first use). Until the
+binding exists, the Well says it isn't open yet and nothing is saved.
+
+To open the Well:
+
+1. In Cloudflare, go to Storage & Databases > D1 and create a database named
+   `relational-river-well`. Copy its database ID.
+2. Add it to `wrangler.jsonc`:
+   `"d1_databases": [{ "binding": "WELL_DB", "database_name": "relational-river-well", "database_id": "<id>" }]`
+3. For stewards: in the Worker's Settings > Variables and Secrets, add a secret named
+   `STEWARD_KEY`. Offerings can then be read at `/api/well/steward` with the header
+   `Authorization: Bearer <key>`. Never commit the key.
+
+Each person gets a private link (`/well/#manage=...`) to read or withdraw their offering;
+withdrawing deletes it. No IP addresses, device identifiers or tracking are stored.

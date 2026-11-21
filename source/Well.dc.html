@@ -62,6 +62,18 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .flow.f2{animation-duration:3.8s}.flow.f3{animation-duration:4.2s}.flow.f4{animation-duration:3.5s}
 @keyframes twinkle{50%{opacity:.35}}
 .twinkle{animation:twinkle 3s ease-in-out infinite}.twinkle.t2{animation-delay:1.4s}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.timenote{background:#FBF7EF;color:#2F2B28;padding:36px 40px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px 32px;margin-top:8px}
+.tn-head{grid-column:1/-1;display:flex;flex-direction:column;gap:8px}
+.ledger{width:100%;border-collapse:collapse;font-size:15px;line-height:1.45}
+.ledger th{text-align:left;font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-bottom:1.5px solid #8C8178}
+.ledger td{padding:9px 8px;border-bottom:1px dashed #C9BFB2;vertical-align:top}
+.ledger .num{text-align:right;white-space:nowrap;font-weight:600}
+.ledger .give{color:#3E6B3A}.ledger .take{color:#8A4B2A}
+.ledger tfoot td{font-weight:600;border-bottom:none;border-top:1.5px solid #8C8178}
+.tn-value{display:flex;flex-direction:column;gap:10px}
+@media (max-width: 860px){.timenote{grid-template-columns:1fr;padding:30px 24px}.ledger th:nth-child(3),.ledger td:nth-child(3){display:none}}
 .lbl{font-weight:600;font-size:16px;margin-bottom:-8px}
 .pourgrid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:start}
 .pourgrid aside{position:sticky;top:20px}
@@ -140,7 +152,20 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 </section>
 
-<section class="torn tall tl" style="background: #FBF7EF; padding: 40px 44px; display: flex; flex-direction: column; gap: 18px; color: #2F2B28">
+<section id="pour" class="torn tall tl" style="background: #FBF7EF; padding: 40px 44px; display: flex; flex-direction: column; gap: 18px; color: #2F2B28">
+<sc-if value="{{managing}}" hint-placeholder-val="{{ false }}">
+<div class="torn tr card" style="background: #DCE6D2" aria-live="polite">
+<div class="k">Your offering in the well</div>
+<sc-if value="{{mineShown}}" hint-placeholder-val="{{ false }}">
+<h3 class="h3">{{mineTitle}}</h3>
+<p class="p">{{mineText}}</p>
+<p class="p" style="font-size: 14px">{{mineMeta}}</p>
+<button class="go tornbtn" style="align-self: flex-start; background: #F2D3BC" onClick="{{withdraw}}">Withdraw my offering</button>
+<p class="minor" style="margin: 0">Withdrawing deletes it from the River completely. You are always welcome to pour in again.</p>
+</sc-if>
+<p class="p">{{mineNote}}</p>
+</div>
+</sc-if>
 <div class="chips" role="group" aria-label="I would like to"><span class="chiplabel">I would like to</span>
 <sc-for list="{{modeChips}}" as="c" hint-placeholder-count="2"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
 </div>
@@ -162,6 +187,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <input id="w-need" class="field" value="{{need}}" onChange="{{typedNeed}}" placeholder="For example: help with my garden, a place to stay, learning a new skill, paid work">
 <label for="w-where" class="lbl">Where I am</label>
 <input id="w-where" class="field" value="{{where}}" onChange="{{typedWhere}}" placeholder="A town, a watershed or a bioregion is plenty">
+<label for="w-contact" class="lbl">Email, so the River can send you invitations (optional)</label>
+<input id="w-contact" type="email" class="field" value="{{contact}}" onChange="{{typedContact}}" placeholder="Never shown to anyone. Used only for invitations you can say yes or no to.">
+<input class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" value="{{hp}}" onChange="{{typedHp}}">
 <div class="chips" role="group" aria-label="How much time I have"><span class="chiplabel">Time</span>
 <sc-for list="{{timeChips}}" as="c" hint-placeholder-count="4"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
 </div>
@@ -175,11 +203,18 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <sc-for list="{{visChips}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
 </div>
 <sc-if value="{{notPoured}}" hint-placeholder-val="{{ true }}">
-<button class="go tornbtn" style="align-self: flex-start; background: #CFE1E4" onClick="{{pour}}">Pour into the well</button>
-<p class="minor" style="margin: 0">Nothing leaves this page until you choose to share it. You can change or withdraw your offering at any time.</p>
+<button class="{{consentCls}}" aria-pressed="{{consentOn}}" onClick="{{toggleConsent}}" style="align-self: flex-start; text-align: left">{{consentLabel}}</button>
+<button class="go tornbtn" style="align-self: flex-start; background: #CFE1E4" onClick="{{pour}}">{{pourLabel}}</button>
+<p class="minor" style="margin: 0" aria-live="polite">{{pourNote}}</p>
 </sc-if>
-<sc-if value="{{poured}}" hint-placeholder-val="{{ false }}">
-<p class="p" style="font-size: 17px">Thank you. The well isn’t connected yet while the River is being tested, so nothing has been saved or sent. When it opens, your offering will be kept exactly as private as you chose.</p>
+<sc-if value="{{kept}}" hint-placeholder-val="{{ false }}">
+<p class="p" style="font-size: 17px" aria-live="polite">Thank you. Your offering is in the well, kept as privately as you chose.</p>
+<p class="p">This is your private link for reading or withdrawing your offering. Keep it somewhere safe: it is the only key, and the River can’t send it again.</p>
+<input class="field" readonly value="{{manageLink}}" aria-label="Your private link" onClick="{{selectAll}}">
+<a href="{{manageLink}}" class="lnk">Open my offering</a>
+</sc-if>
+<sc-if value="{{notConnected}}" hint-placeholder-val="{{ false }}">
+<p class="p" style="font-size: 17px" aria-live="polite">Thank you. The well isn’t open yet while the River is being tested, so nothing has been saved or sent. When it opens, your offering will be kept exactly as privately as you chose.</p>
 <a href="https://www.hylo.com/groups/institute-of-relational-being/chat" class="lnk">Tell IRB on Hylo that you’d like to pour in</a>
 </sc-if>
 </div>
@@ -266,6 +301,29 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <article class="torn tr card" style="background: #F2D3BC"><div class="k">Paid</div><h3 class="h3">Fair pay for good work</h3><p class="p">Many people need income to keep giving their best. Paid offerings are welcome and honoured.</p></article>
 <article class="torn tl card" style="background: #F5E3B0"><div class="k">Funded</div><h3 class="h3">A whole constellation, resourced</h3><p class="p">Funders and family offices can resource a constellation together, so everyone in it is supported.</p></article>
 </div>
+<div class="torn tr timenote">
+<div class="tn-head">
+<div class="k">A recorded hour, for example</div>
+<h3 class="h3">One native plant grower’s season of time exchange</h3>
+<p class="p">For now, time exchange in the well is informal: people agree it between themselves. This is a picture of how recorded hours could look one day. The grower is imagined.</p>
+</div>
+<table class="ledger">
+<caption class="sr">An imagined time note: hours given and received, with a balance</caption>
+<thead><tr><th scope="col">When</th><th scope="col">What the hour held</th><th scope="col">With</th><th scope="col" class="num">Hours</th></tr></thead>
+<tbody>
+<tr><td>March</td><td>Planting native sages and buckwheat along a creek in Fryman Canyon</td><td>A neighbourhood restoration day</td><td class="num give">+3</td></tr>
+<tr><td>April</td><td>Showing a neighbour how to collect and dry seed</td><td>A new seed saver</td><td class="num give">+1</td></tr>
+<tr><td>May</td><td>Setting up simple accounts for the nursery</td><td>A bookkeeper for co-operatives</td><td class="num take">−2</td></tr>
+<tr><td>June</td><td>Hosting the nursery’s first open-day circle</td><td>A facilitator</td><td class="num take">−1</td></tr>
+</tbody>
+<tfoot><tr><td colspan="3">Hours to draw on</td><td class="num">1</td></tr></tfoot>
+</table>
+<div class="tn-value">
+<div class="k">What an hour is worth</div>
+<p class="p"><b>Every hour counts the same,</b> whether it holds bookkeeping, planting, cooking or listening. A bookkeeper’s hour and a gardener’s hour are equal.</p>
+<p class="p"><b>And every hour holds more than it measures.</b> Those four hours given put about sixty native plants in the ground, taught a neighbour to save seed, and in return gave a small nursery tidy books and its first gathering.</p>
+</div>
+</div>
 </section>
 
 <section class="torn tr" style="background: #F5E3B0; padding: 40px 44px; display: flex; flex-wrap: wrap; gap: 32px; color: #2F2B28">
@@ -297,10 +355,10 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="k">How the well keeps care</div>
 <h2 class="h2" style="font-size: 26px">Your offering is yours</h2>
 <ul class="steps">
-<li>Private by default. You choose who can see your offering, and you can change or withdraw it at any time.</li>
+<li>Private by default. You choose who can see your offering, and you can read or withdraw it at any time with your private link. Withdrawing deletes it completely.</li>
 <li>The River suggests; people decide. No one joins a constellation without saying yes to an invitation.</li>
 <li>No ranking or scoring of people, ever. Every kind of offering is honoured.</li>
-<li>Only what an offering needs is asked for. There is no tracking and nothing is sold.</li>
+<li>Kept in the River itself, with only what an offering needs. Your email, if you give it, is never shown and is used only for invitations. There is no tracking, and nothing is sold or shared.</li>
 <li>Stewards tend the well, help new people pour in, and keep it a kind place.</li>
 </ul>
 </section>
@@ -318,15 +376,28 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </section>
 </main>
 
-<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being. The well is in its early days: the examples here are imagined, and nothing is saved yet.</span></footer>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="Institute of Relational Being" style="width: 64px; height: 64px; display: block"><span>An open commons tended by the Institute of Relational Being. The well is in its early days: the people in the examples are imagined.</span></footer>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2600}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { mode: 'pour', w: { wit: true }, skills: '', exp: '', pass: '', need: '', where: '', time: 'month', reach: 'local', ex: { gift: true, swap: true }, vis: 'river', poured: false,
+    this.state = { mode: 'pour', w: { wit: true }, skills: '', exp: '', pass: '', need: '', where: '', time: 'month', reach: 'local', ex: { gift: true, swap: true }, vis: 'river', contact: '', hp: '', consent: false, status: 'idle', key: '', manage: '', mine: null, mineStatus: '',
       needKey: 'creek', own: '', ownWhere: 'anywhere', invited: false };
+  }
+  componentDidMount() {
+    var self = this, h = '';
+    try { h = (location.hash || '').replace(/^#/, ''); } catch (e) {}
+    var mm = /(?:^|&)manage=([0-9a-f-]+\.[0-9a-f]+)/.exec(h);
+    if (!mm) { return; }
+    this.setState({ manage: mm[1], mineStatus: 'loading' });
+    try {
+      fetch('/api/well/mine', { headers: { 'x-well-key': mm[1] } })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, code: r.status, d: d }; }); })
+        .then(function (res) { if (res.ok && res.d.offering) { self.setState({ mine: res.d.offering, mineStatus: 'shown' }); } else { self.setState({ mineStatus: res.code === 404 ? 'missing' : 'offline' }); } }, function () { self.setState({ mineStatus: 'offline' }); });
+    } catch (e) { this.setState({ mineStatus: 'offline' }); }
+    try { var el = document.getElementById('pour'); if (el) { el.scrollIntoView(); } } catch (e) {}
   }
   chips(opts, key) {
     var self = this, cur = this.state[key];
@@ -364,8 +435,53 @@ class Component extends DCLogic {
     var exs = EX.filter(function (x) { return s.ex[x[0]]; }).map(function (x) { return x[1].toLowerCase(); });
     v.previewMeta = [(s.where || 'Your place'), label(TIME, s.time).toLowerCase(), label(REACH, s.reach).toLowerCase(), exs.length ? 'welcomes ' + exs.join(', ') : ''].filter(Boolean).join(' · ');
     v.visNote = s.vis === 'river' ? 'Only the River would see this, to suggest you privately when a project needs what you offer. You decide each time.' : s.vis === 'members' ? 'Signed-in River members could find this offering. Your contact details stay private until you reply.' : 'Anyone visiting the River could find this offering. Your contact details stay private until you reply.';
-    v.poured = s.poured; v.notPoured = !s.poured;
-    v.pour = function () { self.setState({ poured: true }); };
+    v.contact = s.contact; v.typedContact = this.typed('contact'); v.hp = s.hp; v.typedHp = this.typed('hp');
+    v.consentOn = s.consent ? 'true' : 'false'; v.consentCls = s.consent ? 'chip on' : 'chip';
+    v.consentLabel = (s.consent ? '✓ ' : '') + 'I’m happy for the River to keep this offering, as described under “How the well keeps care”';
+    v.toggleConsent = function () { self.setState({ consent: !self.state.consent, status: self.state.status === 'consent' ? 'idle' : self.state.status }); };
+    v.kept = s.status === 'kept'; v.notConnected = s.status === 'offline'; v.notPoured = !v.kept && !v.notConnected;
+    v.pourLabel = s.status === 'sending' ? 'Pouring…' : 'Pour into the well';
+    var NOTES = { consent: 'Please tick the box above first, so the River knows it may keep your offering.', empty: 'Please choose at least one of wonder, wit, wisdom or wealth, and say a little about what you offer.', contact: 'That email doesn’t look quite right. You can also leave it empty.', error: 'Something went wrong on the way to the well. Please try again in a moment.' };
+    v.pourNote = NOTES[s.status] || 'Nothing leaves this page until you pour it in. You can read or withdraw your offering at any time.';
+    var origin = (typeof location !== 'undefined' && location.origin && location.origin.indexOf('http') === 0) ? location.origin : 'https://relationalriver.org';
+    v.manageLink = s.key ? origin + '/well/#manage=' + s.key : '';
+    v.selectAll = function (e) { try { e.target.select(); } catch (x) {} };
+    v.pour = function () {
+      var st = self.state;
+      if (st.status === 'sending') { return; }
+      if (!st.consent) { self.setState({ status: 'consent' }); return; }
+      var wsel = ['wonder', 'wit', 'wisdom', 'wealth'].filter(function (k) { return st.w[k]; });
+      if (!wsel.length || !(st.skills || st.exp || st.pass)) { self.setState({ status: 'empty' }); return; }
+      if (st.contact && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.contact)) { self.setState({ status: 'contact' }); return; }
+      self.setState({ status: 'sending' });
+      var body = { consent: true, website: st.hp, w: wsel, skills: st.skills, exp: st.exp, pass: st.pass, need: st.need, where: st.where, time: st.time, reach: st.reach,
+        ex: Object.keys(st.ex).filter(function (k) { return st.ex[k]; }), vis: st.vis, contact: st.contact };
+      try {
+        fetch('/api/well/offering', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
+          .then(function (r) { return r.json().then(function (d) { return { code: r.status, d: d }; }, function () { return { code: r.status, d: {} }; }); })
+          .then(function (res) {
+            if (res.d && res.d.key) { self.setState({ status: 'kept', key: res.d.key }); }
+            else if (res.code === 503 || res.code === 404 || res.code === 405) { self.setState({ status: 'offline' }); }
+            else if (res.d && res.d.error === 'contact') { self.setState({ status: 'contact' }); }
+            else if (res.d && res.d.error === 'empty') { self.setState({ status: 'empty' }); }
+            else { self.setState({ status: 'error' }); }
+          }, function () { self.setState({ status: 'offline' }); });
+      } catch (e) { self.setState({ status: 'offline' }); }
+    };
+    // reading or withdrawing one's own offering, via the private link
+    v.managing = !!s.manage;
+    var m = s.mine;
+    v.mineShown = !!m && s.mineStatus === 'shown';
+    v.mineTitle = m ? (m.skills || m.exp || 'Your offering') : '';
+    v.mineText = m ? [m.exp, m.pass, m.need ? 'Needs: ' + m.need : ''].filter(Boolean).join(' · ') : '';
+    v.mineMeta = m ? [m.w.map(function (k) { return W[k][0]; }).join(' · '), m.where, 'poured in ' + m.created, label(VIS, m.vis).toLowerCase() ? 'seen by: ' + label(VIS, m.vis).toLowerCase() : ''].filter(Boolean).join(' · ') : '';
+    v.mineNote = { loading: 'Finding your offering…', shown: '', gone: 'Your offering has been withdrawn and deleted. Thank you for the time it spent in the well.', missing: 'This link doesn’t match an offering in the well. It may already have been withdrawn.', offline: 'The well can’t be reached right now. Please try again later.' }[s.mineStatus] || '';
+    v.withdraw = function () {
+      try {
+        fetch('/api/well/mine', { method: 'DELETE', headers: { 'x-well-key': self.state.manage } })
+          .then(function (r) { self.setState({ mineStatus: r.ok ? 'gone' : 'offline', mine: r.ok ? null : self.state.mine }); }, function () { self.setState({ mineStatus: 'offline' }); });
+      } catch (e) { self.setState({ mineStatus: 'offline' }); }
+    };
 
     // draw
     var POOL = [
