@@ -276,19 +276,22 @@
   {
    "id": "learning-places",
    "regions": [
-    "clare"
+    "clare",
+    "world"
    ],
    "themes": [
-    "bio"
+    "bio",
+    "land"
    ],
    "kind": "noticed",
    "title": "Places that teach by doing",
    "waters": [
     "tributaries",
-    "estuary"
+    "estuary",
+    "ocean"
    ],
-   "text": "Some places share what they learn openly. Cloughjordan Ecovillage shares its learning about low-carbon living through educational activities. The Burren Programme’s results are published in a public evaluation, so other regions can learn from it.",
-   "how": "Noticed by the River: both publish what they have learned for others to use.",
+   "text": "Some places share what they learn openly. Cloughjordan Ecovillage shares its learning about low-carbon living through educational activities. The Burren Programme’s results are published in a public evaluation, so other regions can learn from it. In the Peruvian Amazon, Siendo Naturaleza offers short courses in regenerative agriculture, systems thinking and deep ecology to local and global learners.",
+   "how": "Noticed by the River: each opens what it has learned for others to use.",
    "orgs": [
     [
      "Cloughjordan Ecovillage",
@@ -299,9 +302,18 @@
      "Burren Programme",
      "https://www.burrenprogramme.com/",
      "County Clare"
+    ],
+    [
+     "Siendo Naturaleza",
+     "https://www.siendonaturaleza.com/",
+     "Peruvian Amazon"
     ]
    ],
    "sources": [
+    [
+     "Siendo Naturaleza: programmes for global learners",
+     "https://www.siendonaturaleza.com/our-programs-global"
+    ],
     [
      "Transnational Institute: the future is now at Cloughjordan",
      "https://www.tni.org/en/article/the-future-is-now-at-irelands-cloughjordan-ecovillage"
@@ -495,6 +507,96 @@
     [
      "The Bioregional Weaving Guide",
      "https://bioregionalweavinglabs.substack.com/p/bioregional-weaving-guide"
+    ]
+   ]
+  },
+  {
+   "id": "life-as-lab",
+   "kind": "documented",
+   "title": "Philosophy and emergence, at play together",
+   "waters": [
+    "tributaries",
+    "eddies",
+    "lakes",
+    "ocean"
+   ],
+   "regions": [
+    "world"
+   ],
+   "themes": [
+    "see"
+   ],
+   "text": "The Institute for Practical ekoPhilosophy, founded by Dr Jessica Böhme, treats philosophy as a practical response to the crises of our time. Its Life as Lab Playground is hosted with The Emergence Network, founded by Báyò Akómoláfé, a planetary network of care and inquiry known for postactivism and making sanctuary.",
+   "how": "Documented on both organisations’ websites, where the playground appears.",
+   "orgs": [
+    [
+     "Institute for Practical ekoPhilosophy",
+     "https://www.institute-pep.com/",
+     "Europe and online"
+    ],
+    [
+     "The Emergence Network",
+     "https://emergencenetwork.org/",
+     "Worldwide"
+    ]
+   ],
+   "sources": [
+    [
+     "Institute for Practical ekoPhilosophy",
+     "https://www.institute-pep.com/"
+    ],
+    [
+     "Institute for Practical ekoPhilosophy: team",
+     "https://www.institute-pep.com/team-1"
+    ],
+    [
+     "The Emergence Network: the playgrounds",
+     "https://emergencenetwork.org/theplaygrounds/"
+    ]
+   ]
+  },
+  {
+   "id": "horizon-weavers",
+   "kind": "noticed",
+   "title": "Weavers of the third horizon",
+   "waters": [
+    "confluences",
+    "ocean",
+    "waterfall"
+   ],
+   "regions": [
+    "world"
+   ],
+   "themes": [
+    "see",
+    "bio"
+   ],
+   "text": "Third Horizon Earth, based in Geneva, is a nonpartisan knowledge and practice platform that connects innovators and regenerative pioneers to accelerate regenerative development. H3Uni offers co-creative learning for the third horizon, growing from the Three Horizons practice developed with the International Futures Forum.",
+   "how": "Noticed by the River: both work with the Three Horizons idea of a different future already present in pockets today.",
+   "orgs": [
+    [
+     "Third Horizon Earth",
+     "https://thirdhorizon.earth/",
+     "Geneva, Switzerland"
+    ],
+    [
+     "H3Uni",
+     "https://www.h3uni.org",
+     "Online"
+    ]
+   ],
+   "sources": [
+    [
+     "Third Horizon Earth on Dandelion",
+     "https://dandelion.events/o/thirdhorizonearth"
+    ],
+    [
+     "H3Uni: about",
+     "https://www.h3uni.org/about"
+    ],
+    [
+     "Three horizons: a pathways practice for transformation (Ecology and Society, 2016)",
+     "https://discovery.dundee.ac.uk/ws/files/9835190/ES_2016_8388.pdf"
     ]
    ]
   },
