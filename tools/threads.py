@@ -264,6 +264,23 @@ THREADS = [
         ],
     },
     {
+        'id': 'siendo-irb',
+        'kind': 'documented',
+        'title': 'Being nature, being in relationship',
+        'waters': ['ocean', 'lakes', 'tributaries'],
+        'regions': ['world'], 'themes': ['land', 'see'],
+        'text': 'Siendo Naturaleza, a learning centre in the Peruvian Amazon founded by Eliane Cohen, an alumna of Schumacher College, and the Institute of Relational Being have collaborated many times over recent years. Both invite people into relationship with the living world they belong to.',
+        'how': 'Documented by the Institute of Relational Being, a partner in these collaborations.',
+        'orgs': [
+            ['Siendo Naturaleza', 'https://www.siendonaturaleza.com/', 'Peruvian Amazon'],
+            ['Institute of Relational Being', 'https://instituteofrelationalbeing.org', 'Laurel Canyon, Los Angeles, and County Clare'],
+        ],
+        'sources': [
+            ['Siendo Naturaleza: about us', 'https://www.siendonaturaleza.com/about-us'],
+            ['Institute of Relational Being', 'https://instituteofrelationalbeing.org'],
+        ],
+    },
+    {
         'id': 'after-fire',
         'regions': ['la'], 'themes': ['land', 'grief'],
         'kind': 'noticed',
@@ -370,6 +387,23 @@ THREADS = [
             ['Capital Institute: Regenerative Communities Network', 'https://capitalinstitute.org/regenerative-communities/'],
             ['Cascadia Department of Bioregion: on the RCN', 'https://cascadiabioregion.org/department-of-bioregion/tag/Bioregional+Organizing'],
             ['Buckminster Fuller Institute: the BioFi Project', 'https://www.bfi.org/programs/bfi-design-lab/the-biofi-project/'],
+        ],
+    },
+    {
+        'id': 'beyond-growth',
+        'kind': 'documented',
+        'title': 'Economies beyond growth, in conversation',
+        'waters': ['ocean', 'confluences', 'groundwater'],
+        'regions': ['world'], 'themes': ['money'],
+        'text': 'The Post Growth Institute is a co-directed nonprofit, governed collectively across 18 countries, inspired by natural systems to help money, power and resources circulate rather than pool. Its fellows, writers and incubator explore livelihoods and enterprises that do not depend on endless growth. In 2024 its Director of Communications, Priscilla Trịnh, joined Nate Hagens on The Great Simplification, the podcast whose Frankly 167 inspired the River’s Islands of coherence.',
+        'how': 'Documented by the Post Growth Institute in its June 2024 Ripples newsletter. The River noticed the shared question: what a good life looks like once growth is no longer the goal.',
+        'orgs': [
+            ['Post Growth Institute', 'https://postgrowth.org/', 'Worldwide'],
+            ['The Great Simplification', 'https://www.thegreatsimplification.com/', 'Worldwide'],
+        ],
+        'sources': [
+            ['Post Growth Institute: who we are', 'https://postgrowth.org/who-we-are/'],
+            ['Post Growth Ripples, June 2024', 'https://medium.com/postgrowth/post-growth-ripples-june-2024-56545956d31e'],
         ],
     }
 ]

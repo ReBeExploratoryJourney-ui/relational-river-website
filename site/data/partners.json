@@ -1,0 +1,114 @@
+{
+ "partners": [
+  {
+   "name": "Post Growth Institute",
+   "place": "Collectively governed across 18 countries",
+   "text": "Exploring a just and livable world beyond capitalism, and nurturing ideas, programmes and alliances that help money, power and resources circulate in local communities and the global economy.",
+   "theme": "Economies beyond growth",
+   "k": "money",
+   "href": "https://postgrowth.org/",
+   "founder": "",
+   "shaped": false
+  },
+  {
+   "name": "Hometree",
+   "place": "Co. Clare, Ireland",
+   "text": "Restoring native woodland and temperate rainforest in the west of Ireland.",
+   "theme": "Woodland and land",
+   "k": "land",
+   "href": "https://www.hometree.ie/",
+   "founder": "",
+   "shaped": false
+  },
+  {
+   "name": "Bioregional Learning Centre",
+   "place": "South Devon, England",
+   "text": "Bioregioning and learning journeys toward a resilient region.",
+   "theme": "Bioregional",
+   "k": "bio",
+   "href": "https://www.bioregion.org.uk/about",
+   "founder": "",
+   "shaped": false
+  },
+  {
+   "name": "Good Grief Network",
+   "place": "Worldwide",
+   "text": "Peer support for people overwhelmed by the state of the world.",
+   "theme": "Grief and care",
+   "k": "grief",
+   "href": "https://www.goodgriefnetwork.org/",
+   "founder": "",
+   "shaped": false
+  },
+  {
+   "name": "Regenerative Communities Network",
+   "place": "Worldwide",
+   "text": "Place-based transformation toward regenerative economies.",
+   "theme": "Economics and finance",
+   "k": "money",
+   "href": "https://capitalinstitute.org/regenerative-communities/",
+   "founder": "Convened by Capital Institute, now run by its members",
+   "shaped": false
+  },
+  {
+   "name": "Transition Network",
+   "place": "Worldwide",
+   "text": "Local groups working on food, energy, repair and community.",
+   "theme": "Bioregional",
+   "k": "bio",
+   "href": "https://maps.transitionnetwork.org/",
+   "founder": "",
+   "shaped": false
+  },
+  {
+   "name": "Siendo Naturaleza",
+   "place": "Peruvian Amazon",
+   "text": "A learning centre for land-based learning and regeneration, with short courses in regenerative agriculture, systems thinking and deep ecology.",
+   "theme": "Woodland and land",
+   "k": "land",
+   "href": "https://www.siendonaturaleza.com/",
+   "founder": "Founded by Eliane Cohen, a Schumacher College alumna and a longtime collaborator of IRB",
+   "shaped": false
+  },
+  {
+   "name": "Third Horizon Earth",
+   "place": "Geneva and worldwide",
+   "text": "A nonpartisan knowledge and practice platform connecting regenerative pioneers to accelerate regenerative development.",
+   "theme": "Ways of seeing",
+   "k": "see",
+   "href": "https://thirdhorizon.earth/",
+   "founder": "",
+   "shaped": false
+  },
+  {
+   "name": "The Emergence Network",
+   "place": "Worldwide",
+   "text": "A planetary network of care and inquiry, exploring postactivism and making sanctuary.",
+   "theme": "Ways of seeing",
+   "k": "see",
+   "href": "https://emergencenetwork.org/",
+   "founder": "Founded by Báyò Akómoláfé",
+   "shaped": false
+  },
+  {
+   "name": "Institute for Practical ekoPhilosophy",
+   "place": "Europe and online",
+   "text": "Philosophy as a practical response to the crises of our time: PhilosophyGyms and the Life as Lab Fellowship.",
+   "theme": "Ways of seeing",
+   "k": "see",
+   "href": "https://www.institute-pep.com/",
+   "founder": "Founded and led by Dr Jessica Böhme",
+   "shaped": false
+  },
+  {
+   "name": "Dark Matter Labs",
+   "place": "Worldwide",
+   "text": "Optionality, risk-in capital and bioregional finance.",
+   "theme": "Economics and finance",
+   "k": "money",
+   "href": "https://optionality.darkmatterlabs.org/",
+   "founder": "",
+   "shaped": false
+  }
+ ]
+}

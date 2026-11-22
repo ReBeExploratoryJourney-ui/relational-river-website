@@ -96,6 +96,15 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 @keyframes isleglow{0%,100%{opacity:.35;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
 @keyframes gpulse{0%,100%{box-shadow:0 0 4px rgba(232,199,122,.3)}50%{box-shadow:0 0 22px rgba(232,199,122,.75)}}
 .glogowrap{position:relative;display:inline-block}
+.flowrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;align-items:start}
+.flowcard{padding:34px 36px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.k2{font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.fh{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:26px;letter-spacing:-.01em}
+.fp{margin:0;font-size:16px;line-height:1.55}
+.flist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:16px;line-height:1.5}
+.flist a,.flowcard a{color:#2B4A5E;font-weight:600}
+.fsmall{margin:0;font-size:14px;font-style:italic;color:#4A443F}
+.flowcard .chip{color:#2F2B28}
 .hstars{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none}
 .hstar{position:absolute;border-radius:50%;background:#F5EEE1;box-shadow:0 0 5px rgba(245,238,225,.7);animation:twinkle 4.2s ease-in-out infinite}
 @media (max-width: 760px){.hstars{display:none}}
@@ -137,10 +146,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .rv-svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 3px rgba(245,238,225,.55)) drop-shadow(0 0 14px rgba(190,205,255,.35))}
 .rv-bodyg > path:nth-of-type(2),.rv-wing > path:first-child,.rv-fold > path:first-child,.rv-farwing path{stroke:rgba(178,192,245,.7);stroke-width:1;stroke-linejoin:round}
 .rv-wing,.rv-farwing{transform-box:view-box;transform-origin:60px 46px}
-.rv.flying .rv-wing{animation:flap .8s ease-in-out infinite alternate}
-.rv.flying .rv-farwing{animation:flap2 .8s ease-in-out infinite alternate}
-.rv.flying.glide .rv-wing{animation:none;transform:scaleY(.22)}
-.rv.flying.glide .rv-farwing{animation:none;transform:scaleY(.18)}
+.rv.flying .rv-wing{animation:flap .9s cubic-bezier(.45,0,.55,1) infinite alternate}
+.rv.flying .rv-farwing{animation:flap2 .9s cubic-bezier(.45,0,.55,1) infinite alternate}
+.rv.flying.glide .rv-wing,.rv.flying.glide .rv-farwing{animation-play-state:paused}
 @keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(-.62)}}
 @keyframes flap2{from{transform:scaleY(.85)}to{transform:scaleY(-.5)}}
 .rv-fold,.rv-legs{display:none}
@@ -276,6 +284,29 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </aside>
 </div>
 
+<section class="flowrow" aria-label="This Moon, and finding your way">
+<div class="torn tl flowcard" style="background: #F5EEE1">
+<div class="k2">Flowing this Moon</div>
+<h2 class="fh">{{seasonLens}}</h2>
+<p class="fp">{{seasonText}}</p>
+<ul class="flist">
+<li><b>Lens:</b> <a href="{{seasonLensHref}}">{{seasonLensLink}}</a></li>
+<li><b>Partner:</b> <a href="{{seasonPartnerHref}}">{{seasonPartner}}</a></li>
+<li><b>Practice:</b> <a href="{{seasonPracticeHref}}">{{seasonPractice}}</a></li>
+</ul>
+<p class="fsmall">Each Moon cycle the River features one lens, one partner and one practice. This one flows until the next new Moon, {{seasonUntil}}.</p>
+</div>
+<div class="torn tr flowcard" style="background: #E6E2F2">
+<div class="k2">Find your way</div>
+<h2 class="fh">What are you longing for today?</h2>
+<div class="chips" role="group" aria-label="What are you longing for today?"><sc-for list="{{longChips}}" as="c" hint-placeholder-count="6"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for></div>
+<sc-if value="{{hasLong}}" hint-placeholder-val="{{ false }}">
+<p class="fp" aria-live="polite">{{longIntro}}</p>
+<ul class="flist"><sc-for list="{{longLinks}}" as="l" hint-placeholder-count="3"><li><a href="{{l.href}}">{{l.label}}</a>: {{l.why}}</li></sc-for></ul>
+</sc-if>
+</div>
+</section>
+
 <section aria-label="Ways to begin" style="display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center; padding-top: 8px">
 <p style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 24px; color: #DCDCDC; max-width: 720px">Everyone begins at the source. It takes a minute, and there is nothing to get right.</p>
 <a href="Main.dc.html" class="go tornbtn same">Begin at the source</a>
@@ -323,7 +354,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { i: 0, tour: false, glow: true, guiding: false, emerging: false, peel: false, merging: false, heroFaded: false }; }
+  constructor(props) { super(props); this.state = { i: 0, tour: false, glow: true, guiding: false, emerging: false, peel: false, merging: false, heroFaded: false, longing: null }; }
   guideScript() {
     var pre = [
       { at: 'moon', text: 'Before we begin, something true of every river: this one is alive. The Relational River is a provotype, a living prototype made to provoke new possibilities. It is always changing and evolving, just like life and reality itself, so no two journeys here will ever be the same.' },
@@ -361,7 +392,8 @@ class Component extends DCLogic {
     ];
     var tour = T.map(function (t) { return { at: t[0], node: t[0], text: t[1] }; });
     var end = { at: 'moon', text: 'That is the River, for now. It will keep changing, and so will you. Where would you like to begin?', final: true };
-    return { welcome: [{ at: 'moon', text: 'Welcome to the Relational River. I am Raven, and I would be glad to be your guide. Shall I tell you about the River in depth, or show you around, from the Source to the sea?', choice: true }], deep: pre.concat(deep, [end]), tour: pre.concat(tour, [end]) };
+    var sn = this.seasonNow();
+    return { find: [{ at: 'moon', text: 'What are you longing for today? Choose whatever feels closest.', find: true }], welcome: [{ at: 'moon', text: 'Welcome to the Relational River. I am Raven, and I would be glad to be your guide. This Moon, the River is flowing with ' + sn.lens.toLowerCase() + '. Shall I tell you about the River in depth, show you around from the Source to the sea, or help you find your way?', choice: true }], deep: pre.concat(deep, [end]), tour: pre.concat(tour, [end]) };
   }
   gEls() {
     if (!this.glayer || !document.body.contains(this.glayer)) {
@@ -392,34 +424,87 @@ class Component extends DCLogic {
     }
     return null;
   }
-  gPlace(x, y, scale) {
+  gPlace(x, y, scale, rot) {
     var rv = this.gEls().rv; if (!rv) { return; }
     var w = rv.offsetWidth, h = rv.offsetHeight, ax = rv.classList.contains('flip') ? 0.43 : 0.57;
     this.gPos = { x: x, y: y };
     rv.style.transformOrigin = (ax * 100) + '% 87%';
-    rv.style.transform = 'translate(' + (x - w * ax).toFixed(1) + 'px,' + (y - h * 0.87).toFixed(1) + 'px) scale(' + (scale || 1) + ')';
+    rv.style.transform = 'translate3d(' + (x - w * ax).toFixed(2) + 'px,' + (y - h * 0.87).toFixed(2) + 'px,0) scale(' + (scale || 1).toFixed(3) + ') rotate(' + ((rot || 0) * 57.2958).toFixed(2) + 'deg)';
   }
-  gFly(to, opts, done) {
+  // Follow Raven with the page, gently, so they stay in view while flying.
+  gFollow(y, k) {
+    try {
+      var L = this.gEls().layer.getBoundingClientRect(), H = window.innerHeight, sy = L.top + y;
+      var mobile = window.innerWidth <= 760, lo = H * (mobile ? 0.14 : 0.1), hi = H * (mobile ? 0.36 : 0.86), mid = H * (mobile ? 0.26 : 0.45);
+      if (sy < lo || sy > hi) { window.scrollBy(0, (sy - mid) * (k || 0.06)); }
+    } catch (e) {}
+  }
+  // Fly smoothly along a curve through several points, at an even, unhurried pace.
+  gPath(pts, opts, done) {
     var self = this, rv = this.gEls().rv; opts = opts || {};
-    if (!rv || !to) { if (done) { done(); } return; }
-    var from = this.gPos || to, s0 = opts.fromScale || 1, s1 = opts.toScale || 1;
+    if (!rv || !pts || pts.length < 2) { if (done) { done(); } return; }
     if (this.raf) { cancelAnimationFrame(this.raf); }
-    if (this.still()) { rv.classList.remove('flying'); this.gPlace(to.x, to.y, 1); if (done) { setTimeout(done, 60); } return; }
-    rv.classList.add('flying'); rv.classList.remove('perched');
-    rv.classList.toggle('flip', to.x < from.x);
-    var dx = to.x - from.x, dy = to.y - from.y, dist = Math.sqrt(dx * dx + dy * dy);
-    var dur = Math.max(1300, Math.min(4200, dist / 0.27)), lift = 50 + dist * 0.18, soar = dur > 2200;
-    var L0 = this.gEls().layer.getBoundingClientRect(), topSafe = -L0.top + 70 + (opts.topPad || 0);
-    var cx = (from.x + to.x) / 2, cy = Math.max(topSafe, Math.min(from.y, to.y) - (opts.lift != null ? opts.lift : lift)), t0 = null;
+    var end = pts[pts.length - 1];
+    if (this.still()) { rv.classList.remove('flying'); this.gPlace(end.x, end.y, 1, 0); if (done) { setTimeout(done, 60); } return; }
+    var P = [pts[0]].concat(pts, [pts[pts.length - 1]]), S = [], n = 40;
+    for (var s = 1; s < P.length - 2; s++) {
+      var p0 = P[s - 1], p1 = P[s], p2 = P[s + 1], p3 = P[s + 2];
+      for (var k = 0; k < n; k++) {
+        var u = k / n, u2 = u * u, u3 = u2 * u;
+        S.push({ x: 0.5 * (2 * p1.x + (-p0.x + p2.x) * u + (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * u2 + (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * u3),
+                 y: 0.5 * (2 * p1.y + (-p0.y + p2.y) * u + (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * u2 + (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * u3) });
+      }
+    }
+    S.push({ x: end.x, y: end.y });
+    var D = [0];
+    for (var q = 1; q < S.length; q++) { D.push(D[q - 1] + Math.hypot(S[q].x - S[q - 1].x, S[q].y - S[q - 1].y)); }
+    var len = D[D.length - 1] || 1, speed = opts.speed || 0.2;
+    var dur = Math.max(opts.minDur || 1600, Math.min(opts.maxDur || 9000, len / speed));
+    var s0 = opts.fromScale || 1, s1 = opts.toScale || 1, t0 = null, idx = 0;
+    var facingLeft = rv.classList.contains('flip'), vx = 0, vy = 0, rot = this.gRot || 0, last = S[0];
+    rv.classList.add('flying'); rv.classList.remove('perched', 'glide');
+    var at = function (dist) {
+      while (idx < D.length - 2 && D[idx + 1] < dist) { idx++; }
+      while (idx > 0 && D[idx] > dist) { idx--; }
+      var a = S[idx], b = S[idx + 1] || a, seg = (D[idx + 1] - D[idx]) || 1, f = Math.max(0, Math.min(1, (dist - D[idx]) / seg));
+      return { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f };
+    };
     var step = function (ts) {
       if (!t0) { t0 = ts; }
-      var t = Math.min(1, (ts - t0) / dur), e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2, u = 1 - e;
-      var x = u * u * from.x + 2 * u * e * cx + e * e * to.x, y = u * u * from.y + 2 * u * e * cy + e * e * to.y + Math.sin(t * Math.PI * 3) * 4 * (1 - t);
-      if (soar) { rv.classList.toggle('glide', t > 0.22 && t < 0.78); }
-      self.gPlace(x, y, s1 < s0 ? s0 + (s1 - s0) * Math.pow(t, 2.2) : s0 + (s1 - s0) * Math.min(1, t * 1.6));
-      if (t < 1) { self.raf = requestAnimationFrame(step); } else { self.raf = null; rv.classList.remove('glide'); if (done) { done(); } }
+      var t = Math.min(1, (ts - t0) / dur);
+      var e = t * t * t * (t * (t * 6 - 15) + 10);
+      var pt = at(e * len);
+      vx += ((pt.x - last.x) - vx) * 0.12; vy += ((pt.y - last.y) - vy) * 0.12; last = pt;
+      if (!facingLeft && vx < -0.25) { facingLeft = true; rv.classList.add('flip'); }
+      else if (facingLeft && vx > 0.25) { facingLeft = false; rv.classList.remove('flip'); }
+      var pitch = Math.max(-0.32, Math.min(0.32, Math.atan2(vy, Math.abs(vx) + 0.6)));
+      var target = facingLeft ? -pitch : pitch;
+      rot += (target - rot) * 0.08;
+      if (t > 0.88) { rot *= 0.9; }
+      self.gRot = rot;
+      rv.classList.toggle('glide', dur > 2600 && t > 0.25 && t < 0.72);
+      var sc = s1 < s0 ? s0 + (s1 - s0) * Math.pow(e, 1.6) : s0 + (s1 - s0) * Math.min(1, e * 1.8);
+      self.gPlace(pt.x, pt.y, sc, rot);
+      if (opts.follow !== false) { self.gFollow(pt.y); }
+      if (t < 1) { self.raf = requestAnimationFrame(step); }
+      else {
+        self.raf = null; self.gRot = 0; rv.classList.remove('glide'); self.gPlace(end.x, end.y, s1, 0);
+        var n2 = 0, settle = function () { if (opts.follow !== false) { self.gFollow(end.y, 0.12); } if (++n2 < 30) { requestAnimationFrame(settle); } };
+        settle(); if (done) { done(); }
+      }
     };
     this.raf = requestAnimationFrame(step);
+  }
+  gFly(to, opts, done) {
+    opts = opts || {};
+    var from = this.gPos || to;
+    if (!to) { if (done) { done(); } return; }
+    var dist = Math.hypot(to.x - from.x, to.y - from.y);
+    if (dist < 6) { this.gPlace(to.x, to.y, opts.toScale || 1, 0); if (done) { done(); } return; }
+    var lift = opts.lift != null ? opts.lift : 40 + dist * 0.16;
+    var L0 = this.gEls().layer.getBoundingClientRect(), topSafe = -L0.top + 70;
+    var mid = { x: (from.x + to.x) / 2, y: Math.max(topSafe, Math.min(from.y, to.y) - lift) };
+    this.gPath([from, mid, to], { fromScale: opts.fromScale, toScale: opts.toScale, speed: 0.22, minDur: 1500, maxDur: 5200, follow: opts.follow }, done);
   }
   gPerch(at) {
     var rv = this.gEls().rv; if (!rv) { return; }
@@ -435,7 +520,14 @@ class Component extends DCLogic {
     var opts = [];
     var mk = function (label, fn, main) { opts.push({ label: label, fn: fn, main: main }); };
     if (beat.choice) {
-      mk('Tell me about the River', function () { self.gGo('deep', 0); }, true); mk('Show me around', function () { self.gGo('tour', 0); }, true); mk('Maybe later', function () { self.gStop(); });
+      mk('Tell me about the River', function () { self.gGo('deep', 0); }, true); mk('Show me around', function () { self.gGo('tour', 0); }, true); mk('Help me find my way', function () { self.gGo('find', 0); }, true); mk('Maybe later', function () { self.gStop(); });
+    } else if (beat.find && !this.gFound) {
+      this.longings().forEach(function (l) { mk(l.label, function () { self.gFound = l; self.gRender(); }); });
+      mk('Back', function () { self.gGo('welcome', 0); });
+    } else if (beat.find && this.gFound) {
+      var lf = this.gFound;
+      lf.links.forEach(function (x) { mk(x.label, function () { self.gStop(true); try { location.href = x.href; } catch (e) {} }, true); });
+      mk('Something else', function () { self.gFound = null; self.gRender(); });
     } else if (beat.final) {
       mk('Begin at the Source', function () { self.gStop(true); try { location.href = 'Main.dc.html'; } catch (x) {} }, true);
       if (g.seq === 'deep') { mk('Show me around', function () { self.gGo('tour', 0); }); }
@@ -446,12 +538,12 @@ class Component extends DCLogic {
     }
     b.innerHTML = '';
     var who = document.createElement('div'); who.className = 'gwho'; who.textContent = 'Raven'; b.appendChild(who);
-    var p = document.createElement('p'); p.className = 'gtext'; p.textContent = beat.text; b.appendChild(p);
+    var p = document.createElement('p'); p.className = 'gtext'; p.textContent = (beat.find && this.gFound) ? this.gFound.intro + ' ' + this.gFound.links.map(function (x) { return x.label + ', ' + x.why; }).join('; ') + '.' : beat.text; b.appendChild(p);
     var row = document.createElement('div'); row.className = 'gopts';
     opts.forEach(function (o) { var btn = document.createElement('button'); btn.type = 'button'; btn.className = o.main ? 'gopt main' : 'gopt'; btn.textContent = o.label; btn.addEventListener('click', o.fn); row.appendChild(btn); });
     b.appendChild(row);
     var foot = document.createElement('div'); foot.className = 'gfoot';
-    var count = document.createElement('span'); count.textContent = (beat.choice || beat.final) ? '' : (g.idx + 1) + ' of ' + (beats.length - 1); foot.appendChild(count);
+    var count = document.createElement('span'); count.textContent = (beat.choice || beat.final || beat.find) ? '' : (g.idx + 1) + ' of ' + (beats.length - 1); foot.appendChild(count);
     var endb = document.createElement('button'); endb.type = 'button'; endb.className = 'glink'; endb.textContent = 'End the guide'; endb.addEventListener('click', function () { self.gStop(); }); foot.appendChild(endb);
     b.appendChild(foot);
     b.classList.remove('placed'); b.style.display = 'flex';
@@ -486,6 +578,7 @@ class Component extends DCLogic {
     });
   }
   gGo(seq, idx) {
+    this.gFound = null;
     var self = this, beats = this.guideScript()[seq], beat = beats[idx];
     if (!beat) { this.gStop(); return; }
     var nodeIndex = -1;
@@ -498,8 +591,19 @@ class Component extends DCLogic {
     var nodeEl = null;
     if (beat.node) { var ns = document.querySelectorAll('.mapinner .node'); for (var k = 0; k < ns.length; k++) { if (ns[k].textContent.trim() === beat.node) { nodeEl = ns[k]; } } }
     var el = nodeEl || target;
-    this.gMoonScroll = !nodeEl; this.gScroll(el, nodeEl ? 0.45 : 0.18);
-    setTimeout(function () { if (!self.gActive) { return; } self.gFly(self.gPoint(beat.at), {}, show); }, this.still() ? 30 : 420);
+    this.gMoonScroll = !nodeEl; this.gMapX(el);
+    if (this.still()) { this.gScroll(el, nodeEl ? 0.45 : 0.18); }
+    setTimeout(function () { if (!self.gActive) { return; } self.gFly(self.gPoint(beat.at), {}, show); }, this.still() ? 30 : 60);
+  }
+  // On phones, slide the map sideways (at once) so the destination is in view before flying.
+  gMapX(el) {
+    try {
+      var ms = el && el.closest ? el.closest('.mapscroll') : null;
+      if (!ms || ms.scrollWidth <= ms.clientWidth) { return; }
+      var r = el.getBoundingClientRect(), mr = ms.getBoundingClientRect(), cxp = this.gMoonScroll ? r.left + r.width * 0.92 : r.left + r.width / 2;
+      var dx = cxp - (mr.left + mr.width / 2);
+      if (Math.abs(dx) > mr.width * 0.3) { ms.scrollLeft = ms.scrollLeft + dx; }
+    } catch (x) {}
   }
   gScroll(el, frac) {
     if (!el) { return; }
@@ -546,14 +650,19 @@ class Component extends DCLogic {
       requestAnimationFrame(function () { e.rv.classList.add('on'); self.raf = requestAnimationFrame(grow); });
     }, 1050);
     setTimeout(function () { self.setState({ emerging: false, peel: false }); }, 1700);
-    var L = e.layer.getBoundingClientRect(), W = L.width, top0 = -L.top, vh = window.innerHeight || 800;
-    var loop = [{ x: W * 0.64, y: top0 + vh * 0.12 }, { x: W * 0.86, y: top0 + vh * 0.26 }, { x: W * 0.66, y: top0 + vh * 0.42 }, { x: W * 0.4, y: top0 + vh * 0.3 }];
-    if (W < 700) { loop = [{ x: W * 0.78, y: top0 + vh * 0.14 }, { x: W * 0.3, y: top0 + vh * 0.26 }]; }
-    var k = 0;
     var next = function () {
       if (!self.gActive) { return; }
-      if (k < loop.length) { var p = loop[k]; self.gFly(p, k === 0 ? { fromScale: 0.55, lift: 40 } : { lift: 30 }, next); k++; return; }
-      self.gGo('welcome', 0);
+      self.gMoonScroll = true; self.gMapX(document.querySelector('.mapinner svg'));
+      var L = e.layer.getBoundingClientRect(), W = L.width, top0 = -L.top, vh = window.innerHeight || 800, from = self.gPos, moon = self.gPoint('moon');
+      if (!moon) { self.gGo('welcome', 0); return; }
+      var pts = W < 700
+        ? [from, { x: W * 0.72, y: top0 + vh * 0.16 }, { x: W * 0.36, y: top0 + vh * 0.3 }, { x: (W * 0.5 + moon.x) / 2, y: Math.min(moon.y - 90, top0 + vh * 0.45) }, moon]
+        : [from, { x: W * 0.64, y: top0 + vh * 0.13 }, { x: W * 0.85, y: top0 + vh * 0.27 }, { x: W * 0.62, y: top0 + vh * 0.4 }, { x: W * 0.46, y: top0 + vh * 0.3 }, { x: (W * 0.6 + moon.x) / 2, y: Math.min(moon.y - 120, top0 + vh * 0.2) }, moon];
+      self.gPath(pts, { fromScale: 0.55, toScale: 1, speed: W < 700 ? 0.14 : 0.2, minDur: 6000, maxDur: 11000 }, function () {
+        if (!self.gActive) { return; }
+        self.gPerch('moon');
+        self.gGo('welcome', 0);
+      });
     };
   }
   gStop(quick) {
@@ -582,11 +691,7 @@ class Component extends DCLogic {
         setTimeout(function () { self.setState({ merging: false, emerging: false }); finish(); }, 1400);
       });
     };
-    var logo = document.querySelector('.glogo'), r = logo ? logo.getBoundingClientRect() : null;
-    if (r && (r.top < 0 || r.bottom > window.innerHeight)) {
-      try { window.scrollTo({ top: Math.max(0, (window.scrollY || 0) + r.top - 140), behavior: 'smooth' }); } catch (x) {}
-      setTimeout(goHome, 650);
-    } else { goHome(); }
+    goHome();
   }
   guideVals() {
     var self = this, s = this.state;
@@ -620,6 +725,32 @@ class Component extends DCLogic {
     } catch (e) {}
   }
   componentWillUnmount() { if (this.timer) { clearInterval(this.timer); } if (this.glowTimer) { clearTimeout(this.glowTimer); } if (this.raf) { cancelAnimationFrame(this.raf); } if (this.keyFn) { document.removeEventListener('keydown', this.keyFn); } if (this.glayer && this.glayer.parentNode) { this.glayer.parentNode.removeChild(this.glayer); } if (this.resizeFn) { window.removeEventListener('resize', this.resizeFn); } }
+  seasonNow() {
+    var S = [
+      { lens: 'Three horizons', text: 'Seeing the future already alive in the present, and tending both what is ending and what is beginning.', lensLink: 'The three horizons lesson', lensHref: 'Seeing.dc.html#horizons', partner: 'Third Horizon Earth', partnerHref: 'https://thirdhorizon.earth/', practice: 'Notice one third-horizon seed near you', practiceHref: 'Islands.dc.html' },
+      { lens: 'Emergence and slowing down', text: 'The times are urgent; let us slow down, and notice the others in the room.', lensLink: 'The emergence lesson', lensHref: 'Seeing.dc.html#emergence', partner: 'The Emergence Network', partnerHref: 'https://emergencenetwork.org/', practice: 'Five minutes of slow noticing', practiceHref: 'Seeing.dc.html#emergence' },
+      { lens: 'Philosophy as practice', text: 'Treating everyday life as a living lab, with the more-than-human world as a companion in knowing.', lensLink: 'The philosophy lesson', lensHref: 'Seeing.dc.html#practice', partner: 'Institute for Practical ekoPhilosophy', partnerHref: 'https://www.institute-pep.com/', practice: 'Treat one ordinary day as a lab', practiceHref: 'Seeing.dc.html#practice' },
+      { lens: 'Learning on the land', text: 'Regeneration learned with hands in the soil, alongside the forest and its communities.', lensLink: 'Learning on the land', lensHref: 'Seeing.dc.html#land', partner: 'Siendo Naturaleza', partnerHref: 'https://www.siendonaturaleza.com/', practice: 'Save seed from one plant this season', practiceHref: 'Seeing.dc.html#land' },
+      { lens: 'Islands of coherence', text: 'Steady, well-related places in turbulent water, connecting into archipelagos.', lensLink: 'Islands of coherence', lensHref: 'Islands.dc.html', partner: 'Bioregional Weaving Labs', partnerHref: 'https://bioregionalweavinglabs.substack.com/p/bioregional-weaving-guide', practice: 'Notice your island', practiceHref: 'Islands.dc.html' },
+      { lens: 'Reciprocity in many currencies', text: 'Wonder, wit, wisdom and wealth, flowing both ways, often without money.', lensLink: 'The Well', lensHref: 'Well.dc.html', partner: 'Regenerative Communities Network', partnerHref: 'https://capitalinstitute.org/regenerative-communities/', practice: 'Pour one offering into the Well', practiceHref: 'Well.dc.html' }
+    ];
+    var syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14) / 86400000, now = Date.now() / 86400000;
+    var n = Math.floor((now - ref) / syn), next = new Date((ref + (n + 1) * syn) * 86400000);
+    var s = S[((n % S.length) + S.length) % S.length];
+    var until = '';
+    try { until = 'on ' + next.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' }); } catch (e) { until = 'in ' + Math.ceil(ref + (n + 1) * syn - now) + ' days'; }
+    return Object.assign({ until: until }, s);
+  }
+  longings() {
+    return [
+      { k: 'calm', label: 'Calm and grounding', intro: 'For calm and grounding, you might begin here:', links: [{ label: 'Streams', href: 'Streams.dc.html', why: 'small everyday practices with the Beings around you' }, { label: 'Eddies', href: 'Eddies.dc.html', why: 'grief, gratitude and rest' }, { label: 'Moon', href: 'Moon.dc.html', why: 'tonight’s Moon and a quiet pause' }] },
+      { k: 'understand', label: 'To understand what’s happening', intro: 'To make sense of these times, you might begin here:', links: [{ label: 'Tributaries', href: 'Tributary.dc.html', why: 'films, talks and readings' }, { label: 'Ways of seeing', href: 'Seeing.dc.html', why: 'three horizons, emergence and philosophy as practice' }, { label: 'Islands of coherence', href: 'Islands.dc.html', why: 'what steadiness looks like in turbulent times' }] },
+      { k: 'belong', label: 'Company and belonging', intro: 'To find company and belonging, you might begin here:', links: [{ label: 'Lakes', href: 'Lakes.dc.html', why: 'circles, fellowships and retreats' }, { label: 'Local currents', href: 'LocalCurrents.dc.html', why: 'people tending the place where you live' }, { label: 'Gather on Hylo', href: 'Hylo.dc.html', why: 'where River circles meet' }] },
+      { k: 'act', label: 'To act', intro: 'To turn care into action, you might begin here:', links: [{ label: 'Channels', href: 'Channels.dc.html', why: 'ways to act, from small to large' }, { label: 'The waterfall', href: 'Waterfall.dc.html', why: 'offer an idea and see what it feeds' }, { label: 'The estuary', href: 'Estuary.dc.html', why: 'bring it to work, school or council' }] },
+      { k: 'share', label: 'To share what I have, or find help', intro: 'To give and receive, you might begin here:', links: [{ label: 'The Well', href: 'Well.dc.html', why: 'pour in what you offer, and say what you need' }, { label: 'The ocean', href: 'Ocean.dc.html', why: 'partners and projects worldwide' }] },
+      { k: 'hope', label: 'Hope in hard times', intro: 'For hope that is honest about hard times, you might begin here:', links: [{ label: 'Islands of coherence', href: 'Islands.dc.html', why: 'small, steady places that can shift a whole system' }, { label: 'Eddies', href: 'Eddies.dc.html', why: 'room for grief alongside gratitude' }, { label: 'Groundwater', href: 'Groundwater.dc.html', why: 'threads of collaboration already forming' }] }
+    ];
+  }
   stopTour() { if (this.timer) { clearInterval(this.timer); this.timer = null; } }
   renderVals() {
     var self = this, i = this.state.i;
@@ -655,8 +786,12 @@ class Component extends DCLogic {
     this.nodeNames = N.map(function (n) { return n.k; });
     var cur = N[i], count = N.length;
     var go = function (k) { self.stopTour(); self.setState({ i: (k + count) % count, tour: false }); };
+    var season = this.seasonNow(), LONG = this.longings(), lk = this.state.longing;
     var gv = this.guideVals();
     return {
+      seasonLens: season.lens, seasonText: season.text, seasonLensLink: season.lensLink, seasonLensHref: season.lensHref, seasonPartner: season.partner, seasonPartnerHref: season.partnerHref, seasonPractice: season.practice, seasonPracticeHref: season.practiceHref, seasonUntil: season.until,
+      longChips: LONG.map(function (l) { var on = l.k === lk; return { label: l.label, on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ longing: on ? null : l.k }); } }; }),
+      hasLong: !!lk, longIntro: lk ? LONG.filter(function (l) { return l.k === lk; })[0].intro : '', longLinks: lk ? LONG.filter(function (l) { return l.k === lk; })[0].links : [],
       guideCls: gv.guideCls, logoCls: gv.logoCls, birdCls: gv.birdCls, peelCls: gv.peelCls, heroCls: gv.heroCls, cosmosCls: gv.cosmosCls, guideLabel: gv.guideLabel, startGuide: gv.startGuide, guidingOn: this.state.guiding ? 'true' : 'false',
       moonLit: moon.d,
       nodes: N.map(function (n, k) { var on = k === i; return { name: n.k, x: n.x + '%', y: n.y + '%', on: on ? 'true' : 'false', cls: on ? 'node on' : 'node', pick: function () { go(k); self.showCard(); } }; }),
