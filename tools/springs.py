@@ -43,7 +43,7 @@ SPRINGS = [
      'title': 'BioFi Deep Dive: building farmer-owned regenerative supply systems', 'kind': 'Online conversation', 'fmt': 'online',
      'when': 'Monday 14 December 2026, 11:30am to 1pm Eastern (8:30 to 10am Pacific)', 'where': 'Online, on Zoom', 'lang': 'English',
      'text': 'The last BioFi Deep Dive of 2026, with Luke Smith, co-founder of Origins Co-op. Origins is building farmer-owned market infrastructure with around 500 smallholder farmers in southern Thailand who are turning rubber plantations into diverse agroforests. A rich look at how whole watersheds could move to regenerative farming together.',
-     'closes': '2026-12-14', 'href': 'https://thebiofiproject.substack.com/', 'cta': 'Find the registration link', 'theme': 'money', 'cost': 'open', 'costNote': 'See their page for registration', 'found': 'Shared by Jyo, from the BioFi Project newsletter'},
+     'closes': '2026-12-14', 'href': 'https://luma.com/cbwva99a', 'cta': 'Register for the Deep Dive', 'theme': 'money', 'cost': 'open', 'costNote': 'Register on their event page', 'found': 'Shared by Jyo, from the BioFi Project newsletter'},
 ]
 if __name__ == '__main__':
     data = {'updated': __import__('datetime').date.today().isoformat(), 'springs': SPRINGS}
