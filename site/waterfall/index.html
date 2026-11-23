@@ -114,7 +114,7 @@ a:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible{
 <button class="go tornbtn" onClick="{{offer}}" disabled="{{cannotOffer}}">Offer it to the falls</button>
 <span style="font-size: 14px; font-style: italic; color: #5A524B">{{remaining}}</span>
 </div>
-<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5A524B">Your idea stays private to you. Nothing is shared unless you choose to add it to the pool below, and you can withdraw it at any time. In this mockup nothing is saved at all.</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5A524B">Your idea stays private: it is not saved or sent anywhere. The River simply matches your words with offerings already in the River.</p>
 </section>
 
 <sc-if value="{{showCare}}" hint-placeholder-val="{{ false }}">
@@ -153,54 +153,22 @@ a:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible{
 <p class="torn tl" style="margin: 0; background: #FBF7EF; padding: 22px 28px; font-size: 15px; line-height: 1.5">A note of care: ideas involving Indigenous land, knowledge or stories begin with relationship and consent. The River will only connect you with Indigenous-led groups in the ways they choose.</p>
 </sc-if>
 <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center">
-<sc-if value="{{canShare}}" hint-placeholder-val="{{ true }}"><button class="go tornbtn" onClick="{{share}}">Add it to the pool above the falls</button></sc-if>
+<a href="/well" class="go tornbtn">Find people to help at the Well</a>
 <button class="chip" onClick="{{again}}">Offer something else</button>
 </div>
 </section>
 </sc-if>
 
-<section style="display: flex; flex-direction: column; gap: 18px">
-<div style="display: flex; flex-direction: column; gap: 8px">
-<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #C9CCD6">The pool above the falls</div>
-<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 36px; color: #DCDCDC">Ideas gathering energy</h2>
-<p style="margin: 0; font-size: 17px; max-width: 760px; line-height: 1.55">Shared ideas gather here. Add your energy if you'd join, have a skill, or have space to offer. There are no likes or rankings. When enough energy gathers, an idea spills over into a new stream: a circle, a local project, or a new channel. Stewards welcome each shared idea before it appears.</p>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px">
-<sc-for list="{{pool}}" as="p" hint-placeholder-count="2">
-<article class="torn {{p.tilt}}" style="background: {{p.bg}}; padding: 28px 28px; display: flex; flex-direction: column; gap: 10px">
-<div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase"><span>{{p.where}}</span><span style="text-transform: none; letter-spacing: 0; font-style: italic">{{p.status}}</span></div>
-<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 20px">{{p.title}}</h3>
-<div role="img" aria-label="{{p.meterLabel}}" style="display: flex; gap: 6px">
-<sc-for list="{{p.dots}}" as="d" hint-placeholder-count="5"><span style="width: 18px; height: 18px; border-radius: 48% 52% 46% 54%; border: 2px solid #4F7A84; background: {{d.fill}}; display: block"></span></sc-for>
-</div>
-<div style="font-size: 14px; font-style: italic">{{p.gathered}}</div>
-<sc-if value="{{p.open}}" hint-placeholder-val="{{ true }}">
-<div style="display: flex; flex-wrap: wrap; gap: 8px">
-<button class="chip" onClick="{{p.join}}">I'd join</button>
-<button class="chip" onClick="{{p.skill}}">I have a skill</button>
-<button class="chip" onClick="{{p.space}}">I have space</button>
-</div>
-</sc-if>
-<sc-if value="{{p.spilled}}" hint-placeholder-val="{{ false }}">
-<p style="margin: 0; font-size: 15px; font-weight: 600">It has spilled over into a new stream. A steward will help the people gathered meet for the first time, and can open a Hylo group so the stream has a home.</p>
-<a href="/hylo" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">See how new streams gather on Hylo</a>
-</sc-if>
-<sc-if value="{{p.mine}}" hint-placeholder-val="{{ false }}"><button class="chip" onClick="{{p.withdraw}}">Withdraw my idea</button></sc-if>
-</article>
-</sc-for>
-</div>
-</section>
+
 
 <section class="torn tr" style="background: #CFE1E4; padding: 32px 40px; display: flex; flex-direction: column; gap: 10px">
 <h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 22px">How the falls is cared for</h2>
 <ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.7">
 <li>Suggestions come only from offerings, partners and practices already in the River, each credited and linked to its makers.</li>
-<li>Your ideas are private by default; sharing is a clear choice, and anything shared can be withdrawn.</li>
-<li>Stewards welcome shared ideas before they appear, and nothing is ranked or scored.</li>
+<li>Your ideas are private: nothing you write here is saved or sent, and nothing is ranked or scored.</li>
 <li>If something you write sounds heavy, the falls pauses and offers care first.</li>
 <li>Ideas touching Indigenous land, knowledge or stories begin with relationship and consent.</li>
 <li>A gentle limit of a few offerings a day keeps the falls sustainable and unhurried.</li>
-<li>When a stream spills over, the people who added energy are asked before anyone shares their name, and its new home on Hylo is opened only with their agreement.</li>
 </ul>
 </section>
 <div class="torn tl" style="background: #F5E3B0; padding: 28px 38px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
@@ -208,17 +176,14 @@ a:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible{
 <a href="/well" class="go tornbtn">Visit the Well</a>
 </div>
 </main>
-<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 64px; height: 64px; display: block"></a><span>In this mockup the falls matches your words to the River's library. In the real River, AI would help draw these connections, always from the River's own offerings. Ideas in square brackets are examples.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 64px; height: 64px; display: block"></a><span>The falls matches your words with offerings already in the River, each credited and linked to its makers.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
 </div>
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2300}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { idea: '', falling: false, result: null, care: false, used: 0, shared: false, pool: [
-      { id: 'p1', title: '[A seed library for the Santa Monica Mountains watershed]', where: 'Santa Monica Mountains', join: 2, skill: 1, space: 0, mine: false },
-      { id: 'p2', title: '[A monthly grief circle at Corra Woods]', where: 'County Clare', join: 3, skill: 1, space: 0, mine: false }
-    ] };
+    this.state = { idea: '', falling: false, result: null, care: false, used: 0, shared: false, pool: [] };
   }
   componentWillUnmount() { if (this.t) { clearTimeout(this.t); } }
   library() {
@@ -229,8 +194,8 @@ class Component extends DCLogic {
         { water: 'Groundwater', title: 'Sympoiesis', text: 'Workshops that help people and organisations metabolise loss and regenerate living systems.', by: 'Sympoiesis', href: 'https://www.sympoiesis.world/', cta: 'Visit their site' }],
         step: 'Invite two or three people who feel the same to sit together outside, once, with no agenda but listening.', q: 'What is your grief asking you to love more fiercely?' },
       { keys: ['school', 'child', 'children', 'kid', 'teach', 'teacher', 'student', 'youth', 'class', 'education'], theme: 'young people and learning', items: [
-        { water: 'Estuary', title: 'Relational Resource Departments', text: 'Bringing seasons, place and the more-than-human world into how a school learns and decides.', by: 'Institute of Relational Being', href: '/channels', cta: 'See channels' },
-        { water: 'Stream', title: 'ReBe group sessions', text: 'A teacher-led way for a class to make pictures together with the Beings around their school.', by: 'ReBe, by the Institute of Relational Being', href: '/streams', cta: 'See the streams' }],
+        { water: 'Estuary', title: 'The living world at school', text: 'Simple ways to bring seasons, place and the Beings nearby into how a school learns and decides.', by: 'The estuary', href: '/estuary', cta: 'Visit the estuary' },
+        { water: 'Stream', title: 'Make a picture together', text: 'A gentle practice for a class: greet a Being near the school, then make a picture with them, not of them.', by: 'Institute of Relational Being', href: '/streams', cta: 'See the streams' }],
         step: 'Ask one teacher or parent whether they would walk the school grounds with you to meet the Beings who live there.', q: 'What do the children already notice that the adults have stopped seeing?' },
       { keys: ['seed', 'food', 'garden', 'farm', 'soil', 'compost', 'grow', 'harvest'], theme: 'food, soil and growing', items: [
         { water: 'Local currents', title: 'Transition groups near you', text: 'Local groups working on food, energy, repair and community.', by: 'Transition Network', href: 'https://maps.transitionnetwork.org/', cta: 'Open their map' },
@@ -238,7 +203,7 @@ class Component extends DCLogic {
         step: 'Find out who already saves seeds or grows food within a few miles of you, and ask what they need.', q: 'Which plants have fed the people of this place for the longest?' },
       { keys: ['tree', 'wood', 'woodland', 'forest', 'native', 'restore', 'restoration', 'plant'], theme: 'woodland and restoration', items: [
         { water: 'Ocean', title: 'Hometree', text: 'Restoring native woodland and temperate rainforest in the west of Ireland.', by: 'Hometree', href: 'https://www.hometree.ie/', cta: 'Visit their site' },
-        { water: 'Lake', title: 'Corra Woods, County Clare', text: 'IRB’s home for retreats and residencies, looking for partners in woodland care.', by: 'Institute of Relational Being', href: '/ocean', cta: 'See their profile' }],
+        { water: 'Local currents', title: 'TreePeople', text: 'Planting and caring for trees in Los Angeles, with volunteer days open to all.', by: 'TreePeople', href: 'https://www.treepeople.org/home', cta: 'Visit their site' }],
         step: 'Spend an hour with one old tree near you and notice who else depends on them.', q: 'What would this land look like if it were allowed to remember itself?' },
       { keys: ['money', 'fund', 'funding', 'invest', 'capital', 'finance', 'grant', 'wealth', 'donor'], theme: 'money and value', items: [
         { water: 'Confluence', title: 'The capital journey', text: 'Learning to see money as part of the living world, open to everyone.', by: 'With gratitude to Nate Hagens, Indy Johar and Dark Matter Labs', href: '/capital-journey', cta: 'Begin the journey' },
@@ -250,21 +215,21 @@ class Component extends DCLogic {
         step: 'Notice one way energy reaches your day, and where it comes from.', q: 'What would you keep, even with far less energy?' },
       { keys: ['species', 'animal', 'wildlife', 'bird', 'endangered', 'habitat', 'cougar', 'insect', 'bee', 'pollinator'], theme: 'wild neighbours', items: [
         { water: 'Channel', title: 'Center for Biological Diversity', text: 'Standing up, in law and in public, for Beings who cannot speak in a courtroom.', by: 'Center for Biological Diversity', href: 'https://www.biologicaldiversity.org/', cta: 'See their actions' },
-        { water: 'Stream', title: 'Meeting the Beings near you', text: 'Making pictures together with the creatures and plants around your home.', by: 'ReBe', href: '/streams', cta: 'See the streams' }],
+        { water: 'Stream', title: 'Meet your wild neighbours', text: 'Learn the names of the creatures and plants around you, alongside naturalists all over the world.', by: 'iNaturalist', href: 'https://www.inaturalist.org/', cta: 'Visit iNaturalist' }],
         step: 'Learn the name of one wild neighbour you see often, and where they shelter.', q: 'Who lived here before the roads, and who is still trying to?' },
       { keys: ['work', 'organisation', 'organization', 'company', 'team', 'leader', 'business', 'workplace', 'council'], theme: 'organisations and leadership', items: [
-        { water: 'Estuary', title: 'Relational Resource Departments', text: 'The living world in how an organisation meets, decides and cares.', by: 'Institute of Relational Being', href: '/channels', cta: 'See channels' },
+        { water: 'Estuary', title: 'The living world at work', text: 'Meetings that begin outside, and the living world in how an organisation decides and cares.', by: 'The estuary', href: '/estuary', cta: 'Visit the estuary' },
         { water: 'Estuary', title: 'Healing-centred leadership', text: 'Strengths first, power that circulates, care for the people doing the work.', by: 'Lana Jelenjev', href: 'https://lanajelenjev.com/practice-with-me', cta: 'Practise with Lana' }],
         step: 'Hold one meeting outdoors, and begin by naming the place you are in.', q: 'Who is not in the room when your organisation decides?' },
       { keys: ['art', 'story', 'stories', 'film', 'music', 'design', 'photo', 'poem', 'paint', 'write'], theme: 'art and story', items: [
         { water: 'Groundwater', title: 'Sympoiesis', text: 'Storytelling and design made with the living world.', by: 'Sympoiesis', href: 'https://www.sympoiesis.world/', cta: 'Visit their site' },
-        { water: 'Stream', title: 'Co-create a poem with a Being', text: 'A ReBe practice of writing together with a tree, a creek or Moon.', by: 'ReBe', href: '/streams', cta: 'See the streams' }],
+        { water: 'Stream', title: 'Make a picture together', text: 'Greet a tree, a creek or Moon, and make something with them, not about them.', by: 'Institute of Relational Being', href: '/streams', cta: 'See the streams' }],
         step: 'Make one small piece with a Being, not about them, and share it with one person.', q: 'What does this place want to say through you?' },
       { keys: ['community', 'neighbour', 'neighbor', 'local', 'town', 'village', 'street'], theme: 'community', items: [
         { water: 'Local currents', title: 'Groups in your bioregion', text: 'People near you already tending the place you live.', by: 'Local currents', href: '/local-currents', cta: 'See who is near you' }],
         step: 'Knock on one door, or send one message, to someone nearby who might care about this too.', q: 'Who in your neighbourhood is already doing a version of this?' },
       { keys: ['water', 'river', 'creek', 'stream', 'ocean', 'sea', 'lake', 'watershed'], theme: 'water', items: [
-        { water: 'Stream', title: 'Listening to water', text: 'Five minutes beside a creek, fountain or the sea, noticing what changes.', by: 'ReBe', href: '/streams', cta: 'See the streams' },
+        { water: 'Stream', title: 'Listening to water', text: 'Five minutes beside a creek, fountain or the sea, noticing what changes.', by: 'A small practice from the Streams', href: '/streams', cta: 'See the streams' },
         { water: 'Ocean', title: 'Bioregional Learning Centre', text: 'Learning journeys that follow a watershed from source to sea.', by: 'Bioregional Learning Centre', href: 'https://www.bioregion.org.uk/about', cta: 'Visit their site' }],
         step: 'Trace where the water from your tap comes from, and where it goes after.', q: 'What would the creek ask of us, if we listened?' },
       { keys: ['system', 'systems', 'worldview', 'philosophy', 'metacrisis', 'complexity', 'imagination', 'emergence'], theme: 'systems and worldviews', items: [
@@ -284,7 +249,7 @@ class Component extends DCLogic {
     if (!hits.length) {
       return { reflection: 'Your idea is still finding its shape, and that is a good place to begin.', streams: [
         { water: 'Source', title: 'Return to the source', text: 'A few gentle questions about what you love may show where this idea wants to flow.', by: 'Institute of Relational Being', href: '/source', cta: 'Begin at the source' },
-        { water: 'Lake', title: 'A Relational ID Circle', text: 'Five weeks with a few others, mapping the web that makes each of you.', by: 'Institute of Relational Being', href: '/lakes', cta: 'See the lakes' },
+        { water: 'Lake', title: 'Circles and gatherings', text: 'Talking an idea through with others often helps it find its shape.', by: 'Lakes', href: '/lakes', cta: 'See the lakes' },
         { water: 'Groundwater', title: 'Perspectiva', text: 'Thinking about how the way we see shapes what we do.', by: 'Perspectiva', href: 'https://systems-souls-society.com/', cta: 'Visit Perspectiva' }],
         step: 'Tell one person about your idea and listen to what they add.', question: 'What first drew you to this?', careNote: indigenous };
     }

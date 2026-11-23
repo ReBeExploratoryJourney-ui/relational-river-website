@@ -106,7 +106,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .flist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:16px;line-height:1.5}
 .flist a,.flowcard a{color:#2B4A5E;font-weight:600}
 .fsmall{margin:0;font-size:14px;font-style:italic;color:#4A443F}
-.flowcard .chip{color:#2F2B28}
+.flowcard .chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer;margin:0}
+.flowcard .chip.on{background:#E8C77A}
+.flowcard .chips{display:flex;flex-wrap:wrap;gap:10px}
 .hstars{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none}
 .hstar{position:absolute;border-radius:50%;background:#F5EEE1;box-shadow:0 0 5px rgba(245,238,225,.7);animation:twinkle 4.2s ease-in-out infinite}
 @media (max-width: 760px){.hstars{display:none}}
@@ -297,11 +299,11 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <h2 class="fh">{{seasonLens}}</h2>
 <p class="fp">{{seasonText}}</p>
 <ul class="flist">
-<li><b>Lens:</b> <a href="{{seasonLensHref}}">{{seasonLensLink}}</a></li>
-<li><b>Partner:</b> <a href="{{seasonPartnerHref}}">{{seasonPartner}}</a></li>
-<li><b>Practice:</b> <a href="{{seasonPracticeHref}}">{{seasonPractice}}</a></li>
+<li><b>Learn:</b> <a href="{{seasonLensHref}}">{{seasonLensLink}}</a></li>
+<li><b>Meet:</b> <a href="{{seasonPartnerHref}}">{{seasonPartner}}</a></li>
+<li><b>Try:</b> <a href="{{seasonPracticeHref}}">{{seasonPractice}}</a></li>
 </ul>
-<p class="fsmall">Each Moon cycle the River features one lens, one partner and one practice. This one flows until the next new Moon, {{seasonUntil}}.</p>
+<p class="fsmall">Each Moon, the River shines a light on one idea, one partner and one thing to try. This one flows until the next new Moon, {{seasonUntil}}.</p>
 </div>
 <div class="torn tr flowcard" style="background: #E6E2F2">
 <div class="k2">Find your way</div>
@@ -315,7 +317,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </section>
 
 <section aria-label="Ways to begin" style="display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center; padding-top: 8px">
-<p style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 24px; color: #DCDCDC; max-width: 720px">Everyone begins at the source. It takes a minute, and there is nothing to get right.</p>
+<p style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 24px; color: #DCDCDC; max-width: 720px">A good place to start is the Source. It takes a minute, and there is nothing to get right.</p>
 <a href="/source" class="go tornbtn same">Begin at the source</a>
 <div class="ways">
 <div class="reveal">
@@ -343,7 +345,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <button class="go tornbtn same" aria-describedby="w-ret">Returning</button>
 <div class="rpanel" id="w-ret" role="tooltip"><div class="torn rcard">
 <b class="rtitle">My river</b>
-<p>See where you are on the River, what you have gathered so far, and what might flow next.</p>
+<p>All the waters in one place, with a few things to try in each, and how to draw your own constellation.</p>
 <a href="/my-river" class="rlink">Go to my river</a>
 </div></div>
 </div>
@@ -364,43 +366,42 @@ class Component extends DCLogic {
   constructor(props) { super(props); this.state = { i: 0, tour: false, glow: true, guiding: false, emerging: false, peel: false, merging: false, heroFaded: false, longing: null }; }
   guideScript() {
     var pre = [
-      { at: 'moon', text: 'Before we begin, something true of every river: this one is alive. The Relational River is a provotype, a living prototype made to provoke new possibilities. It is always changing and evolving, just like life and reality itself, so no two journeys here will ever be the same.' },
-      { at: 'moon', text: 'So come as curious as you can. Welcome the unexpected, and the generative transformations that may arise along your relational journey. You can wander anywhere, in any order, and return whenever you like.' },
-      { at: 'moon', text: 'ReBe, the Relational Being app, is a provotype too, still being made. ReBe and the River are designed to complement each other: ReBe for everyday moments with the Beings around you, the River for finding your way, and finding each other. You never need ReBe to journey here.' },
-      { at: 'moon', text: 'Above all, the River is meant to be made together, by people and like-hearted organisations who wish to be of service to a kinder, more caring, loving and reciprocal reality with all life, as part of this living world. You are warmly invited to help shape it.' }
+      { at: 'moon', text: 'First, a little about this place. The Relational River is a free guide for anyone who cares about the living world: trees, rivers, birds, neighbours and the places we call home. It offers gentle ways to slow down, feel more connected, and find others who care too.' },
+      { at: 'moon', text: 'Like any river, this one is alive. It is a provotype: a living prototype, made to spark new possibilities. It keeps changing, so no two visits are quite the same. Wander anywhere, in any order, and come back whenever you like.' },
+      { at: 'moon', text: 'The River is offered by the Institute of Relational Being, a small institute in Laurel Canyon, Los Angeles. But it is meant to be made together, by everyone who joins in, so you are warmly invited to help shape it.' }
     ];
     var deep = [
-      { at: 'moon', text: 'The Relational River is a free, open-source guide. It meets you wherever you are in your awareness of what is happening to the living world, and carries you, at your own pace, toward these reciprocal and caring relationships.' },
-      { at: 'moon', text: 'Upstream is the Source: a few gentle questions about how you feel and what you love outside. From there run the streams, small everyday practices, and the tributaries, films, talks, readings and ways of seeing, from three horizons to emergence, that help this moment make sense.' },
-      { at: 'moon', text: 'Along the way are eddies, where water swirls back: grief, gratitude and rest, returning at the turning of seasons and Moons. In the lakes we slow down together, in circles, fellowships and retreats.' },
-      { at: 'moon', text: 'Mid-river rise islands of coherence: groups that stay grounded and well related while much around them shakes. As the systems of endless growth grow more fragile, the River helps these islands find one another and become archipelagos.' },
-      { at: 'moon', text: 'At the waterfall, ideas gather energy and spill into motion. Downstream, the channels carry us into action, local currents lead to the people tending your place, and the estuary brings the living world into workplaces, schools and councils.' },
-      { at: 'moon', text: 'At the confluences, organisations meet and join forces, and a capital journey helps money flow as part of the living world. Everything reaches the ocean: a worldwide meshwork of place-based projects, met as relationships.' },
-      { at: 'moon', text: 'Beneath it all runs the groundwater, the hidden threads forming between projects and places. Beside it is the Well of Wonder, Wit, Wisdom and Wealth, where people pour in what they can offer and draw on one another. And above, Moon moves the waters, and us too.' },
-      { at: 'moon', text: 'The River serves people, communities, organisations and the wider living world. Earth is every human’s first home, and all our ancestors once lived in close relationship with the land and ecology they were a part of. The River is one way of remembering that relationship.' },
-      { at: 'moon', text: 'It is tended with care: private by default, nothing ever ranked, Indigenous voices and sources first, and every project credited and linked to its makers. The River points the way, then steps aside, so the real relationships can happen out in the world.' }
+      { at: 'moon', text: 'Here is how the River flows. It begins with you, then widens, little by little, from small moments in your own day to people and projects all around the world.' },
+      { at: 'moon', text: 'It starts at the Source, with a few gentle questions about how you are feeling and what you love outside. There are no wrong answers. Your answers suggest a good place to begin.' },
+      { at: 'moon', text: 'Next come the streams: small things to try on any day, like sitting with a tree, listening to rain, or thanking the Beings who helped make your meal. And when things feel heavy, the eddies are places to pause, for grief, gratitude and rest.' },
+      { at: 'moon', text: 'The tributaries flow in from the sides, bringing films, talks and short lessons that help these times make sense. Each one is credited to the people who made it.' },
+      { at: 'moon', text: 'In the lakes, we slow down together, in circles and gatherings. Out in the current are islands of coherence: groups that stay calm, kind and steady when the world feels shaky. When islands connect with each other, they can help everything around them change.' },
+      { at: 'moon', text: 'When you feel ready to do something, the waterfall helps turn an idea into a first step. The channels share ways to help, big and small. Local currents point to people already caring for the place where you live, and the estuary brings all of this into work, school and community life.' },
+      { at: 'moon', text: 'Further on, the River widens. At the confluences, organisations meet and join forces. In the ocean, you can discover projects caring for land, water and people all over the world.' },
+      { at: 'moon', text: 'Underneath it all is the groundwater: the quiet connections forming between projects and places. And at the Well, people share what they can offer and ask for what they need. It works like stone soup: everyone brings a little, and together it becomes a meal.' },
+      { at: 'moon', text: 'And above it all is Moon, who moves the waters, and us too. Earth is every human’s first home. All our ancestors once lived in close relationship with the land and ecology they were a part of. The River is one way of remembering that.' },
+      { at: 'moon', text: 'A few promises. What you share stays private unless you choose otherwise. Nothing is ranked. Indigenous voices and sources come first. Every project is credited and linked to its makers. The River points the way, then steps aside, so real relationships can grow out in the world.' }
     ];
     var T = [
-      ['Source', 'Everything begins here, at the Source. A few gentle questions help you notice where you are and who is in your “we”. Your answers suggest which waters to visit first, and you can return whenever you like.'],
-      ['Streams', 'From the Source run the streams: small everyday practices, like sitting with a tree or making a picture with Moon. Many flow through ReBe, and they feed everything downstream.'],
-      ['Tributaries', 'Tributaries bring understanding in from every side: films, talks and readings, and ways of seeing such as three horizons, emergence and philosophy as practice, always credited to their makers.'],
-      ['Eddies', 'Here the water swirls back. Eddies hold grief, gratitude and rest, practices that return at natural turning points. Whenever action feels heavy, the eddies are close by.'],
-      ['Lakes', 'In the lakes we slow down together, in circles, fellowships and retreats. Many ideas that later tumble over the waterfall first rise here.'],
-      ['Islands of coherence', 'In the middle of the river rise islands of coherence: circles, households, organisations and places that stay steady, kind and capable in turbulent times. Connected to one another, they can help the whole river find a new shape.'],
-      ['Waterfall', 'At the waterfall, gathered energy spills into motion. Offer an idea, and the River shows which streams, people and first steps it might feed.'],
-      ['Channels', 'Channels carry the water out to the land: ways to act, from your own life to planetary movements.'],
-      ['Local currents', 'Local currents are the people already tending the place where you live. The River points you to them, then steps aside.'],
-      ['Estuary', 'In the estuary, personal change meets the places we work and learn: workplaces, schools and councils.'],
-      ['Confluences', 'At the confluences, organisations meet and join forces, and the capital journey helps money flow as part of the living world.'],
-      ['Ocean', 'Everything reaches the ocean: a worldwide meshwork of place-based projects, ready to be met as relationships.'],
-      ['Groundwater', 'Beneath it all runs the groundwater: hidden threads between projects and places. The River notices them from open sources, so new collaborations can emerge.'],
-      ['The Well', 'And here is the Well of Wonder, Wit, Wisdom and Wealth. Pour in what you can offer, say what you need, and the River helps gather people to bring projects to life. Like stone soup, no one has to bring everything.'],
-      ['Moon', 'Above the River, Moon moves the waters, and us too, reminding us to pause, notice and return. Every part of the River feeds the others, and now you are part of the flow.']
+      ['Source', 'Everything begins here, at the Source. A few gentle questions help you notice how you are and what you love outside. There are no wrong answers, and you can come back any time.'],
+      ['Streams', 'These are the streams: small things to try on any day. Sit with a tree, listen to water, or watch the clouds for five minutes. Little practices, done often, slowly change how we see.'],
+      ['Tributaries', 'Tributaries flow in from the sides, bringing films, talks and short lessons that help these times make sense. Each one links to the people who made it.'],
+      ['Eddies', 'Here the water swirls back. Eddies are places to pause for grief, gratitude and rest. They come round again at turning points, like a new season or a new Moon.'],
+      ['Lakes', 'In the lakes, the water is still. This is where we slow down together, in circles, gatherings and retreats, with others who care.'],
+      ['Islands of coherence', 'These are islands of coherence: households, groups and places that stay calm, kind and steady when the world feels shaky. When they connect, they can help a whole system find a better way.'],
+      ['Waterfall', 'At the waterfall, ideas tumble into action. Share an idea, a hope or a question, and the River suggests people, resources and one small first step.'],
+      ['Channels', 'The channels carry the water out to the land. Here you will find ways to help, from small changes at home to big movements around the world.'],
+      ['Local currents', 'Local currents are the groups already caring for the place where you live. The River points you to them, then steps aside.'],
+      ['Estuary', 'In the estuary, river meets sea. This is where caring for the living world comes into work, school and community life.'],
+      ['Confluences', 'At the confluences, streams meet and grow stronger. Organisations find each other here, and there is a journey about money as part of the living world.'],
+      ['Ocean', 'Everything flows to the ocean. Here are projects all over the world caring for land, water and each other, ready to be met and supported.'],
+      ['Groundwater', 'Underneath it all runs the groundwater: quiet connections forming between projects and places. The River notices them, so new friendships and collaborations can grow.'],
+      ['The Well', 'This is the Well of Wonder, Wit, Wisdom and Wealth. Share what you can offer, ask for what you need, and help bring projects to life. Like stone soup, everyone brings a little.'],
+      ['Moon', 'Above it all, Moon moves the waters, and us too, inviting us to pause, notice and return. Every part of the River feeds the others, and now you are part of the flow.']
     ];
     var tour = T.map(function (t) { return { at: t[0], node: t[0], text: t[1] }; });
-    var end = { at: 'moon', text: 'That is the River, for now. It will keep changing, and so will you. Where would you like to begin?', final: true };
-    var sn = this.seasonNow();
-    return { find: [{ at: 'moon', text: 'What are you longing for today? Choose whatever feels closest.', find: true }], welcome: [{ at: 'moon', text: 'Welcome to the Relational River. I am Raven, and I would be glad to be your guide. This Moon, the River is flowing with ' + sn.lens.toLowerCase() + '. Shall I tell you about the River in depth, show you around from the Source to the sea, or help you find your way?', choice: true }], deep: pre.concat(deep, [end]), tour: pre.concat(tour, [end]) };
+    var end = { at: 'moon', text: 'That’s the River, for now. It will keep changing, and so will you. Where would you like to begin?', final: true };
+    return { find: [{ at: 'moon', text: 'What are you longing for today? Choose whatever feels closest.', find: true }], welcome: [{ at: 'moon', text: 'Hello, and welcome to the Relational River! I am Raven, and I would love to be your guide. Shall I tell you about the River, show you around, or help you find your way?', choice: true }], deep: pre.concat(deep, [end]), tour: pre.concat(tour, [end]) };
   }
   gEls() {
     if (!this.glayer || !document.body.contains(this.glayer)) {
@@ -527,7 +528,7 @@ class Component extends DCLogic {
     var opts = [];
     var mk = function (label, fn, main) { opts.push({ label: label, fn: fn, main: main }); };
     if (beat.choice) {
-      mk('Tell me about the River', function () { self.gGo('deep', 0); }, true); mk('Show me around', function () { self.gGo('tour', 0); }, true); mk('Help me find my way', function () { self.gGo('find', 0); }, true); mk('Maybe later', function () { self.gStop(); });
+      mk('Tell me about the River', function () { self.gGo('deep', 0); }, true); mk('Show me around', function () { self.gGo('tour', 0); }, true); mk('Help me find my way', function () { self.gGo('find', 0); }, true);
     } else if (beat.find && !this.gFound) {
       this.longings().forEach(function (l) { mk(l.label, function () { self.gFound = l; self.gRender(); }); });
       mk('Back', function () { self.gGo('welcome', 0); });
@@ -545,7 +546,7 @@ class Component extends DCLogic {
     }
     b.innerHTML = '';
     var who = document.createElement('div'); who.className = 'gwho'; who.textContent = 'Raven'; b.appendChild(who);
-    var p = document.createElement('p'); p.className = 'gtext'; p.textContent = (beat.find && this.gFound) ? this.gFound.intro + ' ' + this.gFound.links.map(function (x) { return x.label + ', ' + x.why; }).join('; ') + '.' : beat.text; b.appendChild(p);
+    var p = document.createElement('p'); p.className = 'gtext'; p.textContent = (beat.find && this.gFound) ? (function (f) { var parts = f.links.map(function (x) { return x.label + ' for ' + x.why; }); return f.intro + ' ' + (parts.length > 1 ? parts.slice(0, -1).join(', ') + ' or ' + parts[parts.length - 1] : parts[0]) + '.'; })(this.gFound) : beat.text; b.appendChild(p);
     var row = document.createElement('div'); row.className = 'gopts';
     opts.forEach(function (o) { var btn = document.createElement('button'); btn.type = 'button'; btn.className = o.main ? 'gopt main' : 'gopt'; btn.textContent = o.label; btn.addEventListener('click', o.fn); row.appendChild(btn); });
     b.appendChild(row);
@@ -734,12 +735,12 @@ class Component extends DCLogic {
   componentWillUnmount() { if (this.timer) { clearInterval(this.timer); } if (this.glowTimer) { clearTimeout(this.glowTimer); } if (this.raf) { cancelAnimationFrame(this.raf); } if (this.keyFn) { document.removeEventListener('keydown', this.keyFn); } if (this.glayer && this.glayer.parentNode) { this.glayer.parentNode.removeChild(this.glayer); } if (this.resizeFn) { window.removeEventListener('resize', this.resizeFn); } }
   seasonNow() {
     var S = [
-      { lens: 'Three horizons', text: 'Seeing the future already alive in the present, and tending both what is ending and what is beginning.', lensLink: 'The three horizons lesson', lensHref: '/ways-of-seeing#horizons', partner: 'Third Horizon Earth', partnerHref: 'https://thirdhorizon.earth/', practice: 'Notice one third-horizon seed near you', practiceHref: '/islands' },
-      { lens: 'Emergence and slowing down', text: 'The times are urgent; let us slow down, and notice the others in the room.', lensLink: 'The emergence lesson', lensHref: '/ways-of-seeing#emergence', partner: 'The Emergence Network', partnerHref: 'https://emergencenetwork.org/', practice: 'Five minutes of slow noticing', practiceHref: '/ways-of-seeing#emergence' },
-      { lens: 'Philosophy as practice', text: 'Treating everyday life as a living lab, with the more-than-human world as a companion in knowing.', lensLink: 'The philosophy lesson', lensHref: '/ways-of-seeing#practice', partner: 'Institute for Practical ekoPhilosophy', partnerHref: 'https://www.institute-pep.com/', practice: 'Treat one ordinary day as a lab', practiceHref: '/ways-of-seeing#practice' },
-      { lens: 'Learning on the land', text: 'Regeneration learned with hands in the soil, alongside the forest and its communities.', lensLink: 'Learning on the land', lensHref: '/ways-of-seeing#land', partner: 'Siendo Naturaleza', partnerHref: 'https://www.siendonaturaleza.com/', practice: 'Save seed from one plant this season', practiceHref: '/ways-of-seeing#land' },
-      { lens: 'Islands of coherence', text: 'Steady, well-related places in turbulent water, connecting into archipelagos.', lensLink: 'Islands of coherence', lensHref: '/islands', partner: 'Bioregional Weaving Labs', partnerHref: 'https://bioregionalweavinglabs.substack.com/p/bioregional-weaving-guide', practice: 'Notice your island', practiceHref: '/islands' },
-      { lens: 'Reciprocity in many currencies', text: 'Wonder, wit, wisdom and wealth, flowing both ways, often without money.', lensLink: 'The Well', lensHref: '/well', partner: 'Regenerative Communities Network', partnerHref: 'https://capitalinstitute.org/regenerative-communities/', practice: 'Pour one offering into the Well', practiceHref: '/well' }
+      { lens: 'Three horizons', text: 'A simple way to see change: some old ways are fading, some new ways are already growing, and we can help the new ones along.', lensLink: 'The three horizons lesson', lensHref: '/ways-of-seeing#horizons', partner: 'Third Horizon Earth', partnerHref: 'https://thirdhorizon.earth/', practice: 'Notice one third-horizon seed near you', practiceHref: '/islands' },
+      { lens: 'Emergence and slowing down', text: 'When everything feels urgent, slowing down can help us notice what we have been missing, and who else is here with us.', lensLink: 'The emergence lesson', lensHref: '/ways-of-seeing#emergence', partner: 'The Emergence Network', partnerHref: 'https://emergencenetwork.org/', practice: 'Five minutes of slow noticing', practiceHref: '/ways-of-seeing#emergence' },
+      { lens: 'Philosophy as practice', text: 'Big questions, asked in everyday life. Trees, rivers and birds can be our companions in thinking, not just things we think about.', lensLink: 'The philosophy lesson', lensHref: '/ways-of-seeing#practice', partner: 'Institute for Practical ekoPhilosophy', partnerHref: 'https://www.institute-pep.com/', practice: 'Treat one ordinary day as a lab', practiceHref: '/ways-of-seeing#practice' },
+      { lens: 'Learning on the land', text: 'Learning how to heal the land with our hands in the soil, alongside the forest and the people who live with it.', lensLink: 'Learning on the land', lensHref: '/ways-of-seeing#land', partner: 'Siendo Naturaleza', partnerHref: 'https://www.siendonaturaleza.com/', practice: 'Save seed from one plant this season', practiceHref: '/ways-of-seeing#land' },
+      { lens: 'Islands of coherence', text: 'Calm, kind and steady places in fast water, and how they connect to help each other.', lensLink: 'Islands of coherence', lensHref: '/islands', partner: 'Bioregional Weaving Labs', partnerHref: 'https://bioregionalweavinglabs.substack.com/p/bioregional-weaving-guide', practice: 'Notice your island', practiceHref: '/islands' },
+      { lens: 'Reciprocity in many currencies', text: 'Giving and receiving in many ways, not only with money: time, skills, ideas and care.', lensLink: 'The Well', lensHref: '/well', partner: 'Regenerative Communities Network', partnerHref: 'https://capitalinstitute.org/regenerative-communities/', practice: 'Pour one offering into the Well', practiceHref: '/well' }
     ];
     var syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14) / 86400000, now = Date.now() / 86400000;
     var n = Math.floor((now - ref) / syn), next = new Date((ref + (n + 1) * syn) * 86400000);
@@ -750,12 +751,12 @@ class Component extends DCLogic {
   }
   longings() {
     return [
-      { k: 'calm', label: 'Calm and grounding', intro: 'For calm and grounding, you might begin here:', links: [{ label: 'Streams', href: '/streams', why: 'small everyday practices with the Beings around you' }, { label: 'Eddies', href: '/eddies', why: 'grief, gratitude and rest' }, { label: 'Moon', href: '/moon', why: 'tonight’s Moon and a quiet pause' }] },
-      { k: 'understand', label: 'To understand what’s happening', intro: 'To make sense of these times, you might begin here:', links: [{ label: 'Tributaries', href: '/tributaries', why: 'films, talks and readings' }, { label: 'Ways of seeing', href: '/ways-of-seeing', why: 'three horizons, emergence and philosophy as practice' }, { label: 'Islands of coherence', href: '/islands', why: 'what steadiness looks like in turbulent times' }] },
-      { k: 'belong', label: 'Company and belonging', intro: 'To find company and belonging, you might begin here:', links: [{ label: 'Lakes', href: '/lakes', why: 'circles, fellowships and retreats' }, { label: 'Local currents', href: '/local-currents', why: 'people tending the place where you live' }, { label: 'Gather on Hylo', href: '/hylo', why: 'where River circles meet' }] },
-      { k: 'act', label: 'To act', intro: 'To turn care into action, you might begin here:', links: [{ label: 'Channels', href: '/channels', why: 'ways to act, from small to large' }, { label: 'The waterfall', href: '/waterfall', why: 'offer an idea and see what it feeds' }, { label: 'The estuary', href: '/estuary', why: 'bring it to work, school or council' }] },
-      { k: 'share', label: 'To share what I have, or find help', intro: 'To give and receive, you might begin here:', links: [{ label: 'The Well', href: '/well', why: 'pour in what you offer, and say what you need' }, { label: 'The ocean', href: '/ocean', why: 'partners and projects worldwide' }] },
-      { k: 'hope', label: 'Hope in hard times', intro: 'For hope that is honest about hard times, you might begin here:', links: [{ label: 'Islands of coherence', href: '/islands', why: 'small, steady places that can shift a whole system' }, { label: 'Eddies', href: '/eddies', why: 'room for grief alongside gratitude' }, { label: 'Groundwater', href: '/groundwater', why: 'threads of collaboration already forming' }] }
+      { k: 'calm', label: 'Calm and grounding', intro: 'For calm and grounding, try', links: [{ label: 'Streams', href: '/streams', why: 'small things to try today' }, { label: 'Eddies', href: '/eddies', why: 'a gentle pause' }, { label: 'Moon', href: '/moon', why: 'a quiet moment under tonight’s Moon' }] },
+      { k: 'understand', label: 'To understand what’s happening', intro: 'To make sense of these times, try', links: [{ label: 'Tributaries', href: '/tributaries', why: 'films, talks and readings' }, { label: 'Ways of seeing', href: '/ways-of-seeing', why: 'short, friendly lessons' }, { label: 'Islands of coherence', href: '/islands', why: 'how to stay steady when things shake' }] },
+      { k: 'belong', label: 'Company and belonging', intro: 'To find company and belonging, try', links: [{ label: 'Lakes', href: '/lakes', why: 'circles and gatherings' }, { label: 'Local currents', href: '/local-currents', why: 'groups near you' }, { label: 'Gather on Hylo', href: '/hylo', why: 'where people meet online' }] },
+      { k: 'act', label: 'To do something', intro: 'To turn care into action, try', links: [{ label: 'Channels', href: '/channels', why: 'ways to help, big and small' }, { label: 'The waterfall', href: '/waterfall', why: 'turning an idea into a first step' }, { label: 'The estuary', href: '/estuary', why: 'bringing it to work or school' }] },
+      { k: 'share', label: 'To share what I have, or find help', intro: 'To give and receive, try', links: [{ label: 'The Well', href: '/well', why: 'sharing what you offer and need' }, { label: 'The ocean', href: '/ocean', why: 'projects around the world' }] },
+      { k: 'hope', label: 'Hope in hard times', intro: 'For hope that is honest about hard times, try', links: [{ label: 'Islands of coherence', href: '/islands', why: 'small, steady places that can change a lot' }, { label: 'Eddies', href: '/eddies', why: 'room for grief and gratitude' }, { label: 'Groundwater', href: '/groundwater', why: 'connections already forming' }] }
     ];
   }
   stopTour() { if (this.timer) { clearInterval(this.timer); this.timer = null; } }
@@ -774,21 +775,21 @@ class Component extends DCLogic {
       return { d: d, lit: lit, name: name, tide: tide };
     })();
     var N = [
-      { k: 'Source', x: 50, y: 4, line: 'Where every journey begins, and where you return.', text: 'A few gentle questions about how you feel and what you love outside. Your answers suggest a first way in, and you can grow a private constellation of the relationships that make up your "we".', eg: 'The Relational ID inquiry', href: '/source', cta: 'Begin at the source' },
-      { k: 'Streams', x: 37, y: 25, line: 'Small practices that run through ordinary days.', text: 'Sitting with a tree, listening to water, making pictures with Beings, noticing Moon. Everyday ways of relating, many of them through ReBe.', eg: 'ReBe pathways, Sit Spots, Making with Moon', href: '/streams', cta: 'See the streams' },
-      { k: 'Tributaries', x: 69, y: 41, line: 'Understanding flowing in from every side.', text: 'Films, talks and readings that help the moment make sense, from energy and money to nature’s rights, identity and soil. Each is credited and linked to its makers.', eg: 'The Great Simplification, by Nate Hagens and team', href: '/tributaries', cta: 'Open a tributary' },
-      { k: 'Eddies', x: 20, y: 44, line: 'Water that swirls back, so we meet things again.', text: 'When a river flows past a boulder, the water behind them curls back upstream in a trail of swirls, turning one way, then the other. Eddies are where the River holds us like that: grief tending, gratitude, the Sit Spot, the source itself. These practices return at natural turning points, a new season or a new Moon, and feel different each time.', eg: 'Good Grief Network, the Work That Reconnects', href: '/eddies', cta: 'Meet an eddy' },
-      { k: 'Lakes', x: 41, y: 59, line: 'Still water, where we slow down together.', text: 'Circles, fellowships and retreats: Relational ID Circles, gatherings at Corra Woods, and local circles near you.', eg: 'Relational ID Circle, Corra Woods retreats', href: '/lakes', cta: 'Find a lake' },
-      { k: 'Islands of coherence', x: 65, y: 47, line: 'Steady places in turbulent water.', text: 'In fast water, islands are where the river slows, seeds take root and birds rest. Islands of coherence are the circles, households, organisations and places that stay grounded, kind and capable in turbulent times. As Ilya Prigogine observed, small islands of coherence can help a whole system find a new order, especially when they connect into archipelagos.', eg: 'Slack, trusted relationships, shared purpose, rootedness in place', href: '/islands', cta: 'Visit the islands' },
-      { k: 'Waterfall', x: 36, y: 70, line: 'Where gathered energy tips over the edge into motion.', text: 'Offer an idea, a hope or a question, and see which streams it might feed: offerings already in the River, people who might care, and one small first step. Shared ideas gather energy in the pool above the falls until they spill over into new circles, projects and channels.', eg: 'Private by default, never ranked, tended by stewards', href: '/waterfall', cta: 'Offer something to the falls' },
-      { k: 'Local currents', x: 83, y: 57, line: 'The people already tending the place you live.', text: 'Groups in your bioregion, gathered from the maps local movements already keep. The River points you there, then steps aside.', eg: 'Transition groups, grief circles, restoration days', href: '/local-currents', cta: 'See who is near you' },
-      { k: 'Channels', x: 69, y: 64, line: 'Where the river reaches out to water the land.', text: 'Ways to act, from small to large: in your own life, with neighbours, through petitions and campaigns, at work, and alongside planetary movements. Action and rest belong together, so the eddies are always close by.', eg: 'Center for Biological Diversity action alerts, and more to come', href: '/channels', cta: 'Find a way to act' },
-      { k: 'Estuary', x: 64, y: 75, line: 'Where personal change meets the places we work.', text: 'Bringing the living world into workplaces, schools and councils, through Relational Resource Departments and more.', eg: 'Relational Resource Departments', href: '/estuary', cta: 'Visit the estuary' },
-      { k: 'Confluences', x: 86, y: 70, line: 'Where streams meet and grow stronger.', text: 'Organisations finding collaborators, and a capital journey, open to everyone, about money as part of the living world.', eg: 'With gratitude to Nate Hagens, Indy Johar and Dark Matter Labs', href: '/capital-journey', cta: 'Open the capital journey' },
-      { k: 'Ocean', x: 50, y: 93, line: 'Everything already flowing, all around the world.', text: 'A meshwork of place-based projects tending land, water, culture and one another. Find them by theme, place or need, and meet them as relationships.', eg: 'Hometree, the Bioregional Learning Centre and many more', href: '/ocean', cta: 'Explore the ocean' },
-      { k: 'Groundwater', x: 13, y: 80, line: 'The hidden water that connects everything beneath the surface.', text: 'A systems view of the whole River: how the waters feed one another, where quiet threads of connection are forming, and where something new might emerge between people, projects and places. The dotted lines on the map trace it.', eg: 'With Perspectiva and Sympoiesis', href: '/groundwater', cta: 'See emerging threads' },
-      { k: 'The Well', x: 28, y: 88, line: 'Where we pour in what we can offer, and draw on one another.', text: 'A well of wonder, wit, wisdom and wealth. People pour in their skills, experience, passions and ideas for a regenerative and relational future, and say what they need too. Others draw from the well to resource projects big and small, and the River helps gather constellations of people, nearby and worldwide, to make them happen. Like stone soup, no one has to bring everything.', eg: 'Gifts, time exchange, skill swaps, paid work and funded constellations', href: '/well', cta: 'Visit the Well' },
-      { k: 'Moon', x: 92, y: 16, line: 'Moon moves the waters of Earth, and we are made of water too.', text: 'Twice a day the seas rise and fall as Earth turns beneath Moon. ' + moon.tide + ' Our bodies are mostly water, and for as long as people have lived beside coasts and rivers, Moon has shaped when we fish, plant, gather and rest. Moon’s pull on the water within us is tiny, yet pausing to notice Moon each night is a simple, embodied way to feel part of the same moving water as the oceans and the River.', eg: 'Tonight Moon is ' + moon.name + ', about ' + moon.lit + '% lit', href: '/moon', cta: 'Explore Moon practices in the River', invite: 'An invitation from ReBe: Making with Moon. Step outside, find Moon wherever they are in the sky, and pause long enough to really meet them. Then make a picture together, letting Moon’s light, the clouds and the night take part, rather than taking a photo of Moon. Over a lunar cycle, your pictures become a quiet record of a relationship. If you like, ReBe can send a gentle note for new and full Moon sessions.', inviteCta: 'Make with Moon in ReBe' }
+      { k: 'Source', x: 50, y: 4, line: 'Where every journey begins, and where you can always return.', text: 'A few gentle questions about how you are feeling and what you love outside. There are no wrong answers. Your answers suggest a good first place to visit, and help you notice who is in your “we”: the Beings, places and people you belong with.', eg: 'Inspired by Relational ID: who is in your “we”?', href: '/source', cta: 'Begin at the Source' },
+      { k: 'Streams', x: 37, y: 25, line: 'Small things to try on any day.', text: 'Sit with a tree. Listen to water. Watch the clouds for five minutes. Thank the Beings who helped make your meal. Little practices, done often, slowly change how we see the world around us.', eg: 'Sit Spots, listening to water, making pictures with Beings', href: '/streams', cta: 'See the streams' },
+      { k: 'Tributaries', x: 69, y: 41, line: 'Films, talks and lessons that help these times make sense.', text: 'Like small rivers joining a big one, these bring understanding in from every side: energy, money, nature’s rights, soil and more. Each is credited and linked to the people who made it.', eg: 'The Great Simplification, by Nate Hagens and team', href: '/tributaries', cta: 'Open a tributary' },
+      { k: 'Eddies', x: 20, y: 44, line: 'Places to pause, for grief, gratitude and rest.', text: 'Behind a boulder, river water swirls back on itself. Eddies are like that: places to pause and catch your breath, especially when things feel heavy. They come round again at turning points, like a new season or a new Moon.', eg: 'Good Grief Network, the Work That Reconnects', href: '/eddies', cta: 'Visit the eddies' },
+      { k: 'Lakes', x: 41, y: 59, line: 'Still water, where we slow down together.', text: 'Circles, gatherings and retreats where people listen, share and practise together, online and in person, near you and around the world.', eg: 'Good Grief Network circles, Work That Reconnects gatherings', href: '/lakes', cta: 'Find a lake' },
+      { k: 'Islands of coherence', x: 65, y: 47, line: 'Steady places in fast water.', text: 'In a fast river, islands are where the water slows, seeds take root and birds rest. Islands of coherence are households, groups and places that stay calm, kind and steady when the world feels shaky. When they connect into archipelagos, they can help a whole system change.', eg: 'An idea from the scientist Ilya Prigogine', href: '/islands', cta: 'Visit the islands' },
+      { k: 'Waterfall', x: 36, y: 70, line: 'Where ideas tumble into action.', text: 'Share an idea, a hope or a question. The River suggests practices, groups and resources that could help, and one small first step. Your idea stays private.', eg: 'For example: a seed library for your watershed', href: '/waterfall', cta: 'Share an idea' },
+      { k: 'Local currents', x: 83, y: 57, line: 'The people already caring for where you live.', text: 'Groups near you, from tree planters and creek cleaners to grief circles and seed savers. The River points you to them, then steps aside.', eg: 'TreePeople, Friends of the LA River, Irish Seed Savers', href: '/local-currents', cta: 'See who is near you' },
+      { k: 'Channels', x: 69, y: 64, line: 'Ways to help, big and small.', text: 'Things you can do in your own life, with neighbours, at work, and alongside movements around the world. Rest matters too, so the eddies are always close by.', eg: 'Center for Biological Diversity action alerts', href: '/channels', cta: 'Find a way to help' },
+      { k: 'Estuary', x: 64, y: 75, line: 'Bringing the living world into work, school and community life.', text: 'Simple ways to bring care for the living world into the places we spend our days, from meetings that begin outside to learning whose land your workplace is on.', eg: 'Start with a walk, or a meeting outside', href: '/estuary', cta: 'Visit the estuary' },
+      { k: 'Confluences', x: 86, y: 70, line: 'Where streams meet and grow stronger.', text: 'Where organisations find each other and work together, and a short journey, open to everyone, about money as part of the living world.', eg: 'With thanks to Nate Hagens, Indy Johar and Dark Matter Labs', href: '/capital-journey', cta: 'Open the money journey' },
+      { k: 'Ocean', x: 50, y: 93, line: 'Projects all over the world.', text: 'Projects caring for land, water, culture and each other. Find them by theme or place, and meet them as relationships, not just names on a list.', eg: 'Hometree, Siendo Naturaleza, Post Growth Institute and more', href: '/ocean', cta: 'Explore the ocean' },
+      { k: 'Groundwater', x: 13, y: 80, line: 'Quiet connections, under the surface.', text: 'The River notices where projects and places are starting to connect, from what they share publicly, so new friendships and collaborations can grow. The dotted lines on the map show these hidden flows.', eg: 'Threads noticed by the River', href: '/groundwater', cta: 'See the threads' },
+      { k: 'The Well', x: 28, y: 88, line: 'Share what you can offer, ask for what you need.', text: 'Pour in your skills, experience, passions and ideas, and say what you need too. The River helps gather people to bring projects to life, nearby and worldwide. Like stone soup, everyone brings a little.', eg: 'Gifts, time, skill swaps, paid work and funding', href: '/well', cta: 'Visit the Well' },
+      { k: 'Moon', x: 92, y: 16, line: 'Moon moves the waters, and we are water too.', text: 'Twice a day the seas rise and fall as Earth turns beneath Moon. ' + moon.tide + ' For as long as people have lived by coasts and rivers, Moon has guided when we fish, plant, gather and rest. Pausing to notice Moon each night is a simple way to feel part of the same moving water.', eg: 'Tonight Moon is ' + moon.name + ', about ' + moon.lit + '% lit', href: '/moon', cta: 'Explore Moon practices' }
     ];
     this.nodeNames = N.map(function (n) { return n.k; });
     var cur = N[i], count = N.length;
@@ -798,7 +799,7 @@ class Component extends DCLogic {
     return {
       seasonLens: season.lens, seasonText: season.text, seasonLensLink: season.lensLink, seasonLensHref: season.lensHref, seasonPartner: season.partner, seasonPartnerHref: season.partnerHref, seasonPractice: season.practice, seasonPracticeHref: season.practiceHref, seasonUntil: season.until,
       longChips: LONG.map(function (l) { var on = l.k === lk; return { label: l.label, on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ longing: on ? null : l.k }); } }; }),
-      hasLong: !!lk, longIntro: lk ? LONG.filter(function (l) { return l.k === lk; })[0].intro : '', longLinks: lk ? LONG.filter(function (l) { return l.k === lk; })[0].links : [],
+      hasLong: !!lk, longIntro: lk ? LONG.filter(function (l) { return l.k === lk; })[0].intro + ':' : '', longLinks: lk ? LONG.filter(function (l) { return l.k === lk; })[0].links : [],
       guideCls: gv.guideCls, logoCls: gv.logoCls, birdCls: gv.birdCls, peelCls: gv.peelCls, heroCls: gv.heroCls, cosmosCls: gv.cosmosCls, guideLabel: gv.guideLabel, startGuide: gv.startGuide, guidingOn: this.state.guiding ? 'true' : 'false',
       moonLit: moon.d,
       nodes: N.map(function (n, k) { var on = k === i; return { name: n.k, x: n.x + '%', y: n.y + '%', on: on ? 'true' : 'false', cls: on ? 'node on' : 'node', pick: function () { go(k); self.showCard(); } }; }),

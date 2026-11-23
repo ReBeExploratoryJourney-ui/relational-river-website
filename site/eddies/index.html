@@ -165,7 +165,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 </section>
 </main>
-<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 64px; height: 64px; display: block"></a><span>An open commons tended by the Institute of Relational Being. Every offering links to its makers. Examples in square brackets are placeholders while the River grows.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 64px; height: 64px; display: block"></a><span>An open commons tended by the Institute of Relational Being. Every offering links to its makers.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
 </div>
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2200}}'>
@@ -212,8 +212,8 @@ class Component extends DCLogic {
     }
     var fmt = function (d) { return d.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' }); };
     var turns = [
-      { name: 'New Moon', when: m.nextNew + ' (in about ' + m.daysNew + ' days)', d: m.daysNew },
-      { name: 'Full Moon', when: m.nextFull + ' (in about ' + m.daysFull + ' days)', d: m.daysFull },
+      { name: 'New Moon', when: m.nextNew + (m.daysNew <= 1 ? ' (tomorrow or so)' : ' (in about ' + m.daysNew + ' days)'), d: m.daysNew },
+      { name: 'Full Moon', when: m.nextFull + (m.daysFull <= 1 ? ' (tomorrow or so)' : ' (in about ' + m.daysFull + ' days)'), d: m.daysFull },
       { name: next.name, when: 'around ' + fmt(next.date), d: (next.date - now) / 86400000 }
     ].sort(function (a, b) { return a.d - b.d; });
     return {
@@ -259,12 +259,12 @@ class Component extends DCLogic {
   "kind": "Returning",
   "title": "Return to the source",
   "bg": "#CFE1E4",
-  "text": "At a turning point, answer the source’s gentle questions again. Your new constellation of relationships sits beside the one you made before.",
+  "text": "At a turning point, answer the source’s gentle questions again, and notice how your answers have changed since last time.",
   "meta": "About a minute · anywhere",
   "how": "What happens",
   "steps": [
    "Answer a few questions about how you are and what you love outside.",
-   "See which Beings, places and people appear in your constellation now.",
+   "If you drew a constellation last time, draw it again and set the two side by side.",
    "Notice what has grown, and what has quietly gone."
   ],
   "href": "/source",

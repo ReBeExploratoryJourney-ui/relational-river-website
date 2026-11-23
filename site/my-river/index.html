@@ -116,23 +116,19 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </svg>
 <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 12px">
 <h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 28px; letter-spacing: -0.02em">Your constellation</h2>
-<p style="margin: 0; font-size: 17px; line-height: 1.55">A private map of the relationships that make up your "we": Beings you have met through ReBe, places, foods, waters, ancestors, communities. When an eddy brings you back to the source, your earlier constellation sits beside the new one, so you can see how your "we" has grown.</p>
-<p style="margin: 0; font-size: 14px; font-style: italic">Yours alone: never shared unless you choose, downloadable and deletable any time.</p>
-<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center"><a href="/source" class="go tornbtn" style="background: #F5EEE1">Keep my constellation</a><span style="font-size: 14px; font-style: italic">(the only part that needs an account)</span></div>
+<p style="margin: 0; font-size: 17px; line-height: 1.55">A map of the relationships that make up your “we”: the Beings, places, foods, waters, ancestors and communities you belong with. Try drawing one on paper. Put yourself in the middle, then add whoever comes to mind, with a line to each. Come back in a season and draw it again, to see how your “we” has grown.</p>
+<p style="margin: 0; font-size: 14px; font-style: italic">Inspired by Relational ID, an exploration from the Institute of Relational Being.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center"><a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality" class="go tornbtn" style="background: #F5EEE1">Read about Relational ID</a></div>
 </div>
 </section>
 
 <section class="torn tl" style="background: #DCE6D2; padding: 36px 44px; display: flex; flex-wrap: wrap; gap: 28px; align-items: center">
 <div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 10px">
 <div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase">Your circles</div>
-<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 28px; letter-spacing: -0.02em">Where you gather, on Hylo</h2>
-<p style="margin: 0; font-size: 17px; line-height: 1.55">If you choose to connect Hylo, the groups you belong to appear here beside your River, such as IRB’s circles or a private network you belong to, with their next gatherings. Private groups stay private: only you see them here. Only group names and public events flow in, and nothing from your River flows out.</p>
-<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center"><a href="/hylo" class="go tornbtn" style="background: #F5EEE1">Connect Hylo, if you wish</a><span style="font-size: 14px; font-style: italic">Optional: everything else works without it.</span></div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 28px; letter-spacing: -0.02em">Gather with others on Hylo</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55">Hylo is a not-for-profit community platform where many circles and projects meet. The Institute of Relational Being’s group there is a place to talk with others exploring the River.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center"><a href="https://www.hylo.com/groups/institute-of-relational-being" class="go tornbtn" style="background: #F5EEE1">Join IRB on Hylo</a><a href="/hylo" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">More about Hylo</a></div>
 </div>
-<ul style="flex: 1 1 300px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px" aria-label="Example of connected groups">
-<li style="background: #FBF7EF; padding: 14px 18px; border-radius: 12px 16px 12px 18px"><b>Institute of Relational Being</b><br><span style="font-size: 14px; font-style: italic">[Next: a <a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality">Relational ID</a> Circle, Thursday evening]</span></li>
-<li style="background: #FBF7EF; padding: 14px 18px; border-radius: 12px 16px 12px 18px"><b>[A private network you belong to]</b><br><span style="font-size: 14px; font-style: italic">[Next: a monthly gathering, online · visible only to you]</span></li>
-</ul>
 </section>
 </main>
 <footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 64px; height: 64px; display: block"></a><span>An open commons tended by the Institute of Relational Being, with gratitude to every project it points to.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
@@ -146,9 +142,9 @@ class Component extends DCLogic {
     var W = {
       source: ['Source', 'who is in my "we"?', 'Return to the source', 'Come back to the opening questions any time. Your answers, and your constellation, will have changed.', [
         { kind: 'Inquiry', title: 'The Relational ID inquiry', text: 'A few gentle questions about how you are and what you love.', by: 'Institute of Relational Being', href: '/source', cta: 'Begin again', bg: '#FBF7EF', tilt: 'tl' }]],
-      streams: ['Streams', 'everyday practice', 'You are here: streams', 'Small practices of relationship that fit into ordinary days. Pick one and stay with it a while.', [
-        { kind: 'Practice', title: 'A Sit Spot with a tree near you', text: 'Ten minutes with the same tree, day by day, noticing what changes.', by: 'ReBe, by the Institute of Relational Being', href: '/streams', cta: 'Open in ReBe', bg: '#C8D9B9', tilt: 'tl' },
-        { kind: 'Practice', title: 'Making with Moon', text: 'At each new and full Moon, a short reflection with paper and pen.', by: 'ReBe', href: '/moon', cta: 'See the next session', bg: '#E3D2F7', tilt: 'tr' },
+      streams: ['Streams', 'everyday practice', 'Streams', 'Small practices of relationship that fit into ordinary days. Pick one and stay with it a while.', [
+        { kind: 'Practice', title: 'A Sit Spot with a tree near you', text: 'Ten minutes with the same tree, day by day, noticing what changes.', by: 'A practice kept by many peoples', href: '/streams', cta: 'See how', bg: '#C8D9B9', tilt: 'tl' },
+        { kind: 'Practice', title: 'Making with Moon', text: 'At each new and full Moon, step outside, meet Moon, and make a picture together.', by: 'Institute of Relational Being', href: '/moon', cta: 'See when the next full Moon is', bg: '#E3D2F7', tilt: 'tr' },
         { kind: 'Eddy · returns later', title: 'Gratitude for one Being', text: 'Thank one Being who helped you today. It deepens each time it comes round.', by: 'Inspired by the Work That Reconnects', href: '/eddies', cta: 'Try it now', bg: '#E6E2F2', tilt: 'tl' }]],
       tributaries: ['Tributaries', 'understanding the moment', 'Tributaries', 'Themes that help make sense of the moment, from energy and money to nature’s rights and identity.', [
         { kind: 'Film · 32 minutes', title: 'The Great Simplification', text: 'An animation in four acts on energy, our economy and the transition ahead.', by: 'Nate Hagens and team', href: '/tributaries', cta: 'Open the tributary', bg: '#CFE1E4', tilt: 'tl' },
@@ -157,12 +153,12 @@ class Component extends DCLogic {
         { kind: 'Circle', title: 'Good Grief Network', text: 'Peer support for anyone overwhelmed by the state of the world.', by: 'LaUra Schmidt and team', href: 'https://www.goodgriefnetwork.org/', cta: 'Learn more', bg: '#E6E2F2', tilt: 'tl' },
         { kind: 'Practice', title: 'The Work That Reconnects', text: 'Gratitude, honouring pain for the world, and going forth.', by: 'Joanna Macy and a global network', href: 'https://workthatreconnects.org/', cta: 'Learn more', bg: '#E6E2F2', tilt: 'tr' }]],
       lakes: ['Lakes', 'gatherings', 'Lakes', 'Places to slow down together: circles, fellowships and retreats.', [
-        { kind: 'Circle · 5 weeks', title: 'Relational ID Circle', text: 'Map the web that makes you with a small group. The fee is shared between the platform, local micro-grants and the open commons.', by: 'Institute of Relational Being', href: '/lakes', cta: 'Join the waitlist', bg: '#C8D9B9', tilt: 'tl' },
-        { kind: 'Retreat', title: 'Corra Woods, County Clare', text: 'Residencies and workshops between Lough Derg and Lough Graney.', by: 'Institute of Relational Being', href: '/lakes', cta: 'Hear when dates open', bg: '#DCE6D2', tilt: 'tr' }]],
+        { kind: 'Peer support · online', title: 'Good Grief Network', text: 'Small groups that meet heavy feelings about the world together, and turn them into action.', by: 'Good Grief Network', href: 'https://www.goodgriefnetwork.org/', cta: 'Visit their site', bg: '#C8D9B9', tilt: 'tl' },
+        { kind: 'Learning on the land', title: 'Siendo Naturaleza', text: 'Programmes in regenerative agriculture in the Peruvian Amazon, for local and global learners.', by: 'Siendo Naturaleza', href: 'https://www.siendonaturaleza.com/our-programs-global', cta: 'See their programmes', bg: '#DCE6D2', tilt: 'tr' }]],
       local: ['Local currents', 'groups near you', 'Local currents', 'The people and places near you, by bioregion. The River points you there, then steps aside.', [
         { kind: 'Map', title: 'Groups in your bioregion', text: 'Grief circles, food growers, restoration, repair and more.', by: 'Many movements’ own maps, gathered', href: '/local-currents', cta: 'Open local currents', bg: '#DCE6D2', tilt: 'tl' }]],
       estuary: ['Estuary', 'organisations', 'Estuary', 'Where personal change meets workplaces, schools and councils.', [
-        { kind: 'Programme', title: 'Relational Resource Departments', text: 'Bringing seasons, place and the more-than-human world into how an organisation works.', by: 'Institute of Relational Being', href: '/estuary', cta: 'Bring this to my workplace', bg: '#F2D3BC', tilt: 'tl' }]],
+        { kind: 'Ideas to try', title: 'The living world at work', text: 'Meetings that begin outside, nature time in the working week, and learning whose land your workplace is on.', by: 'The estuary', href: '/estuary', cta: 'Visit the estuary', bg: '#F2D3BC', tilt: 'tl' }]],
       ocean: ['Ocean', 'projects worldwide', 'Ocean', 'The meshwork of place-based projects already tending the living world.', [
         { kind: 'Meshwork', title: 'Explore the ocean', text: 'Find projects by place, theme and what they need.', by: 'Partners of the Relational River', href: '/ocean', cta: 'Open the ocean', bg: '#CFE1E4', tilt: 'tl' }]],
       confluences: ['Confluences', 'partners and capital', 'Confluences', 'Organisations finding each other, and a learning journey for everyone about money and the living world.', [
@@ -172,7 +168,7 @@ class Component extends DCLogic {
     var cur = W[at];
     return {
       waters: keys.map(function (k) { var on = k === at; return { name: W[k][0], hint: W[k][1], cls: on ? 'water on' : 'water', cur: on ? 'location' : 'false', pick: function () { self.setState({ at: k }); } }; }),
-      here: cur[2] === 'You are here: streams' ? 'Where you are now' : 'Exploring',
+      here: 'Exploring',
       title: cur[2], text: cur[3], offers: cur[4].map(function (o) { var c = {}; for (var k in o) { c[k] = o[k]; } c.idLink = /Relational ID/.test(o.title || ''); return c; })
     };
   }

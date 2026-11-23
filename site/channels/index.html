@@ -104,14 +104,14 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px">
 <article class="torn tl" style="background: #CFE1E4; padding: 28px 28px; display: flex; flex-direction: column; gap: 8px">
-<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">A thread forming · example</div>
-<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 20px">Native woodland in County Clare</h3>
-<p style="margin: 0; font-size: 15px; line-height: 1.5">Hometree is restoring native woodland in the west of Ireland, and Corra Woods is looking for local partners in woodland care. The River would gently suggest an introduction.</p>
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">A thread noticed by the River</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 20px">Seed keepers on two shores</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">Irish Seed Savers in East Clare, and the Seed Library of Los Angeles and Theodore Payne Foundation in LA, all keep living seed in circulation.</p>
 </article>
 <article class="torn tr" style="background: #CFE1E4; padding: 28px 28px; display: flex; flex-direction: column; gap: 8px">
-<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">A thread forming · example</div>
-<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 20px">[Grief and restoration in one watershed]</h3>
-<p style="margin: 0; font-size: 15px; line-height: 1.5">A grief circle and a creek restoration day meeting in the same watershed, each holding half of what people need.</p>
+<div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">A thread noticed by the River</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 20px">Economies beyond growth</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">The Post Growth Institute and The Great Simplification are both asking what a good life looks like once endless growth is no longer the goal.</p>
 </article>
 <article class="torn tl" style="background: #FBF7EF; padding: 28px 28px; display: flex; flex-direction: column; gap: 8px">
 <div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Questions for noticing emergence</div>
@@ -134,7 +134,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 </section>
 </main>
-<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 64px; height: 64px; display: block"></a><span>Items in square brackets are examples for this mockup. Every offering links to its makers and is listed with their blessing.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 64px; height: 64px; display: block"></a><span>Every offering links to its makers.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a></footer>
 </div>
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1900}}'>
@@ -143,13 +143,13 @@ class Component extends DCLogic {
   renderVals() {
     var self = this, s = this.state.s;
     var A = [
-      { k: 'personal', scale: 'Personal', time: 'a few minutes to a season', title: 'A change in your own life', text: 'Food, travel, energy and money are where most of our daily footprint lives. Choose one small, lasting change and let it grow.', by: '[Personal action resources to come]', href: '/capital-journey', cta: 'Begin with money and value', bg: '#FBF7EF' },
+      { k: 'personal', scale: 'Personal', time: 'a few minutes to a season', title: 'A change in your own life', text: 'Food, travel, energy and money are where most of our daily footprint lives. Choose one small, lasting change and let it grow.', by: 'Project Drawdown', href: 'https://drawdown.org/', cta: 'Explore Drawdown’s solutions', bg: '#FBF7EF' },
       { k: 'local', scale: 'Local', time: 'an afternoon, then ongoing', title: 'Join the people near you', text: 'Restoration days, grief circles, food growers and repair cafés, gathered by bioregion.', by: 'Local currents', href: '/local-currents', cta: 'See who is near you', bg: '#DCE6D2' },
       { k: 'civic', scale: 'Civic and legal', time: '5 minutes to ongoing', title: 'Center for Biological Diversity', text: 'Standing up, in law and in public, for Beings who cannot speak in a courtroom: action alerts, petitions for endangered species and their homes, and membership.', by: 'Center for Biological Diversity', href: 'https://www.biologicaldiversity.org/', cta: 'See their current actions', bg: '#E8C77A' },
-      { k: 'org', scale: 'Organisational', time: 'a season or longer', title: 'Relational Resource Departments', text: 'Bringing seasons, place and the more-than-human world into how a workplace, school or council decides and cares.', by: 'Institute of Relational Being', href: '/estuary', cta: 'Bring this to my workplace', bg: '#F2D3BC' },
+      { k: 'org', scale: 'Organisational', time: 'a season or longer', title: 'The living world at work', text: 'Small ways to bring seasons, place and the more-than-human world into how a workplace, school or council meets and decides.', by: 'The estuary', href: '/estuary', cta: 'Visit the estuary', bg: '#F2D3BC' },
       { k: 'org', scale: 'Organisational', time: 'a season or longer', title: 'Healing-centred leadership', text: 'Strengths before deficits, protective parts met with curiosity, and power that circulates rather than accumulates, for leaders and teams working toward a more just world.', by: 'Lana Jelenjev', href: 'https://lanajelenjev.com/practice-with-me', cta: 'Practise with Lana', bg: '#F2D3BC' },
       { k: 'planetary', scale: 'Planetary', time: 'ongoing', title: 'Join the Antidebate', text: 'A praxis project from Perspectiva exploring better ways of disagreeing together, currently welcoming volunteers.', by: 'Perspectiva', href: 'https://systems-souls-society.com/', cta: 'Learn more', bg: '#CFE1E4' },
-      { k: 'planetary', scale: 'Planetary', time: 'ongoing', title: '[Planetary movements to come]', text: 'Coalitions and campaigns working across borders, to be added as action resources arrive.', by: 'Relational River stewards', href: '/ocean', cta: 'Explore the ocean meanwhile', bg: '#CFE1E4' }
+      { k: 'planetary', scale: 'Planetary', time: 'ongoing', title: 'Movements across borders', text: 'Networks of projects worldwide that you can learn from, support and join, from ecovillages to restoration communities.', by: 'The ocean', href: '/ocean', cta: 'Explore the ocean', bg: '#CFE1E4' }
     ];
     var S = [['all', 'All'], ['personal', 'Personal'], ['local', 'Local'], ['civic', 'Civic and legal'], ['org', 'Organisational'], ['planetary', 'Planetary']];
     var shown = A.filter(function (a) { return s === 'all' || a.k === s; }).map(function (a, i) { var o = {}; for (var key in a) { o[key] = a[key]; } o.tilt = i % 2 ? 'tr' : 'tl'; return o; });

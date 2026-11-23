@@ -135,8 +135,8 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </sc-for>
 </div>
 <div class="torn tr" style="background: #E6E2F2; padding: 28px 34px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
-<p style="margin: 0; font-size: 17px; max-width: 640px">Would you like to keep a private <strong>constellation</strong> of the relationships that make up your "we"? It grows each time you return. This is the only thing that needs an account.</p>
-<a href="Journey.dc.html" class="go tornbtn" style="background: #F5EEE1">Keep my constellation</a>
+<p style="margin: 0; font-size: 17px; max-width: 640px">Try drawing a <strong>constellation</strong> of the relationships that make up your “we”: you in the middle, and the Beings, places and people you belong with all around. My river shows how.</p>
+<a href="Journey.dc.html" class="go tornbtn" style="background: #F5EEE1">Draw my constellation</a>
 </div>
 </section>
 </sc-if>
@@ -155,9 +155,9 @@ class Component extends DCLogic {
   renderVals() {
     var self = this, s = this.state;
     var streams = {
-      tree: ['A Sit Spot with a tree near you', 'Choose one tree you pass often and sit with them for ten minutes. ReBe can keep you company along the way.'],
+      tree: ['A Sit Spot with a tree near you', 'Choose one tree you pass often and sit with them for ten minutes. Come back tomorrow, and notice what has changed.'],
       water: ['Listening to water', 'Find a creek, a fountain or the sea, and simply listen for five minutes, noticing what changes.'],
-      garden: ['Making a picture with a garden Being', 'Pick one plant and make a picture together with them through ReBe, at their pace.'],
+      garden: ['Making a picture with a garden Being', 'Pick one plant, greet them, and make a picture together, at their pace.'],
       animals: ['Meeting the creatures nearby', 'Notice the birds, insects and animals around your home this week, one at a time.'],
       sky: ['Making with Moon', 'Step outside at dusk and notice where Moon is tonight, and how the light changes.'],
       park: ['A city Being', 'Every city park holds old trees and visiting birds. Choose one to return to.']
@@ -167,7 +167,7 @@ class Component extends DCLogic {
       reading: ['What might it mean to live as a Relational Being?', 'A short essay from IRB on the ecological self, with honesty about harm and room for joy.', 'Institute of Relational Being', 'Tributary.dc.html'],
       listening: ['Optionality Collapse (podcast)', 'Nate Hagens and Indy Johar on how coupled risks are reshaping capital and the future.', 'The Great Simplification, Ep. 238', 'Tributary.dc.html'],
       doing: ['Join a local group', 'People near you are already planting, repairing, growing food and tending grief together.', 'Local currents', 'LocalCurrents.dc.html'],
-      others: ['A Relational ID Circle', 'A five-week circle mapping the web that makes each of us, with a few others.', 'Institute of Relational Being', 'Journey.dc.html']
+      others: ['Circles and gatherings', 'Slow down with others, online or in person, in circles held by groups like the Good Grief Network and the Work That Reconnects.', 'Lakes', 'Lakes.dc.html']
     };
     var eddies = {
       curious: ['Gratitude for one Being', 'Before anything else, thank one Being who helped you today.'],
@@ -179,7 +179,7 @@ class Component extends DCLogic {
     };
     var seen = {};
     var eddyCards = s.feel.map(function (k) { return eddies[k]; }).filter(function (e) { if (seen[e[0]]) { return false; } seen[e[0]] = true; return true; }).map(function (e) { return { water: 'Eddy · returns later too', title: e[0], text: e[1], by: 'Good Grief Network · The Work That Reconnects', href: 'LocalCurrents.dc.html', cta: 'Find a circle', bg: '#E6E2F2' }; });
-    var streamCards = s.love.map(function (k) { var st = streams[k]; return { water: 'Stream · everyday practice', title: st[0], text: st[1], by: 'ReBe, by the Institute of Relational Being', href: 'Streams.dc.html', cta: 'Begin this practice', bg: '#C8D9B9' }; });
+    var streamCards = s.love.map(function (k) { var st = streams[k]; return { water: 'Stream · everyday practice', title: st[0], text: st[1], by: 'A small practice from the Streams', href: 'Streams.dc.html', cta: 'Begin this practice', bg: '#C8D9B9' }; });
     var tribCards = s.way.map(function (k) { var tb = tribs[k]; return { water: 'Tributary · understanding the moment', title: tb[0], text: tb[1], by: tb[2], href: tb[3], cta: 'Open this', bg: '#CFE1E4' }; });
     var heavy = s.feel.indexOf('overwhelmed') >= 0 || s.feel.indexOf('worried') >= 0 || s.feel.indexOf('rather') >= 0;
     var all = heavy ? eddyCards.concat(streamCards, tribCards) : streamCards.concat(tribCards, eddyCards);
