@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · how the River uses AI</title>
+<meta name="description" content="How the Relational River uses AI: where it helps behind the scenes, where it does not, what it costs, and our commitments.">
+<meta property="og:title" content="Relational River · how the River uses AI">
+<meta property="og:description" content="How the Relational River uses AI: where it helps behind the scenes, where it does not, what it costs, and our commitments.">
+<meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<meta name="theme-color" content="#0E2849">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#E6E2F2;border-color:#2F2B28;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:start}
+.card{padding:36px 32px 30px;display:flex;flex-direction:column;gap:8px;color:#2F2B28}
+.k{font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
+.h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:30px;letter-spacing:-0.02em}
+.h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:21px}
+.p{margin:0;font-size:16px;line-height:1.55}
+.lnk{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.note{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;color:#E8C77A;max-width:760px}
+.steps{margin:4px 0 0;padding-left:22px;font-size:16px;line-height:1.6}
+.steps li{margin-bottom:4px}
+.minor{font-size:14px;font-style:italic}
+.toggle{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:transparent;border:1.5px solid #2F2B28;border-radius:10px 14px 10px 12px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
+.chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chiplabel{font-size:14px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
+.care{background:#E6E2F2;padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
+.pv{background:#FBF7EF;color:#2F2B28;padding:34px 40px;display:flex;flex-direction:column;gap:10px}
+.pv h2,.pvplain h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:26px;letter-spacing:-0.01em}
+.pv p,.pv li,.pvplain p,.pvplain li{margin:0;font-size:17px;line-height:1.6}
+.pv ul,.pvplain ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.pv a{color:#2B4A5E}
+.pvplain{display:flex;flex-direction:column;gap:12px}
+.pvplain a{color:#EDEDED}
+.pvtable{overflow-x:auto;border-radius:18px 24px 16px 26px;background:#FBF7EF}
+.pvtable table{width:100%;min-width:640px;border-collapse:collapse;color:#2F2B28;font-size:15px;line-height:1.5}
+.pvtable th{text-align:left;padding:12px 14px;font-weight:600;border-bottom:1.5px solid #8C8178}
+.pvtable td{padding:12px 14px;vertical-align:top;border-bottom:1px dashed #C9BFB2}
+.pvtable tr:last-child td{border-bottom:none}
+code{font-size:15px;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:5px}
+@media (max-width: 700px){.pv{padding:28px 22px}.pvtable table{min-width:0}.pvtable thead{display:none}.pvtable tr,.pvtable td{display:block}.pvtable tr{padding:10px 4px;border-bottom:1.5px solid #C9BFB2}.pvtable td{border:none;padding:6px 14px}.pvtable td::before{content:attr(data-label);display:block;font-weight:600;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:#6B625A}}
+@keyframes swirl{to{stroke-dashoffset:-120}}
+.eddy{stroke-dasharray:6 8;animation:swirl 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 14s linear infinite}
+.spin.ccw{animation-direction:reverse}
+@media (max-width: 700px){
+.torn{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,center!important;mask-position:top center,bottom center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+}
+@media (max-width: 700px){
+.vnav{position:relative;width:100%}
+.vgroup{position:static}
+.vmenu{left:0;right:0;min-width:0;width:auto}
+}
+/* Torn edges of a fixed, shallow depth on every side, so text is never covered. */
+.torn,.torn.tall{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,left center,right center,center!important;mask-position:top center,bottom center,left center,right center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+</style>
+<style>body{background:#0E2849}</style>
+</head>
+<body>
+<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>
+<template id="rr-template">
+
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="/flow"><b>The River</b><span>the whole River at a glance</span></a><a href="/source"><b>The source</b><span>a minute of gentle questions</span></a><a href="/"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/streams"><b>Streams</b><span>small practices for ordinary days</span></a><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/ways-of-seeing"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="/eddies"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="/moon"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="/capital-journey"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="/springs"><b>Springs</b><span>offerings to join soon</span></a><a href="/lakes"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="/islands"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="/well"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/estuary"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="/groundwater"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="/my-river" class="vmine">My river</a>
+</nav>
+</header>
+
+<main style="max-width: 900px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 30px">
+<a href="/flow" style="font-size: 15px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">Back to the whole River</a>
+<div style="display: flex; flex-direction: column; gap: 12px; margin-top: -16px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">How the River uses AI</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 46px; letter-spacing: -0.03em; line-height: 1.06">AI, held with care</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55">The Relational River is about relationship with the living world, and no machine can do that for us. Here, in plain words, is where AI is used in the River, where it is not, what it costs, and the care we take.</p>
+<p style="margin: 0; font-size: 15px; font-style: italic; color: #C9CCD6">Last updated 23 November 2026. These commitments are living, and we will revisit them each year with partners and people who use the River.</p>
+</div>
+
+<section class="torn tl pv">
+<h2>What you meet in the River</h2>
+<p>No AI runs in what you see and use here.</p>
+<ul>
+<li><b>Raven</b>, your guide, speaks words written by people, not generated by a machine.</li>
+<li><b>The waterfall</b> matches your words with offerings already in the River, using simple code that runs in your own browser. What you write there is not saved or sent anywhere.</li>
+<li><b>The Well</b> keeps what you choose to share privately, for people to read, never for AI to learn from.</li>
+</ul>
+</section>
+
+<section class="pvplain">
+<h2>Where AI helps behind the scenes</h2>
+<p>AI helps tend the River quietly, in a few places:</p>
+<ul>
+<li><b>Building the River.</b> The website is built with help from Claude, an AI made by Anthropic. People at the Institute of Relational Being decide what the River is and how it speaks.</li>
+<li><b>Springs and threads.</b> Once a week, an AI run reads public pages to find new offerings with a closing date, checks each one against <a href="#ethos">the River’s ethos guide</a>, and adds those that fit. Everything it adds is labelled <i>Noticed by the River</i> and links to the organisers’ own page.</li>
+<li><b>A weekly note.</b> The same run drafts the Institute of Relational Being’s weekly newsletter, which a person reads and edits before it is shared.</li>
+</ul>
+</section>
+
+<section class="torn tr pv">
+<h2>Our commitments</h2>
+<ol>
+<li><b>AI only where it earns its place.</b> Before using AI for anything, we ask whether a simpler way would serve as well. Much of the River works without it.</li>
+<li><b>Small and close to home.</b> If AI ever appears in what you use, we will prefer small tools that run on your own device over large ones in the cloud.</li>
+<li><b>Treading lightly.</b> We keep AI use to what is needed, such as one gathering run a week, and prefer using less over offsetting.</li>
+<li><b>People decide.</b> Anything AI writes about an organisation is labelled, linked to its source, and open to correction or removal. Our aim is for a person to review every new spring.</li>
+<li><b>Permission first.</b> We use only what organisations share publicly, invite them to shape their own entries, and never publish the location of a sensitive species or a sacred place.</li>
+<li><b>Some knowledge stays out of reach.</b> We never use AI to gather, summarise or generate Indigenous ceremony, language, stories or traditional ecological knowledge. Indigenous voices are honoured and illuminated wherever possible, in their own words and linked to their own sites.</li>
+<li><b>Never training on people.</b> Your pictures, words and offerings in the River are never used to train AI models, ours or anyone else’s.</li>
+<li><b>Out in the open.</b> This page says what we do. If anything changes, it changes here first.</li>
+</ol>
+</section>
+
+<section class="pvplain" id="ethos">
+<h2>What belongs in the Springs</h2>
+<p>Every spring, whether shared by a person or noticed by the River, should be in resonance with the Institute of Relational Being’s ethos. A spring belongs when it:</p>
+<ul>
+<li>deepens relationship with the living world, meeting rivers, trees, creatures, places and Moon as Beings, not resources;</li>
+<li>supports reciprocity and care, between people and with the rest of nature;</li>
+<li>is grounded in place, community or an understanding of living systems;</li>
+<li>honours Indigenous peoples, sharing Indigenous-led offerings in their own words, and teachings of ceremony or traditional knowledge only when their keepers lead or endorse them;</li>
+<li>is honest and clear, with a real organiser, a clear cost and a working link.</li>
+</ul>
+<p>We leave out greenwashing, high-pressure selling, appropriation of Indigenous knowledge, and anything that cannot be checked. Free, by-donation and paid offerings are all welcome, and we especially value those that make room for people with fewer resources.</p>
+</section>
+
+<section class="pvplain">
+<h2>The cost we carry</h2>
+<p>AI is not weightless. Much of its energy and water use comes from large data centres, and building it draws on the Earth’s materials. The River’s own footprint is small, but it is real, and we would rather name it than hide it. It is one reason we keep AI behind the scenes, and use it sparingly.</p>
+</section>
+
+<section class="torn tl pv">
+<h2>Learning with others</h2>
+<p>These commitments were shaped in conversation with the questions raised by the BioFi Project in <a href="https://thebiofiproject.substack.com/p/can-ai-catalyze-the-regeneration">Can AI Catalyze the Regeneration of Place?</a>, with gratitude. They ask when AI is worth its costs, who decides what local knowledge becomes data, and how communities keep control of it. We hold those questions as our own.</p>
+<p>If something here does not sit right with you, or your organisation would like its entry changed or removed, tell us in the <a href="https://www.hylo.com/groups/institute-of-relational-being">Institute of Relational Being’s group on Hylo</a> or write to <a href="mailto:privacy@relationalriver.org">privacy@relationalriver.org</a>. For how your information is kept, see <a href="/privacy">Privacy</a>.</p>
+</section>
+</main>
+
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 64px; height: 64px; display: block"></a><span>An open commons tended by the Institute of Relational Being.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a><a href="/ai" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">How the River uses AI</a></footer>
+</div>
+</template>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3200}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+<script src="/js/river-runtime.js"></script>
+</body>
+</html>

@@ -32,6 +32,7 @@ PAGES = {
     'Estuary': ('estuary.html', '/estuary', 'Where personal change meets workplaces, schools and councils.'),
     'Groundwater': ('groundwater.html', '/groundwater', 'The hidden water that connects everything: the River as a living system.'),
     'Seeing': ('ways-of-seeing.html', '/ways-of-seeing', 'Ways of seeing: short lessons on three horizons, emergence, philosophy as practice and learning on the land, with partners who live this work.'),
+    'AI': ('ai.html', '/ai', 'How the Relational River uses AI: where it helps behind the scenes, where it does not, what it costs, and our commitments.'),
     'Springs': ('springs.html', '/springs', 'Springs: offerings with a closing date, bubbling up now, from cohorts and courses to gatherings you can join soon.'),
     'Islands': ('islands.html', '/islands', 'Islands of coherence: steady, well-related places in turbulent times, and how they connect into archipelagos.'),
     'Privacy': ('privacy.html', '/privacy', 'How the Relational River cares for your information: what is kept, why, for how long, and your rights under GDPR.'),
