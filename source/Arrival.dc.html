@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
 <style>
-body{margin:0}
+body{margin:0;background:#174A5B}
 a{color:#EDEDED}a:hover{color:#FFFFFF}
 a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
 .tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
@@ -19,7 +19,12 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .pill{font-family:Jost,sans-serif;font-size:15px;color:#EDEDED;background:transparent;border:1.5px solid #C9CCD6;border-radius:7px;padding:10px 18px;min-height:44px;cursor:pointer}
 .pill:hover{background:rgba(220,220,220,0.12)}
 .piece{position:absolute;height:auto;display:block;will-change:transform,opacity}
-.fadein{transition:opacity 1.5s ease}
+.fadein{transition:opacity 2.6s cubic-bezier(.45,0,.55,1)}
+.logo.dissolve .piece{transition:opacity 2.6s cubic-bezier(.45,0,.55,1)}
+.w{display:inline-block;opacity:0}
+@keyframes settle{0%{opacity:0;filter:blur(3px);transform:translate(var(--dx),var(--dy)) rotate(var(--r))}55%{opacity:1;filter:blur(0)}75%{transform:translate(calc(var(--dx) * -0.06),calc(var(--dy) * -0.12)) rotate(calc(var(--r) * -0.15))}100%{opacity:1;filter:blur(0);transform:none}}
+.flowing .w{animation:settle 3.6s cubic-bezier(.22,.7,.3,1) var(--d) both}
+.w a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .logo{position:absolute;left:50%;top:50%;transition:transform 1.62s cubic-bezier(.5,0,.3,1),opacity 1.08s ease}
 .logo.condense{transition:transform 1.89s cubic-bezier(.55,0,.6,1),opacity 1.49s ease .34s}
 .glow{position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;background:radial-gradient(circle, #FFF8EC 0%, rgba(245,238,225,0.92) 20%, rgba(245,238,225,0.38) 42%, rgba(245,238,225,0) 70%);transition:transform 1.62s cubic-bezier(.5,0,.3,1),opacity 1.08s ease}
@@ -28,13 +33,17 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .rv.on{transform:scaleY(1)}
 @keyframes flow{to{stroke-dashoffset:-240}}
 .flow{stroke-dasharray:4 20;animation:flow 7s linear infinite}
-.line{transition:opacity 1.08s ease,transform 1.08s ease}
-.line.off{opacity:0;transform:translateY(10px)}
-@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.line{animation:rise 2.4s cubic-bezier(.22,.7,.3,1) both}
+.linehold{opacity:0}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}.w{opacity:1!important}}
 .desc{max-height:none}
 @media (max-height: 900px){.desc{top:26%!important;padding:30px 44px!important;gap:12px!important}.desc h1{font-size:44px!important}.desc p{font-size:16px!important}.desc p:first-of-type{font-size:19px!important}}
 @media (max-height: 720px), (max-width: 600px){.desc{top:22%!important;padding:24px 28px!important}.desc h1{font-size:36px!important}}
 @media (max-width: 700px){
+div:has(> .desc){display:flow-root}
+.logo,.glow{top:50vh!important}
+.desc{position:relative!important;left:auto!important;top:auto!important;transform:none!important;margin:20vh auto 48px!important}
 .torn{-webkit-mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),linear-gradient(#000,#000)!important;mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,center!important;mask-position:top center,bottom center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
 }
 </style>
@@ -71,14 +80,14 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <button class="pill" onClick="{{skip}}" style="position: absolute; right: 24px; top: 20px">Skip the arrival</button>
 </sc-if>
 
-<section class="desc" aria-live="polite" style="position: absolute; left: 50%; top: 34%; transform: translateX(-50%); width: min(720px, 88vw); box-sizing: border-box; padding: 44px 52px; text-align: left; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; background: radial-gradient(ellipse at center, rgba(14,40,73,0.92) 0%, rgba(14,40,73,0.75) 55%, rgba(14,40,73,0) 100%); visibility: {{descVis}}">
-<div class="{{lineCls}}" style="font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: #C9CCD6">Welcome to</div>
-<h1 class="{{lineCls}}" style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 52px; line-height: 1.05; color: #DCDCDC; font-variant-ligatures: none; font-feature-settings: 'liga' 0">The Relational River</h1>
-<p class="{{lineCls}}" style="transition-delay: 0.61s; margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.45; color: #EDEDED">A Source, like the headwaters of any river, offered through the <a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px">Institute of Relational Being</a>.</p>
-<p class="{{lineCls}}" style="transition-delay: 1.22s; margin: 0; font-size: 18px; line-height: 1.6">It is here to be of service to individuals, organizations, communities and the wider living world in many ways: an engaging re-source that gathers the offerings already flowing, practices, teachings, circles and projects, so each of us can find a way in.</p>
-<p class="{{lineCls}}" style="transition-delay: 1.83s; margin: 0; font-size: 18px; line-height: 1.6">And it is an open-source process and platform of reciprocity, curiosity and care for all life and this living world, flowing at your own pace, from a first spring of curiosity toward an ocean of people and places tending life.</p>
-<div class="{{lineCls}}" style="transition-delay: 2.43s; display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-start; align-items: center; padding-top: 8px">
-<a href="Welcome.dc.html" class="go tornbtn">Follow the flow</a>
+<section class="{{descCls}}" aria-live="polite" style="position: absolute; left: 50%; top: 34%; transform: translateX(-50%); width: min(720px, 88vw); box-sizing: border-box; padding: 44px 52px; text-align: left; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; background: radial-gradient(ellipse at center, rgba(14,40,73,0.92) 0%, rgba(14,40,73,0.75) 55%, rgba(14,40,73,0) 100%); visibility: {{descVis}}">
+<div style="font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: #C9CCD6"><sc-for list="{{wKicker}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 52px; line-height: 1.05; color: #DCDCDC; font-variant-ligatures: none; font-feature-settings: 'liga' 0"><sc-for list="{{wTitle}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></h1>
+<p style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.45; color: #EDEDED"><sc-for list="{{wP1}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></p>
+<p style="margin: 0; font-size: 18px; line-height: 1.6"><sc-for list="{{wP2}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></p>
+<p style="margin: 0; font-size: 18px; line-height: 1.6"><sc-for list="{{wP3}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></p>
+<div class="{{lineCls}}" style="animation-delay: {{btnDelay}}; display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-start; align-items: flex-end; padding-top: 8px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="font-family: 'Averia Serif Libre', Georgia, serif; font-style: italic; font-size: 16px; color: #C9CCD6">tap here to</span><a href="Welcome.dc.html" class="go tornbtn">Follow the flow</a></div>
 <button class="pill" onClick="{{replay}}">Watch the arrival again</button>
 <a href="Privacy.dc.html" style="font-size: 14px; color: #C9CCD6; min-height: 44px; display: inline-flex; align-items: center">Privacy</a>
 </div>
@@ -151,11 +160,36 @@ class Component extends DCLogic {
         op: ph >= 2 ? 0 : (op * tw).toFixed(3)
       };
     });
+    var IRB = 'https://instituteofrelationalbeing.org', wi = 0;
+    var words = function (parts, base) {
+      var out = [];
+      parts.forEach(function (pt) {
+        var toks = pt.link ? [pt.t] : pt.t.split(' ');
+        toks.forEach(function (w) {
+          if (!w) { return; }
+          var k = wi++;
+          out.push({ sp: ' ', t: w, link: !!pt.link, plain: !pt.link, href: pt.link || '',
+            d: (base + k * 0.032).toFixed(3) + 's',
+            dx: (-34 - 10 * Math.sin(k * 0.53)).toFixed(1) + 'px',
+            dy: (12 * Math.sin(k * 0.71)).toFixed(1) + 'px',
+            r: (5 * Math.sin(k * 0.93 + 1)).toFixed(1) + 'deg' });
+        });
+      });
+      return out;
+    };
+    var wKicker = words([{ t: 'Welcome to' }], 0);
+    var wTitle = words([{ t: 'The Relational River' }], 0.1);
+    var wP1 = words([{ t: 'A Source, like the headwaters of any river, offered through the' }, { t: 'Institute of Relational Being.', link: IRB }], 0.3);
+    var wP2 = words([{ t: 'Good present to you, being of the human variety. The River is here to be of service to individuals, organizations, communities and the wider living world in many ways, that is dedicated to helping bring more reciprocal care between us, and the rest of nature. As an engaging re-source, it gathers the offerings already flowing, practices, teachings, circles and projects, so each of us can find a way in.' }], 0.5);
+    var wP3 = words([{ t: 'It is an open-source process and platform of reciprocity, curiosity and care for all life and this living world, flowing at your own pace, from a first spring of curiosity toward an ocean of people and places tending life.' }], 0.7);
     var condense = ph >= 5;
     return {
       pieces: pieces,
       stage: 'min(62vmin, 560px)',
-      logoCls: condense ? 'logo condense' : 'logo',
+      logoCls: condense ? 'logo condense' : (ph >= 2 ? 'logo dissolve' : 'logo'),
+      wKicker: wKicker, wTitle: wTitle, wP1: wP1, wP2: wP2, wP3: wP3,
+      descCls: ph >= 6 ? 'desc flowing' : 'desc',
+      btnDelay: (0.7 + wi * 0.032 + 0.6).toFixed(2) + 's',
       logoTf: condense ? 'translate(-50%, -50%) translateY(-20vh) scale(0.05) rotate(-24deg)' : (ph >= 4 ? 'translate(-50%, -50%) translateY(-28vh) scale(0.36) rotate(-14deg)' : 'translate(-50%, -50%)'),
       logoOpacity: condense ? 0 : 1,
       glowCls: condense ? 'glow condense' : 'glow',
@@ -168,7 +202,7 @@ class Component extends DCLogic {
       riverOpacity: ph >= 4 ? (ph >= 6 ? 0.7 : 1) : 0,
       showSkip: ph < 6,
       descVis: ph >= 6 ? 'visible' : 'hidden',
-      lineCls: ph >= 6 ? 'line' : 'line off',
+      lineCls: ph >= 6 ? 'line' : 'linehold',
       skip: function () { self.stop(); self.setState({ t: 14.2, phase: 6 }); },
       replay: function () { self.start(); }
     };
