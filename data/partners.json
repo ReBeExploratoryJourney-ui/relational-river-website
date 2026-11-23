@@ -1,6 +1,16 @@
 {
  "partners": [
   {
+   "name": "The BioFi Project",
+   "place": "Southern Blue Ridge Mountains of Appalachia, working across the Americas",
+   "text": "A think-and-do tank partnering with communities to build place-based economies that regenerate, rather than deplete, the ecological and social systems they are part of. Home of Bioregional Financing Facilities, a growing resource library and monthly Deep Dives.",
+   "theme": "Economies that work with life",
+   "k": "money",
+   "href": "https://thebiofiproject.substack.com/",
+   "founder": "",
+   "shaped": false
+  },
+  {
    "name": "Regenesis Institute for Regenerative Practice",
    "place": "Santa Fe, New Mexico, with cohorts around the world",
    "text": "Education and support for practitioners of regenerative development: bringing human activity back into alignment with the living systems that sustain it, by understanding the uniqueness of each place.",
