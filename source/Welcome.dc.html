@@ -96,7 +96,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 @keyframes isleglow{0%,100%{opacity:.35;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
 @keyframes gpulse{0%,100%{box-shadow:0 0 4px rgba(232,199,122,.3)}50%{box-shadow:0 0 22px rgba(232,199,122,.75)}}
 .glogowrap{position:relative;display:inline-block}
-.flowrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;align-items:start}
+.flowrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:start}
+@media (max-width: 760px){.flowrow{grid-template-columns:1fr}}
+.springrow{grid-column:1/-1}
 .flowcard{padding:34px 36px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
 .k2{font-size:13px;letter-spacing:.1em;text-transform:uppercase}
 .fh{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:26px;letter-spacing:-.01em}
@@ -189,7 +191,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <nav class="vnav" aria-label="Main">
 <div class="vgroup"><button class="vbtn here">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Seeing.dc.html"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
-<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="Islands.dc.html"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="Springs.dc.html"><b>Springs</b><span>offerings to join soon</span></a><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="Islands.dc.html"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Estuary.dc.html"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="Groundwater.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
 <a href="Journey.dc.html" class="vmine">My river</a>
 </nav>
@@ -306,6 +308,14 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <ul class="flist"><sc-for list="{{longLinks}}" as="l" hint-placeholder-count="3"><li><a href="{{l.href}}">{{l.label}}</a>: {{l.why}}</li></sc-for></ul>
 </sc-if>
 </div>
+<sc-if value="{{hasSprings}}" hint-placeholder-val="{{ true }}">
+<div class="torn tl flowcard springrow" style="background: #CFE1E4">
+<div class="k2">Springs · bubbling up now</div>
+<h2 class="fh">Offerings to join soon</h2>
+<ul class="flist"><sc-for list="{{springTop}}" as="s" hint-placeholder-count="2"><li><a href="{{s.href}}">{{s.title}}</a>, with {{s.host}}. <em>{{s.left}}</em></li></sc-for></ul>
+<a href="Springs.dc.html" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; color: #2F2B28">See all the springs</a>
+</div>
+</sc-if>
 </section>
 
 <section aria-label="Ways to begin" style="display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center; padding-top: 8px">
@@ -376,6 +386,7 @@ class Component extends DCLogic {
     ];
     var T = [
       ['Source', 'Everything begins here, at the Source. A few gentle questions help you become more aware of the relationships beyond the human world that we are always a part of: with trees, waters, creatures, places and more. There are no wrong answers, and you can come back any time.'],
+      ['Springs', 'Here at the springs, fresh offerings bubble up: courses, cohorts and gatherings with a closing date. Each shows how long is left to join, and slips away once its doors close.'],
       ['Streams', 'These are the streams: small things to try on any day. Sit with a tree, listen to water, or watch the clouds for five minutes. Little practices, done often, slowly change how we see.'],
       ['Tributaries', 'Tributaries flow in from the sides, bringing films, talks and short lessons that help these times make sense. Each one links to the people who made it.'],
       ['Eddies', 'Here the water swirls back. Eddies are places to pause for grief, gratitude and rest. They come round again at turning points, like a new season or a new Moon.'],
@@ -733,6 +744,7 @@ class Component extends DCLogic {
     }, 60);
   }
   componentDidMount() {
+    var selfS = this; try { fetch('/data/springs.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.springs) { selfS.setState({ springs: d.springs }); } }).catch(function () {}); } catch (e) {}
     var self = this;
     this.glowTimer = setTimeout(function () { self.setState({ glow: false }); }, 5000);
     try {
@@ -770,6 +782,11 @@ class Component extends DCLogic {
   stopTour() { if (this.timer) { clearInterval(this.timer); this.timer = null; } }
   renderVals() {
     var self = this, i = this.state.i;
+    var SPR = (this.state && this.state.springs) || /*SPRINGS*/[{"id": "trp-lisbon", "host": "Regenesis Institute for Regenerative Practice", "hostHref": "https://www.regenerat.es/", "title": "The Regenerative Practitioner, Lisbon cohort", "kind": "Six-month cohort", "fmt": "hybrid", "when": "January to June 2027", "where": "Online, with a three-day intensive at Gandum Village, near Lisbon", "lang": "English", "text": "Learn regenerative development by working with a real project, alongside practitioners from many places and fields. Open to people anywhere, with a special welcome for Europe and Portugal. Co-taught by Nuno da Silva and Constança Belchior of Lucida. Sliding-scale discounts and scholarships are offered.", "closes": "2026-12-11", "href": "https://www.regenerat.es/trp/", "cta": "Learn more and enrol", "theme": "land", "cost": "paid", "costNote": "Paid, with sliding scale and scholarships", "found": "Shared by Jyo, from the Regenesis newsletter"}, {"id": "trp-quebec", "host": "Regenesis Institute for Regenerative Practice", "hostHref": "https://www.regenerat.es/", "title": "Développement Régénératif en Pratique, Québec", "kind": "Six-month cohort, in French", "fmt": "hybrid", "when": "January to June 2027", "where": "Online, with a three-day intensive at Centre de Vie, Petite Nation, Québec", "lang": "French", "text": "The same journey in regenerative practice, offered in French for French-speaking practitioners worldwide, with a special welcome for the Franco-Canadian community.", "closes": "2026-12-18", "href": "https://www.regenerat.es/trp/", "cta": "En savoir plus", "theme": "land", "cost": "paid", "costNote": "Paid, with sliding scale and scholarships", "found": "Shared by Jyo, from the Regenesis newsletter"}, {"id": "trp-vancouver", "host": "Regenesis Institute for Regenerative Practice", "hostHref": "https://www.regenerat.es/", "title": "The Regenerative Practitioner, Vancouver cohort", "kind": "Six-month cohort", "fmt": "hybrid", "when": "February to July 2027", "where": "Online, with a three-day intensive in Vancouver, Canada", "lang": "English", "text": "Open to practitioners anywhere, with a special welcome for people in British Columbia.", "closes": "2027-02-05", "href": "https://www.regenerat.es/trp/", "cta": "Learn more and enrol", "theme": "land", "cost": "paid", "costNote": "Paid, with sliding scale and scholarships", "found": "Shared by Jyo, from the Regenesis newsletter"}, {"id": "trp-americas", "host": "Regenesis Institute for Regenerative Practice", "hostHref": "https://www.regenerat.es/", "title": "The Regenerative Practitioner, online for the Americas", "kind": "Six-month cohort", "fmt": "online", "when": "March to August 2027", "where": "Online, including the closing intensive", "lang": "English", "text": "The whole journey online, for practitioners based in the Americas.", "closes": "2027-02-19", "href": "https://www.regenerat.es/trp/", "cta": "Learn more and enrol", "theme": "land", "cost": "paid", "costNote": "Paid, with sliding scale and scholarships", "found": "Shared by Jyo, from the Regenesis newsletter"}]/*END SPRINGS*/;
+    var nowD = new Date(), todayU = Date.UTC(nowD.getFullYear(), nowD.getMonth(), nowD.getDate());
+    var springTop = SPR.map(function (s) { var q = s.closes.split('-'); var c = Date.UTC(+q[0], +q[1] - 1, +q[2]); return { s: s, c: c, d: Math.round((c - todayU) / 864e5) }; })
+      .filter(function (o) { return o.d >= 0; }).sort(function (a, b) { return a.c - b.c; }).slice(0, 3)
+      .map(function (o) { var nice = ''; try { nice = new Date(o.c).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' }); } catch (e) {} return { title: o.s.title, host: o.s.host.replace(' for Regenerative Practice', ''), href: o.s.href, left: o.d === 0 ? 'Closes today' : (o.d === 1 ? 'Closes tomorrow' : (o.d <= 21 ? 'Closes in ' + o.d + ' days' : 'Open until ' + nice)) }; });
     var moon = (function () {
       var syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14) / 86400000;
       var age = ((Date.now() / 86400000 - ref) % syn + syn) % syn, p = age / syn;
@@ -784,6 +801,7 @@ class Component extends DCLogic {
     })();
     var N = [
       { k: 'Source', x: 50, y: 4, line: 'Where every journey begins, and where you can always return.', text: 'A few gentle questions that help you become more aware of the relationships beyond the human world that we are always a part of. There are no wrong answers. Your answers suggest a good first place to visit, and help you notice who is in your “we”: the Beings, places and people you belong with.', eg: 'Inspired by Relational ID: who is in your “we”?', href: 'Main.dc.html', cta: 'Begin at the Source' },
+      { k: 'Springs', x: 63, y: 13, line: 'Fresh offerings, bubbling up.', text: 'Cohorts, courses and gatherings with a closing date, so you can join while the doors are open. Each one shows how long is left, and slips away once it closes.', eg: 'The Regenerative Practitioner, with Regenesis', href: 'Springs.dc.html', cta: 'See what is bubbling up' },
       { k: 'Streams', x: 37, y: 25, line: 'Small things to try on any day.', text: 'Sit with a tree. Listen to water. Watch the clouds for five minutes. Thank the Beings who helped make your meal. Little practices, done often, slowly change how we see the world around us.', eg: 'Sit Spots, listening to water, making pictures with Beings', href: 'Streams.dc.html', cta: 'See the streams' },
       { k: 'Tributaries', x: 69, y: 41, line: 'Films, talks and lessons that help these times make sense.', text: 'Like small rivers joining a big one, these bring understanding in from every side: energy, money, nature’s rights, soil and more. Each is credited and linked to the people who made it.', eg: 'The Great Simplification, by Nate Hagens and team', href: 'Tributary.dc.html', cta: 'Open a tributary' },
       { k: 'Eddies', x: 20, y: 44, line: 'Places to pause, for grief, gratitude and rest.', text: 'Behind a boulder, river water swirls back on itself. Eddies are like that: places to pause and catch your breath, especially when things feel heavy. They come round again at turning points, like a new season or a new Moon.', eg: 'Good Grief Network, the Work That Reconnects', href: 'Eddies.dc.html', cta: 'Visit the eddies' },
@@ -808,6 +826,7 @@ class Component extends DCLogic {
       seasonLens: season.lens, seasonText: season.text, seasonLensLink: season.lensLink, seasonLensHref: season.lensHref, seasonPartner: season.partner, seasonPartnerHref: season.partnerHref, seasonPractice: season.practice, seasonPracticeHref: season.practiceHref, seasonUntil: season.until,
       longChips: LONG.map(function (l) { var on = l.k === lk; return { label: l.label, on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ longing: on ? null : l.k }); } }; }),
       hasLong: !!lk, longIntro: lk ? LONG.filter(function (l) { return l.k === lk; })[0].intro + ':' : '', longLinks: lk ? LONG.filter(function (l) { return l.k === lk; })[0].links : [],
+      hasSprings: springTop.length > 0, springTop: springTop,
       guideCls: gv.guideCls, logoCls: gv.logoCls, birdCls: gv.birdCls, peelCls: gv.peelCls, heroCls: gv.heroCls, cosmosCls: gv.cosmosCls, guideLabel: gv.guideLabel, startGuide: gv.startGuide, guidingOn: this.state.guiding ? 'true' : 'false',
       moonLit: moon.d,
       nodes: N.map(function (n, k) { var on = k === i; return { name: n.k, x: n.x + '%', y: n.y + '%', on: on ? 'true' : 'false', cls: on ? 'node on' : 'node', pick: function () { go(k); self.showCard(); } }; }),

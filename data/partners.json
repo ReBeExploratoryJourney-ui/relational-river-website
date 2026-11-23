@@ -1,6 +1,16 @@
 {
  "partners": [
   {
+   "name": "Regenesis Institute for Regenerative Practice",
+   "place": "Santa Fe, New Mexico, with cohorts around the world",
+   "text": "Education and support for practitioners of regenerative development: bringing human activity back into alignment with the living systems that sustain it, by understanding the uniqueness of each place.",
+   "theme": "Regenerative development",
+   "k": "see",
+   "href": "https://www.regenerat.es/",
+   "founder": "",
+   "shaped": false
+  },
+  {
    "name": "Post Growth Institute",
    "place": "Collectively governed across 18 countries",
    "text": "Exploring a just and livable world beyond capitalism, and nurturing ideas, programmes and alliances that help money, power and resources circulate in local communities and the global economy.",

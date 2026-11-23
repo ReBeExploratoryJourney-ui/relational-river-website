@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+"""Springs: time-sensitive offerings bubbling up in the River.
+
+Each spring has a closing date ('closes', YYYY-MM-DD). Pages hide a spring
+automatically once its closing date has passed, so nothing goes stale.
+Add or edit springs here, then run:
+
+    python3 tools/springs.py
+
+It writes data/springs.json and refreshes the copy embedded in pages
+between /*SPRINGS*/ and /*END SPRINGS*/ markers.
+
+Fields: 'cost' is 'free', 'paid' or 'gift' (donation or pay-what-you-can),
+with an optional 'costNote'. 'found' says how the spring reached the River;
+springs gathered automatically carry 'noticed': True and appear as
+"Noticed by the River". See docs/springs-ethos.md for what belongs here.
+"""
+import json, re, pathlib
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+TRP = 'https://www.regenerat.es/trp/'
+SPRINGS = [
+    {'id': 'trp-lisbon', 'host': 'Regenesis Institute for Regenerative Practice', 'hostHref': 'https://www.regenerat.es/',
+     'title': 'The Regenerative Practitioner, Lisbon cohort', 'kind': 'Six-month cohort', 'fmt': 'hybrid',
+     'when': 'January to June 2027', 'where': 'Online, with a three-day intensive at Gandum Village, near Lisbon', 'lang': 'English',
+     'text': 'Learn regenerative development by working with a real project, alongside practitioners from many places and fields. Open to people anywhere, with a special welcome for Europe and Portugal. Co-taught by Nuno da Silva and Constança Belchior of Lucida. Sliding-scale discounts and scholarships are offered.',
+     'closes': '2026-12-11', 'href': TRP, 'cta': 'Learn more and enrol', 'theme': 'land', 'cost': 'paid', 'costNote': 'Paid, with sliding scale and scholarships', 'found': 'Shared by Jyo, from the Regenesis newsletter'},
+    {'id': 'trp-quebec', 'host': 'Regenesis Institute for Regenerative Practice', 'hostHref': 'https://www.regenerat.es/',
+     'title': 'Développement Régénératif en Pratique, Québec', 'kind': 'Six-month cohort, in French', 'fmt': 'hybrid',
+     'when': 'January to June 2027', 'where': 'Online, with a three-day intensive at Centre de Vie, Petite Nation, Québec', 'lang': 'French',
+     'text': 'The same journey in regenerative practice, offered in French for French-speaking practitioners worldwide, with a special welcome for the Franco-Canadian community.',
+     'closes': '2026-12-18', 'href': TRP, 'cta': 'En savoir plus', 'theme': 'land', 'cost': 'paid', 'costNote': 'Paid, with sliding scale and scholarships', 'found': 'Shared by Jyo, from the Regenesis newsletter'},
+    {'id': 'trp-vancouver', 'host': 'Regenesis Institute for Regenerative Practice', 'hostHref': 'https://www.regenerat.es/',
+     'title': 'The Regenerative Practitioner, Vancouver cohort', 'kind': 'Six-month cohort', 'fmt': 'hybrid',
+     'when': 'February to July 2027', 'where': 'Online, with a three-day intensive in Vancouver, Canada', 'lang': 'English',
+     'text': 'Open to practitioners anywhere, with a special welcome for people in British Columbia.',
+     'closes': '2027-02-05', 'href': TRP, 'cta': 'Learn more and enrol', 'theme': 'land', 'cost': 'paid', 'costNote': 'Paid, with sliding scale and scholarships', 'found': 'Shared by Jyo, from the Regenesis newsletter'},
+    {'id': 'trp-americas', 'host': 'Regenesis Institute for Regenerative Practice', 'hostHref': 'https://www.regenerat.es/',
+     'title': 'The Regenerative Practitioner, online for the Americas', 'kind': 'Six-month cohort', 'fmt': 'online',
+     'when': 'March to August 2027', 'where': 'Online, including the closing intensive', 'lang': 'English',
+     'text': 'The whole journey online, for practitioners based in the Americas.',
+     'closes': '2027-02-19', 'href': TRP, 'cta': 'Learn more and enrol', 'theme': 'land', 'cost': 'paid', 'costNote': 'Paid, with sliding scale and scholarships', 'found': 'Shared by Jyo, from the Regenesis newsletter'},
+]
+if __name__ == '__main__':
+    data = {'updated': __import__('datetime').date.today().isoformat(), 'springs': SPRINGS}
+    (ROOT / 'data').mkdir(exist_ok=True)
+    (ROOT / 'data' / 'springs.json').write_text(json.dumps(data, ensure_ascii=False, indent=1))
+    emb = json.dumps(SPRINGS, ensure_ascii=False)
+    for f in (ROOT / 'source').glob('*.dc.html'):
+        t = f.read_text()
+        n = re.sub(r'/\*SPRINGS\*/.*?/\*END SPRINGS\*/', lambda m: '/*SPRINGS*/' + emb + '/*END SPRINGS*/', t, flags=re.S)
+        if n != t: f.write_text(n); print('embedded in', f.name)
+    print(len(SPRINGS), 'springs')
