@@ -65,6 +65,7 @@ div:has(> .desc){display:flow-root}
 </g>
 </svg>
 
+<div class="vhprobe" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 1px; height: 100vh; visibility: hidden; pointer-events: none"></div>
 <div class="{{glowCls}}" aria-hidden="true" style="width: {{stage}}; height: {{stage}}; transform: {{glowTf}}; opacity: {{glowOpacity}}"></div>
 
 <div class="{{logoCls}}" style="width: {{stage}}; height: {{stage}}; transform: {{logoTf}}; opacity: {{logoOpacity}}">
@@ -181,9 +182,9 @@ class Component extends DCLogic {
     var wKicker = words([{ t: 'Welcome to' }], 0);
     var wTitle = words([{ t: 'The Relational River' }], 0.1);
     var wP1 = words([{ t: 'A Source, like the headwaters of any river, offered through the' }, { t: 'Institute of Relational Being.', link: IRB }], 0.3);
-    var wP2 = words([{ t: 'Good present to you, being of the human variety. The River is dedicated to being of service to providing ways to engage and flow with all of life, in reciprocal and caring ways. The Relational River gathers the offerings already flowing, practices, teachings, circles and projects, so each of us can find a way in.' }], 0.5);
+    var wP2 = words([{ t: 'Good present to you, being of the human variety. The River is dedicated to being of service by providing ways to engage and flow with all of life, in reciprocal and caring ways. The Relational River gathers the offerings already flowing, practices, teachings, circles and projects, so each of us can find a way in.' }], 0.5);
     var wP3 = words([{ t: 'It is an open-source process and platform of reciprocity, curiosity and care for all life and this living world, flowing at your own pace, from a first spring of curiosity toward an ocean of people and places tending life.' }], 0.7);
-    var vh = window.innerHeight || 800, wrap = document.querySelector('.arrwrap'), Hc = wrap ? wrap.offsetHeight : vh;
+    var probe = document.querySelector('.vhprobe'), vh = (probe && probe.offsetHeight) || window.innerHeight || 800, wrap = document.querySelector('.arrwrap'), Hc = wrap ? wrap.offsetHeight : vh;
     var srcY = (0.296 * Hc - 0.5 * vh).toFixed(1) + 'px', hoverY = (0.296 * Hc - 0.58 * vh).toFixed(1) + 'px';
     var condense = ph >= 5;
     return {
