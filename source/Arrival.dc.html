@@ -16,6 +16,8 @@ a{color:#EDEDED}a:hover{color:#FFFFFF}
 a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
 .tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
 .go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:700;font-size:20px;color:#2F2B28;background:#F5EEE1;border:none;padding:16px 34px;min-height:52px;cursor:pointer;text-decoration:none;display:inline-block}
+.flowbtn{display:inline-flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;padding:12px 34px 18px;line-height:1.1}
+.flowbtn .tap{font-family:Jost,sans-serif;font-style:italic;font-weight:400;font-size:14px;letter-spacing:.04em;color:#5A524B}
 .pill{font-family:Jost,sans-serif;font-size:15px;color:#EDEDED;background:transparent;border:1.5px solid #C9CCD6;border-radius:7px;padding:10px 18px;min-height:44px;cursor:pointer}
 .pill:hover{background:rgba(220,220,220,0.12)}
 .piece{position:absolute;height:auto;display:block;will-change:transform,opacity}
@@ -25,9 +27,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 @keyframes settle{0%{opacity:0;filter:blur(3px);transform:translate(var(--dx),var(--dy)) rotate(var(--r))}55%{opacity:1;filter:blur(0)}75%{transform:translate(calc(var(--dx) * -0.06),calc(var(--dy) * -0.12)) rotate(calc(var(--r) * -0.15))}100%{opacity:1;filter:blur(0);transform:none}}
 .flowing .w{animation:settle 3.6s cubic-bezier(.22,.7,.3,1) var(--d) both}
 .w a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-.logo{position:absolute;left:50%;top:50%;transition:transform 1.62s cubic-bezier(.5,0,.3,1),opacity 1.08s ease}
+.logo{position:absolute;left:50%;top:50vh;transition:transform 1.62s cubic-bezier(.5,0,.3,1),opacity 1.08s ease}
 .logo.condense{transition:transform 1.89s cubic-bezier(.55,0,.6,1),opacity 1.49s ease .34s}
-.glow{position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;background:radial-gradient(circle, #FFF8EC 0%, rgba(245,238,225,0.92) 20%, rgba(245,238,225,0.38) 42%, rgba(245,238,225,0) 70%);transition:transform 1.62s cubic-bezier(.5,0,.3,1),opacity 1.08s ease}
+.glow{position:absolute;left:50%;top:50vh;border-radius:50%;pointer-events:none;background:radial-gradient(circle, #FFF8EC 0%, rgba(245,238,225,0.92) 20%, rgba(245,238,225,0.38) 42%, rgba(245,238,225,0) 70%);transition:transform 1.62s cubic-bezier(.5,0,.3,1),opacity 1.08s ease}
 .glow.condense{transition:transform 1.89s cubic-bezier(.55,0,.6,1),opacity 1.22s ease .2s}
 .rv{transform:scaleY(0.29);transition:transform 3.78s cubic-bezier(.4,0,.35,1) .95s}
 .rv.on{transform:scaleY(1)}
@@ -42,13 +44,12 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 @media (max-height: 720px), (max-width: 600px){.desc{top:22%!important;padding:24px 28px!important}.desc h1{font-size:36px!important}}
 @media (max-width: 700px){
 div:has(> .desc){display:flow-root}
-.logo,.glow{top:50vh!important}
 .desc{position:relative!important;left:auto!important;top:auto!important;transform:none!important;margin:20vh auto 48px!important}
 .torn{-webkit-mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),linear-gradient(#000,#000)!important;mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,center!important;mask-position:top center,bottom center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
 }
 </style>
 </helmet>
-<div style="position: relative; overflow: hidden; overflow-x: clip; overflow-y: visible; min-height: 100vh; background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED">
+<div class="arrwrap" style="position: relative; overflow: hidden; overflow-x: clip; overflow-y: visible; min-height: 100vh; background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED">
 
 <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: {{riverOpacity}}; transition: opacity 1.08s ease">
 <defs>
@@ -87,7 +88,7 @@ div:has(> .desc){display:flow-root}
 <p style="margin: 0; font-size: 18px; line-height: 1.6"><sc-for list="{{wP2}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></p>
 <p style="margin: 0; font-size: 18px; line-height: 1.6"><sc-for list="{{wP3}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></p>
 <div class="{{lineCls}}" style="animation-delay: {{btnDelay}}; display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-start; align-items: flex-end; padding-top: 8px">
-<div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="font-family: 'Averia Serif Libre', Georgia, serif; font-style: italic; font-size: 16px; color: #C9CCD6">tap here to</span><a href="Welcome.dc.html" class="go tornbtn">Follow the flow</a></div>
+<a href="Welcome.dc.html" class="go tornbtn flowbtn"><span class="tap">tap here to</span><span>Follow the flow</span></a>
 <button class="pill" onClick="{{replay}}">Watch the arrival again</button>
 <a href="Privacy.dc.html" style="font-size: 14px; color: #C9CCD6; min-height: 44px; display: inline-flex; align-items: center">Privacy</a>
 </div>
@@ -182,6 +183,8 @@ class Component extends DCLogic {
     var wP1 = words([{ t: 'A Source, like the headwaters of any river, offered through the' }, { t: 'Institute of Relational Being.', link: IRB }], 0.3);
     var wP2 = words([{ t: 'Good present to you, being of the human variety. The River is here to be of service to individuals, organizations, communities and the wider living world in many ways, that is dedicated to helping bring more reciprocal care between us, and the rest of nature. As an engaging re-source, it gathers the offerings already flowing, practices, teachings, circles and projects, so each of us can find a way in.' }], 0.5);
     var wP3 = words([{ t: 'It is an open-source process and platform of reciprocity, curiosity and care for all life and this living world, flowing at your own pace, from a first spring of curiosity toward an ocean of people and places tending life.' }], 0.7);
+    var vh = window.innerHeight || 800, wrap = document.querySelector('.arrwrap'), Hc = wrap ? wrap.offsetHeight : vh;
+    var srcY = (0.296 * Hc - 0.5 * vh).toFixed(1) + 'px', hoverY = (0.296 * Hc - 0.58 * vh).toFixed(1) + 'px';
     var condense = ph >= 5;
     return {
       pieces: pieces,
@@ -190,10 +193,10 @@ class Component extends DCLogic {
       wKicker: wKicker, wTitle: wTitle, wP1: wP1, wP2: wP2, wP3: wP3,
       descCls: ph >= 6 ? 'desc flowing' : 'desc',
       btnDelay: (0.7 + wi * 0.032 + 0.6).toFixed(2) + 's',
-      logoTf: condense ? 'translate(-50%, -50%) translateY(-20vh) scale(0.05) rotate(-24deg)' : (ph >= 4 ? 'translate(-50%, -50%) translateY(-28vh) scale(0.36) rotate(-14deg)' : 'translate(-50%, -50%)'),
+      logoTf: condense ? 'translate(-50%, -50%) translateY(' + srcY + ') scale(0.05) rotate(-24deg)' : (ph >= 4 ? 'translate(-50%, -50%) translateY(' + hoverY + ') scale(0.36) rotate(-14deg)' : 'translate(-50%, -50%)'),
       logoOpacity: condense ? 0 : 1,
       glowCls: condense ? 'glow condense' : 'glow',
-      glowTf: condense ? 'translate(-50%, -50%) translateY(-20vh) scale(0.07)' : (ph >= 4 ? 'translate(-50%, -50%) translateY(-28vh) scale(0.5)' : 'translate(-50%, -50%) scale(0.9)'),
+      glowTf: condense ? 'translate(-50%, -50%) translateY(' + srcY + ') scale(0.07)' : (ph >= 4 ? 'translate(-50%, -50%) translateY(' + hoverY + ') scale(0.5)' : 'translate(-50%, -50%) scale(0.9)'),
       glowOpacity: condense ? 1 : (ph >= 4 ? 0.18 : 0),
       discOpacity: ph >= 2 ? 1 : 0,
       fullOpacity: ph >= 2 ? 1 : 0,
