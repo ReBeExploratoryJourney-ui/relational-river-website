@@ -101,7 +101,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </fieldset>
 
 <fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
-<legend style="font-size: 19px; font-weight: 600; padding: 0; margin-bottom: 12px">What do you already love outside? <span style="font-weight: 400; font-style: italic; font-size: 15px">(choose any)</span></legend>
+<legend style="font-size: 19px; font-weight: 600; padding: 0; margin-bottom: 12px">Which Beings beyond the human do you already feel in relationship with? <span style="font-weight: 400; font-style: italic; font-size: 15px">(choose any)</span></legend>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <sc-for list="{{loves}}" as="c" hint-placeholder-count="6"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
 </div>
