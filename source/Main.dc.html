@@ -165,7 +165,9 @@ class Component extends DCLogic {
     if (had && list === 'tending') { window.location.href = 'Boat.dc.html#tending'; return; }
     b[list] = b[list].filter(function (g) { return !g || g.id !== item.id; });
     if (!had) { var now = new Date().toISOString(), it = {}; for (var k in item) { it[k] = item[k]; } it.at = now; if (list === 'tending') { it.since = now; it.notes = []; } b[list].push(it); }
+    b.dirty = true;
     try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) {}
+    if (window.RiverBoat) { window.RiverBoat.touched(); }
     this.setState({ boatTick: (this.state.boatTick || 0) + 1 });
   }
   aboardFor(list, item) {
@@ -222,8 +224,9 @@ class Component extends DCLogic {
         var entry = { feel: s.feel.slice(), love: s.love.slice(), way: s.way.slice() }, b = self.boatRead();
         if (!b) { try { sessionStorage.setItem('rr.boat.pending', JSON.stringify({ list: 'began', item: entry })); } catch (x) {} window.location.href = 'Boat.dc.html'; return; }
         if (!Array.isArray(b.began)) { b.began = []; }
-        entry.at = new Date().toISOString(); b.began.push(entry);
+        entry.at = new Date().toISOString(); b.began.push(entry); b.dirty = true;
         try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) {}
+        if (window.RiverBoat) { window.RiverBoat.touched(); }
         self.setState({ kept: true });
       },
       done: s.done,

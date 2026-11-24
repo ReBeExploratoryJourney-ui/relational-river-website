@@ -98,6 +98,7 @@ def convert(name, text):
         + '<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>\n'
         + '<template id="rr-template">' + body + '</template>\n'
         + script_html + '\n'
+        + '<script src="/js/boat-sync.js"></script>\n'
         + '<script src="/js/river-runtime.js"></script>\n'
         + '</body>\n</html>\n'
     )

@@ -106,6 +106,11 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .gathered{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
 .gitem{background:rgba(251,247,239,0.8);border-radius:18px 24px 16px 26px;padding:18px 20px;display:flex;flex-direction:column;gap:6px}
 .filebtn{position:relative;overflow:hidden}
+.authbox{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.authbox .go[disabled]{opacity:0.6}
+.codein{max-width:200px;font-size:24px;letter-spacing:0.3em;text-align:center}
+.authmsg{margin:0;background:#FBF0E6;border-left:3px solid #8A2E1F;padding:10px 14px;font-size:16px;border-radius:4px}
+.emailbox{background:rgba(251,247,239,0.7);border-radius:20px 26px 18px 28px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
 .filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
 .filebtn:focus-within{outline:2px dashed #4F7A84;outline-offset:3px}
 @media (max-width: 760px){
@@ -167,15 +172,33 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <button class="go tornbtn" style="background: #C8D9B9" onClick="{{launchDevice}}">Launch my Boat here</button>
 </article>
 <article class="torn tr choice" style="background: #E6E2F2">
-<div class="k">With your email · opening soon</div>
+<div class="k">With your email</div>
 <h3 class="h3">Keep it with an IRB account</h3>
 <ul class="list">
 <li>Sign in with a one-time code sent to your email. There is no password to remember, and no one can open your Boat without access to your inbox.</li>
 <li>Your Boat sails with you, from phone to computer and back.</li>
 <li>The same account can also open ReBe, the Institute’s app, if you would like it to. You never need one to use the other.</li>
-<li>A Boat kept on a device can be moved into an account later, with nothing lost.</li>
+<li>Already have a Boat with your email? Sign in here and it comes aboard this device.</li>
 </ul>
-<button class="go tornbtn" style="background: #F5EEE1" disabled aria-disabled="true">Opening soon</button>
+<sc-if value="{{canEmail}}" hint-placeholder-val="{{ false }}">
+<div class="authbox">
+<sc-if value="{{authStart}}" hint-placeholder-val="{{ true }}">
+<label class="alabel" for="authEmail">Your email</label>
+<input id="authEmail" class="field" type="email" autocomplete="email" inputmode="email" maxlength="200" value="{{authEmail}}" onChange="{{typeEmail}}" placeholder="you@example.org">
+<div><button class="go tornbtn" style="background: #F5EEE1" disabled="{{authBusy}}" onClick="{{sendCode}}">{{sendLabel}}</button></div>
+</sc-if>
+<sc-if value="{{authCode}}" hint-placeholder-val="{{ false }}">
+<p class="p">We have sent a 6-digit code to <b>{{authEmail}}</b>. It can take a minute to arrive, so check your spam folder too.</p>
+<label class="alabel" for="authCodeIn">The code from your email</label>
+<input id="authCodeIn" class="field codein" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="{{authCodeVal}}" onChange="{{typeCode}}" placeholder="123456">
+<div class="row"><button class="go tornbtn" style="background: #F5EEE1" disabled="{{authBusy}}" onClick="{{verifyCode}}">{{verifyLabel}}</button><button class="quiet" onClick="{{resendCode}}">Send a new code</button><button class="quiet" onClick="{{otherEmail}}">Use a different email</button></div>
+</sc-if>
+<sc-if value="{{authMsg}}" hint-placeholder-val="{{ false }}"><p class="authmsg" role="alert">{{authMsg}}</p></sc-if>
+<p class="minor">By continuing, you agree to the Institute keeping your email address and your Boat, as the <a href="Privacy.dc.html#boat">privacy notice</a> describes. You can download everything, or delete your account, at any time.</p>
+</div>
+</sc-if>
+<sc-if value="{{noEmail}}" hint-placeholder-val="{{ true }}"><p class="p minor">Keeping a Boat with your email works on relationalriver.org.</p></sc-if>
+<sc-if value="{{signedNoBoat}}" hint-placeholder-val="{{ false }}"><p class="p">You are signed in as <b>{{signedEmail}}</b>, and there is no Boat in your account yet.</p><div class="row"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{launchDevice}}">Launch my Boat in my account</button><button class="quiet" onClick="{{launchSignOut}}">Sign out</button></div></sc-if>
 </article>
 </div>
 <p class="p light fine">Either way, nothing is scored, nothing is sold, and you can sink your Boat (delete everything in it) at any time. <a href="Privacy.dc.html#boat">How your information is cared for</a></p>
@@ -302,6 +325,20 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <section id="keeping" class="torn tl panel" style="background: #F5EEE1">
 <div class="k">Keeping your Boat</div>
 <h2 class="h2 dark">How your Boat is kept</h2>
+<sc-if value="{{isAccount}}" hint-placeholder-val="{{ false }}">
+<p class="p">Your Boat is kept with your IRB account, <b>{{acctEmail}}</b>, in the Institute of Relational Being’s account home in the European Union. Only you can open it. {{syncLine}}</p>
+<ul class="list">
+<li>It sails with you: sign in with this email on any phone or computer.</li>
+<li>A copy stays on this device, so it opens quickly. Signing out takes it off this device, and it stays safe in your account.</li>
+<li>The same account can open ReBe, the Institute’s app, if you would like it to. You never need one to use the other.</li>
+</ul>
+<div class="row">
+<button class="sbtn" onClick="{{download}}">Download a copy</button>
+<label class="sbtn filebtn">Restore from a copy<input type="file" accept="application/json,.json" onChange="{{restore}}"></label>
+<button class="sbtn" onClick="{{signOut}}">Sign out of this device</button>
+</div>
+</sc-if>
+<sc-if value="{{isDevice}}" hint-placeholder-val="{{ true }}">
 <p class="p">{{keptLine}}</p>
 <ul class="list">
 <li>It stays when you close or refresh the page.</li>
@@ -311,14 +348,42 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <button class="sbtn" onClick="{{download}}">Download a copy</button>
 <label class="sbtn filebtn">Restore from a copy<input type="file" accept="application/json,.json" onChange="{{restore}}"></label>
 </div>
+<div class="emailbox">
+<h3 class="h3 sm">Keep it with your email</h3>
+<p class="p">So your Boat sails with you from phone to computer, and is safe if this device is lost. Everything in it comes along, with nothing lost.</p>
+<sc-if value="{{canEmail}}" hint-placeholder-val="{{ false }}">
+<div class="authbox">
+<sc-if value="{{authStart}}" hint-placeholder-val="{{ true }}">
+<label class="alabel" for="authEmail">Your email</label>
+<input id="authEmail" class="field" type="email" autocomplete="email" inputmode="email" maxlength="200" value="{{authEmail}}" onChange="{{typeEmail}}" placeholder="you@example.org">
+<div><button class="go tornbtn" style="background: #F5EEE1" disabled="{{authBusy}}" onClick="{{sendCode}}">{{sendLabel}}</button></div>
+</sc-if>
+<sc-if value="{{authCode}}" hint-placeholder-val="{{ false }}">
+<p class="p">We have sent a 6-digit code to <b>{{authEmail}}</b>. It can take a minute to arrive, so check your spam folder too.</p>
+<label class="alabel" for="authCodeIn">The code from your email</label>
+<input id="authCodeIn" class="field codein" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="{{authCodeVal}}" onChange="{{typeCode}}" placeholder="123456">
+<div class="row"><button class="go tornbtn" style="background: #F5EEE1" disabled="{{authBusy}}" onClick="{{verifyCode}}">{{verifyLabel}}</button><button class="quiet" onClick="{{resendCode}}">Send a new code</button><button class="quiet" onClick="{{otherEmail}}">Use a different email</button></div>
+</sc-if>
+<sc-if value="{{authMsg}}" hint-placeholder-val="{{ false }}"><p class="authmsg" role="alert">{{authMsg}}</p></sc-if>
+<p class="minor">By continuing, you agree to the Institute keeping your email address and your Boat, as the <a href="Privacy.dc.html#boat">privacy notice</a> describes. You can download everything, or delete your account, at any time.</p>
+</div>
+</sc-if>
+<sc-if value="{{noEmail}}" hint-placeholder-val="{{ true }}"><p class="p minor">This works on relationalriver.org.</p></sc-if>
+</div>
+</sc-if>
 <label class="alabel" for="boatName">Every boat has a name (optional)</label>
 <div class="row"><input id="boatName" class="field" style="max-width: 320px" type="text" maxlength="40" value="{{boatName}}" onChange="{{typeName}}" placeholder="Heron"><button class="sbtn" onClick="{{saveName}}">Name my Boat</button></div>
-<p class="p"><b>Keeping it with your email is opening soon.</b> When it opens, you will be able to move this Boat into an IRB account, with nothing lost, and open it from any device.</p>
-<sc-if value="{{notSinking}}" hint-placeholder-val="{{ true }}"><div><button class="quiet danger" onClick="{{askSink}}">Sink my Boat</button></div></sc-if>
+<sc-if value="{{notSinking}}" hint-placeholder-val="{{ true }}"><div class="row"><button class="quiet danger" onClick="{{askSink}}">Sink my Boat</button><sc-if value="{{isAccount}}" hint-placeholder-val="{{ false }}"><button class="quiet danger" onClick="{{askDelete}}">Delete my IRB account</button></sc-if></div></sc-if>
 <sc-if value="{{sinking}}" hint-placeholder-val="{{ false }}">
 <div class="sinkbox" role="alertdialog" aria-label="Sink my Boat">
-<p class="p">This deletes everything in your Boat on this device, and it cannot be undone. You may like to download a copy first.</p>
+<p class="p">{{sinkText}}</p>
 <div class="row"><button class="sbtn danger" onClick="{{sink}}">Yes, sink my Boat</button><button class="sbtn" onClick="{{cancelSink}}">Keep sailing</button></div>
+</div>
+</sc-if>
+<sc-if value="{{deleting}}" hint-placeholder-val="{{ false }}">
+<div class="sinkbox" role="alertdialog" aria-label="Delete my IRB account">
+<p class="p">This deletes your IRB account and everything kept with it: your Boat, and anything you have made in ReBe. It cannot be undone. You may like to download a copy of your Boat first.</p>
+<div class="row"><button class="sbtn danger" onClick="{{deleteAccount}}">Yes, delete my account</button><button class="sbtn" onClick="{{cancelSink}}">Keep my account</button></div>
 </div>
 </sc-if>
 </section>
@@ -339,7 +404,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, prev: null };
+    this.state = { boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' } };
   }
   // ---- keeping the Boat (on this device only) ----
   boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? this.boatClean(b) : null; } catch (x) { return null; } }
@@ -350,7 +415,7 @@ class Component extends DCLogic {
     var href = function (h) { h = str(h, 400); return /^(https:\/\/|http:\/\/|\/(?!\/)|[A-Za-z]+\.dc\.html|#)/.test(h) ? h : ''; };
     var item = function (g) { return g && typeof g === 'object' ? { id: str(g.id, 120), title: str(g.title, 140), kind: str(g.kind, 60), by: str(g.by, 120), href: href(g.href), closes: str(g.closes, 10), at: str(g.at, 30), since: str(g.since, 30), cta: str(g.cta, 60), notes: arr(g.notes, 300).filter(function (n) { return n && typeof n.text === 'string'; }).map(function (n) { return { at: str(n.at, 30), text: str(n.text, 600) }; }) } : null; };
     return {
-      v: 1, kind: 'device', launched: str(b.launched, 30), name: str(b.name, 40),
+      v: 1, kind: b.kind === 'account' ? 'account' : 'device', dirty: !!b.dirty, synced: str(b.synced, 40), launched: str(b.launched, 30), name: str(b.name, 40),
       began: arr(b.began, 40).filter(function (x) { return x && typeof x === 'object'; }).map(function (x) { var l = function (v) { return arr(v, 10).filter(function (s) { return typeof s === 'string'; }).map(function (s) { return s.slice(0, 40); }); }; return { at: str(x.at, 30), feel: l(x.feel), love: l(x.love), way: l(x.way) }; }),
       tending: arr(b.tending, 30).map(item).filter(function (g) { return g && g.id; }),
       stars: arr(b.stars, 80).filter(function (s) { return s && typeof s.name === 'string'; }).map(function (s) { return { id: str(s.id, 40), name: str(s.name, 40), kind: str(s.kind, 20) }; }),
@@ -358,11 +423,35 @@ class Component extends DCLogic {
       seen: { last: str(b.seen && b.seen.last, 30) }
     };
   }
-  save(b, flash) { var ok = this.boatWrite(b); this.setState({ boat: b, flash: ok ? (flash || '') : 'Your browser did not let the River save this. If you are browsing privately, your Boat cannot be kept on this device.' }); }
+  RB() { return window.RiverBoat || null; }
+  save(b, flash) {
+    b.dirty = true;
+    var ok = this.boatWrite(b), self = this;
+    this.setState({ boat: b, flash: ok ? (flash || '') : 'Your browser did not let the River save this. If you are browsing privately, your Boat cannot be kept on this device.' });
+    var rb = this.RB();
+    if (rb && rb.signedIn()) { clearTimeout(this.syncT); this.syncT = setTimeout(function () { self.syncNow(); }, 400); }
+  }
+  // Keep this device's Boat and the account's Boat in step.
+  syncNow(after) {
+    var rb = this.RB(), self = this;
+    if (!rb || !rb.signedIn()) { return Promise.resolve(null); }
+    return rb.sync().then(function (b) {
+      var clean = b ? self.boatClean(b) : null;
+      if (clean) { clean.kind = 'account'; }
+      self.setState({ boat: clean, syncAt: new Date().toISOString(), boatName: clean ? (clean.name || '') : self.state.boatName });
+      if (after) { after(clean); }
+      return clean;
+    }, function (e) {
+      self.setState({ flash: 'Your Boat is safe on this device. It will reach your account the next time the River can connect. (' + e.message + ')' });
+      if (after) { after(self.state.boat); }
+    });
+  }
   componentDidMount() {
     var b = this.boatRead(), pend = null;
     try { pend = JSON.parse(sessionStorage.getItem('rr.boat.pending') || 'null'); } catch (x) {}
     var prev = b && b.seen ? b.seen.last : null;
+    var rb = this.RB(), self = this;
+    if (rb && rb.signedIn()) { setTimeout(function () { self.syncNow(); }, 0); }
     if (b) {
       b.seen = { last: new Date().toISOString() };
       var msg = '';
@@ -421,12 +510,47 @@ class Component extends DCLogic {
     var KIND = {}; KINDS.forEach(function (k) { KIND[k[0]] = k; });
     var out = { flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : (s.pending.item && s.pending.item.title) || '') : '',
       launchDevice: function () {
-        var nb = { v: 1, kind: 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], seen: { last: new Date().toISOString() } };
-        var msg = 'Your Boat is launched, here on this device.';
+        var acct = !!(self.RB() && self.RB().signedIn());
+        var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], seen: { last: new Date().toISOString() } };
+        var msg = acct ? 'Your Boat is launched, kept with your IRB account.' : 'Your Boat is launched, here on this device.';
         if (s.pending) { var m2 = self.addPending(nb, s.pending); if (m2) { msg += ' ' + m2; } try { sessionStorage.removeItem('rr.boat.pending'); } catch (x) {} }
         self.setState({ pending: null }); self.save(nb, msg);
         try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {}
       }
+    };
+    var rb = this.RB(), au = s.auth, setAuth = function (patch) { var a = {}; for (var k in self.state.auth) { a[k] = self.state.auth[k]; } for (var k2 in patch) { a[k2] = patch[k2]; } self.setState({ auth: a }); };
+    var signed = !!(rb && rb.signedIn());
+    out.canEmail = !!rb && !signed; out.noEmail = !rb; out.signedNoBoat = signed && !b; out.signedEmail = signed ? rb.email() : '';
+    out.launchSignOut = function () { rb.signOut().then(function () { self.setState({ flash: 'You are signed out.' }); }); };
+    out.authStart = au.stage === 'start'; out.authCode = au.stage === 'code'; out.authBusy = !!au.busy; out.authMsg = au.msg;
+    out.authEmail = au.email; out.authCodeVal = au.code;
+    out.sendLabel = au.busy ? 'Sending…' : 'Send me a code'; out.verifyLabel = au.busy ? 'Opening…' : 'Open my Boat';
+    out.typeEmail = function (e) { self.state.auth.email = e && e.target ? e.target.value : ''; };
+    out.typeCode = function (e) { var v = e && e.target ? e.target.value.replace(/\D/g, '').slice(0, 6) : ''; self.state.auth.code = v; if (v.length === 6 && !self.state.auth.busy) { out.verifyCode(); } };
+    out.sendCode = function () {
+      var em = (self.state.auth.email || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { setAuth({ msg: 'Please enter your email address.' }); var el = document.getElementById('authEmail'); if (el) { el.focus(); } return; }
+      setAuth({ busy: true, msg: '' });
+      rb.sendCode(em).then(function () { setAuth({ stage: 'code', busy: false, code: '', email: em, msg: '' }); setTimeout(function () { var c = document.getElementById('authCodeIn'); if (c) { c.focus(); } }, 50); },
+        function (e) { setAuth({ busy: false, msg: e.message }); });
+    };
+    out.resendCode = function () { setAuth({ busy: true, msg: '' }); rb.sendCode(self.state.auth.email).then(function () { setAuth({ busy: false, msg: 'A new code is on its way.' }); }, function (e) { setAuth({ busy: false, msg: e.message }); }); };
+    out.otherEmail = function () { setAuth({ stage: 'start', code: '', msg: '' }); };
+    out.verifyCode = function () {
+      var code = (self.state.auth.code || '').replace(/\D/g, '');
+      if (code.length !== 6) { setAuth({ msg: 'The code has 6 numbers.' }); return; }
+      setAuth({ busy: true, msg: '' });
+      rb.verify(self.state.auth.email, code).then(function () {
+        setAuth({ stage: 'start', busy: false, code: '', msg: '' });
+        self.syncNow(function (fromAccount) {
+          if (fromAccount) {
+            var msg = 'Welcome aboard. Your Boat is kept with your IRB account now.';
+            if (self.state.pending) { var nb = self.boatRead() || fromAccount; var m2 = self.addPending(nb, self.state.pending); try { sessionStorage.removeItem('rr.boat.pending'); } catch (x) {} self.setState({ pending: null }); self.save(nb, msg + (m2 ? ' ' + m2 : '')); }
+            else { self.setState({ flash: msg }); }
+          } else { out.launchDevice(); }
+          try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {}
+        });
+      }, function (e) { setAuth({ busy: false, msg: e.message }); });
     };
     if (!b) { return out; }
     var r = this.round(), bd = this.bend(b);
@@ -519,7 +643,7 @@ class Component extends DCLogic {
       var f = e && e.target && e.target.files && e.target.files[0]; if (!f) { return; }
       var rd = new FileReader();
       rd.onload = function () {
-        try { var data = JSON.parse(rd.result); if (!data || data.v !== 1) { throw new Error('no'); } var nb = self.boatClean(data); nb.seen = { last: new Date().toISOString() }; self.save(nb, 'Your Boat has been restored from your copy.'); self.setState({ boatName: nb.name || '' }); }
+        try { var data = JSON.parse(rd.result); if (!data || data.v !== 1) { throw new Error('no'); } var nb = self.boatClean(data); nb.seen = { last: new Date().toISOString() }; nb.synced = (self.state.boat && self.state.boat.synced) || ''; nb.kind = self.state.boat ? self.state.boat.kind : 'device'; self.save(nb, 'Your Boat has been restored from your copy.'); self.setState({ boatName: nb.name || '' }); }
         catch (x) { self.setState({ flash: 'That file does not look like a copy of a Boat.' }); }
         try { e.target.value = ''; } catch (x) {}
       };
@@ -528,10 +652,24 @@ class Component extends DCLogic {
     out.boatName = s.boatName;
     out.typeName = function (e) { self.state.boatName = e && e.target ? e.target.value : ''; };
     out.saveName = function () { var nb = self.boatRead() || b; nb.name = (self.state.boatName || '').trim().slice(0, 40); self.save(nb, nb.name ? 'Your Boat is now called ' + nb.name + '.' : 'Your Boat has no name for now.'); };
-    out.notSinking = !s.sinking; out.sinking = s.sinking;
+    var acct = !!(rb && rb.signedIn());
+    out.isAccount = acct; out.isDevice = !acct; out.acctEmail = acct ? rb.email() : '';
+    out.syncLine = s.syncAt ? 'Last kept in step ' + new Date(s.syncAt).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }) + '.' : 'Keeping in step…';
+    out.signOut = function () { rb.signOut().then(function () { try { localStorage.removeItem('rr.boat.v1'); } catch (x) {} self.setState({ boat: null, syncAt: null, flash: 'You are signed out, and your Boat is off this device. It is safe in your account: sign in with your email to open it again.' }); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {} }); };
+    out.notSinking = !s.sinking && !s.deleting; out.sinking = s.sinking; out.deleting = s.deleting;
+    out.sinkText = acct ? 'This deletes everything in your Boat, from your account and from this device, and it cannot be undone. Your IRB account stays open. You may like to download a copy first.' : 'This deletes everything in your Boat on this device, and it cannot be undone. You may like to download a copy first.';
+    out.askDelete = function () { self.setState({ deleting: true, sinking: false }); };
+    out.deleteAccount = function () {
+      rb.deleteAccount().then(function () { try { localStorage.removeItem('rr.boat.v1'); } catch (x) {} self.setState({ boat: null, deleting: false, syncAt: null, flash: 'Your IRB account and everything kept with it have been deleted.' }); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {} },
+        function (e) { self.setState({ flash: e.message }); });
+    };
     out.askSink = function () { self.setState({ sinking: true }); };
-    out.cancelSink = function () { self.setState({ sinking: false }); };
-    out.sink = function () { try { localStorage.removeItem('rr.boat.v1'); } catch (x) {} self.setState({ boat: null, sinking: false, prev: null, boatName: '', flash: 'Your Boat has been sunk. Everything in it has been deleted from this device.' }); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {} };
+    out.cancelSink = function () { self.setState({ sinking: false, deleting: false }); };
+    out.sink = function () {
+      var done = function (msg) { try { localStorage.removeItem('rr.boat.v1'); } catch (x) {} self.setState({ boat: null, sinking: false, prev: null, boatName: '', flash: msg }); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {} };
+      if (acct) { rb.sinkRemote().then(function () { done('Your Boat has been sunk. Everything in it has been deleted from your account and this device. Your IRB account is still open.'); }, function (e) { self.setState({ flash: e.message }); }); }
+      else { done('Your Boat has been sunk. Everything in it has been deleted from this device.'); }
+    };
     return out;
   }
 }
