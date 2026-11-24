@@ -151,9 +151,11 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .rv-shape{stroke:rgba(178,192,245,.75);stroke-width:3;stroke-linejoin:round}
 .rv-wing{transform-box:view-box;transform-origin:232px 207px}
 .rv-farwing{transform-box:view-box;transform-origin:200px 266px}
-.rv.flying .rv-wing{animation:flap .85s cubic-bezier(.45,0,.55,1) infinite alternate}
-.rv.flying .rv-farwing{animation:flap2 .85s cubic-bezier(.45,0,.55,1) infinite alternate}
-.rv.flying.climb .rv-wing,.rv.flying.climb .rv-farwing{animation-duration:.42s}
+.rv.flying .rv-wing{animation:flap 1.1s cubic-bezier(.45,0,.55,1) infinite alternate}
+.rv.flying .rv-farwing{animation:flap2 1.1s cubic-bezier(.45,0,.55,1) infinite alternate}
+.rv.flying.climb .rv-wing,.rv.flying.climb .rv-farwing{animation-duration:.6s}
+.rv-svg{transform-origin:50% 50%}
+.rv.perched .rv-svg{transform:none!important}
 .rv.flying.glide .rv-wing,.rv.flying.glide .rv-farwing{animation-play-state:paused}
 @keyframes flap{from{transform:rotate(0)}to{transform:rotate(34deg)}}
 @keyframes flap2{from{transform:rotate(0)}to{transform:rotate(28deg)}}
@@ -474,7 +476,9 @@ class Component extends DCLogic {
     for (var q = 1; q < S.length; q++) { D.push(D[q - 1] + Math.hypot(S[q].x - S[q - 1].x, S[q].y - S[q - 1].y)); }
     var len = D[D.length - 1] || 1, speed = opts.speed || 0.2;
     var dur = Math.max(opts.minDur || 1600, Math.min(opts.maxDur || 9000, len / speed));
-    var s0 = opts.fromScale || 1, s1 = opts.toScale || 1, t0 = null, idx = 0;
+    var s0 = opts.fromScale || 1, s1 = opts.toScale || 1, t0 = null, idx = 0, R = opts.roll, svgEl = rv.querySelector('.rv-svg');
+    var setRoll = function (r) { self.gRoll = r; if (svgEl) { svgEl.style.transform = 'scaleY(' + r.toFixed(3) + ')'; } };
+    if (!R && self.gRoll == null) { setRoll(-1); }
     var facingLeft = rv.classList.contains('flip'), vx = 0, vy = 0, rot = this.gRot || 0, last = S[0];
     rv.classList.add('flying'); rv.classList.remove('perched', 'glide');
     var at = function (dist) {
@@ -485,18 +489,19 @@ class Component extends DCLogic {
     };
     var step = function (ts) {
       if (!t0) { t0 = ts; }
+      if (R) { var el = ts - t0, st = R.at === 'end' ? dur - R.d : 0, q = Math.max(0, Math.min(1, (el - st) / R.d)), qq = q * q * (3 - 2 * q), rr = Math.cos(Math.PI * (R.from > 0 ? qq : 1 - qq)); if (R.from === R.to) { rr = R.to; } if (Math.abs(rr) < 0.12) { rr = rr < 0 ? -0.12 : 0.12; } setRoll(rr); }
       var t = Math.min(1, (ts - t0) / dur);
       var e = t * t * t * (t * (t * 6 - 15) + 10);
       var pt = at(e * len);
       vx += ((pt.x - last.x) - vx) * 0.12; vy += ((pt.y - last.y) - vy) * 0.12; last = pt;
-      if (!facingLeft && vx < -0.25) { facingLeft = true; rv.classList.add('flip'); }
-      else if (facingLeft && vx > 0.25) { facingLeft = false; rv.classList.remove('flip'); }
-      var pitch = Math.max(-0.5, Math.min(0.5, Math.atan2(vy, Math.abs(vx) + 0.6))) - 0.09;
+      if (!facingLeft && vx < -0.5) { facingLeft = true; rv.classList.add('flip'); }
+      else if (facingLeft && vx > 0.5) { facingLeft = false; rv.classList.remove('flip'); }
+      var pitch = Math.max(-0.38, Math.min(0.38, Math.atan2(vy, Math.abs(vx) + 0.9))) - 0.09 * (self.gRoll == null ? -1 : self.gRoll);
       var target = facingLeft ? -pitch : pitch;
-      rot += (target - rot) * 0.08;
+      rot += (target - rot) * 0.05;
       if (t > 0.88) { rot *= 0.9; }
       self.gRot = rot;
-      var climbing = vy < -0.35 && t < 0.97;
+      var climbing = vy < -0.45 && t < 0.97;
       rv.classList.toggle('climb', climbing);
       rv.classList.toggle('glide', !climbing && ((dur > 2600 && t > 0.25 && t < 0.72) || vy > 0.6));
       var sc = s1 < s0 ? s0 + (s1 - s0) * Math.pow(e, 1.6) : s0 + (s1 - s0) * Math.min(1, e * 1.8);
@@ -661,6 +666,7 @@ class Component extends DCLogic {
     var PS = o.ps || 1.55, RS = (bw * PS) / rw;
     pe.style.width = bw + 'px'; pe.style.height = bh + 'px';
     rv.style.transition = 'none'; rv.classList.remove('flying', 'glide', 'climb', 'perched', 'flip');
+    var sv = rv.querySelector('.rv-svg'); if (sv) { sv.style.transform = 'scaleY(1)'; } this.gRoll = 1;
     var draw = function (u) {
       var breathe = 1 + 0.05 * Math.sin(Math.PI * u), rot = -5 * (1 - u) + 2 * Math.sin(Math.PI * u);
       var po = 1 - sm((u - 0.3) / 0.55), ro = sm((u - 0.15) / 0.55);
@@ -721,17 +727,15 @@ class Component extends DCLogic {
       var lx = W * (W < 700 ? 0.16 : 0.1), X = function (f) { return lx + (moon.x - lx) * f; };
       // Out of the logo the way the logo's raven flies (east, a little south), a swoop down,
       // a rising spiral back over the logo, then down the left side and across to Moon.
-      var m = W < 700, topS = top0 + 84;
+      var m = W < 700;
       var pts = [from,
-        { x: from.x + W * (m ? 0.2 : 0.15), y: from.y + vh * 0.07 },
-        { x: from.x + W * (m ? 0.3 : 0.24), y: from.y + vh * (m ? 0.2 : 0.24) },
-        { x: from.x + W * (m ? 0.14 : 0.13), y: from.y + vh * (m ? 0.3 : 0.34) },
-        { x: from.x + W * 0.01, y: Math.max(topS, from.y - 46) },
-        { x: X(0), y: top0 + vh * (m ? 0.4 : 0.38) },
-        { x: X(0.45), y: top0 + vh * (m ? 0.42 : 0.3) },
-        { x: moon.x - (m ? 90 : 150), y: Math.min(moon.y - (m ? 100 : 110), top0 + vh * (m ? 0.5 : 0.22)) },
+        { x: from.x + W * (m ? 0.22 : 0.17), y: from.y + vh * 0.1 },
+        { x: from.x + W * (m ? 0.24 : 0.22), y: from.y + vh * (m ? 0.3 : 0.32) },
+        { x: from.x - W * (m ? 0.02 : 0.04), y: from.y + vh * (m ? 0.3 : 0.3) },
+        { x: X(0), y: top0 + vh * (m ? 0.4 : 0.34) },
+        { x: moon.x - (m ? 90 : 170), y: Math.min(moon.y - (m ? 100 : 120), top0 + vh * (m ? 0.5 : 0.26)) },
         moon];
-      self.gPath(pts, { fromScale: self.gRS || 0.55, toScale: 1, speed: W < 700 ? 0.15 : 0.2, minDur: 9000, maxDur: 16000 }, function () {
+      self.gPath(pts, { fromScale: self.gRS || 0.55, toScale: 1, speed: W < 700 ? 0.13 : 0.17, minDur: 9000, maxDur: 16000, roll: { from: 1, to: -1, at: 'start', d: 1500 } }, function () {
         if (!self.gActive) { return; }
         self.gPerch('moon');
         self.gGo('welcome', 0);
@@ -761,7 +765,7 @@ class Component extends DCLogic {
       var bw = home.w || 38, bh = home.h || 41, rw = e.rv.offsetWidth || 112, rh = e.rv.offsetHeight || 76;
       var RS = (bw * 1.12) / rw, hx = home.x, hy = home.y;
       var tgt = { x: hx + rw * 0.07 * RS, y: hy + rh * 0.37 * RS }, vh0 = window.innerHeight || 800;
-      self.gPath([self.gPos, { x: tgt.x + 60, y: tgt.y + vh0 * 0.42 }, { x: tgt.x - 150, y: tgt.y + vh0 * 0.3 }, { x: tgt.x - 90, y: tgt.y + 70 }, tgt], { fromScale: 1, toScale: RS, speed: 0.19, minDur: 4000, maxDur: 9000 }, function () {
+      self.gPath([self.gPos, { x: tgt.x + 60, y: tgt.y + vh0 * 0.42 }, { x: tgt.x - 150, y: tgt.y + vh0 * 0.3 }, { x: tgt.x - 90, y: tgt.y + 70 }, tgt], { fromScale: 1, toScale: RS, speed: 0.17, minDur: 4500, maxDur: 9000, roll: { from: -1, to: 1, at: 'end', d: 1300 } }, function () {
         self.setState({ emerging: true });
         self.gMorph({ x: hx, y: hy }, bw, bh, -1, function () {
           var pe = e.peel, sm = self.gSm, GLOW = self.gGlow, D = 1200, p0 = null;
