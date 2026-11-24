@@ -24,6 +24,8 @@
     if (status === 429 || /security purposes|rate limit/i.test(m)) { return 'Please wait a minute before asking for another code.'; }
     if (/expired|invalid/i.test(m) && /token|otp|code/i.test(m)) { return 'That code didn’t work. It may have expired. Ask for a new one and try again.'; }
     if (/email.*invalid|invalid.*email|validate email/i.test(m)) { return 'That email address doesn’t look quite right.'; }
+    if (status >= 500 && /email|smtp|domain|send/i.test(m)) { return 'The code email couldn’t be sent just now. Please try again later.'; }
+    if (status >= 500) { return 'The account home had a hiccup. Please try again in a moment.'; }
     if (status === 0) { return 'The River couldn’t reach the account home. Please check your connection and try again.'; }
     return 'Something went wrong. Please try again in a moment.';
   }

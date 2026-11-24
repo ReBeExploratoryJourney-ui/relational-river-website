@@ -108,7 +108,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .filebtn{position:relative;overflow:hidden}
 .authbox{display:flex;flex-direction:column;gap:10px;margin-top:4px}
 .authbox .go[disabled]{opacity:0.6}
-.codein{max-width:200px;font-size:24px;letter-spacing:0.3em;text-align:center}
+.codein{max-width:260px;font-size:24px;letter-spacing:0.25em;text-align:center}
 .authmsg{margin:0;background:#FBF0E6;border-left:3px solid #8A2E1F;padding:10px 14px;font-size:16px;border-radius:4px}
 .emailbox{background:rgba(251,247,239,0.7);border-radius:20px 26px 18px 28px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
 .filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
@@ -188,9 +188,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div><button class="go tornbtn" style="background: #F5EEE1" disabled="{{authBusy}}" onClick="{{sendCode}}">{{sendLabel}}</button></div>
 </sc-if>
 <sc-if value="{{authCode}}" hint-placeholder-val="{{ false }}">
-<p class="p">We have sent a 6-digit code to <b>{{authEmail}}</b>. It can take a minute to arrive, so check your spam folder too.</p>
+<p class="p">We have sent a code to <b>{{authEmail}}</b>. It can take a minute to arrive, so check your spam folder too.</p>
 <label class="alabel" for="authCodeIn">The code from your email</label>
-<input id="authCodeIn" class="field codein" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="{{authCodeVal}}" onChange="{{typeCode}}" placeholder="123456">
+<input id="authCodeIn" class="field codein" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="12" value="{{authCodeVal}}" onChange="{{typeCode}}" placeholder="12345678">
 <div class="row"><button class="go tornbtn" style="background: #F5EEE1" disabled="{{authBusy}}" onClick="{{verifyCode}}">{{verifyLabel}}</button><button class="quiet" onClick="{{resendCode}}">Send a new code</button><button class="quiet" onClick="{{otherEmail}}">Use a different email</button></div>
 </sc-if>
 <sc-if value="{{authMsg}}" hint-placeholder-val="{{ false }}"><p class="authmsg" role="alert">{{authMsg}}</p></sc-if>
@@ -359,9 +359,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div><button class="go tornbtn" style="background: #F5EEE1" disabled="{{authBusy}}" onClick="{{sendCode}}">{{sendLabel}}</button></div>
 </sc-if>
 <sc-if value="{{authCode}}" hint-placeholder-val="{{ false }}">
-<p class="p">We have sent a 6-digit code to <b>{{authEmail}}</b>. It can take a minute to arrive, so check your spam folder too.</p>
+<p class="p">We have sent a code to <b>{{authEmail}}</b>. It can take a minute to arrive, so check your spam folder too.</p>
 <label class="alabel" for="authCodeIn">The code from your email</label>
-<input id="authCodeIn" class="field codein" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="{{authCodeVal}}" onChange="{{typeCode}}" placeholder="123456">
+<input id="authCodeIn" class="field codein" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="12" value="{{authCodeVal}}" onChange="{{typeCode}}" placeholder="12345678">
 <div class="row"><button class="go tornbtn" style="background: #F5EEE1" disabled="{{authBusy}}" onClick="{{verifyCode}}">{{verifyLabel}}</button><button class="quiet" onClick="{{resendCode}}">Send a new code</button><button class="quiet" onClick="{{otherEmail}}">Use a different email</button></div>
 </sc-if>
 <sc-if value="{{authMsg}}" hint-placeholder-val="{{ false }}"><p class="authmsg" role="alert">{{authMsg}}</p></sc-if>
@@ -526,7 +526,7 @@ class Component extends DCLogic {
     out.authEmail = au.email; out.authCodeVal = au.code;
     out.sendLabel = au.busy ? 'Sending…' : 'Send me a code'; out.verifyLabel = au.busy ? 'Opening…' : 'Open my Boat';
     out.typeEmail = function (e) { self.state.auth.email = e && e.target ? e.target.value : ''; };
-    out.typeCode = function (e) { var v = e && e.target ? e.target.value.replace(/\D/g, '').slice(0, 6) : ''; self.state.auth.code = v; if (v.length === 6 && !self.state.auth.busy) { out.verifyCode(); } };
+    out.typeCode = function (e) { var v = e && e.target ? e.target.value.replace(/\D/g, '').slice(0, 10) : ''; self.state.auth.code = v; };
     out.sendCode = function () {
       var em = (self.state.auth.email || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { setAuth({ msg: 'Please enter your email address.' }); var el = document.getElementById('authEmail'); if (el) { el.focus(); } return; }
@@ -538,7 +538,7 @@ class Component extends DCLogic {
     out.otherEmail = function () { setAuth({ stage: 'start', code: '', msg: '' }); };
     out.verifyCode = function () {
       var code = (self.state.auth.code || '').replace(/\D/g, '');
-      if (code.length !== 6) { setAuth({ msg: 'The code has 6 numbers.' }); return; }
+      if (code.length < 6) { setAuth({ msg: 'Please enter the whole code from your email.' }); return; }
       setAuth({ busy: true, msg: '' });
       rb.verify(self.state.auth.email, code).then(function () {
         setAuth({ stage: 'start', busy: false, code: '', msg: '' });
