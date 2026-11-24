@@ -54,6 +54,14 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .chiplabel{font-size:14px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
 .care{background:#E6E2F2;padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.ways{display:flex;flex-direction:column;gap:12px;margin-top:6px;padding-top:12px;border-top:1.5px dashed rgba(47,43,40,0.3)}
+.way{display:flex;flex-direction:column;gap:6px}
+.h4{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px}
+.aboard{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:rgba(251,247,239,0.55);border:1.5px dashed #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.aboard[aria-pressed="true"]{border-style:solid;background:#2F2B28;color:#FBF7EF}
+.mchip{font-family:Jost,sans-serif;font-size:15px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:8px 14px;min-height:44px;cursor:pointer}
+.mchip.on{background:#E6E2F2;border-color:#2F2B28;font-weight:600}
+.mrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
 @keyframes swirl{to{stroke-dashoffset:-120}}
 .eddy{stroke-dasharray:6 8;animation:swirl 6s linear infinite}
@@ -106,7 +114,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </section>
 <div class="cards">
 <sc-for list="{{items}}" as="it" hint-placeholder-count="4">
-<article class="{{it.cls}}" style="background: {{it.bg}}">
+<article id="{{it.anchor}}" class="{{it.cls}}" style="background: {{it.bg}}">
 <div class="k">{{it.kind}}</div>
 <h3 class="h3">{{it.title}}</h3>
 <p class="p">{{it.text}}</p>
@@ -114,6 +122,29 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <button class="toggle" aria-expanded="{{it.openAttr}}" onClick="{{it.toggle}}">{{it.toggleLabel}}</button>
 <sc-if value="{{it.open}}" hint-placeholder-val="{{ false }}">
 <ol class="steps"><sc-for list="{{it.steps}}" as="st" hint-placeholder-count="4"><li>{{st}}</li></sc-for></ol>
+</sc-if>
+<sc-if value="{{it.isJournal}}" hint-placeholder-val="{{ false }}">
+<div class="ways">
+<div class="k">Two ways to keep it</div>
+<div class="way">
+<h4 class="h4">On paper</h4>
+<p class="p">A small notebook works beautifully, and keeps your eyes on the sky. Or print a page for one cycle, with a space for each night and Moon’s shape to look for.</p>
+<a href="LunarPage.dc.html" class="toggle" style="text-decoration: none; display: inline-flex; align-items: center">Print a page for this cycle</a>
+</div>
+<div class="way">
+<h4 class="h4">Here on the River, in your Boat</h4>
+<p class="p">Note each night’s place and word in your Boat. It shows the whole cycle, night by night, and helps you read it back at the next new Moon.</p>
+<button class="aboard" aria-pressed="{{it.jOn}}" onClick="{{it.jBegin}}">{{it.jLabel}}</button>
+</div>
+<div class="way">
+<h4 class="h4">A gentle nightly reminder</h4>
+<p class="p">For this journal only, added to your own calendar. It is made here on your device, so nothing is sent to the River, and you can delete it in your calendar at any time.</p>
+<div class="mrow"><label class="k" for="jTime">At</label><input id="jTime" class="field" style="max-width: 170px" type="time" value="{{it.jTime}}" onChange="{{it.jTypeTime}}"></div>
+<div class="mrow"><sc-for list="{{it.jSpans}}" as="sp" hint-placeholder-count="2"><button class="{{sp.cls}}" aria-pressed="{{sp.on}}" onClick="{{sp.pick}}">{{sp.label}}</button></sc-for></div>
+<button class="toggle" onClick="{{it.jRemind}}">Add to my calendar</button>
+<sc-if value="{{it.jMsg}}" hint-placeholder-val="{{ false }}"><p class="minor" role="status" style="margin: 0">{{it.jMsg}}</p></sc-if>
+</div>
+</div>
 </sc-if>
 <sc-if value="{{it.hasCredit}}" hint-placeholder-val="{{ false }}"><div class="minor">{{it.credit}}</div></sc-if>
 <sc-if value="{{it.hasLink}}" hint-placeholder-val="{{ false }}"><a href="{{it.href}}" class="lnk">{{it.cta}}</a></sc-if>
@@ -150,7 +181,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2000}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { open: {} }; }
+  constructor(props) { super(props); this.state = { open: {}, jTime: '20:30', jSpan: 'cycle', jMsg: '' }; }
 
   practiceVals(list) {
     var self = this, open = this.state.open || {}, bgs = ['#DCE6D2', '#FBF7EF', '#CFE1E4', '#F2D3BC', '#E6E2F2', '#F5EEE1'];
@@ -161,9 +192,47 @@ class Component extends DCLogic {
         credit: p.credit || '', hasCredit: !!p.credit, href: p.href || '', cta: p.cta || '', hasLink: !!p.href,
         open: on, openAttr: on ? 'true' : 'false', toggleLabel: on ? 'Hide the steps' : (p.how || 'Show me how'),
         cls: 'torn card ' + (k % 2 ? 'tr' : 'tl'), bg: p.bg || bgs[k % bgs.length],
-        toggle: function () { var o = {}; for (var x in open) { o[x] = open[x]; } o[p.id] = !on; self.setState({ open: o }); }
+        toggle: function () { var o = {}; for (var x in open) { o[x] = open[x]; } o[p.id] = !on; self.setState({ open: o }); },
+        anchor: p.id, isJournal: p.id === 'journal',
+        jOn: self.journalOn() ? 'true' : 'false', jLabel: self.journalOn() ? 'Open my lunar journal' : 'Keep it in my Boat', jBegin: function () { self.journalBegin(); },
+        jTime: self.state.jTime, jTypeTime: function (e) { self.state.jTime = e && e.target ? e.target.value : '20:30'; },
+        jSpans: [['cycle', 'For one cycle'], ['ongoing', 'Every night until I delete it']].map(function (x) { var s2 = self.state.jSpan === x[0]; return { label: x[1], on: s2 ? 'true' : 'false', cls: s2 ? 'mchip on' : 'mchip', pick: function () { self.setState({ jSpan: x[0] }); } }; }),
+        jRemind: function () { var ok = self.reminderFile(self.state.jTime, self.state.jSpan, self.journalOn() ? 'https://relationalriver.org/boat#lunar' : 'https://relationalriver.org/moon#journal'); self.setState({ jMsg: ok ? 'A reminder file is ready. Open it to add it to your calendar. To stop it, delete the event there.' : 'This browser could not make a calendar file.' }); },
+        jMsg: self.state.jMsg
       };
     });
+  }
+  // ---- the lunar journal in My Boat (see Boat.dc.html) ----
+  boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? b : null; } catch (x) { return null; } }
+  journalOn() { var b = this.boatRead(); return !!(b && b.lunar && b.lunar.on !== false); }
+  journalBegin() {
+    var b = this.boatRead();
+    if (!b) { try { sessionStorage.setItem('rr.boat.pending', JSON.stringify({ list: 'lunar' })); } catch (x) {} window.location.href = 'Boat.dc.html#lunar'; return; }
+    if (!b.lunar || b.lunar.on === false) {
+      b.lunar = { since: (b.lunar && b.lunar.since) || new Date().toISOString(), on: true }; b.dirty = true;
+      try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) {}
+      if (window.RiverBoat) { window.RiverBoat.touched(); }
+    }
+    window.location.href = 'Boat.dc.html#lunar';
+  }
+  // A calendar file for a nightly reminder, made on this device; nothing is sent anywhere.
+  reminderFile(time, span, url) {
+    var hm = /^(\d{1,2}):(\d{2})/.exec(time || '') || [0, '20', '30'], d = new Date(), now = new Date();
+    d.setHours(+hm[1], +hm[2], 0, 0); if (d.getTime() < now.getTime()) { d.setDate(d.getDate() + 1); }
+    var two = function (n) { return (n < 10 ? '0' : '') + n; };
+    var local = d.getFullYear() + two(d.getMonth() + 1) + two(d.getDate()) + 'T' + two(d.getHours()) + two(d.getMinutes()) + '00';
+    var stamp = now.toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+    var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Relational River//Lunar journal//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
+      'UID:lunar-journal-' + now.getTime() + '@relationalriver.org', 'DTSTAMP:' + stamp, 'DTSTART:' + local, 'DURATION:PT5M',
+      'RRULE:FREQ=DAILY' + (span === 'cycle' ? ';COUNT=29' : ''),
+      'SUMMARY:Two minutes with Moon', 'DESCRIPTION:Your lunar journal: where Moon is\\, their shape\\, and one word for your day. ' + url, 'URL:' + url, 'TRANSP:TRANSPARENT',
+      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:Two minutes with Moon', 'TRIGGER:PT0M', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'];
+    try {
+      var blob = new Blob([lines.join('\r\n') + '\r\n'], { type: 'text/calendar;charset=utf-8' });
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'moon-journal-reminder.ics';
+      document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+      return true;
+    } catch (x) { return false; }
   }
   moonInfo() {
     var syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14) / 86400000, now = Date.now() / 86400000;
@@ -206,7 +275,7 @@ class Component extends DCLogic {
   "title": "A lunar journal",
   "bg": "#FBF7EF",
   "text": "Each evening for one cycle, note where Moon is, their shape, and one word for your day. Patterns appear that no calendar shows.",
-  "meta": "Two minutes a night · twenty-nine nights",
+  "meta": "Two minutes a night · twenty-nine nights · on paper or in your Boat",
   "steps": [
    "Keep a small notebook by the door or the window.",
    "Each night, sketch Moon’s shape and where they sit in the sky.",

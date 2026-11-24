@@ -113,6 +113,17 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .codein{max-width:260px;font-size:24px;letter-spacing:0.25em;text-align:center}
 .authmsg{margin:0;background:#FBF0E6;border-left:3px solid #8A2E1F;padding:10px 14px;font-size:16px;border-radius:4px}
 .emailbox{background:rgba(251,247,239,0.7);border-radius:20px 26px 18px 28px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.lunartop{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.lunarnow{width:96px;height:96px;flex-shrink:0;overflow:visible}
+.nights{display:flex;flex-wrap:wrap;gap:6px 4px;margin-top:2px}
+.night{width:44px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;line-height:1.2;text-align:center;color:#2F2B28}
+.night svg{width:30px;height:30px;display:block}
+.night.tonight svg{outline:2px dashed #5B4A8B;outline-offset:2px;border-radius:50%}
+.night .nn{font-size:11px;color:#5A524B}
+.night .nw{font-size:11px;font-weight:600;overflow-wrap:anywhere;max-width:44px}
+.readback{background:#FBF7EF;border-radius:18px 24px 16px 26px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.remindbox{background:rgba(251,247,239,0.6);border-radius:18px 24px 16px 26px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.timein{max-width:170px}
 .filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
 .filebtn:focus-within{outline:2px dashed #4F7A84;outline-offset:3px}
 @media (max-width: 760px){
@@ -284,6 +295,59 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 </section>
 
+<section id="lunar" class="torn tl panel" style="background: #E6E2F2">
+<div class="k">Lunar journal</div>
+<h2 class="h2 dark">A cycle with Moon</h2>
+<div class="lunartop">
+<svg class="lunarnow" viewBox="0 0 120 120" role="img" aria-label="Moon tonight, {{lnName}}"><circle cx="60" cy="60" r="56" fill="#F6E7B8" opacity="0.18"></circle><circle cx="60" cy="60" r="46" fill="#3A3F63"></circle><path d="{{lnPath}}" fill="#F6E7B8"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 6px; flex: 1 1 260px">
+<p class="p"><b>Tonight Moon is {{lnName}}</b>, night {{lnNight}} of this cycle.</p>
+<p class="p minor">{{lnPrompt}}</p>
+</div>
+</div>
+<sc-if value="{{lnOff}}" hint-placeholder-val="{{ true }}">
+<p class="p">Each evening for one cycle, note where Moon is, their shape, and one word for your day. Patterns appear that no calendar shows. Two minutes a night, for twenty-nine nights.</p>
+<div class="row"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{lnBegin}}">Begin my lunar journal</button><a href="/lunar-journal" class="lnk">Prefer paper? Print a page for this cycle</a></div>
+</sc-if>
+<sc-if value="{{lnOn}}" hint-placeholder-val="{{ false }}">
+<div class="tend">
+<sc-if value="{{lnDoneTonight}}" hint-placeholder-val="{{ false }}"><p class="p">You met Moon tonight. You can change what you noted below.</p></sc-if>
+<div class="alabel">Where is Moon tonight?</div>
+<div class="tags"><sc-for list="{{lnSkies}}" as="sk" hint-placeholder-count="5"><button class="{{sk.cls}}" aria-pressed="{{sk.on}}" onClick="{{sk.pick}}">{{sk.label}}</button></sc-for></div>
+<label class="alabel" for="lnWord">One word for your day</label>
+<input id="lnWord" class="field" style="max-width: 320px" type="text" maxlength="30" value="{{lnWord}}" onChange="{{lnTypeWord}}" placeholder="Unhurried">
+<label class="alabel" for="lnNote">Anything else you noticed (optional)</label>
+<textarea id="lnNote" class="field" rows="2" maxlength="600" value="{{lnNote}}" onChange="{{lnTypeNote}}" placeholder="A halo tonight, and the owl calling…"></textarea>
+<div class="row"><button class="sbtn" onClick="{{lnAdd}}">{{lnAddLabel}}</button></div>
+</div>
+<div class="alabel">This cycle, night by night</div>
+<div class="nights" role="list" aria-label="{{lnNightsAria}}"><sc-for list="{{lnNights}}" as="nt" hint-placeholder-count="8"><div class="{{nt.cls}}" role="listitem" aria-label="{{nt.aria}}" title="{{nt.aria}}"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="#3A3F63" opacity="{{nt.op}}"></circle><path d="{{nt.path}}" fill="#F6E7B8" opacity="{{nt.op}}"></path></svg><span class="nn">{{nt.n}}</span><span class="nw">{{nt.word}}</span></div></sc-for></div>
+<sc-if value="{{lnHasLog}}" hint-placeholder-val="{{ false }}">
+<ol class="log"><sc-for list="{{lnLog}}" as="e" hint-placeholder-count="2"><li><span class="when">{{e.when}}</span><b>{{e.word}}</b>{{e.rest}}</li></sc-for></ol>
+</sc-if>
+<sc-if value="{{lnReadBack}}" hint-placeholder-val="{{ false }}">
+<div class="readback">
+<div class="k">A new Moon</div>
+<h3 class="h3 sm">Read your last cycle back</h3>
+<p class="p">{{lnBackWords}}</p>
+<p class="p minor">What do you notice, looking at the whole cycle at once? A new cycle begins tonight.</p>
+</div>
+</sc-if>
+<sc-if value="{{lnHasEarlier}}" hint-placeholder-val="{{ false }}">
+<details class="earlier"><summary>Earlier cycles ({{lnEarlierCount}})</summary>
+<ul><sc-for list="{{lnEarlier}}" as="c" hint-placeholder-count="2"><li><b>{{c.dates}}</b> · {{c.words}}</li></sc-for></ul>
+</details>
+</sc-if>
+<div class="remindbox">
+<div class="alabel">A gentle nightly reminder, for this journal only</div>
+<p class="p fine">Add a quiet reminder to your own calendar. It is made here on your device and kept by your calendar, so nothing is sent to the River, and you can delete it there at any time.</p>
+<div class="row"><label class="alabel" for="lnTime">At</label><input id="lnTime" class="field timein" type="time" value="{{remindTime}}" onChange="{{typeRemind}}"><sc-for list="{{remindSpans}}" as="rs" hint-placeholder-count="2"><button class="{{rs.cls}}" aria-pressed="{{rs.on}}" onClick="{{rs.pick}}">{{rs.label}}</button></sc-for></div>
+<div><button class="sbtn" onClick="{{remind}}">Add to my calendar</button></div>
+</div>
+<div class="row"><a href="/lunar-journal" class="lnk">Print a paper page for this cycle</a><button class="quiet" onClick="{{lnSetDown}}">Set the journal down</button></div>
+</sc-if>
+</section>
+
 <section id="constellation" class="torn tl panel" style="background: #FBF7EF">
 <div class="k">Your constellation</div>
 <h2 class="h2 dark">Who is in your “we”</h2>
@@ -411,7 +475,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' } };
+    this.state = { boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' }, lnSky: null, lnWord: null, lnNote: null, remindTime: '20:30', remindSpan: 'cycle' };
   }
   // ---- keeping the Boat (on this device only) ----
   boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? this.boatClean(b) : null; } catch (x) { return null; } }
@@ -427,6 +491,8 @@ class Component extends DCLogic {
       tending: arr(b.tending, 30).map(item).filter(function (g) { return g && g.id; }),
       stars: arr(b.stars, 80).filter(function (s) { return s && typeof s.name === 'string'; }).map(function (s) { return { id: str(s.id, 40), name: str(s.name, 40), kind: str(s.kind, 20) }; }),
       gathered: arr(b.gathered, 120).map(item).filter(function (g) { return g && g.id; }),
+      lunar: b.lunar && typeof b.lunar === 'object' ? { since: str(b.lunar.since, 30), on: b.lunar.on !== false } : null,
+      moons: arr(b.moons, 400).filter(function (m) { return m && typeof m === 'object' && typeof m.id === 'string'; }).map(function (m) { return { id: str(m.id, 40), at: str(m.at, 30), sky: str(m.sky, 20), word: str(m.word, 30), note: str(m.note, 600), phase: str(m.phase, 30) }; }),
       seen: { last: str(b.seen && b.seen.last, 30) }
     };
   }
@@ -468,9 +534,14 @@ class Component extends DCLogic {
     } else if (pend) {
       this.setState({ pending: pend });
     }
+    if (b && window.location.hash && /^#[a-z]+$/.test(window.location.hash)) {
+      var h = window.location.hash.slice(1);
+      setTimeout(function () { var el = document.getElementById(h); if (el) { el.scrollIntoView(); } }, 80);
+    }
   }
   addPending(b, pend) {
     var now = new Date().toISOString();
+    if (pend.list === 'lunar') { b.lunar = { since: now, on: true }; return 'Your lunar journal is open, a little further down your Boat.'; }
     if (pend.list === 'began' && pend.item) { b.began.push({ at: now, feel: pend.item.feel || [], love: pend.item.love || [], way: pend.item.way || [] }); return 'Your answers from the Source are now in your Boat.'; }
     var list = pend.list === 'tending' ? 'tending' : 'gathered', it = pend.item || {};
     if (!it.id) { return ''; }
@@ -481,13 +552,42 @@ class Component extends DCLogic {
   }
   // ---- dates and turning points ----
   day(iso) { try { return new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }); } catch (x) { return ''; } }
-  round() {
+  // ---- Moon: age in days since new Moon, and the shape of the lit part ----
+  moonAge(ms) { var syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14) / 86400000, d = ms / 86400000; return { age: ((d - ref) % syn + syn) % syn, cycle: Math.floor((d - ref) / syn), syn: syn, ref: ref }; }
+  phaseName(age) { return age < 1.4 || age > 28.1 ? 'a new Moon' : age < 6.4 ? 'a waxing crescent' : age < 8.4 ? 'at first quarter' : age < 13.8 ? 'waxing gibbous' : age < 15.8 ? 'full' : age < 21.1 ? 'waning gibbous' : age < 23.1 ? 'at last quarter' : 'a waning crescent'; }
+  phasePath(age, cx, cy, r) {
+    var p = age / 29.530588853, rx = Math.abs(Math.cos(2 * Math.PI * p)) * r, waxing = p < 0.5, crescent = (p < 0.25 || p > 0.75);
+    if (age < 0.6 || age > 28.9) { return ''; }
+    var outer = waxing ? 1 : 0, inner = waxing ? (crescent ? 0 : 1) : (crescent ? 1 : 0);
+    return 'M' + cx + ' ' + (cy - r) + ' A' + r + ' ' + r + ' 0 0 ' + outer + ' ' + cx + ' ' + (cy + r) + ' A' + rx.toFixed(1) + ' ' + r + ' 0 0 ' + inner + ' ' + cx + ' ' + (cy - r) + ' Z';
+  }
+  // A calendar file for a nightly reminder, made on this device; nothing is sent anywhere.
+  reminderFile(time, span, url) {
+    var hm = /^(\d{1,2}):(\d{2})/.exec(time || '') || [0, '20', '30'], d = new Date(), now = new Date();
+    d.setHours(+hm[1], +hm[2], 0, 0); if (d.getTime() < now.getTime()) { d.setDate(d.getDate() + 1); }
+    var two = function (n) { return (n < 10 ? '0' : '') + n; };
+    var local = d.getFullYear() + two(d.getMonth() + 1) + two(d.getDate()) + 'T' + two(d.getHours()) + two(d.getMinutes()) + '00';
+    var stamp = now.toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+    var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Relational River//Lunar journal//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
+      'UID:lunar-journal-' + now.getTime() + '@relationalriver.org', 'DTSTAMP:' + stamp, 'DTSTART:' + local, 'DURATION:PT5M',
+      'RRULE:FREQ=DAILY' + (span === 'cycle' ? ';COUNT=29' : ''),
+      'SUMMARY:Two minutes with Moon', 'DESCRIPTION:Your lunar journal: where Moon is\\, their shape\\, and one word for your day. ' + url, 'URL:' + url, 'TRANSP:TRANSPARENT',
+      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:Two minutes with Moon', 'TRIGGER:PT0M', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'];
+    try {
+      var blob = new Blob([lines.join('\r\n') + '\r\n'], { type: 'text/calendar;charset=utf-8' });
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'moon-journal-reminder.ics';
+      document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+      return true;
+    } catch (x) { return false; }
+  }
+  round(b) {
     var syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14) / 86400000, now = Date.now() / 86400000;
     var age = ((now - ref) % syn + syn) % syn;
     var y = new Date().getUTCFullYear(), turns = [];
     [y - 1, y, y + 1].forEach(function (yy) { turns.push([Date.UTC(yy, 2, 20), 'March equinox'], [Date.UTC(yy, 5, 21), 'June solstice'], [Date.UTC(yy, 8, 22), 'September equinox'], [Date.UTC(yy, 11, 21), 'December solstice']); });
     var near = turns.filter(function (t) { return Math.abs(t[0] / 86400000 - now) <= 3; })[0];
     if (near) { return { k: near[1], t: 'The season is turning', x: 'A good moment to look back at where you began and notice what has changed since. You can return to the Source and keep fresh answers beside the old ones.', h: '/source', c: 'Return to the Source' }; }
+    if ((age < 1.5 || age > syn - 1.5) && b && b.lunar && b.lunar.on) { return { k: 'New Moon', t: 'A new Moon, a new cycle', x: 'Read your lunar journal back, the whole cycle at once, and begin the next one tonight.', h: '#lunar', c: 'Open my lunar journal' }; }
     if (age < 1.5 || age > syn - 1.5) { return { k: 'New Moon', t: 'A new Moon, a quiet beginning', x: 'A good night to add someone to your constellation, or to set a small intention for a practice you are tending.', h: '#constellation', c: 'Add to my constellation' }; }
     if (Math.abs(age - syn / 2) < 1.5) { return { k: 'Full Moon', t: 'Moon is full', x: 'Step outside tonight, meet Moon, and make a picture together.', h: '/moon', c: 'Making with Moon' }; }
     var toFull = age < syn / 2 ? syn / 2 - age : syn + syn / 2 - age, toNew = syn - age;
@@ -500,6 +600,10 @@ class Component extends DCLogic {
     if (!b.tending.length) { return { t: 'Choose one small practice', x: 'Pick a practice to stay with for a while, like sitting with the same tree each day. Your Boat keeps a log as you go.', h: '#tending', c: 'Choose a practice' }; }
     var quiet = b.tending.filter(function (t) { var last = t.notes.length ? t.notes[t.notes.length - 1].at : t.since; return now - new Date(last).getTime() > 5 * 86400000; })[0];
     if (quiet) { return { t: 'Back to “' + quiet.title + '”', x: 'It has been a few days. Go back when you can, and add a line about what you notice. Small changes count.', h: '#tending', c: 'Add to my log' }; }
+    if (b.lunar && b.lunar.on && now - new Date(b.lunar.since).getTime() > 86400000) {
+      var lastMoon = b.moons.length ? new Date(b.moons[b.moons.length - 1].at).getTime() : new Date(b.lunar.since).getTime();
+      if (now - lastMoon > 2 * 86400000) { return { t: 'Moon is waiting', x: 'Your lunar journal has a space for tonight: where Moon is, their shape, and one word for your day. Missed nights are part of it too.', h: '#lunar', c: 'Open my lunar journal' }; }
+    }
     if (b.stars.length < 3) { return { t: 'Add to your constellation', x: 'Who else is in your “we”? A tree, a creek, a grandmother, the bread you love. Add one or two.', h: '#constellation', c: 'Add to my constellation' }; }
     var soon = b.gathered.filter(function (g) { if (!g.closes) { return false; } var d = (new Date(g.closes + 'T23:59:59').getTime() - now) / 86400000; return d >= 0 && d <= 14; })[0];
     if (soon) { return { t: soon.title + ' closes soon', x: 'Doors close on ' + this.day(soon.closes + 'T12:00:00') + '. If it still calls to you, now is the time.', h: soon.href || '/springs', c: 'Have a look' }; }
@@ -515,10 +619,10 @@ class Component extends DCLogic {
     var lab = function (l) { return (l || []).map(function (k) { return LABEL[k] || k; }); };
     var KINDS = [['being', 'A Being', '#A9C79A'], ['place', 'A place', '#D9B48F'], ['water', 'A water', '#9FD3DC'], ['food', 'A food', '#E8C77A'], ['ancestor', 'An ancestor', '#B9A3D9'], ['people', 'A person or people', '#E8A598'], ['other', 'Something else', '#D8D2C8']];
     var KIND = {}; KINDS.forEach(function (k) { KIND[k[0]] = k; });
-    var out = { flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : (s.pending.item && s.pending.item.title) || '') : '',
+    var out = { flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : s.pending.list === 'lunar' ? 'a lunar journal' : (s.pending.item && s.pending.item.title) || '') : '',
       launchDevice: function () {
         var acct = !!(self.RB() && self.RB().signedIn());
-        var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], seen: { last: new Date().toISOString() } };
+        var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], lunar: null, moons: [], seen: { last: new Date().toISOString() } };
         var msg = acct ? 'Your Boat is launched, kept with your IRB account.' : 'Your Boat is launched, here on this device.';
         if (s.pending) { var m2 = self.addPending(nb, s.pending); if (m2) { msg += ' ' + m2; } try { sessionStorage.removeItem('rr.boat.pending'); } catch (x) {} }
         self.setState({ pending: null }); self.save(nb, msg);
@@ -560,7 +664,7 @@ class Component extends DCLogic {
       }, function (e) { setAuth({ busy: false, msg: e.message }); });
     };
     if (!b) { return out; }
-    var r = this.round(), bd = this.bend(b);
+    var r = this.round(b), bd = this.bend(b);
     var prevDays = s.prev ? Math.floor((Date.now() - new Date(s.prev).getTime()) / 86400000) : null;
     var aboard = b.name ? 'aboard ' + b.name : 'aboard';
     out.sinceLine = prevDays === null ? 'Welcome ' + aboard + '. Your Boat was launched on ' + this.day(b.launched) + '.' : 'Welcome back ' + aboard + '. You were last here ' + (prevDays === 0 ? 'earlier today' : prevDays === 1 ? 'yesterday' : prevDays + ' days ago') + '.';
@@ -602,6 +706,74 @@ class Component extends DCLogic {
     var have = {}; b.tending.forEach(function (t) { have[t.id] = 1; });
     out.suggestions = SUG.filter(function (g) { return !have[g.id]; }).map(function (g) { return { title: g.title, add: function () { var nb = self.boatRead() || b; var it = {}; for (var k in g) { it[k] = g[k]; } self.addPending(nb, { list: 'tending', item: it }); self.save(nb, '“' + g.title + '” is now among the practices you are tending.'); } }; });
     out.tendPrompt = b.tending.length ? 'Or pick up another:' : 'A few to begin with:';
+    // lunar journal
+    var mNow = this.moonAge(Date.now()), ln = b.lunar && b.lunar.on;
+    var PROMPT = {
+      'a new Moon': 'Moon is close to Sun and hidden from us. A quiet night to begin, and to wonder what you would like to notice this cycle.',
+      'a waxing crescent': 'Look low in the west just after sunset for a thin light that grows a little each night.',
+      'at first quarter': 'Half lit, and already high in the sky as Sun goes down.',
+      'waxing gibbous': 'Moon rises in the afternoon and keeps you company most of the evening.',
+      'full': 'Moon rises in the east as Sun sets in the west. A night for gratitude, or for making a picture together.',
+      'waning gibbous': 'Moon rises a little later each night, after dark has come.',
+      'at last quarter': 'Moon rises around midnight. If you are up early, look for them in the morning sky.',
+      'a waning crescent': 'A thin light in the east before dawn. The cycle is nearly round; soon you can read it back.'
+    };
+    var SKIES = [['east', 'Rising in the east'], ['high', 'High in the sky'], ['west', 'Setting in the west'], ['cloud', 'Behind cloud'], ['unseen', 'Not seen tonight']];
+    var SKY = {}; SKIES.forEach(function (x) { SKY[x[0]] = x[1]; });
+    var mName = this.phaseName(mNow.age);
+    out.lnName = mName; out.lnPath = this.phasePath(mNow.age, 60, 60, 46); out.lnNight = Math.floor(mNow.age) + 1; out.lnPrompt = PROMPT[mName] || '';
+    out.lnOn = !!ln; out.lnOff = !ln;
+    out.lnBegin = function () { var nb = self.boatRead() || b; nb.lunar = { since: new Date().toISOString(), on: true }; self.save(nb, 'Your lunar journal is open. Step outside when you can, and meet Moon.'); };
+    var todayKey = new Date().toDateString();
+    var tonight = b.moons.filter(function (m) { return new Date(m.at).toDateString() === todayKey; }).pop() || null;
+    out.lnDoneTonight = !!tonight;
+    var sky = s.lnSky !== null ? s.lnSky : (tonight ? tonight.sky : '');
+    out.lnSkies = SKIES.map(function (x) { var on = sky === x[0]; return { label: x[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ lnSky: on ? '' : x[0] }); } }; });
+    out.lnWord = s.lnWord !== null ? s.lnWord : (tonight ? tonight.word : '');
+    out.lnNote = s.lnNote !== null ? s.lnNote : (tonight ? tonight.note : '');
+    out.lnTypeWord = function (e) { self.state.lnWord = e && e.target ? e.target.value : ''; };
+    out.lnTypeNote = function (e) { self.state.lnNote = e && e.target ? e.target.value : ''; };
+    out.lnAddLabel = tonight ? 'Update tonight' : 'Keep tonight in my journal';
+    out.lnAdd = function () {
+      var st = self.state, w = (st.lnWord !== null ? st.lnWord : (tonight ? tonight.word : '')).trim(), nt = (st.lnNote !== null ? st.lnNote : (tonight ? tonight.note : '')).trim(), sk = st.lnSky !== null ? st.lnSky : (tonight ? tonight.sky : '');
+      if (!w && !nt && !sk) { var el = document.getElementById('lnWord'); if (el) { el.focus(); } return; }
+      var nb = self.boatRead() || b, at = new Date().toISOString();
+      var entry = { id: tonight ? tonight.id : 'm' + Date.now().toString(36) + Math.floor(Math.random() * 1e4).toString(36), at: tonight ? tonight.at : at, sky: sk, word: w.slice(0, 30), note: nt.slice(0, 600), phase: self.phaseName(self.moonAge(tonight ? new Date(tonight.at).getTime() : Date.now()).age) };
+      nb.moons = (nb.moons || []).filter(function (m) { return m.id !== entry.id; }); nb.moons.push(entry);
+      nb.moons.sort(function (p, q) { return p.at < q.at ? -1 : 1; });
+      self.state.lnSky = null; self.state.lnWord = null; self.state.lnNote = null;
+      self.save(nb, tonight ? 'Tonight’s entry is updated.' : 'Tonight is in your lunar journal. Thank you for meeting Moon.');
+    };
+    var byCycle = {};
+    b.moons.slice().sort(function (p, q) { return p.at < q.at ? -1 : 1; }).forEach(function (m) { var t = new Date(m.at).getTime(); if (isNaN(t)) { return; } var ma = self.moonAge(t); (byCycle[ma.cycle] = byCycle[ma.cycle] || []).push({ m: m, night: Math.floor(ma.age) + 1 }); });
+    var cur = byCycle[mNow.cycle] || [], perNight = {};
+    cur.forEach(function (x) { perNight[x.night] = x.m; });
+    var startMs = (mNow.ref + mNow.cycle * mNow.syn) * 86400000;
+    var dshort = function (ms) { return new Date(ms).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }); };
+    var nightsShown = 30, tn = out.lnNight;
+    out.lnNights = [];
+    for (var ni = 1; ni <= nightsShown; ni++) {
+      var em = perNight[ni], ms = startMs + (ni - 0.5) * 86400000, future = ni > tn;
+      out.lnNights.push({ n: ni, word: em ? (em.word || '·') : '', path: this.phasePath(ni - 0.5, 20, 20, 15), op: em ? '1' : future ? '0.18' : '0.4', cls: ni === tn ? 'night tonight' : 'night',
+        aria: 'Night ' + ni + ', around ' + dshort(ms) + (em ? ': ' + (em.word || 'noted') + (em.sky ? ', ' + (SKY[em.sky] || '').toLowerCase() : '') : future ? '' : ': not noted') });
+    }
+    out.lnNightsAria = 'This cycle: ' + cur.length + (cur.length === 1 ? ' night noted' : ' nights noted') + ' so far';
+    out.lnLog = cur.slice().reverse().map(function (x) { var m = x.m; return { when: self.day(m.at) + ' · night ' + x.night + ' · ' + (m.phase || ''), word: m.word || '', rest: [m.sky ? (m.word ? ' · ' : '') + (SKY[m.sky] || '') : '', m.note ? ' · ' + m.note : ''].join('') }; });
+    out.lnHasLog = cur.length > 0;
+    var prevC = byCycle[mNow.cycle - 1] || [];
+    out.lnReadBack = !!ln && mNow.age < 3 && prevC.length > 0;
+    out.lnBackWords = prevC.map(function (x) { return x.m.word || '·'; }).join(', ');
+    var earlierKeys = Object.keys(byCycle).map(Number).filter(function (c) { return c < mNow.cycle; }).sort(function (p, q) { return q - p; });
+    out.lnHasEarlier = earlierKeys.length > 0; out.lnEarlierCount = earlierKeys.length;
+    out.lnEarlier = earlierKeys.map(function (c) { var sm = (mNow.ref + c * mNow.syn) * 86400000; return { dates: dshort(sm) + ' to ' + dshort(sm + 29 * 86400000), words: byCycle[c].map(function (x) { return x.m.word || '·'; }).join(', ') }; });
+    out.lnSetDown = function () { var nb = self.boatRead() || b; nb.lunar = { since: (nb.lunar && nb.lunar.since) || '', on: false }; self.save(nb, 'Your lunar journal is set down. What you noted stays in your Boat, and you can begin again any night.'); };
+    out.remindTime = s.remindTime;
+    out.typeRemind = function (e) { self.state.remindTime = e && e.target ? e.target.value : '20:30'; };
+    out.remindSpans = [['cycle', 'For one cycle'], ['ongoing', 'Every night until I delete it']].map(function (x) { var on = s.remindSpan === x[0]; return { label: x[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ remindSpan: x[0] }); } }; });
+    out.remind = function () {
+      var ok = self.reminderFile(self.state.remindTime, self.state.remindSpan, 'https://relationalriver.org/boat#lunar');
+      self.setState({ flash: ok ? 'A reminder file is ready. Open it to add the reminder to your calendar. To stop it, delete the event there.' : 'This browser could not make a calendar file.' });
+    };
     // constellation
     var n = b.stars.length, shown = b.stars.slice(0, 20);
     var one = shown.length <= 9;

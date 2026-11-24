@@ -108,6 +108,26 @@ PARTNERS = [
   "shaped": False
  },
  {
+  "name": "Bioregional Earth",
+  "place": "Worldwide, rippling out from the Greater Tkaronto Bioregion",
+  "text": "A pathway for regenerating Earth one bioregion at a time, from Joe Brewer's Design Pathway for Regenerating Earth and the many people weaving with him. Living Flows, a Design School, and a hope for a thousand Bioregional Learning Centres by 2035.",
+  "theme": "Bioregional",
+  "k": "bio",
+  "href": "https://www.bioregionalearth.org",
+  "founder": "",
+  "shaped": False
+ },
+ {
+  "name": "Ecological Design Collective",
+  "place": "Roots in Baltimore, relations around the world",
+  "text": "A community for radical ecological imagination and collaboration: talks, workshops, exhibitions, an opportunities board, and Litter, its journal of essays and conversations.",
+  "theme": "Ways of seeing",
+  "k": "see",
+  "href": "https://ecodesigncollective.org",
+  "founder": "",
+  "shaped": False
+ },
+ {
   "name": "Transition Network",
   "place": "Worldwide",
   "text": "Local groups working on food, energy, repair and community.",

@@ -37,6 +37,7 @@ PAGES = {
     'Islands': ('islands.html', '/islands', 'Islands of coherence: steady, well-related places in turbulent times, and how they connect into archipelagos.'),
     'Privacy': ('privacy.html', '/privacy', 'How the Relational River cares for your information: what is kept, why, for how long, and your rights under GDPR.'),
     'Well': ('well.html', '/well', 'The Well of Wonder, Wit, Wisdom and Wealth: pour in what you can offer, and draw on others to bring projects to life.'),
+    'LunarPage': ('lunar-journal.html', '/lunar-journal', 'A lunar journal page to print: twenty-nine nights with Moon, with a space to sketch each night.'),
     'Moon': ('moon.html', '/moon', 'Moon moves the waters, and we are water too: tides, turning points and Making with Moon.'),
 }
 

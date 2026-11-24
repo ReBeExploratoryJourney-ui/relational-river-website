@@ -69,7 +69,7 @@
   // Lists are joined by id; nothing either side added is lost.
   function merge(a, b) {
     var out = JSON.parse(JSON.stringify(a || {})), byId = function (list) { var m = {}; (list || []).forEach(function (x) { if (x && x.id) { m[x.id] = x; } }); return m; };
-    ['tending', 'stars', 'gathered'].forEach(function (k) {
+    ['tending', 'stars', 'gathered', 'moons'].forEach(function (k) {
       var m = byId(out[k]);
       (b[k] || []).forEach(function (x) {
         if (!x || !x.id) { return; }
@@ -84,6 +84,7 @@
     });
     var seenB = {}; out.began = (out.began || []).concat(b.began || []).filter(function (x) { if (!x || seenB[x.at]) { return false; } seenB[x.at] = 1; return true; }).sort(function (p, q) { return p.at < q.at ? -1 : 1; });
     out.name = b.name || out.name || '';
+    if (b.lunar !== undefined) { out.lunar = b.lunar; }
     out.launched = [out.launched, b.launched].filter(Boolean).sort()[0] || new Date().toISOString();
     out.v = 1;
     return out;
