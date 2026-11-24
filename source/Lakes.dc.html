@@ -70,6 +70,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 }
 /* Torn edges of a fixed, shallow depth on every side, so text is never covered. */
 .torn,.torn.tall{-webkit-mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),url(/_blob/c670d821c61bd5632427dd25511aefc5),url(/_blob/c6f17e04b860c11da92369e1279f3e80),linear-gradient(#000,#000)!important;mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),url(/_blob/c670d821c61bd5632427dd25511aefc5),url(/_blob/c6f17e04b860c11da92369e1279f3e80),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,left center,right center,center!important;mask-position:top center,bottom center,left center,right center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+.aboard{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:rgba(251,247,239,0.55);border:1.5px dashed #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start;display:inline-flex;align-items:center;gap:8px}
+.aboard:hover{background:rgba(251,247,239,0.9)}
+.aboard[aria-pressed="true"]{border-style:solid;background:#2F2B28;color:#FBF7EF}
 </style>
 </helmet>
 <div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
@@ -80,7 +83,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Seeing.dc.html"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
 <div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="Springs.dc.html"><b>Springs</b><span>offerings to join soon</span></a><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="Islands.dc.html"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Estuary.dc.html"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="Groundwater.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
-<a href="Journey.dc.html" class="vmine">My river</a>
+<a href="Boat.dc.html" class="vmine">My Boat</a>
 </nav>
 </header>
 
@@ -103,6 +106,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <sc-if value="{{l.idLink}}" hint-placeholder-val="{{ false }}"><a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality" class="minor" style="min-height: 44px; display: inline-flex; align-items: center">What is Relational ID? Read the exploration on IRB’s Substack</a></sc-if>
 <div class="minor">{{l.notes}}</div>
 <a href="{{l.href}}" class="lnk">{{l.cta}}</a>
+<button class="aboard" aria-pressed="{{l.aboardOn}}" onClick="{{l.aboard}}">{{l.aboardLabel}}</button>
 </article>
 </sc-for>
 </div>
@@ -148,6 +152,24 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2000}}'>
 class Component extends DCLogic {
+  // ---- My Boat: kept on this device only (see Boat.dc.html) ----
+  boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? b : null; } catch (x) { return null; } }
+  boatHas(list, id) { var b = this.boatRead(); return !!(b && Array.isArray(b[list]) && b[list].some(function (g) { return g && g.id === id; })); }
+  boatToggle(list, item) {
+    var b = this.boatRead();
+    if (!b) { try { sessionStorage.setItem('rr.boat.pending', JSON.stringify({ list: list, item: item })); } catch (x) {} window.location.href = 'Boat.dc.html'; return; }
+    if (!Array.isArray(b[list])) { b[list] = []; }
+    var had = b[list].some(function (g) { return g && g.id === item.id; });
+    if (had && list === 'tending') { window.location.href = 'Boat.dc.html#tending'; return; }
+    b[list] = b[list].filter(function (g) { return !g || g.id !== item.id; });
+    if (!had) { var now = new Date().toISOString(), it = {}; for (var k in item) { it[k] = item[k]; } it.at = now; if (list === 'tending') { it.since = now; it.notes = []; } b[list].push(it); }
+    try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) {}
+    this.setState({ boatTick: (this.state.boatTick || 0) + 1 });
+  }
+  aboardFor(list, item) {
+    var self = this, on = this.boatHas(list, item.id), tend = list === 'tending';
+    return { aboardOn: on ? 'true' : 'false', aboardLabel: on ? (tend ? 'Tending in my Boat' : 'Aboard my Boat') : (tend ? 'Tend this in my Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
+  }
   constructor(props) { super(props); this.state = { fmt: 'all' }; }
 
   chipVals(opts, key) {
@@ -155,7 +177,7 @@ class Component extends DCLogic {
     return opts.map(function (o) { var on = cur === o[0]; return { label: o[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var s = {}; s[key] = o[0]; self.setState(s); } }; });
   }
   renderVals() {
-    var s = this.state;
+    var self = this, s = this.state;
     var L = [
  { "kind": "Peer support · online", "title": "Good Grief Network", "fmt": ["online"], "text": "Small peer-support groups that help people meet heavy feelings about the state of the world together, and turn them into meaningful action.", "notes": "Online · groups run through the year", "href": "https://www.goodgriefnetwork.org/", "cta": "Visit the Good Grief Network", "bg": "#E6E2F2" },
  { "kind": "Workshops and circles", "title": "The Work That Reconnects", "fmt": ["online", "person"], "text": "Gatherings rooted in the work of Joanna Macy: gratitude, honouring our pain for the world, seeing with new eyes, and going forth. Facilitators offer them around the world.", "notes": "Online and in person, worldwide", "href": "https://workthatreconnects.org/", "cta": "Visit the Work That Reconnects", "bg": "#CFE1E4" },
@@ -167,7 +189,7 @@ class Component extends DCLogic {
     var list = L.filter(function (l) { return s.fmt === 'all' || l.fmt.indexOf(s.fmt) >= 0; });
     return {
       fmtChips: this.chipVals([['all', 'All'], ['online', 'Online'], ['person', 'In person']], 'fmt'),
-      lakes: list.map(function (l, k) { return { idLink: /Relational ID/.test(l.title), kind: l.kind, title: l.title, text: l.text, notes: l.notes, href: l.href, cta: l.cta, bg: l.bg, cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') }; })
+      lakes: list.map(function (l, k) { var ab = self.aboardFor('gathered', { id: 'lake:' + l.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 60), title: l.title, kind: 'Lake · ' + l.kind, by: '', href: l.href }); return { aboardOn: ab.aboardOn, aboardLabel: ab.aboardLabel, aboard: ab.aboard, idLink: /Relational ID/.test(l.title), kind: l.kind, title: l.title, text: l.text, notes: l.notes, href: l.href, cta: l.cta, bg: l.bg, cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') }; })
     };
   }
 }

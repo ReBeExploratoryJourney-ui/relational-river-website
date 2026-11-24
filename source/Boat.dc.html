@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Relational River: my Boat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,400;0,700;1,400&amp;family=Jost:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);mask-image:url(/_blob/621b5e5167095299f6f29e7b96675bac);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);mask-image:url(/_blob/9949bcc23a8bf2593838a70af72f248c);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);mask-image:url(/_blob/232fefe1f5d15d4abbe5b6dde9a575e8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);mask-image:url(/_blob/16dc687d69c8a9da92896e785f4647a8);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/_blob/0aab009eb547b7652846ddf7be52a067)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.water{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font-family:Jost,sans-serif;font-size:17px;color:#2F2B28;background:transparent;border:none;padding:10px 12px;min-height:52px;cursor:pointer;border-radius:16px 20px 14px 22px}
+.water:hover{background:#EDE4D3}
+.water.on{background:#CFE1E4;font-weight:600}
+.dot{width:18px;height:18px;border-radius:48% 52% 46% 54%;border:2px solid #4F7A84;background:#F3ECDF;flex-shrink:0}
+.water.on .dot{background:#4F7A84}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+@media (max-width: 700px){
+.torn{-webkit-mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),linear-gradient(#000,#000)!important;mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,center!important;mask-position:top center,bottom center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+}
+@media (max-width: 700px){
+.vnav{position:relative;width:100%}
+.vgroup{position:static}
+.vmenu{left:0;right:0;min-width:0;width:auto}
+}
+/* Torn edges of a fixed, shallow depth on every side, so text is never covered. */
+.torn,.torn.tall{-webkit-mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),url(/_blob/c670d821c61bd5632427dd25511aefc5),url(/_blob/c6f17e04b860c11da92369e1279f3e80),linear-gradient(#000,#000)!important;mask-image:url(/_blob/09ceeae36cf3c1b66d92f6027bd916aa),url(/_blob/19506af6ec26f2d77dc8f8be13783a4e),url(/_blob/c670d821c61bd5632427dd25511aefc5),url(/_blob/c6f17e04b860c11da92369e1279f3e80),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,left center,right center,center!important;mask-position:top center,bottom center,left center,right center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+.hero{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.kick{font-size:14px;letter-spacing:0.12em;text-transform:uppercase;color:#9FD3DC}
+.h1{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:52px;letter-spacing:-0.03em;line-height:1}
+.lede{margin:0;font-size:19px;line-height:1.55;max-width:640px}
+.boatart{width:300px;max-width:100%;height:auto;flex:0 1 300px}
+.h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:32px;letter-spacing:-0.02em;line-height:1.1}
+.h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:22px;line-height:1.2}
+.h3.sm{font-size:19px}
+.p{margin:0;font-size:17px;line-height:1.55;max-width:760px}
+.p.fine{font-size:15px}
+.light{color:#EDEDED}
+.light a{color:#EDEDED}
+.k{font-size:13px;letter-spacing:0.1em;text-transform:uppercase}
+.minor{font-size:14px;font-style:italic}
+.flash{margin:0;background:#F5EEE1;color:#2F2B28;padding:14px 18px;border-radius:16px 20px 14px 22px;font-size:16px}
+.choices,.deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.choice,.card{padding:30px 30px 32px;display:flex;flex-direction:column;gap:12px}
+.choice .go{align-self:flex-start;margin-top:6px}
+.go[disabled]{opacity:0.7;cursor:default}
+.list{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:16px;line-height:1.5}
+.panel{padding:34px 36px 38px;display:flex;flex-direction:column;gap:14px}
+.lnk{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.answers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.alabel{font-size:14px;font-weight:600;letter-spacing:0.02em}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.tag{font-size:15px;background:#EFE6D6;padding:6px 12px;border-radius:14px 18px 12px 16px}
+.earlier summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:600}
+.earlier ul{margin:0;padding-left:20px;font-size:15px;line-height:1.6}
+.tend{background:rgba(251,247,239,0.72);border-radius:20px 26px 18px 28px;padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.field{font-family:Jost,sans-serif;font-size:17px;line-height:1.45;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:14px 18px 12px 16px;background:#FFFDF8;color:#2F2B28}
+.field:focus{outline:2px solid #4F7A84;outline-offset:1px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.sbtn{line-height:1.2;box-sizing:border-box;font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:#FBF7EF;border:1.5px solid #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 16px;min-height:44px;cursor:pointer;display:inline-flex;align-items:center}
+.sbtn:hover{background:#EFE6D6}
+.quiet{font-family:Jost,sans-serif;font-size:15px;color:#2F2B28;background:transparent;border:none;text-decoration:underline;text-underline-offset:4px;min-height:44px;padding:0 6px;cursor:pointer}
+.danger{color:#8A2E1F}
+.sbtn.danger{border-color:#8A2E1F}
+.sinkbox{background:#FBF7EF;border:1.5px dashed #8A2E1F;border-radius:18px 22px 16px 24px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.log{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.5}
+.log li{border-left:2px solid #8FAF7E;padding-left:12px}
+.when{display:block;font-size:13px;font-style:italic;color:#5A524B}
+.suggest{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.chip{font-family:Jost,sans-serif;font-size:15px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:8px 14px;min-height:44px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.chip.on{background:#E3D2F7;border-color:#2F2B28;font-weight:600}
+.dot{width:12px;height:12px;border-radius:48% 52% 46% 54%;display:inline-block;flex-shrink:0;border:1px solid rgba(47,43,40,0.5)}
+.constgrid{display:grid;grid-template-columns:minmax(260px,1.1fr) minmax(260px,1fr);gap:24px;align-items:start}
+.const{width:100%;height:auto;overflow:visible}
+.constform{display:flex;flex-direction:column;gap:10px}
+.starlist{margin:6px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
+.starlist li{display:flex;align-items:center;gap:12px;font-size:16px;padding:4px 0;border-bottom:1px dashed rgba(47,43,40,0.18)}
+.sk{display:block;font-size:13px}
+.starlist .sname{flex:1;min-width:0;overflow-wrap:anywhere}
+.gathered{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.gitem{background:rgba(251,247,239,0.8);border-radius:18px 24px 16px 26px;padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
+.filebtn:focus-within{outline:2px dashed #4F7A84;outline-offset:3px}
+@media (max-width: 760px){
+.h1{font-size:42px}
+.panel{padding:30px 22px 34px}
+.constgrid{grid-template-columns:1fr}
+.boatart{width:220px;flex-basis:220px}
+}
+</style>
+</helmet>
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="Welcome.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Seeing.dc.html"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="Springs.dc.html"><b>Springs</b><span>offerings to join soon</span></a><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="Islands.dc.html"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Estuary.dc.html"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="Groundwater.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="Boat.dc.html" class="vmine here">My Boat</a>
+</nav>
+</header>
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 36px">
+<section class="hero">
+<div style="display: flex; flex-direction: column; gap: 14px; flex: 1 1 520px">
+<div class="kick">Your Boat of Relational Being</div>
+<h1 class="h1">My Boat</h1>
+<p class="lede">Your own vessel on the River. It carries what you gather as you go: where you began, the practices you are tending, and the Beings and people in your “we”. Come back whenever you like. It fills in slowly, the way relationships do.</p>
+</div>
+<svg class="boatart" viewBox="0 0 300 190" role="img" aria-label="A small wooden boat resting on the River, with a sail and a lantern">
+<path d="M8 150 C 60 140, 100 160, 150 150 S 250 140, 292 152" fill="none" stroke="#9FD3DC" stroke-width="2.5" stroke-linecap="round"></path>
+<path d="M30 172 C 80 164, 120 178, 170 170 S 250 164, 280 174" fill="none" stroke="#4F7A84" stroke-width="2" stroke-linecap="round"></path>
+<path d="M62 128 C 96 150, 196 152, 236 126 L 222 146 C 190 162, 112 162, 78 147 Z" fill="#C79A6B" stroke="#F5EEE1" stroke-width="2" stroke-linejoin="round"></path>
+<path d="M150 128 L 150 36" stroke="#F5EEE1" stroke-width="3" stroke-linecap="round"></path>
+<path d="M154 42 C 186 64, 204 96, 206 120 L 154 120 Z" fill="#F5EEE1" opacity="0.92"></path>
+<path d="M146 54 C 124 72, 112 98, 110 120 L 146 120 Z" fill="#CFE1E4" opacity="0.85"></path>
+<circle cx="226" cy="112" r="5" fill="#F2D27A"></circle><circle cx="226" cy="112" r="12" fill="#F2D27A" opacity="0.18"></circle>
+</svg>
+</section>
+
+<sc-if value="{{flash}}" hint-placeholder-val="{{ false }}"><p class="flash" role="status">{{flash}}</p></sc-if>
+
+<sc-if value="{{noBoat}}" hint-placeholder-val="{{ true }}">
+<section style="display: flex; flex-direction: column; gap: 20px">
+<sc-if value="{{pending}}" hint-placeholder-val="{{ false }}"><p class="flash">Ready to bring aboard: <b>{{pendingTitle}}</b>. First, choose how your Boat is kept.</p></sc-if>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h2 class="h2">Launch your Boat</h2>
+<p class="p light">Choose how your Boat is kept. There is no wrong choice, and you can change your mind later.</p>
+</div>
+<div class="choices">
+<article class="torn tl choice" style="background: #F5EEE1">
+<div class="k">On this device</div>
+<h3 class="h3">Keep it on this phone or computer</h3>
+<ul class="list">
+<li>Nothing leaves your device, and no account is needed.</li>
+<li>It stays when you close or refresh the page.</li>
+<li>It is lost if you clear your browser’s data, browse privately, or switch devices. Safari on iPhone may also clear it after about a week without a visit.</li>
+<li>You can download a copy at any time, as a safety line.</li>
+</ul>
+<button class="go tornbtn" style="background: #C8D9B9" onClick="{{launchDevice}}">Launch my Boat here</button>
+</article>
+<article class="torn tr choice" style="background: #E6E2F2">
+<div class="k">With your email · opening soon</div>
+<h3 class="h3">Keep it with an IRB account</h3>
+<ul class="list">
+<li>Sign in with a one-time code sent to your email. There is no password to remember, and no one can open your Boat without access to your inbox.</li>
+<li>Your Boat sails with you, from phone to computer and back.</li>
+<li>The same account can also open ReBe, the Institute’s app, if you would like it to. You never need one to use the other.</li>
+<li>A Boat kept on a device can be moved into an account later, with nothing lost.</li>
+</ul>
+<button class="go tornbtn" style="background: #F5EEE1" disabled aria-disabled="true">Opening soon</button>
+</article>
+</div>
+<p class="p light fine">Either way, nothing is scored, nothing is sold, and you can sink your Boat (delete everything in it) at any time. <a href="Privacy.dc.html#boat">How your information is cared for</a></p>
+<p class="p light fine"><a href="Welcome.dc.html">Not now, I’ll wander the River</a></p>
+</section>
+</sc-if>
+
+<sc-if value="{{hasBoat}}" hint-placeholder-val="{{ false }}">
+<p class="p light" style="margin-top: -18px">{{sinceLine}}</p>
+<section class="deck">
+<article class="torn tl card" style="background: #E3D2F7">
+<div class="k">What comes round · {{roundKicker}}</div>
+<h3 class="h3">{{roundTitle}}</h3>
+<p class="p">{{roundText}}</p>
+<a href="{{roundHref}}" class="lnk">{{roundCta}}</a>
+</article>
+<article class="torn tr card" style="background: #F2D3BC">
+<div class="k">A next bend</div>
+<h3 class="h3">{{bendTitle}}</h3>
+<p class="p">{{bendText}}</p>
+<a href="{{bendHref}}" class="lnk">{{bendCta}}</a>
+</article>
+</section>
+
+<section id="began" class="torn tl panel" style="background: #FBF7EF">
+<div class="k">Where you began</div>
+<h2 class="h2 dark">Your answers at the Source</h2>
+<sc-if value="{{hasBegan}}" hint-placeholder-val="{{ false }}">
+<p class="p minor">Kept on {{beganDate}}</p>
+<div class="answers">
+<div><div class="alabel">How the world felt</div><div class="tags"><sc-for list="{{beganFeel}}" as="a" hint-placeholder-count="2"><span class="tag">{{a}}</span></sc-for></div></div>
+<div><div class="alabel">Beings you feel close to</div><div class="tags"><sc-for list="{{beganLove}}" as="a" hint-placeholder-count="2"><span class="tag">{{a}}</span></sc-for></div></div>
+<div><div class="alabel">How you like to take things in</div><div class="tags"><sc-for list="{{beganWay}}" as="a" hint-placeholder-count="2"><span class="tag">{{a}}</span></sc-for></div></div>
+</div>
+<sc-if value="{{hasEarlier}}" hint-placeholder-val="{{ false }}">
+<details class="earlier"><summary>Earlier answers ({{earlierCount}})</summary>
+<ul><sc-for list="{{earlier}}" as="e" hint-placeholder-count="2"><li><b>{{e.date}}</b> · {{e.summary}}</li></sc-for></ul>
+</details>
+</sc-if>
+<p class="p">Your answers will change, and that is part of the journey. Each time you return to the Source and keep your answers, the earlier ones stay here too.</p>
+<div><a href="Main.dc.html" class="go tornbtn" style="background: #CFE1E4">Return to the Source</a></div>
+</sc-if>
+<sc-if value="{{noBegan}}" hint-placeholder-val="{{ true }}">
+<p class="p">A few gentle questions help you find a way in. When you answer them, you can keep your answers here and see how they change over time.</p>
+<div><a href="Main.dc.html" class="go tornbtn" style="background: #CFE1E4">Begin at the Source</a></div>
+</sc-if>
+</section>
+
+<section id="tending" class="torn tr panel" style="background: #DCE6D2">
+<div class="k">What you’re tending</div>
+<h2 class="h2 dark">Practices you are staying with</h2>
+<sc-for list="{{tending}}" as="t" hint-placeholder-count="1">
+<article class="tend">
+<div class="k">{{t.kind}}</div>
+<h3 class="h3">{{t.title}}</h3>
+<div class="minor">Tending since {{t.since}} · {{t.noteCount}}</div>
+<label class="alabel" for="{{t.inputId}}">A line about what you noticed</label>
+<textarea id="{{t.inputId}}" class="field" rows="2" maxlength="600" value="{{t.draft}}" onChange="{{t.type}}" placeholder="{{t.hint}}"></textarea>
+<div class="row">
+<button class="sbtn" onClick="{{t.addNote}}">Add to my log</button>
+<a href="{{t.href}}" class="lnk">{{t.cta}}</a>
+<button class="quiet" onClick="{{t.setDown}}">Set this down</button>
+</div>
+<sc-if value="{{t.hasNotes}}" hint-placeholder-val="{{ false }}">
+<ol class="log"><sc-for list="{{t.notes}}" as="n" hint-placeholder-count="2"><li><span class="when">{{n.date}}</span>{{n.text}}</li></sc-for></ol>
+</sc-if>
+</article>
+</sc-for>
+<sc-if value="{{noTending}}" hint-placeholder-val="{{ true }}">
+<p class="p">Choose one small practice to stay with for a while. Coming back to the same Being, day after day, is how a relationship grows.</p>
+</sc-if>
+<div class="suggest">
+<div class="alabel">{{tendPrompt}}</div>
+<div class="tags"><sc-for list="{{suggestions}}" as="sg" hint-placeholder-count="3"><button class="chip" onClick="{{sg.add}}">{{sg.title}}</button></sc-for></div>
+<a href="Streams.dc.html" class="lnk">Find more in the Streams</a>
+</div>
+</section>
+
+<section id="constellation" class="torn tl panel" style="background: #FBF7EF">
+<div class="k">Your constellation</div>
+<h2 class="h2 dark">Who is in your “we”</h2>
+<p class="p">The Beings, places, foods, waters, ancestors and people you belong with. Add whoever comes to mind. It grows over time, and each new Moon is a good moment to look again.</p>
+<div class="constgrid">
+<svg class="const" viewBox="-30 0 460 360" role="img" aria-label="{{constAria}}">
+<sc-for list="{{stars}}" as="s" hint-placeholder-count="3"><path d="{{s.line}}" stroke="#8C7FB8" stroke-width="1.2" fill="none"></path></sc-for>
+<sc-for list="{{stars}}" as="s" hint-placeholder-count="3"><circle cx="{{s.x}}" cy="{{s.y}}" r="11" fill="{{s.fill}}" stroke="#5B4A8B" stroke-width="1.5"></circle><text x="{{s.tx}}" y="{{s.ty}}" text-anchor="{{s.anchor}}" font-family="Jost, sans-serif" font-size="15" fill="#2F2B28">{{s.short}}</text></sc-for>
+<circle cx="200" cy="180" r="20" fill="#5B4A8B"></circle>
+<text x="200" y="185" text-anchor="middle" font-family="Jost, sans-serif" font-size="14" font-weight="600" fill="#FBF7EF">you</text>
+</svg>
+<div class="constform">
+<label class="alabel" for="starName">A Being, place or person</label>
+<input id="starName" class="field" type="text" maxlength="40" value="{{starName}}" onChange="{{typeStar}}" placeholder="The old oak by the creek">
+<div class="alabel">They are…</div>
+<div class="tags"><sc-for list="{{kinds}}" as="kd" hint-placeholder-count="7"><button class="{{kd.cls}}" aria-pressed="{{kd.on}}" onClick="{{kd.pick}}"><span class="dot" style="background: {{kd.fill}}"></span>{{kd.label}}</button></sc-for></div>
+<div><button class="go tornbtn" style="background: #E3D2F7" onClick="{{addStar}}">Add to my constellation</button></div>
+<sc-if value="{{hasStars}}" hint-placeholder-val="{{ false }}">
+<ul class="starlist"><sc-for list="{{starList}}" as="s" hint-placeholder-count="3"><li><span class="dot" style="background: {{s.fill}}"></span><span class="sname">{{s.name}}<span class="minor sk">{{s.kindLabel}}</span></span><button class="quiet" aria-label="{{s.removeLabel}}" onClick="{{s.remove}}">let go</button></li></sc-for></ul>
+</sc-if>
+</div>
+</div>
+<p class="p minor">Inspired by Relational ID, an exploration from the Institute of Relational Being. <a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality">Read about Relational ID</a></p>
+</section>
+
+<section id="gathered" class="torn tr panel" style="background: #CFE1E4">
+<div class="k">Gathered along the way</div>
+<h2 class="h2 dark">What you have brought aboard</h2>
+<sc-if value="{{hasGathered}}" hint-placeholder-val="{{ false }}">
+<div class="gathered"><sc-for list="{{gathered}}" as="g" hint-placeholder-count="2">
+<article class="gitem">
+<div class="k">{{g.kind}}</div>
+<h3 class="h3 sm">{{g.title}}</h3>
+<sc-if value="{{g.hasBy}}" hint-placeholder-val="{{ false }}"><div class="minor">{{g.by}}</div></sc-if>
+<sc-if value="{{g.hasCloses}}" hint-placeholder-val="{{ false }}"><div class="minor"><b>{{g.closes}}</b></div></sc-if>
+<div class="row"><a href="{{g.href}}" class="lnk">Open</a><button class="quiet" onClick="{{g.remove}}">Let go</button></div>
+</article>
+</sc-for></div>
+</sc-if>
+<sc-if value="{{noGathered}}" hint-placeholder-val="{{ true }}">
+<p class="p">As you explore the River, look for <b>Bring aboard</b> on springs, practices, circles and projects. They gather here, ready for when you are.</p>
+<div class="row"><a href="Springs.dc.html" class="lnk">Springs</a><a href="Lakes.dc.html" class="lnk">Lakes</a><a href="Ocean.dc.html" class="lnk">Ocean</a></div>
+</sc-if>
+</section>
+
+<section id="keeping" class="torn tl panel" style="background: #F5EEE1">
+<div class="k">Keeping your Boat</div>
+<h2 class="h2 dark">How your Boat is kept</h2>
+<p class="p">{{keptLine}}</p>
+<ul class="list">
+<li>It stays when you close or refresh the page.</li>
+<li>It is lost if you clear your browser’s data, browse privately, or switch devices. Safari on iPhone may also clear it after about a week without a visit, so a downloaded copy is a good safety line.</li>
+</ul>
+<div class="row">
+<button class="sbtn" onClick="{{download}}">Download a copy</button>
+<label class="sbtn filebtn">Restore from a copy<input type="file" accept="application/json,.json" onChange="{{restore}}"></label>
+</div>
+<label class="alabel" for="boatName">Every boat has a name (optional)</label>
+<div class="row"><input id="boatName" class="field" style="max-width: 320px" type="text" maxlength="40" value="{{boatName}}" onChange="{{typeName}}" placeholder="Heron"><button class="sbtn" onClick="{{saveName}}">Name my Boat</button></div>
+<p class="p"><b>Keeping it with your email is opening soon.</b> When it opens, you will be able to move this Boat into an IRB account, with nothing lost, and open it from any device.</p>
+<sc-if value="{{notSinking}}" hint-placeholder-val="{{ true }}"><div><button class="quiet danger" onClick="{{askSink}}">Sink my Boat</button></div></sc-if>
+<sc-if value="{{sinking}}" hint-placeholder-val="{{ false }}">
+<div class="sinkbox" role="alertdialog" aria-label="Sink my Boat">
+<p class="p">This deletes everything in your Boat on this device, and it cannot be undone. You may like to download a copy first.</p>
+<div class="row"><button class="sbtn danger" onClick="{{sink}}">Yes, sink my Boat</button><button class="sbtn" onClick="{{cancelSink}}">Keep sailing</button></div>
+</div>
+</sc-if>
+</section>
+
+<section class="torn tr panel" style="background: #E6E2F2">
+<div class="k">Your circles</div>
+<h2 class="h2 dark">Gather with others on Hylo</h2>
+<p class="p">Hylo is a not-for-profit community platform where many circles and projects meet. The Institute of Relational Being’s group there is a place to talk with others exploring the River.</p>
+<div class="row"><a href="https://www.hylo.com/groups/institute-of-relational-being" class="go tornbtn" style="background: #F5EEE1">Join IRB on Hylo</a><a href="Hylo.dc.html" class="lnk">More about Hylo</a></div>
+</section>
+</sc-if>
+</main>
+
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/_blob/e8c0fc7b44ab44f6fd08f8a17c9a0149" alt="" style="width: 64px; height: 64px; display: block"></a><span>An open commons tended by the Institute of Relational Being, with gratitude to every project it points to.</span><a href="Privacy.dc.html" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a><a href="AI.dc.html" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">How the River uses AI</a></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, prev: null };
+  }
+  // ---- keeping the Boat (on this device only) ----
+  boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? this.boatClean(b) : null; } catch (x) { return null; } }
+  boatWrite(b) { try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); return true; } catch (x) { return false; } }
+  boatClean(b) {
+    var arr = function (v, n) { return Array.isArray(v) ? v.slice(-n) : []; };
+    var str = function (v, n) { return typeof v === 'string' ? v.slice(0, n) : ''; };
+    var href = function (h) { h = str(h, 400); return /^(https:\/\/|http:\/\/|\/(?!\/)|[A-Za-z]+\.dc\.html|#)/.test(h) ? h : ''; };
+    var item = function (g) { return g && typeof g === 'object' ? { id: str(g.id, 120), title: str(g.title, 140), kind: str(g.kind, 60), by: str(g.by, 120), href: href(g.href), closes: str(g.closes, 10), at: str(g.at, 30), since: str(g.since, 30), cta: str(g.cta, 60), notes: arr(g.notes, 300).filter(function (n) { return n && typeof n.text === 'string'; }).map(function (n) { return { at: str(n.at, 30), text: str(n.text, 600) }; }) } : null; };
+    return {
+      v: 1, kind: 'device', launched: str(b.launched, 30), name: str(b.name, 40),
+      began: arr(b.began, 40).filter(function (x) { return x && typeof x === 'object'; }).map(function (x) { var l = function (v) { return arr(v, 10).filter(function (s) { return typeof s === 'string'; }).map(function (s) { return s.slice(0, 40); }); }; return { at: str(x.at, 30), feel: l(x.feel), love: l(x.love), way: l(x.way) }; }),
+      tending: arr(b.tending, 30).map(item).filter(function (g) { return g && g.id; }),
+      stars: arr(b.stars, 80).filter(function (s) { return s && typeof s.name === 'string'; }).map(function (s) { return { id: str(s.id, 40), name: str(s.name, 40), kind: str(s.kind, 20) }; }),
+      gathered: arr(b.gathered, 120).map(item).filter(function (g) { return g && g.id; }),
+      seen: { last: str(b.seen && b.seen.last, 30) }
+    };
+  }
+  save(b, flash) { var ok = this.boatWrite(b); this.setState({ boat: b, flash: ok ? (flash || '') : 'Your browser did not let the River save this. If you are browsing privately, your Boat cannot be kept on this device.' }); }
+  componentDidMount() {
+    var b = this.boatRead(), pend = null;
+    try { pend = JSON.parse(sessionStorage.getItem('rr.boat.pending') || 'null'); } catch (x) {}
+    var prev = b && b.seen ? b.seen.last : null;
+    if (b) {
+      b.seen = { last: new Date().toISOString() };
+      var msg = '';
+      if (pend) { msg = this.addPending(b, pend); try { sessionStorage.removeItem('rr.boat.pending'); } catch (x) {} pend = null; }
+      this.boatWrite(b);
+      this.setState({ boat: b, prev: prev, flash: msg, boatName: b.name || '' });
+    } else if (pend) {
+      this.setState({ pending: pend });
+    }
+  }
+  addPending(b, pend) {
+    var now = new Date().toISOString();
+    if (pend.list === 'began' && pend.item) { b.began.push({ at: now, feel: pend.item.feel || [], love: pend.item.love || [], way: pend.item.way || [] }); return 'Your answers from the Source are now in your Boat.'; }
+    var list = pend.list === 'tending' ? 'tending' : 'gathered', it = pend.item || {};
+    if (!it.id) { return ''; }
+    b[list] = b[list].filter(function (g) { return g.id !== it.id; });
+    it.at = now; if (list === 'tending') { it.since = now; it.notes = []; }
+    b[list].push(it);
+    return list === 'tending' ? '“' + it.title + '” is now among the practices you are tending.' : '“' + it.title + '” is now aboard.';
+  }
+  // ---- dates and turning points ----
+  day(iso) { try { return new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }); } catch (x) { return ''; } }
+  round() {
+    var syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14) / 86400000, now = Date.now() / 86400000;
+    var age = ((now - ref) % syn + syn) % syn;
+    var y = new Date().getUTCFullYear(), turns = [];
+    [y - 1, y, y + 1].forEach(function (yy) { turns.push([Date.UTC(yy, 2, 20), 'March equinox'], [Date.UTC(yy, 5, 21), 'June solstice'], [Date.UTC(yy, 8, 22), 'September equinox'], [Date.UTC(yy, 11, 21), 'December solstice']); });
+    var near = turns.filter(function (t) { return Math.abs(t[0] / 86400000 - now) <= 3; })[0];
+    if (near) { return { k: near[1], t: 'The season is turning', x: 'A good moment to look back at where you began and notice what has changed since. You can return to the Source and keep fresh answers beside the old ones.', h: 'Main.dc.html', c: 'Return to the Source' }; }
+    if (age < 1.5 || age > syn - 1.5) { return { k: 'New Moon', t: 'A new Moon, a quiet beginning', x: 'A good night to add someone to your constellation, or to set a small intention for a practice you are tending.', h: '#constellation', c: 'Add to my constellation' }; }
+    if (Math.abs(age - syn / 2) < 1.5) { return { k: 'Full Moon', t: 'Moon is full', x: 'Step outside tonight, meet Moon, and make a picture together.', h: 'Moon.dc.html', c: 'Making with Moon' }; }
+    var toFull = age < syn / 2 ? syn / 2 - age : syn + syn / 2 - age, toNew = syn - age;
+    var full = toFull <= toNew, n = Math.max(1, Math.round(full ? toFull : toNew));
+    return { k: 'Moon', t: 'The next ' + (full ? 'full' : 'new') + ' Moon is in ' + n + (n === 1 ? ' day' : ' days'), x: 'Turning points come round, like the water in an eddy. When they do, your Boat will have an invitation waiting.', h: 'Moon.dc.html', c: 'About Moon and the tides' };
+  }
+  bend(b) {
+    var now = Date.now();
+    if (!b.began.length) { return { t: 'Begin at the Source', x: 'A minute of gentle questions, to find where you might like to start. Keep your answers here if you wish.', h: 'Main.dc.html', c: 'Begin at the Source' }; }
+    if (!b.tending.length) { return { t: 'Choose one small practice', x: 'Pick a practice to stay with for a while, like sitting with the same tree each day. Your Boat keeps a log as you go.', h: '#tending', c: 'Choose a practice' }; }
+    var quiet = b.tending.filter(function (t) { var last = t.notes.length ? t.notes[t.notes.length - 1].at : t.since; return now - new Date(last).getTime() > 5 * 86400000; })[0];
+    if (quiet) { return { t: 'Back to “' + quiet.title + '”', x: 'It has been a few days. Go back when you can, and add a line about what you notice. Small changes count.', h: '#tending', c: 'Add to my log' }; }
+    if (b.stars.length < 3) { return { t: 'Add to your constellation', x: 'Who else is in your “we”? A tree, a creek, a grandmother, the bread you love. Add one or two.', h: '#constellation', c: 'Add to my constellation' }; }
+    var soon = b.gathered.filter(function (g) { if (!g.closes) { return false; } var d = (new Date(g.closes + 'T23:59:59').getTime() - now) / 86400000; return d >= 0 && d <= 14; })[0];
+    if (soon) { return { t: soon.title + ' closes soon', x: 'Doors close on ' + this.day(soon.closes + 'T12:00:00') + '. If it still calls to you, now is the time.', h: soon.href || 'Springs.dc.html', c: 'Have a look' }; }
+    var way = (b.began[b.began.length - 1] || {}).way || [];
+    if (way.indexOf('others') >= 0) { return { t: 'Slow down with others', x: 'The Lakes hold circles and gatherings, online and in person, where you can share what you are noticing.', h: 'Lakes.dc.html', c: 'Visit the Lakes' }; }
+    if (way.indexOf('doing') >= 0) { return { t: 'Meet the people near you', x: 'Local currents point to groups already tending the place where you live.', h: 'LocalCurrents.dc.html', c: 'Open local currents' }; }
+    return { t: 'Follow the water a little further', x: 'When you feel ready, the Tributaries hold films, talks and readings that help these times make sense.', h: 'Tributary.dc.html', c: 'Open the Tributaries' };
+  }
+  // ---- render ----
+  renderVals() {
+    var self = this, s = this.state, b = s.boat;
+    var LABEL = { curious: 'Curious', worried: 'Worried', numb: 'Numb', overwhelmed: 'Overwhelmed', hopeful: 'Hopeful', rather: 'Rather not think about it', tree: 'A tree', water: 'Water', garden: 'A garden', animals: 'Animals and birds', sky: 'The sky and Moon', park: 'A city park', watching: 'Watching', reading: 'Reading', listening: 'Listening', doing: 'Doing', others: 'Being with others' };
+    var lab = function (l) { return (l || []).map(function (k) { return LABEL[k] || k; }); };
+    var KINDS = [['being', 'A Being', '#A9C79A'], ['place', 'A place', '#D9B48F'], ['water', 'A water', '#9FD3DC'], ['food', 'A food', '#E8C77A'], ['ancestor', 'An ancestor', '#B9A3D9'], ['people', 'A person or people', '#E8A598'], ['other', 'Something else', '#D8D2C8']];
+    var KIND = {}; KINDS.forEach(function (k) { KIND[k[0]] = k; });
+    var out = { flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : (s.pending.item && s.pending.item.title) || '') : '',
+      launchDevice: function () {
+        var nb = { v: 1, kind: 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], seen: { last: new Date().toISOString() } };
+        var msg = 'Your Boat is launched, here on this device.';
+        if (s.pending) { var m2 = self.addPending(nb, s.pending); if (m2) { msg += ' ' + m2; } try { sessionStorage.removeItem('rr.boat.pending'); } catch (x) {} }
+        self.setState({ pending: null }); self.save(nb, msg);
+        try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {}
+      }
+    };
+    if (!b) { return out; }
+    var r = this.round(), bd = this.bend(b);
+    var prevDays = s.prev ? Math.floor((Date.now() - new Date(s.prev).getTime()) / 86400000) : null;
+    var aboard = b.name ? 'aboard ' + b.name : 'aboard';
+    out.sinceLine = prevDays === null ? 'Welcome ' + aboard + '. Your Boat was launched on ' + this.day(b.launched) + '.' : 'Welcome back ' + aboard + '. You were last here ' + (prevDays === 0 ? 'earlier today' : prevDays === 1 ? 'yesterday' : prevDays + ' days ago') + '.';
+    out.roundKicker = r.k; out.roundTitle = r.t; out.roundText = r.x; out.roundHref = r.h; out.roundCta = r.c;
+    out.bendTitle = bd.t; out.bendText = bd.x; out.bendHref = bd.h; out.bendCta = bd.c;
+    // where you began
+    var last = b.began[b.began.length - 1];
+    out.hasBegan = !!last; out.noBegan = !last;
+    if (last) {
+      out.beganDate = this.day(last.at); out.beganFeel = lab(last.feel); out.beganLove = lab(last.love); out.beganWay = lab(last.way);
+      ['beganFeel', 'beganLove', 'beganWay'].forEach(function (k) { if (!out[k].length) { out[k] = ['Nothing chosen']; } });
+      var earlier = b.began.slice(0, -1).reverse();
+      out.hasEarlier = earlier.length > 0; out.earlierCount = earlier.length;
+      out.earlier = earlier.map(function (e) { return { date: self.day(e.at), summary: lab(e.feel).concat(lab(e.love), lab(e.way)).join(', ') || 'Nothing chosen' }; });
+    }
+    // tending
+    var HINT = ['The oak had new leaves today…', 'The creek was louder after the rain…', 'Moon rose late, orange over the hill…', 'A wren visited while I sat…'];
+    out.tending = b.tending.slice().reverse().map(function (t, i) {
+      var key = t.id;
+      return { kind: t.kind || 'Practice', title: t.title, since: self.day(t.since || t.at), noteCount: t.notes.length === 1 ? '1 line in your log' : t.notes.length + ' lines in your log', inputId: 'note-' + i, hint: HINT[i % HINT.length],
+        draft: s.drafts[key] || '', href: t.href || 'Streams.dc.html', cta: t.cta || 'How to practise',
+        type: function (e) { var d = {}; for (var k in self.state.drafts) { d[k] = self.state.drafts[k]; } d[key] = e && e.target ? e.target.value : ''; self.state.drafts = d; },
+        addNote: function () {
+          var text = (self.state.drafts[key] || '').trim(); if (!text) { var el = document.getElementById('note-' + i); if (el) { el.focus(); } return; }
+          var nb = self.boatRead() || b; nb.tending.forEach(function (x) { if (x.id === key) { x.notes.push({ at: new Date().toISOString(), text: text.slice(0, 600) }); } });
+          var d = {}; for (var k in self.state.drafts) { d[k] = self.state.drafts[k]; } d[key] = ''; self.state.drafts = d;
+          self.save(nb, '');
+        },
+        setDown: function () { var nb = self.boatRead() || b; nb.tending = nb.tending.filter(function (x) { return x.id !== key; }); self.save(nb, '“' + t.title + '” has been set down. You can pick it up again any time.'); },
+        hasNotes: t.notes.length > 0, notes: t.notes.slice().reverse().map(function (n) { return { date: self.day(n.at), text: n.text }; }) };
+    });
+    out.noTending = !b.tending.length;
+    var SUG = [
+      { id: 'stream:sit', title: 'Return to the same place', kind: 'Sit Spot', href: 'Streams.dc.html', cta: 'How to practise' },
+      { id: 'stream:water', title: 'Listen to water', kind: 'Listening', href: 'Streams.dc.html', cta: 'How to practise' },
+      { id: 'stream:moon', title: 'Meet Moon at new and full Moon', kind: 'Making with Moon', href: 'Moon.dc.html', cta: 'See when the next full Moon is' },
+      { id: 'eddy:spiral', title: 'Begin with gratitude', kind: 'Gratitude', href: 'Eddies.dc.html', cta: 'How to practise' }
+    ];
+    var have = {}; b.tending.forEach(function (t) { have[t.id] = 1; });
+    out.suggestions = SUG.filter(function (g) { return !have[g.id]; }).map(function (g) { return { title: g.title, add: function () { var nb = self.boatRead() || b; var it = {}; for (var k in g) { it[k] = g[k]; } self.addPending(nb, { list: 'tending', item: it }); self.save(nb, '“' + g.title + '” is now among the practices you are tending.'); } }; });
+    out.tendPrompt = b.tending.length ? 'Or pick up another:' : 'A few to begin with:';
+    // constellation
+    var n = b.stars.length, shown = b.stars.slice(0, 20);
+    var one = shown.length <= 9;
+    out.stars = shown.map(function (st, i) {
+      var ring = one ? 0 : (i < 7 ? 0 : 1), idx = ring ? i - 7 : i, count = one ? shown.length : (ring ? shown.length - 7 : 7);
+      var R = one ? 104 : (ring ? 146 : 82), off = -Math.PI / 2 + (ring ? Math.PI / count : 0);
+      var h = 0; for (var c = 0; c < st.id.length; c++) { h = (h * 31 + st.id.charCodeAt(c)) % 997; }
+      var a = off + (2 * Math.PI * idx) / count + ((h % 9) - 4) * 0.015;
+      var rr = R + ((h % 7) - 3) * 2, x = 200 + Math.cos(a) * rr, y = 180 + Math.sin(a) * rr * 0.84, cx = Math.cos(a), sy = Math.sin(a);
+      var k = KIND[st.kind] || KIND.other, short = st.name.length > 15 ? st.name.slice(0, 14) + '…' : st.name;
+      var side = cx > 0.3 ? 1 : cx < -0.3 ? -1 : 0;
+      var mx = (200 + x) / 2 + (h % 5 - 2) * 4, my = (180 + y) / 2 + (h % 3 - 1) * 4;
+      return { x: x.toFixed(1), y: y.toFixed(1), fill: k[2], short: short, anchor: side > 0 ? 'start' : side < 0 ? 'end' : 'middle', tx: (x + side * 15).toFixed(1), ty: (y + (side ? 5 : sy < 0 ? -16 : 28)).toFixed(1),
+        line: 'M200 180 Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1) };
+    });
+    out.constAria = n ? 'Your constellation: you in the centre, joined to ' + b.stars.map(function (x) { return x.name; }).join(', ') : 'Your constellation: just you in the centre, for now';
+    out.hasStars = n > 0;
+    out.starList = b.stars.slice().reverse().map(function (st) { var k = KIND[st.kind] || KIND.other; return { name: st.name, fill: k[2], kindLabel: k[1], removeLabel: 'Let go of ' + st.name, remove: function () { var nb = self.boatRead() || b; nb.stars = nb.stars.filter(function (x) { return x.id !== st.id; }); self.save(nb, ''); } }; });
+    out.starName = s.starName;
+    out.typeStar = function (e) { self.state.starName = e && e.target ? e.target.value : ''; };
+    out.kinds = KINDS.map(function (k) { var on = s.starKind === k[0]; return { label: k[1], fill: k[2], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ starKind: k[0], starName: self.state.starName }); } }; });
+    out.addStar = function () {
+      var name = (self.state.starName || '').trim(); if (!name) { var el = document.getElementById('starName'); if (el) { el.focus(); } return; }
+      var nb = self.boatRead() || b; nb.stars.push({ id: 's' + Date.now().toString(36) + Math.floor(Math.random() * 1e4).toString(36), name: name.slice(0, 40), kind: self.state.starKind });
+      self.state.starName = ''; var el2 = document.getElementById('starName'); if (el2) { el2.value = ''; }
+      self.save(nb, '');
+    };
+    // gathered
+    out.gathered = b.gathered.slice().reverse().map(function (g) {
+      var closes = '';
+      if (g.closes) { var d = Math.ceil((new Date(g.closes + 'T23:59:59').getTime() - Date.now()) / 86400000); closes = d < 0 ? 'Doors have closed' : d === 0 ? 'Doors close today' : 'Doors close ' + self.day(g.closes + 'T12:00:00'); }
+      return { kind: g.kind || 'Offering', title: g.title, by: g.by, hasBy: !!g.by, closes: closes, hasCloses: !!closes, href: g.href || '#', remove: function () { var nb = self.boatRead() || b; nb.gathered = nb.gathered.filter(function (x) { return x.id !== g.id; }); self.save(nb, ''); } };
+    });
+    out.hasGathered = b.gathered.length > 0; out.noGathered = !b.gathered.length;
+    // keeping
+    out.keptLine = 'Your Boat is kept on this device only, since ' + this.day(b.launched) + '. Nothing in it has been sent to the Institute of Relational Being or anyone else.';
+    out.download = function () {
+      try {
+        var blob = new Blob([JSON.stringify(self.boatRead() || b, null, 2)], { type: 'application/json' });
+        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'my-boat-' + new Date().toISOString().slice(0, 10) + '.json';
+        document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+        self.setState({ flash: 'A copy of your Boat has been downloaded. Keep it somewhere safe; it holds your notes and constellation.' });
+      } catch (x) { self.setState({ flash: 'This browser could not download a copy.' }); }
+    };
+    out.restore = function (e) {
+      var f = e && e.target && e.target.files && e.target.files[0]; if (!f) { return; }
+      var rd = new FileReader();
+      rd.onload = function () {
+        try { var data = JSON.parse(rd.result); if (!data || data.v !== 1) { throw new Error('no'); } var nb = self.boatClean(data); nb.seen = { last: new Date().toISOString() }; self.save(nb, 'Your Boat has been restored from your copy.'); self.setState({ boatName: nb.name || '' }); }
+        catch (x) { self.setState({ flash: 'That file does not look like a copy of a Boat.' }); }
+        try { e.target.value = ''; } catch (x) {}
+      };
+      rd.readAsText(f);
+    };
+    out.boatName = s.boatName;
+    out.typeName = function (e) { self.state.boatName = e && e.target ? e.target.value : ''; };
+    out.saveName = function () { var nb = self.boatRead() || b; nb.name = (self.state.boatName || '').trim().slice(0, 40); self.save(nb, nb.name ? 'Your Boat is now called ' + nb.name + '.' : 'Your Boat has no name for now.'); };
+    out.notSinking = !s.sinking; out.sinking = s.sinking;
+    out.askSink = function () { self.setState({ sinking: true }); };
+    out.cancelSink = function () { self.setState({ sinking: false }); };
+    out.sink = function () { try { localStorage.removeItem('rr.boat.v1'); } catch (x) {} self.setState({ boat: null, sinking: false, prev: null, boatName: '', flash: 'Your Boat has been sunk. Everything in it has been deleted from this device.' }); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {} };
+    return out;
+  }
+}
+</script>
+</body>
+</html>

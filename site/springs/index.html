@@ -74,6 +74,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 }
 /* Torn edges of a fixed, shallow depth on every side, so text is never covered. */
 .torn,.torn.tall{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,left center,right center,center!important;mask-position:top center,bottom center,left center,right center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+.aboard{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:rgba(251,247,239,0.55);border:1.5px dashed #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start;display:inline-flex;align-items:center;gap:8px}
+.aboard:hover{background:rgba(251,247,239,0.9)}
+.aboard[aria-pressed="true"]{border-style:solid;background:#2F2B28;color:#FBF7EF}
 </style>
 <style>body{background:#0E2849}</style>
 </head>
@@ -89,7 +92,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/streams"><b>Streams</b><span>small practices for ordinary days</span></a><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/ways-of-seeing"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="/eddies"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="/moon"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="/capital-journey"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
 <div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="/springs"><b>Springs</b><span>offerings to join soon</span></a><a href="/lakes"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="/islands"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="/well"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/estuary"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="/groundwater"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
-<a href="/my-river" class="vmine">My river</a>
+<a href="/boat" class="vmine">My Boat</a>
 </nav>
 </header>
 
@@ -118,6 +121,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="minor">{{s.when}} · {{s.where}} · in {{s.lang}}</div>
 <div class="minor"><b>{{s.cost}}</b><sc-if value="{{s.noticed}}" hint-placeholder-val="{{ false }}"> · Noticed by the River</sc-if></div>
 <a href="{{s.href}}" class="lnk">{{s.cta}}</a>
+<button class="aboard" aria-pressed="{{s.aboardOn}}" onClick="{{s.aboard}}">{{s.aboardLabel}}</button>
 </article>
 </sc-for>
 </div>
@@ -157,6 +161,24 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2000}}'>
 class Component extends DCLogic {
+  // ---- My Boat: kept on this device only (see /boat) ----
+  boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? b : null; } catch (x) { return null; } }
+  boatHas(list, id) { var b = this.boatRead(); return !!(b && Array.isArray(b[list]) && b[list].some(function (g) { return g && g.id === id; })); }
+  boatToggle(list, item) {
+    var b = this.boatRead();
+    if (!b) { try { sessionStorage.setItem('rr.boat.pending', JSON.stringify({ list: list, item: item })); } catch (x) {} window.location.href = '/boat'; return; }
+    if (!Array.isArray(b[list])) { b[list] = []; }
+    var had = b[list].some(function (g) { return g && g.id === item.id; });
+    if (had && list === 'tending') { window.location.href = '/boat#tending'; return; }
+    b[list] = b[list].filter(function (g) { return !g || g.id !== item.id; });
+    if (!had) { var now = new Date().toISOString(), it = {}; for (var k in item) { it[k] = item[k]; } it.at = now; if (list === 'tending') { it.since = now; it.notes = []; } b[list].push(it); }
+    try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) {}
+    this.setState({ boatTick: (this.state.boatTick || 0) + 1 });
+  }
+  aboardFor(list, item) {
+    var self = this, on = this.boatHas(list, item.id), tend = list === 'tending';
+    return { aboardOn: on ? 'true' : 'false', aboardLabel: on ? (tend ? 'Tending in my Boat' : 'Aboard my Boat') : (tend ? 'Tend this in my Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
+  }
   constructor(props) { super(props); this.state = { fmt: 'all', cost: 'all' }; }
   componentDidMount() { var self = this; try { fetch('/data/springs.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.springs) { self.setState({ data: d.springs }); } }).catch(function () {}); } catch (e) {} }
   chipVals(opts, key) {
@@ -164,7 +186,7 @@ class Component extends DCLogic {
     return opts.map(function (o) { var on = cur === o[0]; return { label: o[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var s = {}; s[key] = o[0]; self.setState(s); } }; });
   }
   renderVals() {
-    var st = this.state;
+    var self = this, st = this.state;
     var S = st.data || /*SPRINGS*/[{"id": "trp-lisbon", "host": "Regenesis Institute for Regenerative Practice", "hostHref": "https://www.regenerat.es/", "title": "The Regenerative Practitioner, Lisbon cohort", "kind": "Six-month cohort", "fmt": "hybrid", "when": "January to June 2027", "where": "Online, with a three-day intensive at Gandum Village, near Lisbon", "lang": "English", "text": "Learn regenerative development by working with a real project, alongside practitioners from many places and fields. Open to people anywhere, with a special welcome for Europe and Portugal. Co-taught by Nuno da Silva and Constança Belchior of Lucida. Sliding-scale discounts and scholarships are offered.", "closes": "2026-12-11", "href": "https://www.regenerat.es/trp/", "cta": "Learn more and enrol", "theme": "land", "cost": "paid", "costNote": "Paid, with sliding scale and scholarships", "found": "Shared by Jyo, from the Regenesis newsletter"}, {"id": "trp-quebec", "host": "Regenesis Institute for Regenerative Practice", "hostHref": "https://www.regenerat.es/", "title": "Développement Régénératif en Pratique, Québec", "kind": "Six-month cohort, in French", "fmt": "hybrid", "when": "January to June 2027", "where": "Online, with a three-day intensive at Centre de Vie, Petite Nation, Québec", "lang": "French", "text": "The same journey in regenerative practice, offered in French for French-speaking practitioners worldwide, with a special welcome for the Franco-Canadian community.", "closes": "2026-12-18", "href": "https://www.regenerat.es/trp/", "cta": "En savoir plus", "theme": "land", "cost": "paid", "costNote": "Paid, with sliding scale and scholarships", "found": "Shared by Jyo, from the Regenesis newsletter"}, {"id": "trp-vancouver", "host": "Regenesis Institute for Regenerative Practice", "hostHref": "https://www.regenerat.es/", "title": "The Regenerative Practitioner, Vancouver cohort", "kind": "Six-month cohort", "fmt": "hybrid", "when": "February to July 2027", "where": "Online, with a three-day intensive in Vancouver, Canada", "lang": "English", "text": "Open to practitioners anywhere, with a special welcome for people in British Columbia.", "closes": "2027-02-05", "href": "https://www.regenerat.es/trp/", "cta": "Learn more and enrol", "theme": "land", "cost": "paid", "costNote": "Paid, with sliding scale and scholarships", "found": "Shared by Jyo, from the Regenesis newsletter"}, {"id": "trp-americas", "host": "Regenesis Institute for Regenerative Practice", "hostHref": "https://www.regenerat.es/", "title": "The Regenerative Practitioner, online for the Americas", "kind": "Six-month cohort", "fmt": "online", "when": "March to August 2027", "where": "Online, including the closing intensive", "lang": "English", "text": "The whole journey online, for practitioners based in the Americas.", "closes": "2027-02-19", "href": "https://www.regenerat.es/trp/", "cta": "Learn more and enrol", "theme": "land", "cost": "paid", "costNote": "Paid, with sliding scale and scholarships", "found": "Shared by Jyo, from the Regenesis newsletter"}, {"id": "biofi-deepdive-2026-12", "host": "The BioFi Project", "hostHref": "https://thebiofiproject.substack.com/", "title": "BioFi Deep Dive: building farmer-owned regenerative supply systems", "kind": "Online conversation", "fmt": "online", "when": "Monday 14 December 2026, 11:30am to 1pm Eastern (8:30 to 10am Pacific)", "where": "Online, on Zoom", "lang": "English", "text": "The last BioFi Deep Dive of 2026, with Luke Smith, co-founder of Origins Co-op. Origins is building farmer-owned market infrastructure with around 500 smallholder farmers in southern Thailand who are turning rubber plantations into diverse agroforests. A rich look at how whole watersheds could move to regenerative farming together.", "closes": "2026-12-14", "href": "https://luma.com/cbwva99a", "cta": "Register for the Deep Dive", "theme": "money", "cost": "open", "costNote": "Register on their event page", "found": "Shared by Jyo, from the BioFi Project newsletter"}]/*END SPRINGS*/;
     var now = new Date(), today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
     var BG = ['#F5E3B0', '#CFE1E4', '#DCE6D2', '#E6E2F2', '#F2D3BC'];
@@ -178,7 +200,8 @@ class Component extends DCLogic {
       none: list.length === 0,
       springs: list.map(function (o, k) {
         var d = o.days, left = d === 0 ? 'Closes today' : (d === 1 ? 'Closes tomorrow' : (d <= 21 ? 'Closes in ' + d + ' days · ' + fmtDate(o.c) : 'Open until ' + fmtDate(o.c)));
-        return { left: left, kind: o.s.kind, title: o.s.title, host: o.s.host, hostHref: o.s.hostHref, text: o.s.text, when: o.s.when, where: o.s.where, lang: o.s.lang, cost: o.s.costNote || ({ free: 'Free', gift: 'By donation', paid: 'Paid' }[o.s.cost] || ''), noticed: !!o.s.noticed, href: o.s.href, cta: o.s.cta, bg: BG[k % BG.length], cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') + (d <= 21 ? ' soonest' : '') };
+        var ab = self.aboardFor('gathered', { id: 'spring:' + o.s.id, title: o.s.title, kind: 'Spring · ' + o.s.kind, by: o.s.host, href: o.s.href, closes: o.s.closes || '' });
+        return { aboardOn: ab.aboardOn, aboardLabel: ab.aboardLabel, aboard: ab.aboard, left: left, kind: o.s.kind, title: o.s.title, host: o.s.host, hostHref: o.s.hostHref, text: o.s.text, when: o.s.when, where: o.s.where, lang: o.s.lang, cost: o.s.costNote || ({ free: 'Free', gift: 'By donation', paid: 'Paid' }[o.s.cost] || ''), noticed: !!o.s.noticed, href: o.s.href, cta: o.s.cta, bg: BG[k % BG.length], cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') + (d <= 21 ? ' soonest' : '') };
       })
     };
   }

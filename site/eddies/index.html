@@ -72,6 +72,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 }
 /* Torn edges of a fixed, shallow depth on every side, so text is never covered. */
 .torn,.torn.tall{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,left center,right center,center!important;mask-position:top center,bottom center,left center,right center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+.aboard{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:rgba(251,247,239,0.55);border:1.5px dashed #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start;display:inline-flex;align-items:center;gap:8px}
+.aboard:hover{background:rgba(251,247,239,0.9)}
+.aboard[aria-pressed="true"]{border-style:solid;background:#2F2B28;color:#FBF7EF}
 </style>
 <style>body{background:#0E2849}</style>
 </head>
@@ -87,7 +90,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="vgroup"><button class="vbtn here">Learn</button><div class="vmenu"><a href="/streams"><b>Streams</b><span>small practices for ordinary days</span></a><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/ways-of-seeing"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="/eddies"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="/moon"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="/capital-journey"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="/springs"><b>Springs</b><span>offerings to join soon</span></a><a href="/lakes"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="/islands"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="/well"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/estuary"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="/groundwater"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
-<a href="/my-river" class="vmine">My river</a>
+<a href="/boat" class="vmine">My Boat</a>
 </nav>
 </header>
 
@@ -134,6 +137,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </sc-if>
 <sc-if value="{{it.hasCredit}}" hint-placeholder-val="{{ false }}"><div class="minor">{{it.credit}}</div></sc-if>
 <sc-if value="{{it.hasLink}}" hint-placeholder-val="{{ false }}"><a href="{{it.href}}" class="lnk">{{it.cta}}</a></sc-if>
+<button class="aboard" aria-pressed="{{it.aboardOn}}" onClick="{{it.aboard}}">{{it.aboardLabel}}</button>
 </article>
 </sc-for>
 </div>
@@ -170,13 +174,33 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2200}}'>
 class Component extends DCLogic {
+  // ---- My Boat: kept on this device only (see /boat) ----
+  boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? b : null; } catch (x) { return null; } }
+  boatHas(list, id) { var b = this.boatRead(); return !!(b && Array.isArray(b[list]) && b[list].some(function (g) { return g && g.id === id; })); }
+  boatToggle(list, item) {
+    var b = this.boatRead();
+    if (!b) { try { sessionStorage.setItem('rr.boat.pending', JSON.stringify({ list: list, item: item })); } catch (x) {} window.location.href = '/boat'; return; }
+    if (!Array.isArray(b[list])) { b[list] = []; }
+    var had = b[list].some(function (g) { return g && g.id === item.id; });
+    if (had && list === 'tending') { window.location.href = '/boat#tending'; return; }
+    b[list] = b[list].filter(function (g) { return !g || g.id !== item.id; });
+    if (!had) { var now = new Date().toISOString(), it = {}; for (var k in item) { it[k] = item[k]; } it.at = now; if (list === 'tending') { it.since = now; it.notes = []; } b[list].push(it); }
+    try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) {}
+    this.setState({ boatTick: (this.state.boatTick || 0) + 1 });
+  }
+  aboardFor(list, item) {
+    var self = this, on = this.boatHas(list, item.id), tend = list === 'tending';
+    return { aboardOn: on ? 'true' : 'false', aboardLabel: on ? (tend ? 'Tending in my Boat' : 'Aboard my Boat') : (tend ? 'Tend this in my Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
+  }
   constructor(props) { super(props); this.state = { open: {}, hemi: 'north' }; }
 
   practiceVals(list) {
     var self = this, open = this.state.open || {}, bgs = ['#DCE6D2', '#FBF7EF', '#CFE1E4', '#F2D3BC', '#E6E2F2', '#F5EEE1'];
     return list.map(function (p, k) {
       var on = !!open[p.id];
+      var ab = self.aboardFor('tending', { id: 'eddy:' + p.id, title: p.title, kind: p.kind, href: '/eddies', cta: 'How to practise' });
       return {
+        aboardOn: ab.aboardOn, aboardLabel: ab.aboardLabel, aboard: ab.aboard,
         kind: p.kind, title: p.title, text: p.text, meta: p.meta || '', steps: p.steps || [],
         credit: p.credit || '', hasCredit: !!p.credit, href: p.href || '', cta: p.cta || '', hasLink: !!p.href,
         open: on, openAttr: on ? 'true' : 'false', toggleLabel: on ? 'Hide the steps' : (p.how || 'Show me how'),

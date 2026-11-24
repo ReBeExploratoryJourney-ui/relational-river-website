@@ -52,6 +52,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 }
 /* Torn edges of a fixed, shallow depth on every side, so text is never covered. */
 .torn,.torn.tall{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,left center,right center,center!important;mask-position:top center,bottom center,left center,right center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+.aboard{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:rgba(251,247,239,0.55);border:1.5px dashed #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start;display:inline-flex;align-items:center;gap:8px}
+.aboard:hover{background:rgba(251,247,239,0.9)}
+.aboard[aria-pressed="true"]{border-style:solid;background:#2F2B28;color:#FBF7EF}
 </style>
 <style>body{background:#0E2849}</style>
 </head>
@@ -67,7 +70,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/streams"><b>Streams</b><span>small practices for ordinary days</span></a><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/ways-of-seeing"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="/eddies"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="/moon"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="/capital-journey"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="/springs"><b>Springs</b><span>offerings to join soon</span></a><a href="/lakes"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="/islands"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="/well"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/estuary"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="/groundwater"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
-<a href="/my-river" class="vmine">My river</a>
+<a href="/boat" class="vmine">My Boat</a>
 </nav>
 </header>
 
@@ -121,7 +124,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 
 <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
 <button class="go tornbtn" onClick="{{show}}">Show me where to begin</button>
-<span style="font-size: 15px; font-style: italic; color: #5A524B">or <a href="/my-river">just wander the river</a></span>
+<span style="font-size: 15px; font-style: italic; color: #5A524B">or <a href="/flow">just wander the River</a></span>
 </div>
 </section>
 
@@ -138,12 +141,16 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <sc-if value="{{k.idLink}}" hint-placeholder-val="{{ false }}"><a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality" style="font-size: 14px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">What is Relational ID? Read the exploration on IRB’s Substack</a></sc-if>
 <div style="font-size: 14px; font-style: italic">{{k.by}}</div>
 <a href="{{k.href}}" style="margin-top: 6px; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">{{k.cta}}</a>
+<button class="aboard" aria-pressed="{{k.aboardOn}}" onClick="{{k.aboard}}">{{k.aboardLabel}}</button>
 </article>
 </sc-for>
 </div>
 <div class="torn tr" style="background: #E6E2F2; padding: 28px 34px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
-<p style="margin: 0; font-size: 17px; max-width: 640px">Try drawing a <strong>constellation</strong> of the relationships that make up your “we”: you in the middle, and the Beings, places and people you belong with all around. My river shows how.</p>
-<a href="/my-river" class="go tornbtn" style="background: #F5EEE1">Draw my constellation</a>
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 640px">
+<p style="margin: 0; font-size: 17px; line-height: 1.5">Keep these answers in <strong>your Boat</strong>, your own private vessel on the River. Come back over time to see how they change, tend a practice, and draw a <strong>constellation</strong> of the relationships that make up your “we”.</p>
+<p style="margin: 0; font-size: 15px; font-style: italic">{{keepNote}}</p>
+</div>
+<button class="go tornbtn" style="background: #F5EEE1" onClick="{{keep}}">{{keepLabel}}</button>
 </div>
 </section>
 </sc-if>
@@ -154,10 +161,28 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1640}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { feel: ['overwhelmed'], love: ['tree'], way: ['watching'], done: false }; }
+  // ---- My Boat: kept on this device only (see /boat) ----
+  boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? b : null; } catch (x) { return null; } }
+  boatHas(list, id) { var b = this.boatRead(); return !!(b && Array.isArray(b[list]) && b[list].some(function (g) { return g && g.id === id; })); }
+  boatToggle(list, item) {
+    var b = this.boatRead();
+    if (!b) { try { sessionStorage.setItem('rr.boat.pending', JSON.stringify({ list: list, item: item })); } catch (x) {} window.location.href = '/boat'; return; }
+    if (!Array.isArray(b[list])) { b[list] = []; }
+    var had = b[list].some(function (g) { return g && g.id === item.id; });
+    if (had && list === 'tending') { window.location.href = '/boat#tending'; return; }
+    b[list] = b[list].filter(function (g) { return !g || g.id !== item.id; });
+    if (!had) { var now = new Date().toISOString(), it = {}; for (var k in item) { it[k] = item[k]; } it.at = now; if (list === 'tending') { it.since = now; it.notes = []; } b[list].push(it); }
+    try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) {}
+    this.setState({ boatTick: (this.state.boatTick || 0) + 1 });
+  }
+  aboardFor(list, item) {
+    var self = this, on = this.boatHas(list, item.id), tend = list === 'tending';
+    return { aboardOn: on ? 'true' : 'false', aboardLabel: on ? (tend ? 'Tending in my Boat' : 'Aboard my Boat') : (tend ? 'Tend this in my Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
+  }
+  constructor(props) { super(props); this.state = { feel: ['overwhelmed'], love: ['tree'], way: ['watching'], done: false, kept: false }; }
   chips(list, key) {
     var self = this;
-    return list.map(function (x) { var cur = self.state[key], on = cur.indexOf(x[0]) >= 0; return { label: x[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var c = self.state[key].slice(), i = c.indexOf(x[0]); if (i >= 0) { c.splice(i, 1); } else { c.push(x[0]); } var s = {}; s[key] = c; self.setState(s); } }; });
+    return list.map(function (x) { var cur = self.state[key], on = cur.indexOf(x[0]) >= 0; return { label: x[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var c = self.state[key].slice(), i = c.indexOf(x[0]); if (i >= 0) { c.splice(i, 1); } else { c.push(x[0]); } var s = {}; s[key] = c; s.kept = false; self.setState(s); } }; });
   }
   renderVals() {
     var self = this, s = this.state;
@@ -185,9 +210,10 @@ class Component extends DCLogic {
       rather: ['Just five minutes outside', 'No need to think about any of it today. Step outside for five minutes and notice one living thing.']
     };
     var seen = {};
-    var eddyCards = s.feel.map(function (k) { return eddies[k]; }).filter(function (e) { if (seen[e[0]]) { return false; } seen[e[0]] = true; return true; }).map(function (e) { return { water: 'Eddy · returns later too', title: e[0], text: e[1], by: 'Good Grief Network · The Work That Reconnects', href: '/local-currents', cta: 'Find a circle', bg: '#E6E2F2' }; });
-    var streamCards = s.love.map(function (k) { var st = streams[k]; return { water: 'Stream · everyday practice', title: st[0], text: st[1], by: 'A small practice from the Streams', href: '/streams', cta: 'Begin this practice', bg: '#C8D9B9' }; });
-    var tribCards = s.way.map(function (k) { var tb = tribs[k]; return { water: 'Tributary · understanding the moment', title: tb[0], text: tb[1], by: tb[2], href: tb[3], cta: 'Open this', bg: '#CFE1E4' }; });
+    var eddyCards = s.feel.map(function (k) { return eddies[k]; }).filter(function (e) { if (seen[e[0]]) { return false; } seen[e[0]] = true; return true; }).map(function (e) { var c = { water: 'Eddy · returns later too', title: e[0], text: e[1], by: 'Good Grief Network · The Work That Reconnects', href: '/local-currents', cta: 'Find a circle', bg: '#E6E2F2' }; var ab = self.aboardFor('gathered', { id: 'source:eddy:' + e[0].toLowerCase().replace(/[^a-z0-9]+/g, '-'), title: e[0], kind: 'Eddy · returns', by: 'Good Grief Network · The Work That Reconnects', href: '/local-currents' }); c.aboardOn = ab.aboardOn; c.aboardLabel = ab.aboardLabel; c.aboard = ab.aboard; return c; });
+    var SID = { tree: 'stream:sit', water: 'stream:water', garden: 'stream:picture', animals: 'source:animals', sky: 'stream:moon', park: 'source:park' };
+    var streamCards = s.love.map(function (k) { var st = streams[k]; var c = { water: 'Stream · everyday practice', title: st[0], text: st[1], by: 'A small practice from the Streams', href: '/streams', cta: 'Begin this practice', bg: '#C8D9B9' }; var ab = self.aboardFor('tending', { id: SID[k], title: st[0], kind: 'Stream · everyday practice', href: k === 'sky' ? '/moon' : '/streams', cta: 'How to practise' }); c.aboardOn = ab.aboardOn; c.aboardLabel = ab.aboardLabel; c.aboard = ab.aboard; return c; });
+    var tribCards = s.way.map(function (k) { var tb = tribs[k]; var c = { water: 'Tributary · understanding the moment', title: tb[0], text: tb[1], by: tb[2], href: tb[3], cta: 'Open this', bg: '#CFE1E4' }; var ab = self.aboardFor('gathered', { id: 'source:' + k, title: tb[0], kind: 'Tributary', by: tb[2], href: tb[3] }); c.aboardOn = ab.aboardOn; c.aboardLabel = ab.aboardLabel; c.aboard = ab.aboard; return c; });
     var heavy = s.feel.indexOf('overwhelmed') >= 0 || s.feel.indexOf('worried') >= 0 || s.feel.indexOf('rather') >= 0;
     var all = heavy ? eddyCards.concat(streamCards, tribCards) : streamCards.concat(tribCards, eddyCards);
     all.forEach(function (c, i) { c.tilt = i % 2 ? 'tr' : 'tl'; c.idLink = /Relational ID/.test(c.title); });
@@ -195,7 +221,18 @@ class Component extends DCLogic {
       feelings: this.chips([['curious', 'Curious'], ['worried', 'Worried'], ['numb', 'Numb'], ['overwhelmed', 'Overwhelmed'], ['hopeful', 'Hopeful'], ['rather', "I'd rather not think about it"]], 'feel'),
       loves: this.chips([['tree', 'A tree'], ['water', 'Water'], ['garden', 'A garden'], ['animals', 'Animals and birds'], ['sky', 'The sky and Moon'], ['park', 'A city park']], 'love'),
       ways: this.chips([['watching', 'Watching'], ['reading', 'Reading'], ['listening', 'Listening'], ['doing', 'Doing'], ['others', 'Being with others']], 'way'),
-      show: function () { self.setState({ done: true }); },
+      show: function () { self.setState({ done: true, kept: false }); },
+      keepLabel: s.kept ? 'Open my Boat' : 'Keep my answers in my Boat',
+      keepNote: s.kept ? 'Kept. Your answers are in your Boat, with today’s date.' : (this.boatRead() ? 'They will be kept beside any earlier answers.' : 'No account needed. You will choose how your Boat is kept first.'),
+      keep: function () {
+        if (self.state.kept) { window.location.href = '/boat#began'; return; }
+        var entry = { feel: s.feel.slice(), love: s.love.slice(), way: s.way.slice() }, b = self.boatRead();
+        if (!b) { try { sessionStorage.setItem('rr.boat.pending', JSON.stringify({ list: 'began', item: entry })); } catch (x) {} window.location.href = '/boat'; return; }
+        if (!Array.isArray(b.began)) { b.began = []; }
+        entry.at = new Date().toISOString(); b.began.push(entry);
+        try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) {}
+        self.setState({ kept: true });
+      },
       done: s.done,
       intro: all.length === 0 ? 'Nothing chosen, and that is fine. Wander the river, or come back to these questions any time.' : heavy ? 'Since things feel heavy, we have put care first. The rest can wait until you are ready.' : 'A few small offerings: some to practise, some to understand, one or two to return to.',
       cards: all

@@ -18,7 +18,7 @@ PAGES = {
     'Arrival': ('index.html', '/', 'Arrive at the Relational River, a Source offered through the Institute of Relational Being.'),
     'Welcome': ('flow.html', '/flow', 'Follow the flow of the Relational River, from source to ocean.'),
     'Main': ('source.html', '/source', 'Arrive wherever you are: a few gentle questions to find your way into the River.'),
-    'Journey': ('my-river.html', '/my-river', 'Your private place on the Relational River.'),
+    'Boat': ('boat.html', '/boat', 'My Boat: your own vessel on the Relational River, carrying where you began, the practices you tend and your constellation.'),
     'LocalCurrents': ('local-currents.html', '/local-currents', 'Groups and circles already tending the place you live, by bioregion.'),
     'Ocean': ('ocean.html', '/ocean', 'Place-based projects and collaborators around the world.'),
     'Hylo': ('hylo.html', '/hylo', 'Where Relational River circles meet and organise, on Hylo.'),
@@ -68,6 +68,13 @@ NOT_FOUND = '''<!doctype html>
 '''
 
 
+REDIRECTS = {'my-river': '/boat'}
+REDIRECT = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={url}"><link rel="canonical" href="{url}"><title>Relational River</title>
+<script>location.replace("{url}" + location.hash)</script></head><body><p><a href="{url}">This part of the River has moved.</a></p></body></html>
+'''
+
+
 def convert(name, text):
     # Self-hosted fonts instead of Google Fonts, so no visitor data goes to Google (GDPR).
     text = re.sub(r'<link rel="preconnect" href="https://fonts\.(googleapis|gstatic)\.com"[^>]*>\n?', '', text)
@@ -95,7 +102,7 @@ def convert(name, text):
         + '</body>\n</html>\n'
     )
     # links between pages -> clean URLs
-    # longest names first, so 'CapitalJourney' isn't caught by 'Journey'
+    # longest names first, so a short name is never caught inside a longer one
     for src_name in sorted(PAGES, key=len, reverse=True):
         page = page.replace(src_name + '.dc.html', PAGES[src_name][1])
     # mockup assets -> /assets/<id>.<ext>
@@ -125,6 +132,11 @@ def main():
         for f in (ROOT / sub).iterdir():
             (dest / f.name).write_bytes(f.read_bytes())
     (OUT / '404.html').write_text(NOT_FOUND)
+    # old addresses that moved
+    for old, new in REDIRECTS.items():
+        folder = OUT / old
+        folder.mkdir(exist_ok=True)
+        (folder / 'index.html').write_text(REDIRECT.format(url=new))
 
 
 if __name__ == '__main__':
