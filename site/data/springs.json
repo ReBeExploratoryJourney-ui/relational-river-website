@@ -18,7 +18,7 @@
    "theme": "land",
    "cost": "paid",
    "costNote": "Paid, with sliding scale and scholarships",
-   "found": "Shared by Jyo, from the Regenesis newsletter"
+   "found": "Shared by Joe, from the Regenesis newsletter"
   },
   {
    "id": "trp-quebec",
@@ -37,7 +37,7 @@
    "theme": "land",
    "cost": "paid",
    "costNote": "Paid, with sliding scale and scholarships",
-   "found": "Shared by Jyo, from the Regenesis newsletter"
+   "found": "Shared by Joe, from the Regenesis newsletter"
   },
   {
    "id": "trp-vancouver",
@@ -56,7 +56,7 @@
    "theme": "land",
    "cost": "paid",
    "costNote": "Paid, with sliding scale and scholarships",
-   "found": "Shared by Jyo, from the Regenesis newsletter"
+   "found": "Shared by Joe, from the Regenesis newsletter"
   },
   {
    "id": "trp-americas",
@@ -75,7 +75,7 @@
    "theme": "land",
    "cost": "paid",
    "costNote": "Paid, with sliding scale and scholarships",
-   "found": "Shared by Jyo, from the Regenesis newsletter"
+   "found": "Shared by Joe, from the Regenesis newsletter"
   },
   {
    "id": "biofi-deepdive-2026-12",
@@ -94,7 +94,7 @@
    "theme": "money",
    "cost": "open",
    "costNote": "Register on their event page",
-   "found": "Shared by Jyo, from the BioFi Project newsletter"
+   "found": "Shared by Joe, from the BioFi Project newsletter"
   }
  ]
 }
