@@ -736,15 +736,12 @@ class Component extends DCLogic {
       var L = e.layer.getBoundingClientRect(), W = L.width, top0 = -L.top, vh = window.innerHeight || 800, from = self.gPos, moon = self.gPoint('moon');
       if (!moon) { self.gGo('welcome', 0); return; }
       var lx = W * (W < 700 ? 0.16 : 0.1), X = function (f) { return lx + (moon.x - lx) * f; };
-      // Out of the logo the way the logo's raven flies (east, a little south), a swoop down,
-      // a rising spiral back over the logo, then down the left side and across to Moon.
+      // The same gentle arc as Raven's flight home, in reverse: down and around, then across to Moon.
       var m = W < 700;
       var pts = [from,
-        { x: from.x + W * (m ? 0.22 : 0.17), y: from.y + vh * 0.1 },
-        { x: from.x + W * (m ? 0.24 : 0.22), y: from.y + vh * (m ? 0.3 : 0.32) },
-        { x: from.x - W * (m ? 0.02 : 0.04), y: from.y + vh * (m ? 0.3 : 0.3) },
-        { x: X(0), y: top0 + vh * (m ? 0.4 : 0.34) },
-        { x: moon.x - (m ? 90 : 170), y: Math.min(moon.y - (m ? 100 : 120), top0 + vh * (m ? 0.5 : 0.26)) },
+        { x: from.x - (m ? 60 : 90), y: from.y + 70 },
+        { x: from.x - (m ? 100 : 150), y: from.y + vh * 0.3 },
+        { x: from.x + (m ? 40 : 60), y: from.y + vh * 0.42 },
         { x: Math.min(moon.x + (m ? 34 : 70), W - 30), y: moon.y - (m ? 70 : 90) },
         moon];
       self.gPath(pts, { fromScale: self.gRS || 0.55, toScale: 1, speed: W < 700 ? 0.13 : 0.17, minDur: 9000, maxDur: 16000, roll: { from: 1, to: -1, at: 'start', d: 1500 }, face: 'auto' }, function () {
