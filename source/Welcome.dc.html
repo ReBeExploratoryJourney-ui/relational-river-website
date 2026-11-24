@@ -647,6 +647,38 @@ class Component extends DCLogic {
     }
     this.gBegin();
   }
+  gSm(u) { u = Math.max(0, Math.min(1, u)); return u * u * u * (u * (u * 6 - 15) + 10); }
+  gGlow(k) { k = Math.max(0, k); return 'drop-shadow(0 0 ' + (3 + 5 * k).toFixed(1) + 'px rgba(255,236,190,' + (0.95 * k).toFixed(2) + ')) drop-shadow(0 0 ' + (8 + 10 * k).toFixed(1) + 'px rgba(255,214,140,' + (0.55 * k).toFixed(2) + '))'; }
+  // A slow, shared transformation between the logo's raven (cream, glowing) and Raven the guide.
+  // dir 1: logo raven becomes Raven. dir -1: Raven becomes the logo raven again.
+  gMorph(c, bw, bh, dir, done) {
+    var self = this, e = this.gEls(), pe = e.peel, rv = e.rv, sm = this.gSm, GLOW = this.gGlow;
+    var D = 2800, p0 = null, rw = rv.offsetWidth || 112, rh = rv.offsetHeight || 76;
+    var PS = 1.55, RS = (bw * PS * 1.08) / (rw * 0.9);
+    pe.style.width = bw + 'px'; pe.style.height = bh + 'px';
+    rv.style.transition = 'none'; rv.classList.add('flying', 'glide'); rv.classList.remove('perched', 'flip');
+    var draw = function (u) {
+      var breathe = 1 + 0.05 * Math.sin(Math.PI * u), rot = -5 * (1 - u) + 2 * Math.sin(Math.PI * u);
+      var po = 1 - sm((u - 0.3) / 0.55), ro = sm((u - 0.15) / 0.55);
+      var dark = sm(u / 0.65), soft = Math.sin(Math.PI * u);
+      pe.style.opacity = po.toFixed(3);
+      pe.style.filter = GLOW(1 - 0.35 * u) + ' brightness(' + (1 - 0.78 * dark).toFixed(3) + ')' + (soft > 0.05 ? ' blur(' + (1.6 * soft * u).toFixed(2) + 'px)' : '');
+      pe.style.transform = 'translate3d(' + (c.x - bw / 2).toFixed(2) + 'px,' + (c.y - bh / 2).toFixed(2) + 'px,0) rotate(' + rot.toFixed(2) + 'deg) scale(' + (PS * breathe).toFixed(3) + ')';
+      var rs = RS * breathe;
+      self.gPlace(c.x + rw * 0.05 * rs, c.y + rh * 0.37 * rs, rs, rot / 57.2958);
+      rv.style.opacity = ro.toFixed(3);
+      rv.style.filter = GLOW(0.95 * (1 - sm((u - 0.45) / 0.55))) + ((1 - u) > 0.05 ? ' blur(' + (1.6 * (1 - u) * soft).toFixed(2) + 'px)' : '');
+      if (u > 0.82) { rv.classList.remove('glide'); } else { rv.classList.add('glide'); }
+    };
+    var step = function (ts) {
+      if (!p0) { p0 = ts; }
+      var k = Math.min(1, (ts - p0) / D), u = dir > 0 ? k : 1 - k;
+      draw(u);
+      if (k < 1) { self.raf = requestAnimationFrame(step); } else { self.raf = null; self.gRS = RS; if (done) { done(); } }
+    };
+    draw(dir > 0 ? 0 : 1);
+    this.raf = requestAnimationFrame(step);
+  }
   gBegin() {
     var self = this, e = this.gEls();
     var start = this.gPoint('logo');
@@ -654,38 +686,30 @@ class Component extends DCLogic {
       var m = this.gPoint('moon'); if (m) { this.gPlace(m.x, m.y, 1); }
       e.rv.classList.add('on'); this.gGo('welcome', 0); return;
     }
-    // The raven in the logo glows, peels gently away, then transforms into Raven, who soars.
+    // The raven in the logo glows, peels gently away, then slowly becomes Raven, who soars.
     this.setState({ emerging: true });
     var pe = e.peel, rv = e.rv, bw = start.w || 38, bh = start.h || 41;
-    pe.style.width = bw + 'px'; pe.style.height = bh + 'px';
-    var sm = function (u) { u = Math.max(0, Math.min(1, u)); return u * u * u * (u * (u * 6 - 15) + 10); };
-    var GLOW = function (k) { return 'drop-shadow(0 0 ' + (3 + 5 * k).toFixed(1) + 'px rgba(255,236,190,' + (0.95 * k).toFixed(2) + ')) drop-shadow(0 0 ' + (8 + 10 * k).toFixed(1) + 'px rgba(255,214,140,' + (0.55 * k).toFixed(2) + '))'; };
-    var T1 = 1000, T2 = 3600, T3 = 5600, p0 = null;
+    var sm = this.gSm, GLOW = this.gGlow;
+    var T1 = 1100, T2 = 3600, p0 = null;
     var endX = start.x + 26, endY = start.y - 92;
     rv.classList.add('flying', 'glide'); rv.classList.remove('perched', 'flip', 'on');
     rv.style.transition = 'none'; rv.style.opacity = '0';
+    pe.style.width = bw + 'px'; pe.style.height = bh + 'px';
     var emerge = function (ts) {
       if (!self.gActive) { pe.style.opacity = '0'; return; }
       if (!p0) { p0 = ts; }
-      var ms = ts - p0, x = start.x, y = start.y, sc = 1, rot = 0, op = 1, glow = 0, blur = 0;
+      var ms = ts - p0, x = start.x, y = start.y, sc = 1, rot = 0, op = 1, glow = 0;
       if (ms < T1) { var a = sm(ms / T1); op = a; glow = a; }
-      else if (ms < T2) { var b = sm((ms - T1) / (T2 - T1)); glow = 1; x += (endX - start.x) * 0.8 * b; y += (endY - start.y) * 0.8 * b + Math.sin(b * Math.PI) * -6; sc = 1 + 0.5 * b; rot = -7 * Math.sin(b * Math.PI * 0.9); }
-      else { var c = sm((ms - T2) / (T3 - T2)); glow = 1 - 0.3 * c; x = start.x + (endX - start.x) * (0.8 + 0.2 * c); y = start.y + (endY - start.y) * (0.8 + 0.2 * c); sc = 1.5 + 0.15 * c; rot = -2 * (1 - c); op = 1 - c; blur = 2.5 * c;
-        var rs = 0.32 + 0.23 * c, rk = 1 - c;
-        self.gPlace(x, y + bh * 0.42 * sc * 0.5, rs, 0);
-        rv.style.opacity = Math.min(1, c * 1.25).toFixed(3);
-        rv.style.filter = GLOW(rk * 0.9);
-        if (c > 0.65) { rv.classList.remove('glide'); }
-      }
+      else { var b = sm((ms - T1) / (T2 - T1)); glow = 1; x += (endX - start.x) * b; y += (endY - start.y) * b + Math.sin(b * Math.PI) * -8; sc = 1 + 0.55 * b; rot = -6 * Math.sin(b * Math.PI); }
       pe.style.opacity = op.toFixed(3);
-      pe.style.filter = GLOW(glow) + (blur ? ' blur(' + blur.toFixed(2) + 'px)' : '');
+      pe.style.filter = GLOW(glow);
       pe.style.transform = 'translate3d(' + (x - bw / 2).toFixed(2) + 'px,' + (y - bh / 2).toFixed(2) + 'px,0) rotate(' + rot.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
-      if (ms < T3) { self.raf = requestAnimationFrame(emerge); }
-      else {
+      if (ms < T2) { self.raf = requestAnimationFrame(emerge); return; }
+      self.gMorph({ x: endX, y: endY }, bw, bh, 1, function () {
         pe.style.opacity = '0'; rv.style.filter = ''; rv.style.opacity = ''; rv.style.transition = ''; rv.classList.add('on');
         self.setState({ emerging: false });
         next();
-      }
+      });
     };
     setTimeout(function () { if (self.gActive) { self.raf = requestAnimationFrame(emerge); } }, 350);
     var next = function () {
@@ -697,7 +721,7 @@ class Component extends DCLogic {
       var pts = W < 700
         ? [from, { x: X(0), y: top0 + vh * 0.24 }, { x: X(0.2), y: top0 + vh * 0.46 }, { x: X(0.55), y: top0 + vh * 0.38 }, { x: moon.x - 90, y: Math.min(moon.y - 100, top0 + vh * 0.5) }, moon]
         : [from, { x: X(0), y: top0 + vh * 0.2 }, { x: X(0.14), y: top0 + vh * 0.42 }, { x: X(0.42), y: top0 + vh * 0.32 }, { x: X(0.7), y: top0 + vh * 0.24 }, { x: moon.x - 150, y: Math.min(moon.y - 110, top0 + vh * 0.22) }, moon];
-      self.gPath(pts, { fromScale: 0.55, toScale: 1, speed: W < 700 ? 0.13 : 0.18, minDur: 7000, maxDur: 13000 }, function () {
+      self.gPath(pts, { fromScale: self.gRS || 0.55, toScale: 1, speed: W < 700 ? 0.13 : 0.18, minDur: 7000, maxDur: 13000 }, function () {
         if (!self.gActive) { return; }
         self.gPerch('moon');
         self.gGo('welcome', 0);
@@ -712,6 +736,8 @@ class Component extends DCLogic {
     this.gHide(); this.setState({ guiding: false, emerging: false, peel: false });
     var finish = function () {
       if (e.rv) { e.rv.classList.remove('on', 'flying', 'perched', 'glide', 'flip'); e.rv.style.transition = ''; }
+      if (e.peel) { e.peel.style.opacity = '0'; }
+      if (e.rv) { e.rv.style.filter = ''; e.rv.style.opacity = ''; }
       self.gPos = null; self.gReturning = false; self.setState({ heroFaded: false });
       try { var btn = document.querySelector('.guidebtn'); if (btn) { btn.focus({ preventScroll: true }); } } catch (x) {}
     };
@@ -722,12 +748,26 @@ class Component extends DCLogic {
     var goHome = function () {
       var home = self.gPoint('logo');
       if (!home) { finish(); return; }
-      self.gFly({ x: home.x + 26, y: home.y - 70 }, { toScale: 0.5, lift: 60 }, function () {
-        self.setState({ merging: true, emerging: true });
-        e.rv.classList.add('glide');
-        e.rv.style.transition = 'opacity .7s ease';
-        e.rv.classList.remove('on');
-        setTimeout(function () { self.setState({ merging: false, emerging: false }); finish(); }, 1900);
+      var bw = home.w || 38, bh = home.h || 41, rw = e.rv.offsetWidth || 112, rh = e.rv.offsetHeight || 76;
+      var RS = (bw * 1.55 * 1.08) / (rw * 0.9), hx = home.x + 26, hy = home.y - 92;
+      var tgt = { x: hx + rw * 0.05 * RS, y: hy + rh * 0.37 * RS };
+      self.gPath([self.gPos, { x: tgt.x - 150, y: tgt.y + 60 }, tgt], { fromScale: 1, toScale: RS, speed: 0.2, minDur: 2600, maxDur: 7000 }, function () {
+        self.setState({ emerging: true });
+        self.gMorph({ x: hx, y: hy }, bw, bh, -1, function () {
+          var pe = e.peel, sm = self.gSm, GLOW = self.gGlow, D = 2600, p0 = null;
+          e.rv.style.opacity = '0'; e.rv.style.filter = '';
+          var settle = function (ts) {
+            if (!p0) { p0 = ts; }
+            var k = Math.min(1, (ts - p0) / D), b = sm(k);
+            var x = hx + (home.x - hx) * b, y = hy + (home.y - hy) * b + Math.sin(b * Math.PI) * -8, sc = 1.55 - 0.55 * b;
+            pe.style.opacity = (1 - sm((k - 0.7) / 0.3)).toFixed(3);
+            pe.style.filter = GLOW(1 - 0.6 * sm((k - 0.5) / 0.5));
+            pe.style.transform = 'translate3d(' + (x - bw / 2).toFixed(2) + 'px,' + (y - bh / 2).toFixed(2) + 'px,0) rotate(' + (-6 * Math.sin(b * Math.PI)).toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+            if (k < 1) { self.raf = requestAnimationFrame(settle); }
+            else { self.raf = null; pe.style.opacity = '0'; e.rv.style.opacity = ''; self.setState({ emerging: false }); finish(); }
+          };
+          self.raf = requestAnimationFrame(settle);
+        });
       });
     };
     goHome();
