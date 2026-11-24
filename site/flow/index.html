@@ -504,10 +504,12 @@ class Component extends DCLogic {
       var a = S[idx], b = S[idx + 1] || a, seg = (D[idx + 1] - D[idx]) || 1, f = Math.max(0, Math.min(1, (dist - D[idx]) / seg));
       return { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f };
     };
+    var sy0 = 0;
     var step = function (ts) {
-      if (!t0) { t0 = ts; }
+      if (!t0) { t0 = ts; sy0 = window.scrollY; }
       if (R) { var el = ts - t0, st = R.at === 'end' ? dur - R.d : 0, q = Math.max(0, Math.min(1, (el - st) / R.d)), qq = q * q * (3 - 2 * q), rr = Math.cos(Math.PI * (R.from > 0 ? qq : 1 - qq)); if (R.from === R.to) { rr = R.to; } if (Math.abs(rr) < 0.12) { rr = rr < 0 ? -0.12 : 0.12; } setRoll(rr); }
       var t = Math.min(1, (ts - t0) / dur);
+      if (opts.onLift && ts - t0 > 260) { var lf = opts.onLift; opts.onLift = null; lf(); }
       var e = t * t * t * (t * (t * 6 - 15) + 10);
       var pt = at(e * len);
       vx += ((pt.x - last.x) - vx) * 0.12; vy += ((pt.y - last.y) - vy) * 0.12; last = pt;
@@ -529,11 +531,12 @@ class Component extends DCLogic {
       var sc = s1 < s0 ? s0 + (s1 - s0) * Math.pow(e, 1.6) : s0 + (s1 - s0) * Math.min(1, e * 1.8);
       if (opts.at) { var cur = self.gPoint(opts.at); if (cur) { var ee = t * t * (3 - 2 * t); pt = { x: pt.x + (cur.x - end.x) * ee, y: pt.y + (cur.y - end.y) * ee }; } }
       self.gPlace(pt.x, pt.y, sc, rot);
-      if (opts.follow !== false) { self.gFollow(pt.y); }
+      if (opts.camTo != null) { if (!(self.gTouch && Date.now() - self.gTouch < 1500)) { window.scrollTo(0, sy0 + (opts.camTo - sy0) * e); } }
+      else if (opts.follow !== false) { self.gFollow(pt.y); }
       if (t < 1) { self.raf = requestAnimationFrame(step); }
       else {
         self.raf = null; self.gRot = 0; rv.classList.remove('glide'); if (opts.at) { var fin = self.gPoint(opts.at); if (fin) { end = fin; } } self.gPlace(end.x, end.y, s1, 0);
-        var n2 = 0, settle = function () { if (opts.follow !== false) { self.gFollow(end.y, 0.12); } if (++n2 < 30) { requestAnimationFrame(settle); } };
+        var n2 = 0, settle = function () { if (opts.follow !== false && opts.camTo == null) { self.gFollow(end.y, 0.12); } if (++n2 < 30) { requestAnimationFrame(settle); } };
         settle(); if (done) { done(); }
       }
     };
@@ -548,7 +551,7 @@ class Component extends DCLogic {
     var lift = opts.lift != null ? opts.lift : 40 + dist * 0.16;
     var L0 = this.gEls().layer.getBoundingClientRect(), topSafe = -L0.top + 70;
     var mid = { x: (from.x + to.x) / 2, y: Math.max(topSafe, Math.min(from.y, to.y) - lift) };
-    this.gPath([from, mid, to], { fromScale: opts.fromScale, toScale: opts.toScale, speed: 0.22, minDur: 1500, maxDur: 5200, follow: opts.follow, face: opts.face || null, at: opts.at }, done);
+    this.gPath([from, mid, to], { fromScale: opts.fromScale, toScale: opts.toScale, speed: 0.22, minDur: 1500, maxDur: 5200, follow: opts.follow, face: opts.face || null, at: opts.at, onLift: opts.onLift, camTo: opts.camTo }, done);
   }
   gPerch(at) {
     var rv = this.gEls().rv; if (!rv) { return; }
@@ -634,9 +637,9 @@ class Component extends DCLogic {
     var nodeEl = null;
     if (beat.node) { var ns = document.querySelectorAll('.mapinner .node'); for (var k = 0; k < ns.length; k++) { if (ns[k].textContent.trim() === beat.node) { nodeEl = ns[k]; } } }
     var el = nodeEl || target;
-    this.gMoonScroll = !nodeEl; if (this.still()) { this.gMapX(el); } else { this.gMapPan(el); }
+    this.gMoonScroll = !nodeEl; if (this.still()) { this.gMapX(el); }
     if (this.still()) { this.gScroll(el, nodeEl ? 0.45 : 0.18); }
-    setTimeout(function () { if (!self.gActive) { return; } self.gFly(self.gPoint(beat.at), { at: beat.at }, show); }, this.still() ? 30 : 60);
+    setTimeout(function () { if (!self.gActive) { return; } var pdx = self.gPanDx(el), to = self.gPoint(beat.at); if (to && pdx) { to = { x: to.x - pdx, y: to.y }; } self.gFly(to, { at: beat.at, camTo: self.gCamFor(to), onLift: pdx ? function () { self.gMapPan(el, pdx); } : null }, show); }, this.still() ? 30 : 60);
   }
   // On phones, slide the map sideways (at once) so the destination is in view before flying.
   gMapX(el) {
@@ -649,14 +652,30 @@ class Component extends DCLogic {
     } catch (x) {}
   }
   // On phones, glide the map sideways while Raven flies; Raven's flight follows the moving target.
-  gMapPan(el) {
+  // Where the page should be scrolled when Raven lands at p (layer coords), so the camera finishes exactly with the flight.
+  gCamFor(p) {
+    try {
+      if (!p) { return null; }
+      var L = this.gEls().layer.getBoundingClientRect(), H = window.innerHeight, mobile = window.innerWidth <= 760;
+      var vy = p.y + L.top, lo = mobile ? 140 : H * 0.18, hi = mobile ? H * 0.40 : H * 0.78;
+      if (vy >= lo && vy <= hi) { return null; }
+      var want = mobile ? H * 0.30 : H * 0.40, max = document.documentElement.scrollHeight - H;
+      return Math.max(0, Math.min(max, window.scrollY + vy - want));
+    } catch (x) { return null; }
+  }
+  gPanDx(el) {
     try {
       var ms = el && el.closest ? el.closest('.mapscroll') : null;
-      if (!ms || ms.scrollWidth <= ms.clientWidth) { return; }
+      if (!ms || ms.scrollWidth <= ms.clientWidth) { return 0; }
       var r = el.getBoundingClientRect(), mr = ms.getBoundingClientRect(), cxp = this.gMoonScroll ? r.left + r.width * 0.92 : r.left + r.width / 2;
       var dx = cxp - (mr.left + mr.width / 2);
-      if (Math.abs(dx) > mr.width * 0.3) { ms.scrollTo({ left: ms.scrollLeft + dx, behavior: 'smooth' }); }
-    } catch (x) {}
+      if (Math.abs(dx) <= mr.width * 0.3) { return 0; }
+      var nl = Math.max(0, Math.min(ms.scrollWidth - ms.clientWidth, ms.scrollLeft + dx));
+      return nl - ms.scrollLeft;
+    } catch (x) { return 0; }
+  }
+  gMapPan(el, dx) {
+    try { var ms = el.closest('.mapscroll'); if (ms && dx) { ms.scrollTo({ left: ms.scrollLeft + dx, behavior: 'smooth' }); } } catch (x) {}
   }
   // Keep a perched Raven (and their words) fixed to their perch when the page or map moves.
   gAnchor() {
