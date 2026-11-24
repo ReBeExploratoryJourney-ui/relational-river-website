@@ -94,7 +94,6 @@ div:has(> .desc){display:flow-root}
 <h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 52px; line-height: 1.05; color: #DCDCDC; font-variant-ligatures: none; font-feature-settings: 'liga' 0"><sc-for list="{{wTitle}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></h1>
 <p style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.45; color: #EDEDED"><sc-for list="{{wP1}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></p>
 <p style="margin: 0; font-size: 18px; line-height: 1.6"><sc-for list="{{wP2}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></p>
-<p style="margin: 0; font-size: 18px; line-height: 1.6"><sc-for list="{{wP3}}" as="w"><span class="w" style="--d: {{w.d}}; --dx: {{w.dx}}; --dy: {{w.dy}}; --r: {{w.r}}"><sc-if value="{{w.link}}" hint-placeholder-val="{{ false }}"><a href="{{w.href}}" target="_blank" rel="noopener">{{w.t}}</a></sc-if><sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if></span><span>{{w.sp}}</span></sc-for></p>
 <div class="{{lineCls}}" style="animation-delay: {{btnDelay}}; display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-start; align-items: flex-end; padding-top: 8px">
 <a href="/flow" class="go tornbtn flowbtn"><span class="tap">tap here to</span><span>Follow the flow</span></a>
 <button class="pill" onClick="{{replay}}">Watch the arrival again</button>
@@ -189,8 +188,7 @@ class Component extends DCLogic {
     var wKicker = words([{ t: 'Welcome to' }], 0);
     var wTitle = words([{ t: 'The Relational River' }], 0.1);
     var wP1 = words([{ t: 'A Source, like the headwaters of any river, offered through the' }, { t: 'Institute of Relational Being.', link: IRB }], 0.3);
-    var wP2 = words([{ t: 'Good present to you, being of the human variety. The River is dedicated to being of service by providing ways to engage and flow with all of life, in reciprocal and caring ways. The Relational River gathers the offerings already flowing, practices, teachings, circles and projects, so each of us can find a way in.' }], 0.5);
-    var wP3 = words([{ t: 'It is an open-source process and platform of reciprocity, curiosity and care for all life and this living world, flowing at your own pace, from a first spring of curiosity toward an ocean of people and places tending life.' }], 0.7);
+    var wP2 = words([{ t: 'Good present to you, being of the human variety. The Relational River is an open-source offering of reciprocity and care. It gathers the practices, teachings, circles and projects already flowing, so each of us can find a way in, at our own pace, from a first spring of curiosity toward an ocean of people and places tending life.' }], 0.5);
     var probe = document.querySelector('.vhprobe'), vh = (probe && probe.offsetHeight) || window.innerHeight || 800, wrap = document.querySelector('.arrwrap'), Hc = wrap ? wrap.offsetHeight : vh;
     var srcY = (0.296 * Hc - 0.5 * vh).toFixed(1) + 'px', hoverY = (0.296 * Hc - 0.58 * vh).toFixed(1) + 'px';
     var condense = ph >= 5;
@@ -198,7 +196,7 @@ class Component extends DCLogic {
       pieces: pieces,
       stage: 'min(62vmin, 560px)',
       logoCls: condense ? 'logo condense' : (ph >= 2 ? 'logo dissolve' : 'logo'),
-      wKicker: wKicker, wTitle: wTitle, wP1: wP1, wP2: wP2, wP3: wP3,
+      wKicker: wKicker, wTitle: wTitle, wP1: wP1, wP2: wP2,
       descCls: ph >= 6 ? 'desc flowing' : 'desc',
       btnDelay: (0.7 + wi * 0.032 + 0.6).toFixed(2) + 's',
       logoTf: condense ? 'translate(-50%, -50%) translateY(' + srcY + ') scale(0.05) rotate(-24deg)' : (ph >= 4 ? 'translate(-50%, -50%) translateY(' + hoverY + ') scale(0.36) rotate(-14deg)' : 'translate(-50%, -50%)'),
