@@ -142,7 +142,8 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 @media (max-width: 700px){.glogowrap{display:flex;flex-direction:column;align-items:center;gap:12px}}
 .guidebtn.faint{opacity:.6;background:transparent;border-color:rgba(237,237,237,.28)}
 .guidebtn.faint:hover,.guidebtn.faint:focus-visible{opacity:1;border-color:rgba(232,199,122,.7)}
-.glayer{position:absolute;left:0;top:0;width:100%;height:0;overflow:visible;z-index:60;pointer-events:none}
+.glayer{position:absolute;left:0;top:0;width:100%;height:0;overflow:visible;overflow-x:clip;z-index:60;pointer-events:none}
+@supports not (overflow-x:clip){html,body{overflow-x:hidden}}
 .rv{position:absolute;left:0;top:0;width:100px;height:107px;transform-origin:57% 87%;opacity:0;transition:opacity .5s ease;will-change:transform}
 .rv.on{opacity:1}
 .rv-flip{width:100%;height:100%;transition:transform .95s cubic-bezier(.45,0,.55,1)}
@@ -456,6 +457,7 @@ class Component extends DCLogic {
   }
   // Follow Raven with the page, gently, so they stay in view while flying.
   gFollow(y, k) {
+    if (this.gTouch && Date.now() - this.gTouch < 1500) { return; }
     try {
       var L = this.gEls().layer.getBoundingClientRect(), H = window.innerHeight, sy = L.top + y;
       var mobile = window.innerWidth <= 760, lo = H * (mobile ? 0.14 : 0.1), hi = H * (mobile ? 0.36 : 0.86), mid = H * (mobile ? 0.26 : 0.45);
@@ -468,7 +470,7 @@ class Component extends DCLogic {
     if (!rv || !pts || pts.length < 2) { if (done) { done(); } return; }
     if (this.raf) { cancelAnimationFrame(this.raf); }
     var end = pts[pts.length - 1];
-    if (this.still()) { rv.classList.remove('flying'); this.gPlace(end.x, end.y, 1, 0); if (done) { setTimeout(done, 60); } return; }
+    if (this.still()) { if (opts.at) { var sp = this.gPoint(opts.at); if (sp) { end = sp; } } rv.classList.remove('flying'); this.gPlace(end.x, end.y, 1, 0); if (done) { setTimeout(done, 60); } return; }
     var P = [pts[0]].concat(pts, [pts[pts.length - 1]]), S = [], n = 40;
     for (var s = 1; s < P.length - 2; s++) {
       var p0 = P[s - 1], p1 = P[s], p2 = P[s + 1], p3 = P[s + 2];
@@ -518,11 +520,12 @@ class Component extends DCLogic {
       rv.classList.toggle('climb', climbing);
       rv.classList.toggle('glide', !climbing && ((dur > 2600 && t > 0.25 && t < 0.72) || vy > 0.6));
       var sc = s1 < s0 ? s0 + (s1 - s0) * Math.pow(e, 1.6) : s0 + (s1 - s0) * Math.min(1, e * 1.8);
+      if (opts.at) { var cur = self.gPoint(opts.at); if (cur) { var ee = t * t * (3 - 2 * t); pt = { x: pt.x + (cur.x - end.x) * ee, y: pt.y + (cur.y - end.y) * ee }; } }
       self.gPlace(pt.x, pt.y, sc, rot);
       if (opts.follow !== false) { self.gFollow(pt.y); }
       if (t < 1) { self.raf = requestAnimationFrame(step); }
       else {
-        self.raf = null; self.gRot = 0; rv.classList.remove('glide'); self.gPlace(end.x, end.y, s1, 0);
+        self.raf = null; self.gRot = 0; rv.classList.remove('glide'); if (opts.at) { var fin = self.gPoint(opts.at); if (fin) { end = fin; } } self.gPlace(end.x, end.y, s1, 0);
         var n2 = 0, settle = function () { if (opts.follow !== false) { self.gFollow(end.y, 0.12); } if (++n2 < 30) { requestAnimationFrame(settle); } };
         settle(); if (done) { done(); }
       }
@@ -538,7 +541,7 @@ class Component extends DCLogic {
     var lift = opts.lift != null ? opts.lift : 40 + dist * 0.16;
     var L0 = this.gEls().layer.getBoundingClientRect(), topSafe = -L0.top + 70;
     var mid = { x: (from.x + to.x) / 2, y: Math.max(topSafe, Math.min(from.y, to.y) - lift) };
-    this.gPath([from, mid, to], { fromScale: opts.fromScale, toScale: opts.toScale, speed: 0.22, minDur: 1500, maxDur: 5200, follow: opts.follow, face: opts.face || null }, done);
+    this.gPath([from, mid, to], { fromScale: opts.fromScale, toScale: opts.toScale, speed: 0.22, minDur: 1500, maxDur: 5200, follow: opts.follow, face: opts.face || null, at: opts.at }, done);
   }
   gPerch(at) {
     var rv = this.gEls().rv; if (!rv) { return; }
@@ -579,7 +582,7 @@ class Component extends DCLogic {
     var count = document.createElement('span'); count.textContent = (beat.choice || beat.final || beat.find) ? '' : (g.idx + 1) + ' of ' + (beats.length - 1); foot.appendChild(count);
     var endb = document.createElement('button'); endb.type = 'button'; endb.className = 'glink'; endb.textContent = 'End the guide'; endb.addEventListener('click', function () { self.gStop(); }); foot.appendChild(endb);
     b.appendChild(foot);
-    b.classList.remove('placed'); b.style.display = 'flex';
+    b.classList.remove('placed'); b.style.display = 'flex'; b.scrollTop = 0;
     this.gBubble();
   }
   gBubble() {
@@ -616,7 +619,7 @@ class Component extends DCLogic {
     if (!beat) { this.gStop(); return; }
     var nodeIndex = -1;
     var cardName = beat.node || (beat.at === 'moon' ? 'Moon' : null); if (cardName) { nodeIndex = this.nodeNames.indexOf(cardName); }
-    var show = function () { if (!self.gActive) { return; } self.gPerch(beat.at); self.gFocus = true; self.g = { seq: seq, idx: idx }; self.gRender(); };
+    var show = function () { if (!self.gActive) { return; } self.gPerch(beat.at); self.gFocus = true; self.g = { seq: seq, idx: idx }; self.gRender(); setTimeout(function () { self.gEnsure(); }, 80); };
     if (nodeIndex >= 0 && this.state.i !== nodeIndex) { this.stopTour(); this.setState({ i: nodeIndex, tour: false }); }
     if (this.gAt === beat.at) { show(); return; }
     this.gHide();
@@ -624,9 +627,9 @@ class Component extends DCLogic {
     var nodeEl = null;
     if (beat.node) { var ns = document.querySelectorAll('.mapinner .node'); for (var k = 0; k < ns.length; k++) { if (ns[k].textContent.trim() === beat.node) { nodeEl = ns[k]; } } }
     var el = nodeEl || target;
-    this.gMoonScroll = !nodeEl; this.gMapX(el);
+    this.gMoonScroll = !nodeEl; if (this.still()) { this.gMapX(el); } else { this.gMapPan(el); }
     if (this.still()) { this.gScroll(el, nodeEl ? 0.45 : 0.18); }
-    setTimeout(function () { if (!self.gActive) { return; } self.gFly(self.gPoint(beat.at), {}, show); }, this.still() ? 30 : 60);
+    setTimeout(function () { if (!self.gActive) { return; } self.gFly(self.gPoint(beat.at), { at: beat.at }, show); }, this.still() ? 30 : 60);
   }
   // On phones, slide the map sideways (at once) so the destination is in view before flying.
   gMapX(el) {
@@ -636,6 +639,39 @@ class Component extends DCLogic {
       var r = el.getBoundingClientRect(), mr = ms.getBoundingClientRect(), cxp = this.gMoonScroll ? r.left + r.width * 0.92 : r.left + r.width / 2;
       var dx = cxp - (mr.left + mr.width / 2);
       if (Math.abs(dx) > mr.width * 0.3) { ms.scrollLeft = ms.scrollLeft + dx; }
+    } catch (x) {}
+  }
+  // On phones, glide the map sideways while Raven flies; Raven's flight follows the moving target.
+  gMapPan(el) {
+    try {
+      var ms = el && el.closest ? el.closest('.mapscroll') : null;
+      if (!ms || ms.scrollWidth <= ms.clientWidth) { return; }
+      var r = el.getBoundingClientRect(), mr = ms.getBoundingClientRect(), cxp = this.gMoonScroll ? r.left + r.width * 0.92 : r.left + r.width / 2;
+      var dx = cxp - (mr.left + mr.width / 2);
+      if (Math.abs(dx) > mr.width * 0.3) { ms.scrollTo({ left: ms.scrollLeft + dx, behavior: 'smooth' }); }
+    } catch (x) {}
+  }
+  // Keep a perched Raven (and their words) fixed to their perch when the page or map moves.
+  gAnchor() {
+    var e = this.gEls();
+    if (!this.gActive || !this.gAt || this.raf || !e.rv || !e.rv.classList.contains('perched') || !this.gPos) { return; }
+    var p = this.gPoint(this.gAt); if (!p) { return; }
+    var dx = p.x - this.gPos.x, dy = p.y - this.gPos.y;
+    if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) { return; }
+    this.gPlace(p.x, p.y, 1);
+    var b = e.bubble;
+    if (b && b.style.display !== 'none' && !b.classList.contains('inhero')) { var W = e.layer.getBoundingClientRect().width, bl = (parseFloat(b.style.left) || 0) + dx; b.style.left = Math.max(12, Math.min(W - b.offsetWidth - 12, bl)) + 'px'; b.style.top = (parseFloat(b.style.top) || 0) + dy + 'px'; }
+  }
+  // After landing, gently bring Raven into the clear space above the guide's words (phones keep those at the bottom).
+  gEnsure() {
+    try {
+      var e = this.gEls(); if (!this.gActive || !e.rv || this.raf) { return; }
+      if (this.gTouch && Date.now() - this.gTouch < 400) { return; }
+      var r = e.rv.getBoundingClientRect(), H = window.innerHeight, b = e.bubble, br = b && b.style.display !== 'none' ? b.getBoundingClientRect() : null;
+      var mobile = window.innerWidth <= 760, floor = mobile && br ? br.top - 12 : H - 20, ceil = 64;
+      if (r.top >= ceil && r.bottom <= floor) { return; }
+      var want = Math.max(ceil, (ceil + floor - r.height) / 2), delta = r.top - want;
+      window.scrollBy({ top: delta, behavior: this.still() ? 'auto' : 'smooth' });
     } catch (x) {}
   }
   gScroll(el, frac) {
@@ -657,7 +693,16 @@ class Component extends DCLogic {
     this.stopTour();
     this.gActive = true; this.gAt = null;
     if (!this.keyFn) { this.keyFn = function (ev) { if (ev.key === 'Escape' && self.gActive) { self.gStop(); } }; document.addEventListener('keydown', this.keyFn); }
-    if (!this.resizeFn) { this.resizeFn = function () { if (self.gActive && self.gAt) { var p = self.gPoint(self.gAt); if (p) { self.gPlace(p.x, p.y, 1); self.gBubble(); } } }; window.addEventListener('resize', this.resizeFn); }
+    if (!this.resizeFn) { this.resizeFn = function () { if (self.gActive && self.gAt && !self.raf) { var p = self.gPoint(self.gAt); if (p) { self.gPlace(p.x, p.y, 1); self.gBubble(); } } }; window.addEventListener('resize', this.resizeFn); }
+    if (!this.anchorFn) {
+      var queued = false;
+      this.anchorFn = function () { if (queued) { return; } queued = true; requestAnimationFrame(function () { queued = false; self.gAnchor(); }); };
+      this.touchFn = function () { self.gTouch = Date.now(); };
+      document.addEventListener('scroll', this.anchorFn, { capture: true, passive: true });
+      document.addEventListener('touchmove', this.touchFn, { passive: true });
+      document.addEventListener('wheel', this.touchFn, { passive: true });
+      if (window.ResizeObserver) { this.anchorRO = new ResizeObserver(this.anchorFn); this.anchorRO.observe(document.body); }
+    }
     this.gHide(); this.setState({ glow: false, guiding: true, heroFaded: true });
     var logoEl = document.querySelector('.glogo'), lr = logoEl ? logoEl.getBoundingClientRect() : null;
     if (lr && !this.still() && (lr.top < 10 || lr.bottom > window.innerHeight - 10)) {
@@ -827,7 +872,7 @@ class Component extends DCLogic {
       if (s && s.scrollWidth > s.clientWidth) { s.scrollLeft = (s.scrollWidth - s.clientWidth) / 2; }
     } catch (e) {}
   }
-  componentWillUnmount() { if (this.timer) { clearInterval(this.timer); } if (this.glowTimer) { clearTimeout(this.glowTimer); } if (this.raf) { cancelAnimationFrame(this.raf); } if (this.keyFn) { document.removeEventListener('keydown', this.keyFn); } if (this.glayer && this.glayer.parentNode) { this.glayer.parentNode.removeChild(this.glayer); } if (this.resizeFn) { window.removeEventListener('resize', this.resizeFn); } }
+  componentWillUnmount() { if (this.anchorFn) { document.removeEventListener('scroll', this.anchorFn, { capture: true }); document.removeEventListener('touchmove', this.touchFn); document.removeEventListener('wheel', this.touchFn); if (this.anchorRO) { this.anchorRO.disconnect(); } } if (this.timer) { clearInterval(this.timer); } if (this.glowTimer) { clearTimeout(this.glowTimer); } if (this.raf) { cancelAnimationFrame(this.raf); } if (this.keyFn) { document.removeEventListener('keydown', this.keyFn); } if (this.glayer && this.glayer.parentNode) { this.glayer.parentNode.removeChild(this.glayer); } if (this.resizeFn) { window.removeEventListener('resize', this.resizeFn); } }
   seasonNow() {
     var S = [
       { lens: 'Three horizons', text: 'A simple way to see change: some old ways are fading, some new ways are already growing, and we can help the new ones along.', lensLink: 'The three horizons lesson', lensHref: 'Seeing.dc.html#horizons', partner: 'Third Horizon Earth', partnerHref: 'https://thirdhorizon.earth/', practice: 'Notice one third-horizon seed near you', practiceHref: 'Islands.dc.html' },
