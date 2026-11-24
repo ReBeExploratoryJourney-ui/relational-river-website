@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · email signature</title>
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+body{margin:0;background:#F5EEE1;color:#2F2B28;font-family:Jost,sans-serif;line-height:1.5}
+main{max-width:680px;margin:0 auto;padding:32px 20px 56px}
+h1{font-family:'Averia Serif Libre',Georgia,serif;font-weight:700;font-size:34px;line-height:1.1;margin:0 0 12px}
+p,li{font-size:17px}
+label{display:block;font-weight:600;font-size:15px;margin:14px 0 4px}
+input{font-family:Jost,sans-serif;font-size:17px;padding:10px 12px;width:100%;box-sizing:border-box;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFDF8;color:#2F2B28}
+.box{background:#FFFFFF;border:1.5px dashed #8C8178;border-radius:14px 18px 12px 20px;padding:24px;margin:22px 0 14px}
+button{font-family:'Averia Serif Libre',Georgia,serif;font-weight:700;font-size:18px;color:#2F2B28;background:#CFE1E4;border:1.5px solid #2F2B28;border-radius:14px 18px 12px 16px;padding:12px 22px;min-height:48px;cursor:pointer}
+.msg{font-style:italic;min-height:26px;margin:8px 0 0}
+ol li{margin-bottom:6px}
+a{color:#2F2B28}
+</style>
+</head>
+<body>
+<main>
+<h1>Your Relational River email signature</h1>
+<p>Change the words if you like, press <b>Copy my signature</b>, then paste it into your email signature settings.</p>
+<label for="n">Your name</label><input id="n" value="Jyo">
+<label for="t">Second line</label><input id="t" value="Institute of Relational Being">
+<div class="box"><div id="sig"></div></div>
+<button id="copy">Copy my signature</button>
+<p class="msg" id="msg" role="status"></p>
+<h2 style="font-family:'Averia Serif Libre',Georgia,serif;font-size:22px;margin:24px 0 6px">Where to paste it</h2>
+<ol>
+<li><b>Gmail</b> (on a computer): Settings, See all settings, General, Signature. Paste into the box, then Save Changes at the bottom.</li>
+<li><b>Apple Mail</b>: Settings, Signatures. Untick “Always match my default message font”, then paste.</li>
+<li><b>Outlook</b>: Settings, Signatures. Paste, then save.</li>
+</ol>
+<p>If the copy button doesn’t work in your browser, select everything inside the white box and copy it yourself.</p>
+<p>The logo lives on relationalriver.org, so it shows in each email without being attached. Clicking it opens the River.</p>
+<p><a href="/">Back to the Relational River</a></p>
+</main>
+<script>
+(function () {
+  var n = document.getElementById('n'), t = document.getElementById('t'), sig = document.getElementById('sig'), msg = document.getElementById('msg');
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function html() {
+    return '<table cellpadding="0" cellspacing="0" border="0" style="font-family:Georgia,\'Times New Roman\',serif;color:#2F2B28">' +
+      (n.value.trim() ? '<tr><td style="padding-bottom:2px;font-size:16px;font-weight:bold">' + esc(n.value.trim()) + '</td></tr>' : '') +
+      (t.value.trim() ? '<tr><td style="padding-bottom:10px;font-size:14px;font-style:italic">' + esc(t.value.trim()) + '</td></tr>' : '') +
+      '<tr><td><a href="https://relationalriver.org" target="_blank" style="text-decoration:none"><img src="https://relationalriver.org/assets/relational-river-signature.png" width="300" height="80" alt="Relational River · relationalriver.org" style="display:block;border:0;width:300px;height:80px"></a></td></tr></table>';
+  }
+  function draw() { sig.innerHTML = html(); }
+  n.addEventListener('input', draw); t.addEventListener('input', draw); draw();
+  document.getElementById('copy').addEventListener('click', function () {
+    var h = html(), plain = (n.value.trim() ? n.value.trim() + '\n' : '') + (t.value.trim() ? t.value.trim() + '\n' : '') + 'Relational River · https://relationalriver.org';
+    function fallback() {
+      try { var r = document.createRange(); r.selectNodeContents(sig); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); var ok = document.execCommand('copy'); s.removeAllRanges(); return ok; } catch (e) { return false; }
+    }
+    function done(ok) { msg.textContent = ok ? 'Copied. Now paste it into your signature settings.' : 'Your browser didn’t allow copying. Select everything in the white box and copy it yourself.'; }
+    if (navigator.clipboard && window.ClipboardItem) {
+      navigator.clipboard.write([new ClipboardItem({ 'text/html': new Blob([h], { type: 'text/html' }), 'text/plain': new Blob([plain], { type: 'text/plain' }) })]).then(function () { done(true); }, function () { done(fallback()); });
+    } else { done(fallback()); }
+  });
+})();
+</script>
+</body>
+</html>

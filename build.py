@@ -133,6 +133,11 @@ def main():
         dest.mkdir(exist_ok=True)
         for f in (ROOT / sub).iterdir():
             (dest / f.name).write_bytes(f.read_bytes())
+    # small plain pages kept as they are (static/<name>/index.html -> /<name>)
+    for folder in (ROOT / 'static').iterdir():
+        if (folder / 'index.html').exists():
+            (OUT / folder.name).mkdir(exist_ok=True)
+            (OUT / folder.name / 'index.html').write_bytes((folder / 'index.html').read_bytes())
     (OUT / '404.html').write_text(NOT_FOUND)
     # old addresses that moved
     for old, new in REDIRECTS.items():
