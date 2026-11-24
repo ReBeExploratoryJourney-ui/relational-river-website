@@ -377,16 +377,24 @@ class Component extends DCLogic {
       { at: 'moon', text: 'The River is an offering from the Institute of Relational Being. It is meant to be made together, by everyone who joins in, so you are warmly invited to help shape it.' }
     ];
     var deep = [
-      { at: 'moon', text: 'Here is how the River flows. It begins with you, then widens, little by little, from small moments in your own day to people and projects all around the world.' },
-      { at: 'moon', text: 'It starts at the Source, with a few gentle questions that help you become more aware of the relationships beyond the human world that we are always a part of. There are no wrong answers, and your answers suggest a good place to begin.' },
-      { at: 'moon', text: 'Next come the streams: small things to try on any day, like sitting with a tree, listening to rain, or thanking the Beings who helped make your meal. And when things feel heavy, the eddies are places to pause, for grief, gratitude and rest.' },
-      { at: 'moon', text: 'The tributaries flow in from the sides, bringing films, talks and short lessons that help these times make sense. Each one is credited to the people who made it.' },
-      { at: 'moon', text: 'In the lakes, we slow down together, in circles and gatherings. Out in the current are islands of coherence: groups that stay calm, kind and steady when the world feels shaky. When islands connect with each other, they can help everything around them change.' },
-      { at: 'moon', text: 'When you feel ready to do something, the waterfall helps turn an idea into a first step. The channels share ways to help, big and small. Local currents point to people already caring for the place where you live, and the estuary brings all of this into work, school and community life.' },
-      { at: 'moon', text: 'Further on, the River widens. At the confluences, organisations meet and join forces. In the ocean, you can discover projects caring for land, water and people all over the world.' },
-      { at: 'moon', text: 'Underneath it all is the groundwater: the quiet connections forming between projects and places. And at the Well, people share what they can offer and ask for what they need. It works like stone soup: everyone brings a little, and together it becomes a meal.' },
-      { at: 'moon', text: 'And above it all is Moon, who moves the waters, and us too. All our ancestors once lived in close relationship with the land and ecology they were a part of. The River is one way of remembering that.' },
-      { at: 'moon', text: 'A few promises. What you share stays private unless you choose otherwise. Nothing is ranked. Indigenous voices are honored and illuminated wherever possible. Every project is credited and linked to its makers. The River points the way, then steps aside, so real relationships can grow out in the world.' }
+      { at: 'Source', node: 'Source', text: 'Here is how the River flows. It begins with you, then widens, little by little, from small moments in your own day to people and projects all around the world.' },
+      { at: 'Source', node: 'Source', text: 'It starts at the Source, with a few gentle questions that help you become more aware of the relationships beyond the human world that we are always a part of. There are no wrong answers, and your answers suggest a good place to begin.' },
+      { at: 'Springs', node: 'Springs', text: 'Close to the Source are the springs, where fresh offerings bubble up: courses, cohorts and gatherings with a closing date, so you can join while the doors are open.' },
+      { at: 'Streams', node: 'Streams', text: 'Next come the streams: small things to try on any day, like sitting with a tree, listening to rain, or thanking the Beings who helped make your meal.' },
+      { at: 'Tributaries', node: 'Tributaries', text: 'The tributaries flow in from the sides, bringing films, talks and short lessons that help these times make sense. Each one is credited to the people who made it.' },
+      { at: 'Eddies', node: 'Eddies', text: 'And when things feel heavy, the eddies are places to pause, for grief, gratitude and rest.' },
+      { at: 'Lakes', node: 'Lakes', text: 'In the lakes, we slow down together, in circles and gatherings.' },
+      { at: 'Islands of coherence', node: 'Islands of coherence', text: 'Out in the current are islands of coherence: groups that stay calm, kind and steady when the world feels shaky. When islands connect with each other, they can help everything around them change.' },
+      { at: 'Waterfall', node: 'Waterfall', text: 'When you feel ready to do something, the waterfall helps turn an idea into a first step.' },
+      { at: 'Local currents', node: 'Local currents', text: 'Local currents point to people already caring for the place where you live.' },
+      { at: 'Channels', node: 'Channels', text: 'The channels share ways to help, big and small.' },
+      { at: 'Estuary', node: 'Estuary', text: 'And the estuary brings all of this into work, school and community life.' },
+      { at: 'Confluences', node: 'Confluences', text: 'Further on, the River widens. At the confluences, organisations meet and join forces.' },
+      { at: 'Ocean', node: 'Ocean', text: 'In the ocean, you can discover projects caring for land, water and people all over the world.' },
+      { at: 'Groundwater', node: 'Groundwater', text: 'Underneath it all is the groundwater: the quiet connections forming between projects and places.' },
+      { at: 'The Well', node: 'The Well', text: 'And at the Well, people share what they can offer and ask for what they need. It works like stone soup: everyone brings a little, and together it becomes a meal.' },
+      { at: 'moon', node: 'Moon', text: 'And above it all is Moon, who moves the waters, and us too. All our ancestors once lived in close relationship with the land and ecology they were a part of. The River is one way of remembering that.' },
+      { at: 'moon', node: 'Moon', text: 'A few promises. What you share stays private unless you choose otherwise. Nothing is ranked. Indigenous voices are honored and illuminated wherever possible. Every project is credited and linked to its makers. The River points the way, then steps aside, so real relationships can grow out in the world.' }
     ];
     var T = [
       ['Source', 'Everything begins here, at the Source. A few gentle questions help you become more aware of the relationships beyond the human world that we are always a part of: with trees, waters, creatures, places and more. There are no wrong answers, and you can come back any time.'],
@@ -397,8 +405,8 @@ class Component extends DCLogic {
       ['Lakes', 'In the lakes, the water is still. This is where we slow down together, in circles, gatherings and retreats, with others who care.'],
       ['Islands of coherence', 'These are islands of coherence: households, groups and places that stay calm, kind and steady when the world feels shaky. When they connect, they can help a whole system find a better way.'],
       ['Waterfall', 'At the waterfall, ideas tumble into action. Share an idea, a hope or a question, and the River suggests people, resources and one small first step.'],
-      ['Channels', 'The channels carry the water out to the land. Here you will find ways to help, from small changes at home to big movements around the world.'],
       ['Local currents', 'Local currents are the groups already caring for the place where you live. The River points you to them, then steps aside.'],
+      ['Channels', 'The channels carry the water out to the land. Here you will find ways to help, from small changes at home to big movements around the world.'],
       ['Estuary', 'In the estuary, river meets sea. This is where caring for the living world comes into work, school and community life.'],
       ['Confluences', 'At the confluences, streams meet and grow stronger. Organisations find each other here, and there is a journey about money as part of the living world.'],
       ['Ocean', 'Everything flows to the ocean. Here are projects all over the world caring for land, water and each other, ready to be met and supported.'],
@@ -406,7 +414,7 @@ class Component extends DCLogic {
       ['The Well', 'This is the Well of Wonder, Wit, Wisdom and Wealth. Share what you can offer, ask for what you need, and help bring projects to life. Like stone soup, everyone brings a little.'],
       ['Moon', 'Above it all, Moon moves the waters, and us too, inviting us to pause, notice and return. Every part of the River feeds the others, and now you are part of the flow.']
     ];
-    var tour = T.map(function (t) { return { at: t[0], node: t[0], text: t[1] }; });
+    var tour = T.map(function (t) { return { at: t[0] === 'Moon' ? 'moon' : t[0], node: t[0], text: t[1] }; });
     var end = { at: 'moon', text: 'That’s the River, for now. It will keep changing, and so will you. Where would you like to begin?', final: true };
     return { find: [{ at: 'moon', text: 'What are you longing for today? Choose whatever feels closest.', find: true }], welcome: [{ at: 'moon', text: 'Hello, and welcome to the Relational River! I am Raven, and I would love to be your guide. Shall I tell you about the River, show you around, or help you find your way?', choice: true }], deep: pre.concat(deep, [end]), tour: pre.concat(tour, [end]) };
   }
@@ -607,7 +615,7 @@ class Component extends DCLogic {
     var self = this, beats = this.guideScript()[seq], beat = beats[idx];
     if (!beat) { this.gStop(); return; }
     var nodeIndex = -1;
-    if (beat.node) { nodeIndex = this.nodeNames.indexOf(beat.node); }
+    var cardName = beat.node || (beat.at === 'moon' ? 'Moon' : null); if (cardName) { nodeIndex = this.nodeNames.indexOf(cardName); }
     var show = function () { if (!self.gActive) { return; } self.gPerch(beat.at); self.gFocus = true; self.g = { seq: seq, idx: idx }; self.gRender(); };
     if (nodeIndex >= 0 && this.state.i !== nodeIndex) { this.stopTour(); this.setState({ i: nodeIndex, tour: false }); }
     if (this.gAt === beat.at) { show(); return; }
