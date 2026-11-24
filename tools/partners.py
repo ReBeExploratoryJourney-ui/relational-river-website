@@ -28,6 +28,26 @@ PARTNERS = [
   "shaped": False
  },
  {
+  "name": "Unearthodox",
+  "place": "Versoix, near Geneva, Switzerland, working worldwide",
+  "text": "Grown from the legacy of the Luc Hoffmann Institute, Unearthodox drives systems change through social innovation, so that nature and people can thrive together. It supports edge-walking innovators through its Exploration Co-Lab, rethinks innovation with the Post Growth Institute, and shares essays from the people it convenes in its Deep Dives.",
+  "theme": "Regenerative innovation",
+  "k": "see",
+  "href": "https://unearthodox.substack.com",
+  "founder": "",
+  "shaped": False
+ },
+ {
+  "name": "Becoming Crew",
+  "place": "England, with gatherings on the land near Bath and online",
+  "text": "An action learning collective guiding Earth-centred learning journeys and gatherings, in service to life: connection, cooperation and creativity, lived through ongoing practice. Home of The Spaceship Earth Podcast, hosted by Dan Burgess.",
+  "theme": "Earth-centred learning",
+  "k": "see",
+  "href": "https://www.becomingcrew.com/",
+  "founder": "",
+  "shaped": False
+ },
+ {
   "name": "Regenesis Institute for Regenerative Practice",
   "place": "Santa Fe, New Mexico, with cohorts around the world",
   "text": "Education and support for practitioners of regenerative development: bringing human activity back into alignment with the living systems that sustain it, by understanding the uniqueness of each place.",
