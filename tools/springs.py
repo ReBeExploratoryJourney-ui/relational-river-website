@@ -59,6 +59,11 @@ SPRINGS = [
      'when': 'Thursday 17 December 2026, 10am Pacific (6pm GMT)', 'where': 'Online, on Zoom, with captions; recorded for later', 'lang': 'English',
      'text': 'A year-end celebration with Scott Black, director of the Xerces Society, on how insects and other invertebrates connect species, people, landscapes, food and the health of the planet, and how caring for bees, butterflies, fireflies and freshwater mussels keeps food webs whole and brings communities together. A gentle way to meet the small Beings who hold so much together.',
      'closes': '2026-12-17', 'href': 'https://xerces.org/events/power-of-invertebrates-connecting-people-and-landscapes-for-better-world', 'cta': 'Learn more and register', 'theme': 'land', 'cost': 'free', 'found': 'Shared by Joe, a member of the Xerces Society community'},
+    {'id': 'otherwise-grieving-together-2026-12', 'host': 'otherWise', 'hostHref': 'https://otherwise.one/',
+     'title': 'Grieving Together, an otherWisdom Circle with Jungwon Kim', 'kind': 'Community circle', 'fmt': 'online',
+     'when': 'Thursday 3 December 2026, 11am to 1pm Eastern (8am to 10am Pacific)', 'where': 'See their page for how to join', 'lang': 'English',
+     'text': 'The second circle of otherWise’s Grief Cycle: a community dialogue on how grief lives between people, witnessing one another, mourning losses tied to a people or place, and making room for sorrow that does not resolve neatly. Grieving together as relationship, remembrance and care, rather than closure. Held by Jungwon Kim, a writer and cultural organiser who works with transgenerational grief and communal healing.',
+     'closes': '2026-12-03', 'href': 'https://otherwise.one/grieving-together/', 'cta': 'Learn more', 'theme': 'grief', 'cost': 'free', 'costNote': 'Free, offered in the spirit of the gift', 'found': 'Shared by Joe'},
 ]
 if __name__ == '__main__':
     data = {'updated': __import__('datetime').date.today().isoformat(), 'springs': SPRINGS}

@@ -1,0 +1,47 @@
+{
+  "linked_schemas": [
+    "catalist_object-v0.1.0"
+  ],
+  "type": "event",
+  "name": "Grieving Together, an otherWisdom Circle with Jungwon Kim",
+  "primary_url": "https://relationalriver.org/springs?spring=otherwise-grieving-together-2026-12",
+  "url": "https://otherwise.one/grieving-together/",
+  "urls": [
+    {
+      "name": "otherWise",
+      "url": "https://otherwise.one/"
+    },
+    {
+      "name": "Relational River Springs",
+      "url": "https://relationalriver.org/springs"
+    }
+  ],
+  "tags": [
+    "relational river spring",
+    "grief",
+    "care",
+    "community circle",
+    "online"
+  ],
+  "description": "The second circle of otherWise’s Grief Cycle: a community dialogue on how grief lives between people, witnessing one another, mourning losses tied to a people or place, and making room for sorrow that does not resolve neatly. Grieving together as relationship, remembrance and care, rather than closure. Held by Jungwon Kim, a writer and cultural organiser who works with transgenerational grief and communal healing. Thursday 3 December 2026, 11am to 1pm Eastern (8am to 10am Pacific); See their page for how to join; Free, offered in the spirit of the gift. Offered by otherWise. Listed in the Relational River's Springs; join through the makers' own page.",
+  "status": "active",
+  "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
+  "geographic_scope": "international",
+  "contact_details": {
+    "contact_form": "https://otherwise.one/grieving-together/"
+  },
+  "relationships": [
+    {
+      "predicate_url": "https://schema.org/organizer",
+      "object_url": "https://otherwise.one/"
+    },
+    {
+      "predicate_url": "https://schema.org/isPartOf",
+      "object_url": "https://relationalriver.org"
+    }
+  ],
+  "expires": 1796342399,
+  "knows_language": [
+    "English"
+  ]
+}
