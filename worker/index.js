@@ -144,6 +144,21 @@ async function inat(request, url, ctx) {
       });
     });
   }
+  if (url.pathname === '/api/inat/places') {
+    const q = (url.searchParams.get('q') || '').trim().slice(0, 60);
+    if (q.length < 2) return json({ results: [] });
+    return cached(request, ctx, async () => {
+      const r = await fetch('https://api.inaturalist.org/v1/places/autocomplete?per_page=6&q=' + encodeURIComponent(q), {
+        headers: { accept: 'application/json', 'user-agent': 'RelationalRiver/1.0 (relationalriver.org)' },
+      });
+      if (!r.ok) return json({ error: 'upstream' }, 502);
+      const d = await r.json();
+      const results = (d.results || []).map((p) => ({ id: p.id, name: p.display_name || p.name }));
+      return new Response(JSON.stringify({ results }), {
+        headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=604800' },
+      });
+    });
+  }
   if (url.pathname === '/api/inat/photo') {
     let src;
     try { src = new URL(url.searchParams.get('u') || ''); } catch (e) { return json({ error: 'bad_request' }, 400); }

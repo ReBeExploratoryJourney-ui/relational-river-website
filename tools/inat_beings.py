@@ -25,6 +25,29 @@ PLACES = {
     'la': {'lat': 34.12, 'lng': -118.39, 'radius': 14},
     'clare': {'lat': 52.93, 'lng': -8.47, 'radius': 25},
 }
+# Other watersheds to explore from "Somewhere else" (label, lat, lng, radius km).
+ELSEWHERE = {
+    'portland': ('Portland and the Willamette', 45.52, -122.68, 15),
+    'dart': ('The River Dart, Devon', 50.45, -3.69, 15),
+    'berlin': ('Berlin and the Spree', 52.52, 13.40, 15),
+    'brussels': ('Brussels and the Zenne', 50.85, 4.35, 15),
+    'northern-rivers': ('Northern Rivers, New South Wales', -28.65, 153.35, 25),
+    'mata-atlantica': ('Atlantic Forest, São Paulo', -23.55, -46.63, 30),
+    'nairobi': ('Nairobi and the Athi River', -1.29, 36.82, 20),
+    'kyoto': ('Kyoto and the Kamo River', 35.01, 135.77, 15),
+}
+for _k, (_label, _lat, _lng, _r) in ELSEWHERE.items():
+    PLACES[_k] = {'lat': _lat, 'lng': _lng, 'radius': _r}
+# Beings we leave out of the River's gallery: mind-altering species.
+EXCLUDE_GENERA = {'Psilocybe', 'Panaeolus', 'Gymnopilus', 'Pholiotina', 'Copelandia', 'Cannabis',
+                  'Datura', 'Brugmansia', 'Lophophora', 'Echinopsis', 'Trichocereus', 'Mitragyna'}
+EXCLUDE_SPECIES = {'Amanita muscaria', 'Amanita pantherina', 'Papaver somniferum', 'Salvia divinorum',
+                   'Erythroxylum coca', 'Tabernanthe iboga', 'Banisteriopsis caapi', 'Psychotria viridis'}
+
+
+def excluded(taxon):
+    name = (taxon.get('name') or '').strip()
+    return name.split(' ')[0] in EXCLUDE_GENERA or ' '.join(name.split(' ')[:2]) in EXCLUDE_SPECIES
 PHOTO_HOSTS = ('inaturalist-open-data.s3.amazonaws.com', 'static.inaturalist.org')
 PER_PLACE = 4
 
@@ -49,7 +72,7 @@ def pick(results):
     seen, out = set(), []
     for o in results:
         t, photos = o.get('taxon'), o.get('photos') or []
-        if not t or not photos or not photos[0].get('url'):
+        if not t or not photos or not photos[0].get('url') or excluded(t):
             continue
         if (photos[0].get('license_code') or '').lower() not in ('cc0', 'cc-by', 'cc-by-sa'):
             continue
@@ -125,7 +148,8 @@ def main():
         if fn not in keep:
             os.remove(os.path.join(img_dir, fn))
     with open(os.path.join(data_dir, 'beings.json'), 'w') as f:
-        json.dump({'updated': time.strftime('%Y-%m-%d'), 'places': places}, f, ensure_ascii=False, indent=1)
+        labels = {k: v[0] for k, v in ELSEWHERE.items()}
+        json.dump({'updated': time.strftime('%Y-%m-%d'), 'labels': labels, 'places': places}, f, ensure_ascii=False, indent=1)
     # Mirror into the built site so it goes live without a full rebuild.
     site_data = os.path.join(ROOT, 'site', 'data')
     shutil.copy(os.path.join(data_dir, 'beings.json'), os.path.join(site_data, 'beings.json'))
