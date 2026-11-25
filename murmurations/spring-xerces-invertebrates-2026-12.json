@@ -1,0 +1,48 @@
+{
+  "linked_schemas": [
+    "catalist_object-v0.1.0"
+  ],
+  "type": "event",
+  "name": "The Power of Invertebrates: Connecting People and Landscapes for a Better World",
+  "primary_url": "https://relationalriver.org/springs?spring=xerces-invertebrates-2026-12",
+  "url": "https://xerces.org/events/power-of-invertebrates-connecting-people-and-landscapes-for-better-world",
+  "urls": [
+    {
+      "name": "The Xerces Society for Invertebrate Conservation",
+      "url": "https://xerces.org/"
+    },
+    {
+      "name": "Relational River Springs",
+      "url": "https://relationalriver.org/springs"
+    }
+  ],
+  "tags": [
+    "relational river spring",
+    "land",
+    "regenerative practice",
+    "bioregional",
+    "webinar",
+    "online"
+  ],
+  "description": "A year-end celebration with Scott Black, director of the Xerces Society, on how insects and other invertebrates connect species, people, landscapes, food and the health of the planet, and how caring for bees, butterflies, fireflies and freshwater mussels keeps food webs whole and brings communities together. A gentle way to meet the small Beings who hold so much together. Thursday 17 December 2026, 10am Pacific (6pm GMT); Online, on Zoom, with captions; recorded for later; free. Offered by The Xerces Society for Invertebrate Conservation. Listed in the Relational River's Springs; join through the makers' own page.",
+  "status": "active",
+  "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
+  "geographic_scope": "international",
+  "contact_details": {
+    "contact_form": "https://xerces.org/events/power-of-invertebrates-connecting-people-and-landscapes-for-better-world"
+  },
+  "relationships": [
+    {
+      "predicate_url": "https://schema.org/organizer",
+      "object_url": "https://xerces.org/"
+    },
+    {
+      "predicate_url": "https://schema.org/isPartOf",
+      "object_url": "https://relationalriver.org"
+    }
+  ],
+  "expires": 1797551999,
+  "knows_language": [
+    "English"
+  ]
+}

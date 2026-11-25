@@ -186,7 +186,17 @@ PARTNERS = [
   "href": "https://optionality.darkmatterlabs.org/",
   "founder": "",
   "shaped": False
- }
+ },
+ {
+  "name": "The Xerces Society for Invertebrate Conservation",
+  "place": "Portland, Oregon, working across North America and beyond",
+  "text": "Protecting the natural world through the conservation of invertebrates and their habitats: bees, butterflies, fireflies, freshwater mussels and the many small Beings who hold food webs together. Science-led, with community science, habitat restoration, pesticide reduction and advocacy, and plenty of ways to help close to home.",
+  "theme": "Woodland and land",
+  "k": "land",
+  "href": "https://xerces.org/",
+  "founder": "",
+  "shaped": False
+ },
 ]
 
 

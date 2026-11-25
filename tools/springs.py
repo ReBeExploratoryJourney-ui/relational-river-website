@@ -54,6 +54,11 @@ SPRINGS = [
      'when': 'Thursday 17 December 2026, 6:30pm GMT (10:30am Pacific), about 90 minutes', 'where': 'Online', 'lang': 'English',
      'text': 'How might business help shape the future rather than only react to it? A live conversation on growing the imagination to question inherited systems and design more regenerative, participatory organisations, with Phoebe Tickell, founder of Moral Imaginations.',
      'closes': '2026-12-17', 'href': 'https://essense.school/business-and-imagination-phoebe-tickell', 'cta': 'Read more and register', 'theme': 'money', 'cost': 'paid', 'costNote': '£35 for a one-talk pass, as listed on their page', 'found': 'Shared by Joe, who met ESSENSE through Beena Sharma'},
+    {'id': 'xerces-invertebrates-2026-12', 'host': 'The Xerces Society for Invertebrate Conservation', 'hostHref': 'https://xerces.org/',
+     'title': 'The Power of Invertebrates: Connecting People and Landscapes for a Better World', 'kind': 'Webinar', 'fmt': 'online',
+     'when': 'Thursday 17 December 2026, 10am Pacific (6pm GMT)', 'where': 'Online, on Zoom, with captions; recorded for later', 'lang': 'English',
+     'text': 'A year-end celebration with Scott Black, director of the Xerces Society, on how insects and other invertebrates connect species, people, landscapes, food and the health of the planet, and how caring for bees, butterflies, fireflies and freshwater mussels keeps food webs whole and brings communities together. A gentle way to meet the small Beings who hold so much together.',
+     'closes': '2026-12-17', 'href': 'https://xerces.org/events/power-of-invertebrates-connecting-people-and-landscapes-for-better-world', 'cta': 'Learn more and register', 'theme': 'land', 'cost': 'free', 'found': 'Shared by Joe, a member of the Xerces Society community'},
 ]
 if __name__ == '__main__':
     data = {'updated': __import__('datetime').date.today().isoformat(), 'springs': SPRINGS}
