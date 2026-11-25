@@ -1,0 +1,47 @@
+{
+  "linked_schemas": [
+    "catalist_object-v0.1.0"
+  ],
+  "type": "event",
+  "name": "Sense the Shift: Business and Stewardship, with Darshita Gillies",
+  "primary_url": "https://relationalriver.org/springs?spring=essense-stewardship-2026-12",
+  "url": "https://essense.school/business-and-stewardship-darshita-gillies",
+  "urls": [
+    {
+      "name": "ESSENSE Business School",
+      "url": "https://essense.school/"
+    },
+    {
+      "name": "Relational River Springs",
+      "url": "https://relationalriver.org/springs"
+    }
+  ],
+  "tags": [
+    "relational river spring",
+    "regenerative economics",
+    "finance",
+    "online conversation",
+    "online"
+  ],
+  "description": "A live, dialogue-led conversation about what a business holds in trust, and how honestly it can account for its effects on people and the planet. Darshita Gillies founded Maanch, a B Corp building stewardship tools for investors. A gentle first step on the Canal toward relational business. Thursday 3 December 2026, 6:30pm GMT (10:30am Pacific), 75 to 90 minutes; Online, on Zoom; Join free, or give what you can. Offered by ESSENSE Business School. Listed in the Relational River's Springs; join through the makers' own page.",
+  "status": "active",
+  "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
+  "geographic_scope": "international",
+  "contact_details": {
+    "contact_form": "https://essense.school/business-and-stewardship-darshita-gillies"
+  },
+  "relationships": [
+    {
+      "predicate_url": "https://schema.org/organizer",
+      "object_url": "https://essense.school/"
+    },
+    {
+      "predicate_url": "https://schema.org/isPartOf",
+      "object_url": "https://relationalriver.org"
+    }
+  ],
+  "expires": 1796342399,
+  "knows_language": [
+    "English"
+  ]
+}

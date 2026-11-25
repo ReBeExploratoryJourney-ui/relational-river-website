@@ -83,7 +83,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <nav class="vnav" aria-label="Main">
 <div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Seeing.dc.html"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
-<div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="Springs.dc.html"><b>Springs</b><span>offerings to join soon</span></a><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="Islands.dc.html"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean and confluences</b><span>projects and collaborators worldwide</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="Springs.dc.html"><b>Springs</b><span>offerings to join soon</span></a><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="Islands.dc.html"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean</b><span>projects and collaborators worldwide</span></a><a href="Confluences.dc.html"><b>Confluences</b><span>kindred platforms, many ways in</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Estuary.dc.html"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="Canal.dc.html"><b>The Canal</b><span>guided paths toward deeper offerings</span></a><a href="Groundwater.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
 <a href="Boat.dc.html" class="vmine">My Boat</a>
 </nav>
@@ -105,7 +105,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <sc-if value="{{none}}" hint-placeholder-val="{{ false }}"><p class="p" style="color: #EDEDED; font-size: 17px">Nothing is bubbling up with those choices just now. New springs rise all the time, so do come back.</p></sc-if>
 <div class="cards">
 <sc-for list="{{springs}}" as="s" hint-placeholder-count="3">
-<article class="{{s.cls}}" style="background: {{s.bg}}">
+<article id="{{s.anchor}}" class="{{s.cls}}" style="background: {{s.bg}}">
 <div class="soon">{{s.left}}</div>
 <div class="k">{{s.kind}}</div>
 <h3 class="h3">{{s.title}}</h3>
@@ -175,7 +175,9 @@ class Component extends DCLogic {
     return { aboardOn: on ? 'true' : 'false', aboardLabel: on ? (tend ? 'Tending in my Boat' : 'Aboard my Boat') : (tend ? 'Tend this in my Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
   }
   constructor(props) { super(props); this.state = { fmt: 'all', cost: 'all' }; }
-  componentDidMount() { var self = this; try { fetch('/data/springs.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.springs) { self.setState({ data: d.springs }); } }).catch(function () {}); } catch (e) {} }
+  componentDidMount() { var self = this; try { fetch('/data/springs.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.springs) { self.setState({ data: d.springs }); } self.showLinked(); }).catch(function () { self.showLinked(); }); } catch (e) {} }
+  // Links shared beyond the River (Murmurations profiles) point to /springs?spring=<id>: bring that spring into view.
+  showLinked() { try { var id = new URLSearchParams(location.search).get('spring'); if (!id || !/^[a-z0-9-]+$/.test(id)) { return; } setTimeout(function () { var el = document.getElementById('spring-' + id); if (el) { var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; el.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'center' }); } }, 300); } catch (e) {} }
   chipVals(opts, key) {
     var self = this, cur = this.state[key];
     return opts.map(function (o) { var on = cur === o[0]; return { label: o[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var s = {}; s[key] = o[0]; self.setState(s); } }; });
@@ -196,7 +198,7 @@ class Component extends DCLogic {
       springs: list.map(function (o, k) {
         var d = o.days, left = d === 0 ? 'Closes today' : (d === 1 ? 'Closes tomorrow' : (d <= 21 ? 'Closes in ' + d + ' days · ' + fmtDate(o.c) : 'Open until ' + fmtDate(o.c)));
         var ab = self.aboardFor('gathered', { id: 'spring:' + o.s.id, title: o.s.title, kind: 'Spring · ' + o.s.kind, by: o.s.host, href: o.s.href, closes: o.s.closes || '' });
-        return { aboardOn: ab.aboardOn, aboardLabel: ab.aboardLabel, aboard: ab.aboard, left: left, kind: o.s.kind, title: o.s.title, host: o.s.host, hostHref: o.s.hostHref, text: o.s.text, when: o.s.when, where: o.s.where, lang: o.s.lang, cost: o.s.costNote || ({ free: 'Free', gift: 'By donation', paid: 'Paid' }[o.s.cost] || ''), noticed: !!o.s.noticed, href: o.s.href, cta: o.s.cta, bg: BG[k % BG.length], cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') + (d <= 21 ? ' soonest' : '') };
+        return { anchor: 'spring-' + o.s.id, aboardOn: ab.aboardOn, aboardLabel: ab.aboardLabel, aboard: ab.aboard, left: left, kind: o.s.kind, title: o.s.title, host: o.s.host, hostHref: o.s.hostHref, text: o.s.text, when: o.s.when, where: o.s.where, lang: o.s.lang, cost: o.s.costNote || ({ free: 'Free', gift: 'By donation', paid: 'Paid' }[o.s.cost] || ''), noticed: !!o.s.noticed, href: o.s.href, cta: o.s.cta, bg: BG[k % BG.length], cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') + (d <= 21 ? ' soonest' : '') };
       })
     };
   }

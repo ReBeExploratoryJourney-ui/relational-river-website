@@ -1,0 +1,49 @@
+{
+  "linked_schemas": [
+    "catalist_object-v0.1.0"
+  ],
+  "type": "event",
+  "name": "The Regenerative Practitioner, Vancouver cohort",
+  "primary_url": "https://relationalriver.org/springs?spring=trp-vancouver",
+  "url": "https://www.regenerat.es/trp/",
+  "urls": [
+    {
+      "name": "Regenesis Institute for Regenerative Practice",
+      "url": "https://www.regenerat.es/"
+    },
+    {
+      "name": "Relational River Springs",
+      "url": "https://relationalriver.org/springs"
+    }
+  ],
+  "tags": [
+    "relational river spring",
+    "land",
+    "regenerative practice",
+    "bioregional",
+    "six-month cohort",
+    "online",
+    "in person"
+  ],
+  "description": "Open to practitioners anywhere, with a special welcome for people in British Columbia. February to July 2027; Online, with a three-day intensive in Vancouver, Canada; Paid, with sliding scale and scholarships. Offered by Regenesis Institute for Regenerative Practice. Listed in the Relational River's Springs; join through the makers' own page.",
+  "status": "active",
+  "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
+  "geographic_scope": "international",
+  "contact_details": {
+    "contact_form": "https://www.regenerat.es/trp/"
+  },
+  "relationships": [
+    {
+      "predicate_url": "https://schema.org/organizer",
+      "object_url": "https://www.regenerat.es/"
+    },
+    {
+      "predicate_url": "https://schema.org/isPartOf",
+      "object_url": "https://relationalriver.org"
+    }
+  ],
+  "expires": 1801871999,
+  "knows_language": [
+    "English"
+  ]
+}

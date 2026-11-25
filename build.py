@@ -32,6 +32,7 @@ PAGES = {
     'Eddies': ('eddies.html', '/eddies', 'Grief, gratitude and practices that return at turning points.'),
     'Estuary': ('estuary.html', '/estuary', 'Where personal change meets workplaces, schools and councils.'),
     'Canal': ('canal.html', '/canal', 'The Canal: paths guided by people helping to reveal potentially beneficial and regenerative ways forward, with locks you climb only when ready.'),
+    'Confluences': ('confluences.html', '/confluences', 'Confluences: kindred platforms and protocols that help people find each other and work together, and how the River relates to each.'),
     'Groundwater': ('groundwater.html', '/groundwater', 'The hidden water that connects everything: the River as a living system.'),
     'Seeing': ('ways-of-seeing.html', '/ways-of-seeing', 'Ways of seeing: short lessons on three horizons, emergence, philosophy as practice and learning on the land, with partners who live this work.'),
     'AI': ('ai.html', '/ai', 'How the Relational River uses AI: where it helps behind the scenes, where it does not, what it costs, and our commitments.'),
@@ -116,8 +117,20 @@ def convert(name, text):
     return out_file, page
 
 
+HEADERS = '''/murmurations/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+'''
+
+
 def main():
     OUT.mkdir(exist_ok=True)
+    # Murmurations profiles for the River, the Canal and open Springs (see tools/murmurations.py)
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('murmurations', ROOT / 'tools' / 'murmurations.py')
+    murm = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(murm)
+    murm.main()
     for name in PAGES:
         text = (SRC / (name + '.dc.html')).read_text()
         out_file, page = convert(name, text)
@@ -130,7 +143,7 @@ def main():
         target.write_text(page)
         print('built', target.relative_to(OUT))
     # copy shared files
-    for sub in ('assets', 'js', 'data', 'fonts'):
+    for sub in ('assets', 'js', 'data', 'fonts', 'murmurations'):
         dest = OUT / sub
         dest.mkdir(exist_ok=True)
         for f in (ROOT / sub).iterdir():
@@ -144,6 +157,7 @@ def main():
             (OUT / folder.name).mkdir(exist_ok=True)
             (OUT / folder.name / 'index.html').write_bytes((folder / 'index.html').read_bytes())
     (OUT / '404.html').write_text(NOT_FOUND)
+    (OUT / '_headers').write_text(HEADERS)
     # old addresses that moved
     for old, new in REDIRECTS.items():
         folder = OUT / old

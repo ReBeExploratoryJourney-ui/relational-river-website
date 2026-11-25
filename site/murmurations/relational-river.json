@@ -1,0 +1,31 @@
+{
+  "linked_schemas": [
+    "organizations_schema-v1.0.0"
+  ],
+  "name": "Relational River",
+  "primary_url": "https://relationalriver.org",
+  "tags": [
+    "relational being",
+    "remembrance",
+    "nature connection",
+    "bioregional",
+    "regenerative culture",
+    "commons",
+    "open source",
+    "more-than-human"
+  ],
+  "description": "An open commons tended by the Institute of Relational Being: a global remembrance and relational development meshwork. Small practices, circles, local currents and offerings that help people slow down and build real relationships with the Beings and places around them. Every offering links to its makers.",
+  "mission": "To help people remember that they can find belonging through relationship with the rest of nature and the cosmos, navigating mystery with curiosity and humility, in service of life, love, kindness and care for all.",
+  "status": "active",
+  "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
+  "geographic_scope": "international",
+  "contact_details": {
+    "contact_form": "https://www.hylo.com/groups/institute-of-relational-being"
+  },
+  "relationships": [
+    {
+      "predicate_url": "https://schema.org/parentOrganization",
+      "object_url": "https://instituteofrelationalbeing.org"
+    }
+  ]
+}

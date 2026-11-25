@@ -1,0 +1,47 @@
+{
+  "linked_schemas": [
+    "catalist_object-v0.1.0"
+  ],
+  "type": "event",
+  "name": "Sense the Shift: Business and Imagination, with Phoebe Tickell",
+  "primary_url": "https://relationalriver.org/springs?spring=essense-imagination-2026-12",
+  "url": "https://essense.school/business-and-imagination-phoebe-tickell",
+  "urls": [
+    {
+      "name": "ESSENSE Business School",
+      "url": "https://essense.school/"
+    },
+    {
+      "name": "Relational River Springs",
+      "url": "https://relationalriver.org/springs"
+    }
+  ],
+  "tags": [
+    "relational river spring",
+    "regenerative economics",
+    "finance",
+    "online conversation",
+    "online"
+  ],
+  "description": "How might business help shape the future rather than only react to it? A live conversation on growing the imagination to question inherited systems and design more regenerative, participatory organisations, with Phoebe Tickell, founder of Moral Imaginations. Thursday 17 December 2026, 6:30pm GMT (10:30am Pacific), about 90 minutes; Online; £35 for a one-talk pass, as listed on their page. Offered by ESSENSE Business School. Listed in the Relational River's Springs; join through the makers' own page.",
+  "status": "active",
+  "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
+  "geographic_scope": "international",
+  "contact_details": {
+    "contact_form": "https://essense.school/business-and-imagination-phoebe-tickell"
+  },
+  "relationships": [
+    {
+      "predicate_url": "https://schema.org/organizer",
+      "object_url": "https://essense.school/"
+    },
+    {
+      "predicate_url": "https://schema.org/isPartOf",
+      "object_url": "https://relationalriver.org"
+    }
+  ],
+  "expires": 1797551999,
+  "knows_language": [
+    "English"
+  ]
+}

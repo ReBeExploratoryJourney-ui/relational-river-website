@@ -1,0 +1,15 @@
+{
+  "about": "Murmurations profiles published by the Relational River (https://murmurations.network).",
+  "updated": "2026-11-25",
+  "profiles": [
+    "https://relationalriver.org/murmurations/relational-river.json",
+    "https://relationalriver.org/murmurations/canal.json",
+    "https://relationalriver.org/murmurations/spring-trp-lisbon.json",
+    "https://relationalriver.org/murmurations/spring-trp-quebec.json",
+    "https://relationalriver.org/murmurations/spring-trp-vancouver.json",
+    "https://relationalriver.org/murmurations/spring-trp-americas.json",
+    "https://relationalriver.org/murmurations/spring-biofi-deepdive-2026-12.json",
+    "https://relationalriver.org/murmurations/spring-essense-stewardship-2026-12.json",
+    "https://relationalriver.org/murmurations/spring-essense-imagination-2026-12.json"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "linked_schemas": [
+    "catalist_object-v0.1.0"
+  ],
+  "type": "guided path",
+  "name": "The Canal: from relational practice to relational business",
+  "primary_url": "https://relationalriver.org/canal",
+  "url": "https://relationalriver.org/canal",
+  "tags": [
+    "regenerative business",
+    "leadership",
+    "founders",
+    "inner development",
+    "relational being"
+  ],
+  "description": "A guided path in the Relational River, kept by Joe Culhane of the Institute of Relational Being, for founders and leaders ready to let relational practice change how they lead. Four locks, climbed only when ready, toward offerings from ESSENSE Business School. No partnership, referral or commission is involved.",
+  "status": "active",
+  "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
+  "geographic_scope": "international",
+  "contact_details": {
+    "contact_form": "https://www.hylo.com/groups/institute-of-relational-being"
+  },
+  "relationships": [
+    {
+      "predicate_url": "https://schema.org/isPartOf",
+      "object_url": "https://relationalriver.org"
+    },
+    {
+      "predicate_url": "https://schema.org/mentions",
+      "object_url": "https://essense.school"
+    }
+  ]
+}

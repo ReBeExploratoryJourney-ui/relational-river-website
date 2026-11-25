@@ -1,0 +1,104 @@
+# Tell the Murmurations index about the River's profiles (see tools/murmurations.py).
+#
+# Runs after a push that changes murmurations/, every Monday (to refresh), or by
+# hand. The index keeps only a pointer to each profile; the River hosts the
+# profiles itself at https://relationalriver.org/murmurations/.
+# Profiles removed from the folder are deleted from the index too.
+name: Murmurations
+
+on:
+  push:
+    branches: [main]
+    paths: ['murmurations/**']
+  schedule:
+    - cron: '41 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      index:
+        description: 'Which index: test or live'
+        default: 'live'
+        type: choice
+        options: [test, live]
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Register profiles with the index
+        env:
+          WHICH: ${{ github.event.inputs.index || 'live' }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, subprocess, sys, time, urllib.request, urllib.error
+
+          INDEX = {'test': 'https://test-index.murmurations.network/v2',
+                   'live': 'https://index.murmurations.network/v2'}[os.environ['WHICH']]
+          SITE = 'https://relationalriver.org/murmurations/'
+          print('Index:', INDEX)
+
+          def req(method, url, body=None):
+              data = json.dumps(body).encode() if body is not None else None
+              r = urllib.request.Request(url, data=data, method=method,
+                                         headers={'Content-Type': 'application/json',
+                                                  'User-Agent': 'RelationalRiver-Murmurations/1.0'})
+              try:
+                  with urllib.request.urlopen(r, timeout=30) as resp:
+                      return resp.status, resp.read().decode()
+              except urllib.error.HTTPError as e:
+                  return e.code, e.read().decode()
+
+          local = json.load(open('murmurations/index.json'))['profiles']
+
+          # On a push, wait for Cloudflare to publish the new files first.
+          if os.environ['EVENT'] == 'push':
+              want = json.load(open('murmurations/index.json'))['updated']
+              for i in range(40):
+                  code, text = req('GET', SITE + 'index.json')
+                  if code == 200 and json.loads(text).get('updated') == want and json.loads(text)['profiles'] == local:
+                      break
+                  time.sleep(15)
+              else:
+                  print('The new profiles did not appear on the site in 10 minutes.'); sys.exit(1)
+
+          failed = []
+          nodes = {}
+          for url in local:
+              code, text = req('POST', INDEX + '/nodes', {'profile_url': url})
+              print(code, url, text[:300])
+              if code >= 300:
+                  failed.append(url); continue
+              nodes[url] = json.loads(text)['data']['node_id']
+
+          time.sleep(20)
+          for url, node in nodes.items():
+              for i in range(12):
+                  code, text = req('GET', INDEX + '/nodes/' + node)
+                  status = json.loads(text).get('data', {}).get('status') if code == 200 else None
+                  if status in ('posted', 'validation_failed', 'post_failed', 'deleted'):
+                      break
+                  time.sleep(10)
+              print('status', status, url)
+              if status != 'posted':
+                  print('  ', text[:600]); failed.append(url)
+
+          # Profiles removed in this push: delete them from the index.
+          if os.environ['EVENT'] == 'push':
+              out = subprocess.run(['git', 'diff', '--name-status', 'HEAD~1', 'HEAD', '--', 'murmurations/'],
+                                   capture_output=True, text=True).stdout.split('\n')
+              for line in out:
+                  parts = line.split('\t')
+                  if len(parts) == 2 and parts[0] == 'D' and parts[1].endswith('.json') and not parts[1].endswith('index.json'):
+                      url = SITE + parts[1].split('/')[-1]
+                      node = hashlib.sha256(url.encode()).hexdigest()
+                      code, text = req('DELETE', INDEX + '/nodes/' + node)
+                      print('delete', code, url, text[:200])
+
+          if failed:
+              print('Not posted:', *failed, sep='\n  '); sys.exit(1)
+          print('All', len(nodes), 'profiles are in the index.')
+          PY
