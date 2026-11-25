@@ -88,6 +88,8 @@ jobs:
                   status = json.loads(text).get('data', {}).get('status') if code == 200 else None
                   if status in ('posted', 'validation_failed', 'post_failed', 'deleted'):
                       break
+                  if code >= 400 and '"errors"' in text:
+                      break
                   time.sleep(10)
               print('status', status, url)
               if status != 'posted':
