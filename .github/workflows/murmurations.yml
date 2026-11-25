@@ -33,7 +33,7 @@ jobs:
           WHICH: ${{ github.event.inputs.index || 'live' }}
           EVENT: ${{ github.event_name }}
         run: |
-          python3 - <<'PY'
+          python3 -u - <<'PY'
           import hashlib, json, os, subprocess, sys, time, urllib.request, urllib.error
 
           INDEX = {'test': 'https://test-index.murmurations.network/v2',
@@ -42,12 +42,18 @@ jobs:
           print('Index:', INDEX)
 
           def req(method, url, body=None):
+              try:
+                  return _req(method, url, body)
+              except Exception as e:
+                  return 0, repr(e)
+
+          def _req(method, url, body=None):
               data = json.dumps(body).encode() if body is not None else None
               r = urllib.request.Request(url, data=data, method=method,
                                          headers={'Content-Type': 'application/json',
                                                   'User-Agent': 'RelationalRiver-Murmurations/1.0'})
               try:
-                  with urllib.request.urlopen(r, timeout=30) as resp:
+                  with urllib.request.urlopen(r, timeout=20) as resp:
                       return resp.status, resp.read().decode()
               except urllib.error.HTTPError as e:
                   return e.code, e.read().decode()
@@ -59,6 +65,7 @@ jobs:
               want = json.load(open('murmurations/index.json'))['updated']
               for i in range(40):
                   code, text = req('GET', SITE + 'index.json')
+                  print('waiting for the site:', code, text[:120].replace(chr(10), ' '))
                   if code == 200 and json.loads(text).get('updated') == want and json.loads(text)['profiles'] == local:
                       break
                   time.sleep(15)
