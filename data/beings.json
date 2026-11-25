@@ -1,0 +1,65 @@
+{
+ "updated": "2026-11-25",
+ "places": {
+  "la": [
+   {
+    "name": "Cyclone Psilocybe",
+    "img": "/data/beings/la-1.jpeg",
+    "url": "https://www.inaturalist.org/observations/4676262",
+    "credit": "(c) Alan Rockefeller, some rights reserved (CC BY)",
+    "alt": "Cyclone Psilocybe, a photo by Alan Rockefeller on iNaturalist"
+   },
+   {
+    "name": "Garden Snail",
+    "img": "/data/beings/la-2.jpg",
+    "url": "https://www.inaturalist.org/observations/2900550",
+    "credit": "no rights reserved",
+    "alt": "Garden Snail, a photo by cglamb on iNaturalist"
+   },
+   {
+    "name": "Hollyleaf redberry",
+    "img": "/data/beings/la-3.jpg",
+    "url": "https://www.inaturalist.org/observations/301617795",
+    "credit": "(c) klicklo, some rights reserved (CC BY)",
+    "alt": "Hollyleaf redberry, a photo by klicklo on iNaturalist"
+   },
+   {
+    "name": "Valley Carpenter Bee",
+    "img": "/data/beings/la-4.jpeg",
+    "url": "https://www.inaturalist.org/observations/60995971",
+    "credit": "(c) eastc, some rights reserved (CC BY)",
+    "alt": "Valley Carpenter Bee, a photo by eastc on iNaturalist"
+   }
+  ],
+  "clare": [
+   {
+    "name": "Microstroma album",
+    "img": "/data/beings/clare-1.jpg",
+    "url": "https://www.inaturalist.org/observations/408536377",
+    "credit": "(c) Jamie O'Neill, some rights reserved (CC BY)",
+    "alt": "Microstroma album, a photo by Jamie O'Neill on iNaturalist"
+   },
+   {
+    "name": "Birch Leaf-rolling Weevil",
+    "img": "/data/beings/clare-2.jpg",
+    "url": "https://www.inaturalist.org/observations/181435519",
+    "credit": "(c) Jamie O'Neill, some rights reserved (CC BY)",
+    "alt": "Birch Leaf-rolling Weevil, a photo by Jamie O'Neill on iNaturalist"
+   },
+   {
+    "name": "Northern Pike",
+    "img": "/data/beings/clare-3.jpeg",
+    "url": "https://www.inaturalist.org/observations/155014877",
+    "credit": "(c) Andrea Battisti, some rights reserved (CC BY)",
+    "alt": "Northern Pike, a photo by Andrea Battisti on iNaturalist"
+   },
+   {
+    "name": "Alpine marsh violet",
+    "img": "/data/beings/clare-4.jpg",
+    "url": "https://www.inaturalist.org/observations/212968306",
+    "credit": "(c) Jamie O'Neill, some rights reserved (CC BY)",
+    "alt": "Alpine marsh violet, a photo by Jamie O'Neill on iNaturalist"
+   }
+  ]
+ }
+}
