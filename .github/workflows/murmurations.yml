@@ -60,17 +60,10 @@ jobs:
 
           local = json.load(open('murmurations/index.json'))['profiles']
 
-          # On a push, wait for Cloudflare to publish the new files first.
+          # On a push, give Cloudflare a few minutes to publish the new files.
+          # (The index fetches each profile itself; GitHub's runners can't always reach the site.)
           if os.environ['EVENT'] == 'push':
-              want = json.load(open('murmurations/index.json'))['updated']
-              for i in range(40):
-                  code, text = req('GET', SITE + 'index.json')
-                  print('waiting for the site:', code, text[:120].replace(chr(10), ' '))
-                  if code == 200 and json.loads(text).get('updated') == want and json.loads(text)['profiles'] == local:
-                      break
-                  time.sleep(15)
-              else:
-                  print('The new profiles did not appear on the site in 10 minutes.'); sys.exit(1)
+              time.sleep(240)
 
           failed = []
           nodes = {}
