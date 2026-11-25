@@ -44,6 +44,16 @@ SPRINGS = [
      'when': 'Monday 14 December 2026, 11:30am to 1pm Eastern (8:30 to 10am Pacific)', 'where': 'Online, on Zoom', 'lang': 'English',
      'text': 'The last BioFi Deep Dive of 2026, with Luke Smith, co-founder of Origins Co-op. Origins is building farmer-owned market infrastructure with around 500 smallholder farmers in southern Thailand who are turning rubber plantations into diverse agroforests. A rich look at how whole watersheds could move to regenerative farming together.',
      'closes': '2026-12-14', 'href': 'https://luma.com/cbwva99a', 'cta': 'Register for the Deep Dive', 'theme': 'money', 'cost': 'open', 'costNote': 'Register on their event page', 'found': 'Shared by Joe, from the BioFi Project newsletter'},
+    {'id': 'essense-stewardship-2026-12', 'host': 'ESSENSE Business School', 'hostHref': 'https://essense.school/',
+     'title': 'Sense the Shift: Business and Stewardship, with Darshita Gillies', 'kind': 'Online conversation', 'fmt': 'online',
+     'when': 'Thursday 3 December 2026, 6:30pm GMT (10:30am Pacific), 75 to 90 minutes', 'where': 'Online, on Zoom', 'lang': 'English',
+     'text': 'A live, dialogue-led conversation about what a business holds in trust, and how honestly it can account for its effects on people and the planet. Darshita Gillies founded Maanch, a B Corp building stewardship tools for investors. A gentle first step on the Canal toward relational business.',
+     'closes': '2026-12-03', 'href': 'https://essense.school/business-and-stewardship-darshita-gillies', 'cta': 'Read more and register', 'theme': 'money', 'cost': 'gift', 'costNote': 'Join free, or give what you can', 'found': 'Shared by Joe, who met ESSENSE through Beena Sharma'},
+    {'id': 'essense-imagination-2026-12', 'host': 'ESSENSE Business School', 'hostHref': 'https://essense.school/',
+     'title': 'Sense the Shift: Business and Imagination, with Phoebe Tickell', 'kind': 'Online conversation', 'fmt': 'online',
+     'when': 'Thursday 17 December 2026, 6:30pm GMT (10:30am Pacific), about 90 minutes', 'where': 'Online', 'lang': 'English',
+     'text': 'How might business help shape the future rather than only react to it? A live conversation on growing the imagination to question inherited systems and design more regenerative, participatory organisations, with Phoebe Tickell, founder of Moral Imaginations.',
+     'closes': '2026-12-17', 'href': 'https://essense.school/business-and-imagination-phoebe-tickell', 'cta': 'Read more and register', 'theme': 'money', 'cost': 'paid', 'costNote': '£35 for a one-talk pass, as listed on their page', 'found': 'Shared by Joe, who met ESSENSE through Beena Sharma'},
 ]
 if __name__ == '__main__':
     data = {'updated': __import__('datetime').date.today().isoformat(), 'springs': SPRINGS}

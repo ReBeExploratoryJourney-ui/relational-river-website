@@ -6,6 +6,7 @@ web pages into site/, which Cloudflare Pages serves as relationalriver.org.
 
     python3 build.py
 """
+import shutil
 import re
 from pathlib import Path
 
@@ -30,6 +31,7 @@ PAGES = {
     'Lakes': ('lakes.html', '/lakes', 'Circles, fellowships and retreats where we slow down together.'),
     'Eddies': ('eddies.html', '/eddies', 'Grief, gratitude and practices that return at turning points.'),
     'Estuary': ('estuary.html', '/estuary', 'Where personal change meets workplaces, schools and councils.'),
+    'Canal': ('canal.html', '/canal', 'The Canal: paths guided by people who know the way, toward deeper offerings, with locks you climb only when ready.'),
     'Groundwater': ('groundwater.html', '/groundwater', 'The hidden water that connects everything: the River as a living system.'),
     'Seeing': ('ways-of-seeing.html', '/ways-of-seeing', 'Ways of seeing: short lessons on three horizons, emergence, philosophy as practice and learning on the land, with partners who live this work.'),
     'AI': ('ai.html', '/ai', 'How the Relational River uses AI: where it helps behind the scenes, where it does not, what it costs, and our commitments.'),
@@ -132,7 +134,10 @@ def main():
         dest = OUT / sub
         dest.mkdir(exist_ok=True)
         for f in (ROOT / sub).iterdir():
-            (dest / f.name).write_bytes(f.read_bytes())
+            if f.is_dir():
+                shutil.copytree(f, dest / f.name, dirs_exist_ok=True)
+            else:
+                (dest / f.name).write_bytes(f.read_bytes())
     # small plain pages kept as they are (static/<name>/index.html -> /<name>)
     for folder in (ROOT / 'static').iterdir():
         if (folder / 'index.html').exists():

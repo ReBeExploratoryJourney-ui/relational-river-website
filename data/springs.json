@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23",
+ "updated": "2026-11-25",
  "springs": [
   {
    "id": "trp-lisbon",
@@ -95,6 +95,44 @@
    "cost": "open",
    "costNote": "Register on their event page",
    "found": "Shared by Joe, from the BioFi Project newsletter"
+  },
+  {
+   "id": "essense-stewardship-2026-12",
+   "host": "ESSENSE Business School",
+   "hostHref": "https://essense.school/",
+   "title": "Sense the Shift: Business and Stewardship, with Darshita Gillies",
+   "kind": "Online conversation",
+   "fmt": "online",
+   "when": "Thursday 3 December 2026, 6:30pm GMT (10:30am Pacific), 75 to 90 minutes",
+   "where": "Online, on Zoom",
+   "lang": "English",
+   "text": "A live, dialogue-led conversation about what a business holds in trust, and how honestly it can account for its effects on people and the planet. Darshita Gillies founded Maanch, a B Corp building stewardship tools for investors. A gentle first step on the Canal toward relational business.",
+   "closes": "2026-12-03",
+   "href": "https://essense.school/business-and-stewardship-darshita-gillies",
+   "cta": "Read more and register",
+   "theme": "money",
+   "cost": "gift",
+   "costNote": "Join free, or give what you can",
+   "found": "Shared by Joe, who met ESSENSE through Beena Sharma"
+  },
+  {
+   "id": "essense-imagination-2026-12",
+   "host": "ESSENSE Business School",
+   "hostHref": "https://essense.school/",
+   "title": "Sense the Shift: Business and Imagination, with Phoebe Tickell",
+   "kind": "Online conversation",
+   "fmt": "online",
+   "when": "Thursday 17 December 2026, 6:30pm GMT (10:30am Pacific), about 90 minutes",
+   "where": "Online",
+   "lang": "English",
+   "text": "How might business help shape the future rather than only react to it? A live conversation on growing the imagination to question inherited systems and design more regenerative, participatory organisations, with Phoebe Tickell, founder of Moral Imaginations.",
+   "closes": "2026-12-17",
+   "href": "https://essense.school/business-and-imagination-phoebe-tickell",
+   "cta": "Read more and register",
+   "theme": "money",
+   "cost": "paid",
+   "costNote": "£35 for a one-talk pass, as listed on their page",
+   "found": "Shared by Joe, who met ESSENSE through Beena Sharma"
   }
  ]
 }
