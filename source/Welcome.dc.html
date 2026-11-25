@@ -976,7 +976,7 @@ class Component extends DCLogic {
       moonLit: moon.d,
       nodes: N.map(function (n, k) { var on = k === i; return { name: n.k, x: n.x + '%', y: n.y + '%', on: on ? 'true' : 'false', cls: on ? 'node on' : 'node', pick: function () { go(k); self.showCard(); } }; }),
       hasIdLink: /Relational ID/.test((cur.eg || '') + ' ' + cur.text), hasInvite: !!cur.invite, invite: cur.invite || '', inviteCta: cur.inviteCta || '',
-      step: (i + 1) + ' of ' + count, name: cur.k, line: cur.line, text: cur.text, eg: cur.eg, href: cur.href, cta: cur.cta, hasHref2: !!cur.href2, href2: cur.href2 || '', cta2: cur.cta2 || '', hasPrompt: !!cur.prompt, prompt: cur.prompt || '', promptOpen: this.state.promptFor === i, promptExpanded: this.state.promptFor === i ? 'true' : 'false', promptLabel: this.state.promptFor === i ? 'Rest here a moment' : 'Try something now', togglePrompt: function () { self.stopTour(); self.setState({ tour: false, promptFor: self.state.promptFor === i ? -1 : i }); },
+      step: (i + 1) + ' of ' + count, name: cur.k, line: cur.line, text: cur.text, eg: cur.eg, href: cur.href, cta: cur.cta, hasHref2: !!cur.href2, href2: cur.href2 || '', cta2: cur.cta2 || '', hasPrompt: !!cur.prompt, prompt: cur.prompt || '', promptOpen: this.state.promptFor === i, promptExpanded: this.state.promptFor === i ? 'true' : 'false', promptLabel: this.state.promptFor === i ? 'Fold it away' : 'Try something now', togglePrompt: function () { self.stopTour(); self.setState({ tour: false, promptFor: self.state.promptFor === i ? -1 : i }); },
       prev: function () { go(i - 1); }, next: function () { go(i + 1); },
       tourLabel: this.state.tour ? 'Pause the journey' : 'Follow the whole river',
       toggleTour: function () {
