@@ -1,21 +1,15 @@
 {
   "linked_schemas": [
-    "catalist_object-v0.1.0"
+    "offers_wants_schema-v0.1.0"
   ],
-  "type": "event",
-  "name": "BioFi Deep Dive: building farmer-owned regenerative supply systems",
-  "primary_url": "https://relationalriver.org/springs?spring=biofi-deepdive-2026-12",
-  "url": "https://luma.com/cbwva99a",
-  "urls": [
-    {
-      "name": "The BioFi Project",
-      "url": "https://thebiofiproject.substack.com/"
-    },
-    {
-      "name": "Relational River Springs",
-      "url": "https://relationalriver.org/springs"
-    }
+  "exchange_type": "offer",
+  "item_type": "service",
+  "transaction_type": [
+    "receive-donate"
   ],
+  "title": "BioFi Deep Dive: building farmer-owned regenerative supply systems",
+  "description": "The last BioFi Deep Dive of 2026, with Luke Smith, co-founder of Origins Co-op. Origins is building farmer-owned market infrastructure with around 500 smallholder farmers in southern Thailand who are turning rubber plantations into diverse agroforests. A rich look at how whole watersheds could move to regenerative farming together. Monday 14 December 2026, 11:30am to 1pm Eastern (8:30 to 10am Pacific); Online, on Zoom; Register on their event page. Offered by The BioFi Project. Listed in the Relational River's Springs; join through the makers' own page.",
+  "details_url": "https://luma.com/cbwva99a",
   "tags": [
     "relational river spring",
     "regenerative economics",
@@ -23,25 +17,10 @@
     "online conversation",
     "online"
   ],
-  "description": "The last BioFi Deep Dive of 2026, with Luke Smith, co-founder of Origins Co-op. Origins is building farmer-owned market infrastructure with around 500 smallholder farmers in southern Thailand who are turning rubber plantations into diverse agroforests. A rich look at how whole watersheds could move to regenerative farming together. Monday 14 December 2026, 11:30am to 1pm Eastern (8:30 to 10am Pacific); Online, on Zoom; Register on their event page. Offered by The BioFi Project. Listed in the Relational River's Springs; join through the makers' own page.",
-  "status": "active",
   "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
   "geographic_scope": "international",
   "contact_details": {
     "contact_form": "https://luma.com/cbwva99a"
   },
-  "relationships": [
-    {
-      "predicate_url": "https://schema.org/organizer",
-      "object_url": "https://thebiofiproject.substack.com/"
-    },
-    {
-      "predicate_url": "https://schema.org/isPartOf",
-      "object_url": "https://relationalriver.org"
-    }
-  ],
-  "expires": 1797292799,
-  "knows_language": [
-    "English"
-  ]
+  "expires_at": 1797292799
 }

@@ -1,21 +1,15 @@
 {
   "linked_schemas": [
-    "catalist_object-v0.1.0"
+    "offers_wants_schema-v0.1.0"
   ],
-  "type": "event",
-  "name": "The Regenerative Practitioner, Lisbon cohort",
-  "primary_url": "https://relationalriver.org/springs?spring=trp-lisbon",
-  "url": "https://www.regenerat.es/trp/",
-  "urls": [
-    {
-      "name": "Regenesis Institute for Regenerative Practice",
-      "url": "https://www.regenerat.es/"
-    },
-    {
-      "name": "Relational River Springs",
-      "url": "https://relationalriver.org/springs"
-    }
+  "exchange_type": "offer",
+  "item_type": "service",
+  "transaction_type": [
+    "buy-sell"
   ],
+  "title": "The Regenerative Practitioner, Lisbon cohort",
+  "description": "Learn regenerative development by working with a real project, alongside practitioners from many places and fields. Open to people anywhere, with a special welcome for Europe and Portugal. Co-taught by Nuno da Silva and Constança Belchior of Lucida. Sliding-scale discounts and scholarships are offered. January to June 2027; Online, with a three-day intensive at Gandum Village, near Lisbon; Paid, with sliding scale and scholarships. Offered by Regenesis Institute for Regenerative Practice. Listed in the Relational River's Springs; join through the makers' own page.",
+  "details_url": "https://www.regenerat.es/trp/",
   "tags": [
     "relational river spring",
     "land",
@@ -25,25 +19,10 @@
     "online",
     "in person"
   ],
-  "description": "Learn regenerative development by working with a real project, alongside practitioners from many places and fields. Open to people anywhere, with a special welcome for Europe and Portugal. Co-taught by Nuno da Silva and Constança Belchior of Lucida. Sliding-scale discounts and scholarships are offered. January to June 2027; Online, with a three-day intensive at Gandum Village, near Lisbon; Paid, with sliding scale and scholarships. Offered by Regenesis Institute for Regenerative Practice. Listed in the Relational River's Springs; join through the makers' own page.",
-  "status": "active",
   "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
   "geographic_scope": "international",
   "contact_details": {
     "contact_form": "https://www.regenerat.es/trp/"
   },
-  "relationships": [
-    {
-      "predicate_url": "https://schema.org/organizer",
-      "object_url": "https://www.regenerat.es/"
-    },
-    {
-      "predicate_url": "https://schema.org/isPartOf",
-      "object_url": "https://relationalriver.org"
-    }
-  ],
-  "expires": 1797033599,
-  "knows_language": [
-    "English"
-  ]
+  "expires_at": 1797033599
 }

@@ -1,11 +1,15 @@
 {
   "linked_schemas": [
-    "catalist_object-v0.1.0"
+    "organizations_schema-v1.0.0"
   ],
-  "type": "guided path",
   "name": "The Canal: from relational practice to relational business",
   "primary_url": "https://relationalriver.org/canal",
-  "url": "https://relationalriver.org/canal",
+  "urls": [
+    {
+      "name": "The Canal",
+      "url": "https://relationalriver.org/canal"
+    }
+  ],
   "tags": [
     "regenerative business",
     "leadership",

@@ -8,15 +8,18 @@ and directories (Catalist among them) can then find it.
 
 This writes murmurations/*.json, served at /murmurations/:
   - relational-river.json  the River itself (organizations_schema-v1.0.0)
-  - canal.json             the Canal, a guided path (catalist_object-v0.1.0)
-  - spring-<id>.json       each open Spring (catalist_object-v0.1.0)
+  - canal.json             the Canal, a guided path (organizations_schema-v1.0.0)
+  - spring-<id>.json       each open Spring, as an offer (offers_wants_schema-v0.1.0)
+
+Only schemas in the live Murmurations library are used, so every profile can
+be accepted by the live index (catalist_object exists only in the test library).
   - index.json             a plain list of the profiles above
 
 Care: every Spring is someone else's offering. A spring profile describes
-the River's listing of it (its primary_url is the River's own address for
-that listing), names and links the makers, and never claims their identity.
+the River's listing of it, names and links the makers, and never claims
+their identity.
 If a maker publishes their own Murmurations profile, the River can stop
-listing theirs. Spring profiles carry 'expires' (the closing date), so the
+listing theirs. Spring profiles carry 'expires_at' (the closing date), so the
 index lets them go on its own once a spring closes.
 
 Run after tools/springs.py:
@@ -34,7 +37,7 @@ LOGO = SITE + '/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png'
 IRB = 'https://instituteofrelationalbeing.org'
 HYLO = 'https://www.hylo.com/groups/institute-of-relational-being'
 ORG = 'organizations_schema-v1.0.0'
-OBJ = 'catalist_object-v0.1.0'
+OFFER = 'offers_wants_schema-v0.1.0'
 
 THEME_TAGS = {
     'land': ['land', 'regenerative practice', 'bioregional'],
@@ -65,11 +68,10 @@ RIVER = {
 }
 
 CANAL = {
-    'linked_schemas': [OBJ],
-    'type': 'guided path',
+    'linked_schemas': [ORG],
     'name': 'The Canal: from relational practice to relational business',
     'primary_url': SITE + '/canal',
-    'url': SITE + '/canal',
+    'urls': [{'name': 'The Canal', 'url': SITE + '/canal'}],
     'tags': ['regenerative business', 'leadership', 'founders', 'inner development', 'relational being'],
     'description': ('A guided path in the Relational River, kept by Joe Culhane of the Institute of '
                     'Relational Being, for founders and leaders ready to let relational practice change how '
@@ -98,25 +100,19 @@ def spring_profile(s):
     desc = (s.get('text', '') + ' ' + (when + '.' if when else '')).strip()
     desc += f" Offered by {s['host']}. Listed in the Relational River's Springs; join through the makers' own page."
     p = {
-        'linked_schemas': [OBJ],
-        'type': 'event',
-        'name': s['title'],
-        'primary_url': f"{SITE}/springs?spring={s['id']}",
-        'url': s['href'],
-        'urls': [{'name': s['host'], 'url': s.get('hostHref') or s['href']},
-                 {'name': 'Relational River Springs', 'url': SITE + '/springs'}],
-        'tags': tags,
+        'linked_schemas': [OFFER],
+        'exchange_type': 'offer',
+        'item_type': 'service',
+        'transaction_type': ['buy-sell'] if s.get('cost') == 'paid' else ['receive-donate'],
+        'title': s['title'],
         'description': desc,
-        'status': 'active',
+        'details_url': s['href'],
+        'tags': tags,
         'image': LOGO,
         'geographic_scope': 'international',
         'contact_details': {'contact_form': s['href']},
-        'relationships': [{'predicate_url': 'https://schema.org/organizer', 'object_url': s.get('hostHref') or s['href']},
-                          {'predicate_url': 'https://schema.org/isPartOf', 'object_url': SITE}],
-        'expires': end_of_day(s['closes']),
+        'expires_at': end_of_day(s['closes']),
     }
-    if s.get('lang'):
-        p['knows_language'] = [s['lang']]
     return p
 
 
