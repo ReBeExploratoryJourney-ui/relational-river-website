@@ -15,6 +15,10 @@ jobs:
       - uses: actions/checkout@v4
       - run: pip install pillow
       - run: python3 scratch/crop.py "${{ inputs.url }}" "${{ inputs.box }}" "${{ inputs.scale }}" "scratch/${{ inputs.out }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: crop
+          path: scratch/${{ inputs.out }}
       - run: |
           git add scratch
           git -c user.name="River steward" -c user.email="actions@users.noreply.github.com" commit -m "Design crop: ${{ inputs.out }}" || exit 0
