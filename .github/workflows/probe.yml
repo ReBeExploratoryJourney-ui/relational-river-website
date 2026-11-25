@@ -1,0 +1,12 @@
+name: Probe (temporary)
+on: workflow_dispatch
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          for q in "order_by=votes" "order_by=created_at"; do
+            curl -s -o out.json -w "%{http_code} %{time_total}s\n" "https://relationalriver.org/api/inat/observations?lat=34.12&lng=-118.39&radius=14&quality_grade=research&photos=true&photo_license=cc0,cc-by,cc-by-sa&threatened=false&captive=false&$q&per_page=30&locale=en"
+            head -c 200 out.json; echo
+          done
+          curl -s -o p.json -w "places upstream %{http_code}\n" "https://api.inaturalist.org/v1/places/autocomplete?q=portland&per_page=3"; head -c 300 p.json; echo
