@@ -31,7 +31,7 @@ PAGES = {
     'Lakes': ('lakes.html', '/lakes', 'Circles, fellowships and retreats where we slow down together.'),
     'Eddies': ('eddies.html', '/eddies', 'Grief, gratitude and practices that return at turning points.'),
     'Estuary': ('estuary.html', '/estuary', 'Where personal change meets workplaces, schools and councils.'),
-    'Canal': ('canal.html', '/canal', 'The Canal: paths guided by people who know the way, toward deeper offerings, with locks you climb only when ready.'),
+    'Canal': ('canal.html', '/canal', 'The Canal: paths guided by people helping to reveal potentially beneficial and regenerative ways forward, with locks you climb only when ready.'),
     'Groundwater': ('groundwater.html', '/groundwater', 'The hidden water that connects everything: the River as a living system.'),
     'Seeing': ('ways-of-seeing.html', '/ways-of-seeing', 'Ways of seeing: short lessons on three horizons, emergence, philosophy as practice and learning on the land, with partners who live this work.'),
     'AI': ('ai.html', '/ai', 'How the Relational River uses AI: where it helps behind the scenes, where it does not, what it costs, and our commitments.'),
