@@ -81,8 +81,8 @@ jobs:
                   status = json.loads(text).get('data', {}).get('status') if code == 200 else None
                   if status in ('posted', 'validation_failed', 'post_failed', 'deleted'):
                       break
-                  if code >= 400 and '"errors"' in text:
-                      break
+                  if code >= 400 and '"errors"' in text and i >= 6:
+                      break  # an earlier error can linger while the index re-reads the profile
                   time.sleep(10)
               print('status', status, url)
               if status != 'posted':
