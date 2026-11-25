@@ -1,0 +1,32 @@
+# Once a month, gather fresh Beings of each watershed from iNaturalist
+# for the Local Currents page, and publish them with the site.
+name: Beings of the watershed
+
+on:
+  schedule:
+    - cron: '23 5 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  gather:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Gather Beings
+        run: python3 tools/inat_beings.py
+      - name: Publish if anything changed
+        run: |
+          git add data/beings.json data/beings site/data/beings.json site/data/beings
+          if git diff --cached --quiet; then
+            echo "No change this month."
+            exit 0
+          fi
+          git -c user.name="River steward" -c user.email="actions@users.noreply.github.com" \
+            commit -m "Fresh Beings of the watershed from iNaturalist"
+          git push
