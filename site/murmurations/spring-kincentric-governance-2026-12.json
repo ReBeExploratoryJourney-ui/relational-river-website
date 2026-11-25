@@ -1,0 +1,26 @@
+{
+  "linked_schemas": [
+    "offers_wants_schema-v0.1.0"
+  ],
+  "exchange_type": "offer",
+  "item_type": "service",
+  "transaction_type": [
+    "receive-donate"
+  ],
+  "title": "Corporate Governance Beyond the Human",
+  "description": "How do we bring a sense of kinship with the more-than-human world into the boardroom, where power is shared, decisions are made and value is distributed? A dialogue with Leena Al Olaimy, co-founder of Diversity on Board, in the 19th session of the Co-creation with the More-than-Human sandbox, hosted by Renilde Becqué and Justine Huxley. Monday 14 December 2026, 8am Pacific (4pm GMT), one hour; Online; Free to join; the hosts welcome tips. Offered by The Repatterning Collective and Kincentric Leadership. Listed in the Relational River's Springs; join through the makers' own page.",
+  "details_url": "https://repatterningcollective.substack.com/p/upcoming-learning-session-14-december",
+  "tags": [
+    "relational river spring",
+    "regenerative business",
+    "leadership",
+    "learning session",
+    "online"
+  ],
+  "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
+  "geographic_scope": "international",
+  "contact_details": {
+    "contact_form": "https://repatterningcollective.substack.com/p/upcoming-learning-session-14-december"
+  },
+  "expires_at": 1797292799
+}

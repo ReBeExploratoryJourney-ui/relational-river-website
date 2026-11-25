@@ -64,6 +64,11 @@ SPRINGS = [
      'when': 'Thursday 3 December 2026, 11am to 1pm Eastern (8am to 10am Pacific)', 'where': 'See their page for how to join', 'lang': 'English',
      'text': 'The second circle of otherWise’s Grief Cycle: a community dialogue on how grief lives between people, witnessing one another, mourning losses tied to a people or place, and making room for sorrow that does not resolve neatly. Grieving together as relationship, remembrance and care, rather than closure. Held by Jungwon Kim, a writer and cultural organiser who works with transgenerational grief and communal healing.',
      'closes': '2026-12-03', 'href': 'https://otherwise.one/grieving-together/', 'cta': 'Learn more', 'theme': 'grief', 'cost': 'free', 'costNote': 'Free, offered in the spirit of the gift', 'found': 'Shared by Joe'},
+    {'id': 'kincentric-governance-2026-12', 'host': 'The Repatterning Collective and Kincentric Leadership', 'hostHref': 'https://www.kincentricleadership.org/events/co-creation-with-the-more-than-human',
+     'title': 'Corporate Governance Beyond the Human', 'kind': 'Learning session', 'fmt': 'online',
+     'when': 'Monday 14 December 2026, 8am Pacific (4pm GMT), one hour', 'where': 'Online', 'lang': 'English',
+     'text': 'How do we bring a sense of kinship with the more-than-human world into the boardroom, where power is shared, decisions are made and value is distributed? A dialogue with Leena Al Olaimy, co-founder of Diversity on Board, in the 19th session of the Co-creation with the More-than-Human sandbox, hosted by Renilde Becqué and Justine Huxley.',
+     'closes': '2026-12-14', 'href': 'https://repatterningcollective.substack.com/p/upcoming-learning-session-14-december', 'cta': 'Learn more and register', 'theme': 'work', 'cost': 'free', 'costNote': 'Free to join; the hosts welcome tips', 'found': 'Shared by Joe, from the sandbox newsletter'},
 ]
 if __name__ == '__main__':
     data = {'updated': __import__('datetime').date.today().isoformat(), 'springs': SPRINGS}

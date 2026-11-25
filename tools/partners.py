@@ -216,6 +216,26 @@ PARTNERS = [
   "href": "https://www.prosocial.world/",
   "founder": "Begun in 2011 as an initiative of the Evolution Institute; its own nonprofit since 2020",
   "shaped": False
+ },
+ {
+  "name": "Kincentric Leadership",
+  "place": "Based in the UK, with leaders and communities around the world",
+  "text": "A not-for-profit laying foundations for leadership rooted in kinship with all life, recognising the more-than-human world as kin with its own intelligence. Its open toolkit gathers eight principles, thirty-four capacities, twelve case studies and more than a hundred practices, alongside retreats, online courses and talks.",
+  "theme": "Kinship in leadership",
+  "k": "see",
+  "href": "https://www.kincentricleadership.org/",
+  "founder": "Co-founded by Justine Huxley and Anna Kovasna",
+  "shaped": False
+ },
+ {
+  "name": "The Repatterning Collective",
+  "place": "A small practitioner collective, gathering online",
+  "text": "Asks two questions: what if our approach to the polycrisis is part of the crisis, and what if we can repattern towards radically different regenerative futures? With Kincentric Leadership it hosts the Co-creation with the More-than-Human sandbox, monthly dialogues on rights of nature, interspecies councils, nature on the board and more, with written syntheses of each.",
+  "theme": "Co-creation with the more-than-human",
+  "k": "see",
+  "href": "https://repatterningcollective.substack.com/",
+  "founder": "Tended by Renilde Becqué",
+  "shaped": False
  }
 ]
 
