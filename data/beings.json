@@ -1,34 +1,44 @@
 {
  "updated": "2026-11-25",
+ "labels": {
+  "portland": "Portland and the Willamette",
+  "dart": "The River Dart, Devon",
+  "berlin": "Berlin and the Spree",
+  "brussels": "Brussels and the Zenne",
+  "northern-rivers": "Northern Rivers, New South Wales",
+  "mata-atlantica": "Atlantic Forest, São Paulo",
+  "nairobi": "Nairobi and the Athi River",
+  "kyoto": "Kyoto and the Kamo River"
+ },
  "places": {
   "la": [
    {
-    "name": "Cyclone Psilocybe",
-    "img": "/data/beings/la-1.jpeg",
-    "url": "https://www.inaturalist.org/observations/4676262",
-    "credit": "(c) Alan Rockefeller, some rights reserved (CC BY)",
-    "alt": "Cyclone Psilocybe, a photo by Alan Rockefeller on iNaturalist"
-   },
-   {
     "name": "Garden Snail",
-    "img": "/data/beings/la-2.jpg",
+    "img": "/data/beings/la-1.jpg",
     "url": "https://www.inaturalist.org/observations/2900550",
     "credit": "no rights reserved",
     "alt": "Garden Snail, a photo by cglamb on iNaturalist"
    },
    {
     "name": "Hollyleaf redberry",
-    "img": "/data/beings/la-3.jpg",
+    "img": "/data/beings/la-2.jpg",
     "url": "https://www.inaturalist.org/observations/301617795",
     "credit": "(c) klicklo, some rights reserved (CC BY)",
     "alt": "Hollyleaf redberry, a photo by klicklo on iNaturalist"
    },
    {
     "name": "Valley Carpenter Bee",
-    "img": "/data/beings/la-4.jpeg",
+    "img": "/data/beings/la-3.jpeg",
     "url": "https://www.inaturalist.org/observations/60995971",
     "credit": "(c) eastc, some rights reserved (CC BY)",
     "alt": "Valley Carpenter Bee, a photo by eastc on iNaturalist"
+   },
+   {
+    "name": "Common Desert Centipede",
+    "img": "/data/beings/la-4.jpg",
+    "url": "https://www.inaturalist.org/observations/5538356",
+    "credit": "(c) Emily Chebul, some rights reserved (CC BY-SA)",
+    "alt": "Common Desert Centipede, a photo by Emily Chebul on iNaturalist"
    }
   ],
   "clare": [
@@ -59,6 +69,246 @@
     "url": "https://www.inaturalist.org/observations/212968306",
     "credit": "(c) Jamie O'Neill, some rights reserved (CC BY)",
     "alt": "Alpine marsh violet, a photo by Jamie O'Neill on iNaturalist"
+   }
+  ],
+  "portland": [
+   {
+    "name": "Spotted Lanternfly",
+    "img": "/data/beings/portland-1.jpg",
+    "url": "https://www.inaturalist.org/observations/279799139",
+    "credit": "(c) Josie Graydon, some rights reserved (CC BY)",
+    "alt": "Spotted Lanternfly, a photo by Josie Graydon on iNaturalist"
+   },
+   {
+    "name": "Eastern Virginia Opossum",
+    "img": "/data/beings/portland-2.jpg",
+    "url": "https://www.inaturalist.org/observations/7073976",
+    "credit": "(c) Millie Basden, some rights reserved (CC BY)",
+    "alt": "Eastern Virginia Opossum, a photo by Millie Basden on iNaturalist"
+   },
+   {
+    "name": "Fall Oregon white truffle",
+    "img": "/data/beings/portland-3.jpg",
+    "url": "https://www.inaturalist.org/observations/4744182",
+    "credit": "(c) Alan Rockefeller, some rights reserved (CC BY)",
+    "alt": "Fall Oregon white truffle, a photo by Alan Rockefeller on iNaturalist"
+   },
+   {
+    "name": "Creeping buttercup",
+    "img": "/data/beings/portland-4.jpeg",
+    "url": "https://www.inaturalist.org/observations/166524074",
+    "credit": "(c) Gavin Slater, some rights reserved (CC BY)",
+    "alt": "Creeping buttercup, a photo by Gavin Slater on iNaturalist"
+   }
+  ],
+  "dart": [
+   {
+    "name": "Large-spotted Smoothwing",
+    "img": "/data/beings/dart-1.jpg",
+    "url": "https://www.inaturalist.org/observations/365856502",
+    "credit": "(c) Matthew Vosper, some rights reserved (CC BY)",
+    "alt": "Large-spotted Smoothwing, a photo by Matthew Vosper on iNaturalist"
+   },
+   {
+    "name": "Western Barn Owl",
+    "img": "/data/beings/dart-2.jpg",
+    "url": "https://www.inaturalist.org/observations/149034657",
+    "credit": "(c) harry beaman, some rights reserved (CC BY)",
+    "alt": "Western Barn Owl, a photo by harry beaman on iNaturalist"
+   },
+   {
+    "name": "Upright hedge-parsley",
+    "img": "/data/beings/dart-3.jpeg",
+    "url": "https://www.inaturalist.org/observations/126880374",
+    "credit": "no rights reserved",
+    "alt": "Upright hedge-parsley, a photo by Mathew Robinson on iNaturalist"
+   },
+   {
+    "name": "Adder",
+    "img": "/data/beings/dart-4.jpeg",
+    "url": "https://www.inaturalist.org/observations/14690101",
+    "credit": "no rights reserved",
+    "alt": "Adder, a photo by Simon Tonge on iNaturalist"
+   }
+  ],
+  "berlin": [
+   {
+    "name": "Comatricha nigra",
+    "img": "/data/beings/berlin-1.jpg",
+    "url": "https://www.inaturalist.org/observations/105275177",
+    "credit": "(c) Alexis Tinker-Tsavalas, some rights reserved (CC BY)",
+    "alt": "Comatricha nigra, a photo by Alexis Tinker-Tsavalas on iNaturalist"
+   },
+   {
+    "name": "Crescent-cup liverwort",
+    "img": "/data/beings/berlin-2.jpeg",
+    "url": "https://www.inaturalist.org/observations/38663465",
+    "credit": "(c) Alexis Tinker-Tsavalas, some rights reserved (CC BY)",
+    "alt": "Crescent-cup liverwort, a photo by Alexis Tinker-Tsavalas on iNaturalist"
+   },
+   {
+    "name": "Dicyrtoma fusca",
+    "img": "/data/beings/berlin-3.jpg",
+    "url": "https://www.inaturalist.org/observations/106753511",
+    "credit": "(c) Alexis Tinker-Tsavalas, some rights reserved (CC BY)",
+    "alt": "Dicyrtoma fusca, a photo by Alexis Tinker-Tsavalas on iNaturalist"
+   },
+   {
+    "name": "Pandora batallata",
+    "img": "/data/beings/berlin-4.jpg",
+    "url": "https://www.inaturalist.org/observations/202624970",
+    "credit": "(c) Alexis Tinker-Tsavalas, some rights reserved (CC BY)",
+    "alt": "Pandora batallata, a photo by Alexis Tinker-Tsavalas on iNaturalist"
+   }
+  ],
+  "brussels": [
+   {
+    "name": "Hesperomyces harmoniae",
+    "img": "/data/beings/brussels-1.jpg",
+    "url": "https://www.inaturalist.org/observations/117282334",
+    "credit": "(c) Gilles San Martin, some rights reserved (CC BY-SA)",
+    "alt": "Hesperomyces harmoniae, a photo by Gilles San Martin on iNaturalist"
+   },
+   {
+    "name": "Oystershell Scale",
+    "img": "/data/beings/brussels-2.jpg",
+    "url": "https://www.inaturalist.org/observations/261590100",
+    "credit": "(c) Gilles San Martin, some rights reserved (CC BY-SA)",
+    "alt": "Oystershell Scale, a photo by Gilles San Martin on iNaturalist"
+   },
+   {
+    "name": "Red Fox",
+    "img": "/data/beings/brussels-3.jpg",
+    "url": "https://www.inaturalist.org/observations/340575695",
+    "credit": "(c) Quirijn V, some rights reserved (CC BY)",
+    "alt": "Red Fox, a photo by Quirijn V on iNaturalist"
+   },
+   {
+    "name": "Canestrini's Harvestman",
+    "img": "/data/beings/brussels-4.jpeg",
+    "url": "https://www.inaturalist.org/observations/7961347",
+    "credit": "no rights reserved",
+    "alt": "Canestrini's Harvestman, a photo by Quentin Groom on iNaturalist"
+   }
+  ],
+  "northern-rivers": [
+   {
+    "name": "Dune Glider",
+    "img": "/data/beings/northern-rivers-1.jpg",
+    "url": "https://www.inaturalist.org/observations/44461662",
+    "credit": "(c) John Tann, some rights reserved (CC BY)",
+    "alt": "Dune Glider, a photo by John Tann on iNaturalist"
+   },
+   {
+    "name": "Fletcherodrilus fasciatus",
+    "img": "/data/beings/northern-rivers-2.jpeg",
+    "url": "https://www.inaturalist.org/observations/120125377",
+    "credit": "(c) Samuel Frankel, some rights reserved (CC BY)",
+    "alt": "Fletcherodrilus fasciatus, a photo by Samuel Frankel on iNaturalist"
+   },
+   {
+    "name": "Sandstone Violet",
+    "img": "/data/beings/northern-rivers-3.jpeg",
+    "url": "https://www.inaturalist.org/observations/272138452",
+    "credit": "(c) Will Cornwell, some rights reserved (CC BY)",
+    "alt": "Sandstone Violet, a photo by Will Cornwell on iNaturalist"
+   },
+   {
+    "name": "Southern Angle-Headed Dragon",
+    "img": "/data/beings/northern-rivers-4.jpeg",
+    "url": "https://www.inaturalist.org/observations/251750081",
+    "credit": "(c) Jeremy Jones, some rights reserved (CC BY)",
+    "alt": "Southern Angle-Headed Dragon, a photo by Jeremy Jones on iNaturalist"
+   }
+  ],
+  "mata-atlantica": [
+   {
+    "name": "Strumigenys abditivata",
+    "img": "/data/beings/mata-atlantica-1.jpg",
+    "url": "https://www.inaturalist.org/observations/231488970",
+    "credit": "(c) Reinaldo de Oliveira Elias, some rights reserved (CC BY)",
+    "alt": "Strumigenys abditivata, a photo by Reinaldo de Oliveira Elias on iNaturalist"
+   },
+   {
+    "name": "Thymoites ilhabela",
+    "img": "/data/beings/mata-atlantica-2.jpg",
+    "url": "https://www.inaturalist.org/observations/244887819",
+    "credit": "(c) Reinaldo de Oliveira Elias, some rights reserved (CC BY)",
+    "alt": "Thymoites ilhabela, a photo by Reinaldo de Oliveira Elias on iNaturalist"
+   },
+   {
+    "name": "Gibellula",
+    "img": "/data/beings/mata-atlantica-3.jpg",
+    "url": "https://www.inaturalist.org/observations/385453425",
+    "credit": "(c) Reinaldo de Oliveira Elias, some rights reserved (CC BY)",
+    "alt": "Gibellula, a photo by Reinaldo de Oliveira Elias on iNaturalist"
+   },
+   {
+    "name": "Velvet Swampsnake",
+    "img": "/data/beings/mata-atlantica-4.jpeg",
+    "url": "https://www.inaturalist.org/observations/110007908",
+    "credit": "(c) Rodrigo Paiva Lázaro, some rights reserved (CC BY)",
+    "alt": "Velvet Swampsnake, a photo by Rodrigo Paiva Lázaro on iNaturalist"
+   }
+  ],
+  "nairobi": [
+   {
+    "name": "Kolb's Monkey",
+    "img": "/data/beings/nairobi-1.jpg",
+    "url": "https://www.inaturalist.org/observations/129268311",
+    "credit": "(c) Elliot Greiner, some rights reserved (CC BY)",
+    "alt": "Kolb's Monkey, a photo by Elliot Greiner on iNaturalist"
+   },
+   {
+    "name": "Augur Buzzard",
+    "img": "/data/beings/nairobi-2.jpg",
+    "url": "https://www.inaturalist.org/observations/201859928",
+    "credit": "(c) David Carey, some rights reserved (CC BY)",
+    "alt": "Augur Buzzard, a photo by David Carey on iNaturalist"
+   },
+   {
+    "name": "Cymothales eccentros",
+    "img": "/data/beings/nairobi-3.jpg",
+    "url": "https://www.inaturalist.org/observations/101768955",
+    "credit": "(c) Stephanie Dolrenry, some rights reserved (CC BY-SA)",
+    "alt": "Cymothales eccentros, a photo by Stephanie Dolrenry on iNaturalist"
+   },
+   {
+    "name": "Colomerus spathodeae",
+    "img": "/data/beings/nairobi-4.jpg",
+    "url": "https://www.inaturalist.org/observations/123351097",
+    "credit": "(c) Elliot Greiner, some rights reserved (CC BY)",
+    "alt": "Colomerus spathodeae, a photo by Elliot Greiner on iNaturalist"
+   }
+  ],
+  "kyoto": [
+   {
+    "name": "Eastern Grey Heron",
+    "img": "/data/beings/kyoto-1.jpg",
+    "url": "https://www.inaturalist.org/observations/387938085",
+    "credit": "no rights reserved",
+    "alt": "Eastern Grey Heron, a photo by SC on iNaturalist"
+   },
+   {
+    "name": "Atrocalopteryx atrata",
+    "img": "/data/beings/kyoto-2.jpg",
+    "url": "https://www.inaturalist.org/observations/6873157",
+    "credit": "(c) rachelandjun, some rights reserved (CC BY)",
+    "alt": "Atrocalopteryx atrata, a photo by rachelandjun on iNaturalist"
+   },
+   {
+    "name": "Skunk vine",
+    "img": "/data/beings/kyoto-3.jpeg",
+    "url": "https://www.inaturalist.org/observations/90261638",
+    "credit": "(c) yajapin, some rights reserved (CC BY)",
+    "alt": "Skunk vine, a photo by yajapin on iNaturalist"
+   },
+   {
+    "name": "Hondo Macaque",
+    "img": "/data/beings/kyoto-4.jpg",
+    "url": "https://www.inaturalist.org/observations/142592127",
+    "credit": "(c) Michael Berardozzi, some rights reserved (CC BY)",
+    "alt": "Hondo Macaque, a photo by Michael Berardozzi on iNaturalist"
    }
   ]
  }
