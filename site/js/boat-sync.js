@@ -212,7 +212,7 @@
     var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null; if (!a) { return; }
     if (a.closest('nav, header, footer, .vmenu, .gbubble')) { return; }
     var href = a.href || ''; if (!/^https?:\/\//i.test(href)) { return; }
-    var u; try { u = new URL(href); } catch (e) { return; }
+    var u; try { u = new window.URL(href); } catch (e) { return; }
     if (u.host === location.host) { return; }
     var b = load(BKEY); if (!b || b.v !== 1 || b.wakeOff) { return; }
     var card = a.closest('article, section, li') || a.parentNode;
