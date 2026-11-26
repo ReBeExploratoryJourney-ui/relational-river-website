@@ -148,9 +148,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 @supports not (overflow-x:clip){html,body{overflow-x:hidden}}
 .rv{position:absolute;left:0;top:0;width:100px;height:107px;transform-origin:57% 87%;opacity:0;transition:opacity .5s ease;will-change:transform}
 .rv.on{opacity:1}
-.rv-flip{width:100%;height:100%;transition:transform .95s cubic-bezier(.45,0,.55,1)}
+.rv-flip{width:100%;height:100%;transition:transform .95s cubic-bezier(.45,0,.55,1);filter:drop-shadow(0 0 3px rgba(245,238,225,.55)) drop-shadow(0 0 12px rgba(190,205,255,.3))}
 .rv.flip .rv-flip{transform:scaleX(-1)}
-.rv-svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 3px rgba(245,238,225,.55)) drop-shadow(0 0 14px rgba(190,205,255,.35))}
+.rv-svg{display:block;width:100%;height:100%;overflow:visible}
 .rv-shape{stroke:rgba(178,192,245,.75);stroke-width:3;stroke-linejoin:round}
 .rv-wing{transform-box:view-box;transform-origin:232px 207px}
 .rv-farwing{transform-box:view-box;transform-origin:200px 266px}
@@ -387,7 +387,7 @@ class Component extends DCLogic {
   guideScript() {
     var pre = [
       { at: 'moon', text: 'First, a little about this place. The Relational River is a free guide for anyone who cares about the living world: trees, rivers, birds, neighbours and the places we call home. It offers gentle ways to slow down, feel more connected, and find others who care too.' },
-      { at: 'moon', text: 'Like any river, this one is alive. It is a provotype (a provocative prototype): a living prototype, made to spark new possibilities. It keeps changing, so no two visits are quite the same. Wander anywhere, in any order, and come back whenever you like.' },
+      { at: 'moon', text: 'Like any river, this one is alive. This flows as a provotype, a living provocative prototype, made to spark new possibilities. It keeps changing, so no two visits are quite the same. Wander anywhere, in any order, and come back whenever you like.' },
       { at: 'moon', text: 'The River is an offering from the Institute of Relational Being. It is meant to be made together, by everyone who joins in, so you are warmly invited to help shape it.' }
     ];
     var deep = [
