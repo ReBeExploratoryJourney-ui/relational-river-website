@@ -82,7 +82,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/streams"><b>Streams</b><span>small practices for ordinary days</span></a><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/ways-of-seeing"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="/eddies"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="/moon"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="/capital-journey"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
 <div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="/springs"><b>Springs</b><span>offerings to join soon</span></a><a href="/lakes"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="/islands"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean</b><span>projects and collaborators worldwide</span></a><a href="/confluences"><b>Confluences</b><span>kindred platforms, many ways in</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="/well"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/estuary"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="/canal"><b>The Canal</b><span>guided paths toward deeper offerings</span></a><a href="/groundwater"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
-<a href="/boat" class="vmine">My Boat</a>
+<a href="/boat" class="vmine">Your Boat</a>
 </nav>
 </header>
 
@@ -176,7 +176,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1600}}'>
 class Component extends DCLogic {
-  // ---- My Boat: kept on this device only (see /boat) ----
+  // ---- Your Boat: kept on this device only (see /boat) ----
   boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? b : null; } catch (x) { return null; } }
   boatHas(list, id) { var b = this.boatRead(); return !!(b && Array.isArray(b[list]) && b[list].some(function (g) { return g && g.id === id; })); }
   boatToggle(list, item) {
@@ -194,7 +194,7 @@ class Component extends DCLogic {
   }
   aboardFor(list, item) {
     var self = this, on = this.boatHas(list, item.id), tend = list === 'tending';
-    return { aboardOn: on ? 'true' : 'false', aboardLabel: on ? (tend ? 'Tending in my Boat' : 'Aboard my Boat') : (tend ? 'Tend this in my Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
+    return { aboardOn: on ? 'true' : 'false', aboardLabel: on ? (tend ? 'Tending in your Boat' : 'Aboard your Boat') : (tend ? 'Tend this in your Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
   }
   constructor(props) { super(props); this.state = { t: 'all', threads: null, partners: null }; }
   componentDidMount() {

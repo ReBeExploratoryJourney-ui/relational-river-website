@@ -88,7 +88,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="vgroup"><button class="vbtn here">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Seeing.dc.html"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="Springs.dc.html"><b>Springs</b><span>offerings to join soon</span></a><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="Islands.dc.html"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean</b><span>projects and collaborators worldwide</span></a><a href="Confluences.dc.html"><b>Confluences</b><span>kindred platforms, many ways in</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Estuary.dc.html"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="Canal.dc.html"><b>The Canal</b><span>guided paths toward deeper offerings</span></a><a href="Groundwater.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
-<a href="Boat.dc.html" class="vmine">My Boat</a>
+<a href="Boat.dc.html" class="vmine">Your Boat</a>
 </nav>
 </header>
 
@@ -194,7 +194,7 @@ class Component extends DCLogic {
         cls: 'torn card ' + (k % 2 ? 'tr' : 'tl'), bg: p.bg || bgs[k % bgs.length],
         toggle: function () { var o = {}; for (var x in open) { o[x] = open[x]; } o[p.id] = !on; self.setState({ open: o }); },
         anchor: p.id, isJournal: p.id === 'journal',
-        jOn: self.journalOn() ? 'true' : 'false', jLabel: self.journalOn() ? 'Open my lunar journal' : 'Keep it in my Boat', jBegin: function () { self.journalBegin(); },
+        jOn: self.journalOn() ? 'true' : 'false', jLabel: self.journalOn() ? 'Open my lunar journal' : 'Keep it in your Boat', jBegin: function () { self.journalBegin(); },
         jTime: self.state.jTime, jTypeTime: function (e) { self.state.jTime = e && e.target ? e.target.value : '20:30'; },
         jSpans: [['cycle', 'For one cycle'], ['ongoing', 'Every night until I delete it']].map(function (x) { var s2 = self.state.jSpan === x[0]; return { label: x[1], on: s2 ? 'true' : 'false', cls: s2 ? 'mchip on' : 'mchip', pick: function () { self.setState({ jSpan: x[0] }); } }; }),
         jRemind: function () { var ok = self.reminderFile(self.state.jTime, self.state.jSpan, self.journalOn() ? 'https://relationalriver.org/boat#lunar' : 'https://relationalriver.org/moon#journal'); self.setState({ jMsg: ok ? 'A reminder file is ready. Open it to add it to your calendar. To stop it, delete the event there.' : 'This browser could not make a calendar file.' }); },
@@ -202,7 +202,7 @@ class Component extends DCLogic {
       };
     });
   }
-  // ---- the lunar journal in My Boat (see Boat.dc.html) ----
+  // ---- the lunar journal in Your Boat (see Boat.dc.html) ----
   boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? b : null; } catch (x) { return null; } }
   journalOn() { var b = this.boatRead(); return !!(b && b.lunar && b.lunar.on !== false); }
   journalBegin() {

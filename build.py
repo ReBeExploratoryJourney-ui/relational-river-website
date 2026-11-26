@@ -19,7 +19,7 @@ PAGES = {
     'Arrival': ('index.html', '/', 'Arrive at the Relational River, a Source offered through the Institute of Relational Being.'),
     'Welcome': ('flow.html', '/flow', 'Follow the flow of the Relational River, from source to ocean.'),
     'Main': ('source.html', '/source', 'Arrive wherever you are: a few gentle questions to find your way into the River.'),
-    'Boat': ('boat.html', '/boat', 'My Boat: your own vessel on the Relational River, carrying where you began, the practices you tend and your constellation.'),
+    'Boat': ('boat.html', '/boat', 'Your Boat: your own vessel on the Relational River, carrying where you began, the practices you tend and your constellation.'),
     'LocalCurrents': ('local-currents.html', '/local-currents', 'Groups and circles already tending the place you live, by bioregion.'),
     'Ocean': ('ocean.html', '/ocean', 'Place-based projects and collaborators around the world.'),
     'Hylo': ('hylo.html', '/hylo', 'Where Relational River circles meet and organise, on Hylo.'),

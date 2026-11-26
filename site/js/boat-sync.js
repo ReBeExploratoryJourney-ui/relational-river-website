@@ -1,5 +1,5 @@
 /*
- * My Boat, kept with an IRB account.
+ * Your Boat, kept with an IRB account.
  *
  * Sign-in is a one-time code sent by email (no passwords). The Boat is stored in the
  * Institute of Relational Being's account home (Supabase, in the EU), where row level
