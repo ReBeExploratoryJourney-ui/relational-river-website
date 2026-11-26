@@ -172,6 +172,16 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <p class="p light">Choose how your Boat is kept. There is no wrong choice, and you can change your mind later.</p>
 </div>
 <div class="choices">
+<article class="torn tr choice" style="background: #CFE1E4; grid-column: 1 / -1">
+<div class="k">Already built a Boat?</div>
+<h3 class="h3">Bring your Boat aboard this device</h3>
+<ul class="list">
+<li><b>If you kept it with your email:</b> sign in under “Keep it with an IRB account” below, and your Boat comes aboard here.</li>
+<li><b>If you kept it on another phone or computer:</b> open the River there, go to Your Boat, and under “How your Boat is kept” choose “Keep it with your email”. Then sign in here with the same email.</li>
+<li><b>Or bring a copy:</b> on the other device, choose “Download a copy” on the Boat page, then restore it here.</li>
+</ul>
+<div class="row"><label class="sbtn filebtn">Restore from a copy<input type="file" accept="application/json,.json" onChange="{{restoreFirst}}"></label><a href="#authEmail" class="lnk">Sign in with your email</a></div>
+</article>
 <article class="torn tl choice" style="background: #F5EEE1">
 <div class="k">On this device</div>
 <h3 class="h3">Keep it on this phone or computer</h3>
@@ -712,6 +722,16 @@ class Component extends DCLogic {
           try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {}
         });
       }, function (e) { setAuth({ busy: false, msg: e.message }); });
+    };
+    out.restoreFirst = function (e) {
+      var f = e && e.target && e.target.files && e.target.files[0]; if (!f) { return; }
+      var rd = new FileReader();
+      rd.onload = function () {
+        try { var data = JSON.parse(rd.result); if (!data || data.v !== 1) { throw new Error('no'); } var nb = self.boatClean(data); nb.seen = { last: new Date().toISOString() }; nb.synced = (self.state.boat && self.state.boat.synced) || ''; nb.kind = self.state.boat ? self.state.boat.kind : 'device'; self.save(nb, 'Your Boat has been restored from your copy.'); self.setState({ boatName: nb.name || '' }); }
+        catch (x) { self.setState({ flash: 'That file does not look like a copy of a Boat.' }); }
+        try { e.target.value = ''; } catch (x) {}
+      };
+      rd.readAsText(f);
     };
     if (!b) { return out; }
     var r = this.round(b), bd = this.bend(b);
