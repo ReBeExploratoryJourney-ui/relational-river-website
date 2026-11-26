@@ -270,7 +270,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <label class="alabel" for="{{t.inputId}}">A line about what you noticed</label>
 <textarea id="{{t.inputId}}" class="field" rows="2" maxlength="600" value="{{t.draft}}" onChange="{{t.type}}" placeholder="{{t.hint}}"></textarea>
 <div class="row">
-<button class="sbtn" onClick="{{t.addNote}}">Add to my log</button>
+<button class="sbtn" onClick="{{t.addNote}}">Add to your log</button>
 <a href="{{t.href}}" class="lnk">{{t.cta}}</a>
 <button class="quiet" onClick="{{t.setDown}}">Set this down</button>
 </div>
@@ -301,7 +301,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 <sc-if value="{{lnOff}}" hint-placeholder-val="{{ true }}">
 <p class="p">Each evening for one cycle, note where Moon is, their shape, and one word for your day. Patterns appear that no calendar shows. Two minutes a night, for twenty-nine nights.</p>
-<div class="row"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{lnBegin}}">Begin my lunar journal</button><a href="LunarPage.dc.html" class="lnk">Prefer paper? Print a page for this cycle</a></div>
+<div class="row"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{lnBegin}}">Begin your lunar journal</button><a href="LunarPage.dc.html" class="lnk">Prefer paper? Print a page for this cycle</a></div>
 </sc-if>
 <sc-if value="{{lnOn}}" hint-placeholder-val="{{ false }}">
 <div class="tend">
@@ -336,7 +336,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="alabel">A gentle nightly reminder, for this journal only</div>
 <p class="p fine">Add a quiet reminder to your own calendar. It is made here on your device and kept by your calendar, so nothing is sent to the River, and you can delete it there at any time.</p>
 <div class="row"><label class="alabel" for="lnTime">At</label><input id="lnTime" class="field timein" type="time" value="{{remindTime}}" onChange="{{typeRemind}}"><sc-for list="{{remindSpans}}" as="rs" hint-placeholder-count="2"><button class="{{rs.cls}}" aria-pressed="{{rs.on}}" onClick="{{rs.pick}}">{{rs.label}}</button></sc-for></div>
-<div><button class="sbtn" onClick="{{remind}}">Add to my calendar</button></div>
+<div><button class="sbtn" onClick="{{remind}}">Add to your calendar</button></div>
 </div>
 <div class="row"><a href="LunarPage.dc.html" class="lnk">Print a paper page for this cycle</a><button class="quiet" onClick="{{lnSetDown}}">Set the journal down</button></div>
 </sc-if>
@@ -358,7 +358,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <input id="starName" class="field" type="text" maxlength="40" value="{{starName}}" onChange="{{typeStar}}" placeholder="The old oak by the creek">
 <div class="alabel">They are…</div>
 <div class="tags"><sc-for list="{{kinds}}" as="kd" hint-placeholder-count="7"><button class="{{kd.cls}}" aria-pressed="{{kd.on}}" onClick="{{kd.pick}}"><span class="dot" style="background: {{kd.fill}}"></span>{{kd.label}}</button></sc-for></div>
-<div><button class="go tornbtn" style="background: #E3D2F7" onClick="{{addStar}}">Add to my constellation</button></div>
+<div><button class="go tornbtn" style="background: #E3D2F7" onClick="{{addStar}}">Add to your constellation</button></div>
 <sc-if value="{{hasStars}}" hint-placeholder-val="{{ false }}">
 <ul class="starlist"><sc-for list="{{starList}}" as="s" hint-placeholder-count="3"><li><span class="dot" style="background: {{s.fill}}"></span><span class="sname">{{s.name}}<span class="minor sk">{{s.kindLabel}}</span></span><button class="quiet" aria-label="{{s.removeLabel}}" onClick="{{s.remove}}">let go</button></li></sc-for></ul>
 </sc-if>
@@ -438,7 +438,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </sc-if>
 <label class="alabel" for="boatName">Every boat has a name (optional)</label>
 <div class="row"><input id="boatName" class="field" style="max-width: 320px" type="text" maxlength="40" value="{{boatName}}" onChange="{{typeName}}" placeholder="Heron"><button class="sbtn" onClick="{{saveName}}">Name your Boat</button></div>
-<sc-if value="{{notSinking}}" hint-placeholder-val="{{ true }}"><div class="row"><button class="quiet danger" onClick="{{askSink}}">Sink your Boat</button><sc-if value="{{isAccount}}" hint-placeholder-val="{{ false }}"><button class="quiet danger" onClick="{{askDelete}}">Delete my IRB account</button></sc-if></div></sc-if>
+<sc-if value="{{notSinking}}" hint-placeholder-val="{{ true }}"><div class="row"><button class="quiet danger" onClick="{{askSink}}">Sink your Boat</button><sc-if value="{{isAccount}}" hint-placeholder-val="{{ false }}"><button class="quiet danger" onClick="{{askDelete}}">Delete your IRB account</button></sc-if></div></sc-if>
 <sc-if value="{{sinking}}" hint-placeholder-val="{{ false }}">
 <div class="sinkbox" role="alertdialog" aria-label="Sink your Boat">
 <p class="p">{{sinkText}}</p>
@@ -446,9 +446,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 </sc-if>
 <sc-if value="{{deleting}}" hint-placeholder-val="{{ false }}">
-<div class="sinkbox" role="alertdialog" aria-label="Delete my IRB account">
+<div class="sinkbox" role="alertdialog" aria-label="Delete your IRB account">
 <p class="p">This deletes your IRB account and everything kept with it: your Boat, and anything you have made in ReBe. It cannot be undone. You may like to download a copy of your Boat first.</p>
-<div class="row"><button class="sbtn danger" onClick="{{deleteAccount}}">Yes, delete my account</button><button class="sbtn" onClick="{{cancelSink}}">Keep my account</button></div>
+<div class="row"><button class="sbtn danger" onClick="{{deleteAccount}}">Yes, delete your account</button><button class="sbtn" onClick="{{cancelSink}}">Keep your account</button></div>
 </div>
 </sc-if>
 </section>
@@ -581,8 +581,8 @@ class Component extends DCLogic {
     [y - 1, y, y + 1].forEach(function (yy) { turns.push([Date.UTC(yy, 2, 20), 'March equinox'], [Date.UTC(yy, 5, 21), 'June solstice'], [Date.UTC(yy, 8, 22), 'September equinox'], [Date.UTC(yy, 11, 21), 'December solstice']); });
     var near = turns.filter(function (t) { return Math.abs(t[0] / 86400000 - now) <= 3; })[0];
     if (near) { return { k: near[1], t: 'The season is turning', x: 'A good moment to look back at where you began and notice what has changed since. You can return to the Source and keep fresh answers beside the old ones.', h: 'Main.dc.html', c: 'Return to the Source' }; }
-    if ((age < 1.5 || age > syn - 1.5) && b && b.lunar && b.lunar.on) { return { k: 'New Moon', t: 'A new Moon, a new cycle', x: 'Read your lunar journal back, the whole cycle at once, and begin the next one tonight.', h: '#lunar', c: 'Open my lunar journal' }; }
-    if (age < 1.5 || age > syn - 1.5) { return { k: 'New Moon', t: 'A new Moon, a quiet beginning', x: 'A good night to add someone to your constellation, or to set a small intention for a practice you are tending.', h: '#constellation', c: 'Add to my constellation' }; }
+    if ((age < 1.5 || age > syn - 1.5) && b && b.lunar && b.lunar.on) { return { k: 'New Moon', t: 'A new Moon, a new cycle', x: 'Read your lunar journal back, the whole cycle at once, and begin the next one tonight.', h: '#lunar', c: 'Open your lunar journal' }; }
+    if (age < 1.5 || age > syn - 1.5) { return { k: 'New Moon', t: 'A new Moon, a quiet beginning', x: 'A good night to add someone to your constellation, or to set a small intention for a practice you are tending.', h: '#constellation', c: 'Add to your constellation' }; }
     if (Math.abs(age - syn / 2) < 1.5) { return { k: 'Full Moon', t: 'Moon is full', x: 'Step outside tonight, meet Moon, and make a picture together.', h: 'Moon.dc.html', c: 'Making with Moon' }; }
     var toFull = age < syn / 2 ? syn / 2 - age : syn + syn / 2 - age, toNew = syn - age;
     var full = toFull <= toNew, n = Math.max(1, Math.round(full ? toFull : toNew));
@@ -593,12 +593,12 @@ class Component extends DCLogic {
     if (!b.began.length) { return { t: 'Begin at the Source', x: 'A minute of gentle questions, to find where you might like to start. Keep your answers here if you wish.', h: 'Main.dc.html', c: 'Begin at the Source' }; }
     if (!b.tending.length) { return { t: 'Choose one small practice', x: 'Pick a practice to stay with for a while, like sitting with the same tree each day. Your Boat keeps a log as you go.', h: '#tending', c: 'Choose a practice' }; }
     var quiet = b.tending.filter(function (t) { var last = t.notes.length ? t.notes[t.notes.length - 1].at : t.since; return now - new Date(last).getTime() > 5 * 86400000; })[0];
-    if (quiet) { return { t: 'Back to “' + quiet.title + '”', x: 'It has been a few days. Go back when you can, and add a line about what you notice. Small changes count.', h: '#tending', c: 'Add to my log' }; }
+    if (quiet) { return { t: 'Back to “' + quiet.title + '”', x: 'It has been a few days. Go back when you can, and add a line about what you notice. Small changes count.', h: '#tending', c: 'Add to your log' }; }
     if (b.lunar && b.lunar.on && now - new Date(b.lunar.since).getTime() > 86400000) {
       var lastMoon = b.moons.length ? new Date(b.moons[b.moons.length - 1].at).getTime() : new Date(b.lunar.since).getTime();
-      if (now - lastMoon > 2 * 86400000) { return { t: 'Moon is waiting', x: 'Your lunar journal has a space for tonight: where Moon is, their shape, and one word for your day. Missed nights are part of it too.', h: '#lunar', c: 'Open my lunar journal' }; }
+      if (now - lastMoon > 2 * 86400000) { return { t: 'Moon is waiting', x: 'Your lunar journal has a space for tonight: where Moon is, their shape, and one word for your day. Missed nights are part of it too.', h: '#lunar', c: 'Open your lunar journal' }; }
     }
-    if (b.stars.length < 3) { return { t: 'Add to your constellation', x: 'Who else is in your “we”? A tree, a creek, a grandmother, the bread you love. Add one or two.', h: '#constellation', c: 'Add to my constellation' }; }
+    if (b.stars.length < 3) { return { t: 'Add to your constellation', x: 'Who else is in your “we”? A tree, a creek, a grandmother, the bread you love. Add one or two.', h: '#constellation', c: 'Add to your constellation' }; }
     var soon = b.gathered.filter(function (g) { if (!g.closes) { return false; } var d = (new Date(g.closes + 'T23:59:59').getTime() - now) / 86400000; return d >= 0 && d <= 14; })[0];
     if (soon) { return { t: soon.title + ' closes soon', x: 'Doors close on ' + this.day(soon.closes + 'T12:00:00') + '. If it still calls to you, now is the time.', h: soon.href || 'Springs.dc.html', c: 'Have a look' }; }
     var way = (b.began[b.began.length - 1] || {}).way || [];
@@ -727,7 +727,7 @@ class Component extends DCLogic {
     out.lnNote = s.lnNote !== null ? s.lnNote : (tonight ? tonight.note : '');
     out.lnTypeWord = function (e) { self.state.lnWord = e && e.target ? e.target.value : ''; };
     out.lnTypeNote = function (e) { self.state.lnNote = e && e.target ? e.target.value : ''; };
-    out.lnAddLabel = tonight ? 'Update tonight' : 'Keep tonight in my journal';
+    out.lnAddLabel = tonight ? 'Update tonight' : 'Keep tonight in your journal';
     out.lnAdd = function () {
       var st = self.state, w = (st.lnWord !== null ? st.lnWord : (tonight ? tonight.word : '')).trim(), nt = (st.lnNote !== null ? st.lnNote : (tonight ? tonight.note : '')).trim(), sk = st.lnSky !== null ? st.lnSky : (tonight ? tonight.sky : '');
       if (!w && !nt && !sk) { var el = document.getElementById('lnWord'); if (el) { el.focus(); } return; }
@@ -807,7 +807,7 @@ class Component extends DCLogic {
     out.download = function () {
       try {
         var blob = new Blob([JSON.stringify(self.boatRead() || b, null, 2)], { type: 'application/json' });
-        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'my-boat-' + new Date().toISOString().slice(0, 10) + '.json';
+        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'your-boat-' + new Date().toISOString().slice(0, 10) + '.json';
         document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
         self.setState({ flash: 'A copy of your Boat has been downloaded. Keep it somewhere safe; it holds your notes and constellation.' });
       } catch (x) { self.setState({ flash: 'This browser could not download a copy.' }); }

@@ -565,7 +565,7 @@ class Component extends DCLogic {
     var opts = [];
     var mk = function (label, fn, main) { opts.push({ label: label, fn: fn, main: main }); };
     if (beat.choice) {
-      mk('Tell me about the River', function () { self.gGo('deep', 0); }, true); mk('Show me around', function () { self.gGo('tour', 0); }, true); mk('Help me find my way', function () { self.gGo('find', 0); }, true);
+      mk('Tell me about the River', function () { self.gGo('deep', 0); }, true); mk('Show me around', function () { self.gGo('tour', 0); }, true); mk('Find your way', function () { self.gGo('find', 0); }, true);
     } else if (beat.find && !this.gFound) {
       this.longings().forEach(function (l) { mk(l.label, function () { self.gFound = l; self.gRender(); }); });
       mk('Back', function () { self.gGo('welcome', 0); });
@@ -576,7 +576,7 @@ class Component extends DCLogic {
     } else if (beat.final) {
       mk('Begin at the Source', function () { self.gStop(true); try { location.href = 'Main.dc.html'; } catch (x) {} }, true);
       if (g.seq === 'deep') { mk('Show me around', function () { self.gGo('tour', 0); }); }
-      mk('Explore on my own', function () { self.gStop(); });
+      mk('Explore on your own', function () { self.gStop(); });
     } else {
       mk('Next', function () { self.gGo(g.seq, g.idx + 1); }, true);
       if (g.idx > 0) { mk('Back', function () { self.gGo(g.seq, g.idx - 1); }); }

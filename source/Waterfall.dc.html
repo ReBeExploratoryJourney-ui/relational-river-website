@@ -99,7 +99,7 @@ a:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible{
 <section class="torn tl" style="background: #FBF7EF; padding: 44px 48px; display: flex; flex-direction: column; gap: 18px" aria-labelledby="offer-title">
 <h2 id="offer-title" style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 700; font-size: 28px">Offer something to the falls</h2>
 <label for="idea" style="font-size: 17px; font-weight: 600">Your idea, hope or question</label>
-<textarea id="idea" rows="4" value="{{idea}}" onChange="{{typed}}" placeholder="For example: a seed library for our watershed, or bringing grief circles into my school" style="font-family: Jost, sans-serif; font-size: 17px; line-height: 1.5; padding: 14px 16px; box-sizing: border-box; width: 100%; border: 1.5px solid #8C8178; border-radius: 12px 16px 12px 18px; background: #FFFFFF; color: #2F2B28; resize: vertical"></textarea>
+<textarea id="idea" rows="4" value="{{idea}}" onChange="{{typed}}" placeholder="For example: a seed library for our watershed, or bringing grief circles into your school" style="font-family: Jost, sans-serif; font-size: 17px; line-height: 1.5; padding: 14px 16px; box-sizing: border-box; width: 100%; border: 1.5px solid #8C8178; border-radius: 12px 16px 12px 18px; background: #FFFFFF; color: #2F2B28; resize: vertical"></textarea>
 <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center"><span style="font-size: 14px; font-style: italic">Or try one:</span>
 <sc-for list="{{samples}}" as="s" hint-placeholder-count="3"><button class="chip" onClick="{{s.pick}}">{{s.label}}</button></sc-for>
 </div>
@@ -272,7 +272,7 @@ class Component extends DCLogic {
       typed: function (e) { self.setState({ idea: e && e.target ? e.target.value : '' }); },
       samples: [
         { label: 'A seed library for our watershed', pick: setIdea('A seed library for our watershed, run with local growers') },
-        { label: 'Grief circles in my school', pick: setIdea('Bringing grief circles and time with trees into my school') },
+        { label: 'Grief circles in your school', pick: setIdea('Bringing grief circles and time with trees into your school') },
         { label: 'Funding creek restoration', pick: setIdea('How could we fund restoring the creek near our home?') }
       ],
       cannotOffer: !s.idea || s.idea.trim().length < 3 || s.used >= LIMIT || s.falling,

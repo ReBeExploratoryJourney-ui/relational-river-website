@@ -148,7 +148,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <p class="p">For this journal only, added to your own calendar. It is made here on your device, so nothing is sent to the River, and you can delete it in your calendar at any time.</p>
 <div class="mrow"><label class="k" for="jTime">At</label><input id="jTime" class="field" style="max-width: 170px" type="time" value="{{it.jTime}}" onChange="{{it.jTypeTime}}"></div>
 <div class="mrow"><sc-for list="{{it.jSpans}}" as="sp" hint-placeholder-count="2"><button class="{{sp.cls}}" aria-pressed="{{sp.on}}" onClick="{{sp.pick}}">{{sp.label}}</button></sc-for></div>
-<button class="toggle" onClick="{{it.jRemind}}">Add to my calendar</button>
+<button class="toggle" onClick="{{it.jRemind}}">Add to your calendar</button>
 <sc-if value="{{it.jMsg}}" hint-placeholder-val="{{ false }}"><p class="minor" role="status" style="margin: 0">{{it.jMsg}}</p></sc-if>
 </div>
 </div>
@@ -201,7 +201,7 @@ class Component extends DCLogic {
         cls: 'torn card ' + (k % 2 ? 'tr' : 'tl'), bg: p.bg || bgs[k % bgs.length],
         toggle: function () { var o = {}; for (var x in open) { o[x] = open[x]; } o[p.id] = !on; self.setState({ open: o }); },
         anchor: p.id, isJournal: p.id === 'journal',
-        jOn: self.journalOn() ? 'true' : 'false', jLabel: self.journalOn() ? 'Open my lunar journal' : 'Keep it in your Boat', jBegin: function () { self.journalBegin(); },
+        jOn: self.journalOn() ? 'true' : 'false', jLabel: self.journalOn() ? 'Open your lunar journal' : 'Keep it in your Boat', jBegin: function () { self.journalBegin(); },
         jTime: self.state.jTime, jTypeTime: function (e) { self.state.jTime = e && e.target ? e.target.value : '20:30'; },
         jSpans: [['cycle', 'For one cycle'], ['ongoing', 'Every night until I delete it']].map(function (x) { var s2 = self.state.jSpan === x[0]; return { label: x[1], on: s2 ? 'true' : 'false', cls: s2 ? 'mchip on' : 'mchip', pick: function () { self.setState({ jSpan: x[0] }); } }; }),
         jRemind: function () { var ok = self.reminderFile(self.state.jTime, self.state.jSpan, self.journalOn() ? 'https://relationalriver.org/boat#lunar' : 'https://relationalriver.org/moon#journal'); self.setState({ jMsg: ok ? 'A reminder file is ready. Open it to add it to your calendar. To stop it, delete the event there.' : 'This browser could not make a calendar file.' }); },

@@ -169,7 +169,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <h3 class="h3">{{mineTitle}}</h3>
 <p class="p">{{mineText}}</p>
 <p class="p" style="font-size: 14px">{{mineMeta}}</p>
-<div style="display: flex; flex-wrap: wrap; gap: 12px"><button class="go tornbtn" style="background: #FBF7EF" onClick="{{download}}">Download a copy</button><button class="go tornbtn" style="background: #F2D3BC" onClick="{{withdraw}}">Withdraw my offering</button></div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px"><button class="go tornbtn" style="background: #FBF7EF" onClick="{{download}}">Download a copy</button><button class="go tornbtn" style="background: #F2D3BC" onClick="{{withdraw}}">Withdraw your offering</button></div>
 <p class="minor" style="margin: 0">Withdrawing deletes it from the River completely. You are always welcome to pour in again.</p>
 </sc-if>
 <p class="p">{{mineNote}}</p>
@@ -193,7 +193,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <label for="w-pass" class="lbl">Passions and ideas for how to be of service</label>
 <textarea id="w-pass" class="field" rows="3" value="{{pass}}" onChange="{{typedPass}}" placeholder="What would you love to help bring about?"></textarea>
 <label for="w-need" class="lbl">What I need, in return or simply in life</label>
-<input id="w-need" class="field" value="{{need}}" onChange="{{typedNeed}}" placeholder="For example: help with my garden, a place to stay, learning a new skill, paid work">
+<input id="w-need" class="field" value="{{need}}" onChange="{{typedNeed}}" placeholder="For example: help with your garden, a place to stay, learning a new skill, paid work">
 <label for="w-where" class="lbl">Where I am</label>
 <input id="w-where" class="field" value="{{where}}" onChange="{{typedWhere}}" placeholder="A town, a watershed or a bioregion is plenty">
 <label for="w-contact" class="lbl">Email, so the River can send you invitations (optional)</label>
@@ -208,7 +208,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="chips" role="group" aria-label="Kinds of exchange I welcome"><span class="chiplabel">Exchange</span>
 <sc-for list="{{exChips}}" as="c" hint-placeholder-count="5"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
 </div>
-<div class="chips" role="group" aria-label="Who can see my offering"><span class="chiplabel">Who can see this</span>
+<div class="chips" role="group" aria-label="Who can see your offering"><span class="chiplabel">Who can see this</span>
 <sc-for list="{{visChips}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
 </div>
 <sc-if value="{{notPoured}}" hint-placeholder-val="{{ true }}">
@@ -221,7 +221,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <p class="p" style="font-size: 17px" aria-live="polite">Thank you. Your offering is in the well, kept as privately as you chose.</p>
 <p class="p">This is your private link for reading or withdrawing your offering. Keep it somewhere safe: it is the only key, and the River can’t send it again.</p>
 <input class="field" readonly value="{{manageLink}}" aria-label="Your private link" onClick="{{selectAll}}">
-<a href="{{manageLink}}" class="lnk">Open my offering</a>
+<a href="{{manageLink}}" class="lnk">Open your offering</a>
 </sc-if>
 <sc-if value="{{notConnected}}" hint-placeholder-val="{{ false }}">
 <p class="p" style="font-size: 17px" aria-live="polite">Thank you. The well isn’t open yet while the River is being tested, so nothing has been saved or sent. When it opens, your offering will be kept exactly as privately as you chose.</p>
@@ -490,7 +490,7 @@ class Component extends DCLogic {
     v.download = function () {
       try {
         var blob = new Blob([JSON.stringify(self.state.mine, null, 2)], { type: 'application/json' });
-        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'my-offering-in-the-well.json';
+        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'your-offering-in-the-well.json';
         document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
       } catch (e) {}
     };
@@ -535,7 +535,7 @@ class Component extends DCLogic {
       Object.keys(KW).forEach(function (k) { if (txt.indexOf(k) >= 0 && tags.indexOf(KW[k]) < 0) { tags.push(KW[k]); } });
       need = { title: s.own ? 'Your project' : 'Your own project', at: s.ownWhere, tags: tags };
     } else { need = NEEDS[s.needKey]; }
-    v.needChips = this.chips([['creek', 'A creek restoration day'], ['survey', 'A woodland survey'], ['hub', 'A food hub seeking funding'], ['own', 'My own project']], 'needKey');
+    v.needChips = this.chips([['creek', 'A creek restoration day'], ['survey', 'A woodland survey'], ['hub', 'A food hub seeking funding'], ['own', 'Your own project']], 'needKey');
     v.ownNeed = s.needKey === 'own'; v.own = s.own; v.typedOwn = this.typed('own');
     v.ownWhereChips = this.chips([['la', 'Los Angeles'], ['clare', 'County Clare'], ['anywhere', 'Anywhere or online']], 'ownWhere');
     var near = function (p) { return need.at === 'anywhere' || p.at === need.at || p.at === 'online'; };
