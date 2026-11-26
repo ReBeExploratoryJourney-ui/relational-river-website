@@ -385,7 +385,7 @@ class Component extends DCLogic {
     ];
     var deep = [
       { at: 'Source', node: 'Source', text: 'Here is how the River flows. It begins with you, then widens, little by little, from small moments in your own day to people and projects all around the world.' },
-      { at: 'Source', node: 'Source', text: 'It starts at the Source, with a few gentle questions that help you become more aware of the relationships beyond the human world that we are always a part of. There are no wrong answers, and your answers suggest a good place to begin.' },
+      { at: 'Source', node: 'Source', text: 'It starts at the Source, with a few gentle questions that help you become more aware of the relationships beyond the human world that we are always a part of. There are no wrong answers. Here you can also launch your Boat: your own private vessel on the River, carrying your answers, the practices you tend and the relationships that make up your “we”. No account is needed.', go: { label: 'Launch my Boat at the Source', href: 'Main.dc.html#boat' } },
       { at: 'Springs', node: 'Springs', text: 'Close to the Source are the springs, where fresh offerings bubble up: courses, cohorts and gatherings with a closing date, so you can join while the doors are open.' },
       { at: 'Streams', node: 'Streams', text: 'Next come the streams: small things to try on any day, like sitting with a tree, listening to rain, or thanking the Beings who helped make your meal.' },
       { at: 'Tributaries', node: 'Tributaries', text: 'The tributaries flow in from the sides, bringing films, talks and short lessons that help these times make sense. Each one is credited to the people who made it.' },
@@ -580,6 +580,7 @@ class Component extends DCLogic {
     } else {
       mk('Next', function () { self.gGo(g.seq, g.idx + 1); }, true);
       if (g.idx > 0) { mk('Back', function () { self.gGo(g.seq, g.idx - 1); }); }
+      if (beat.go) { var go = beat.go; mk(go.label, function () { self.gStop(true); try { location.href = go.href; } catch (x) {} }); }
     }
     b.innerHTML = '';
     var who = document.createElement('div'); who.className = 'gwho'; who.textContent = 'Raven'; b.appendChild(who);

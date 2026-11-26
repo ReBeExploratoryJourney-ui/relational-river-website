@@ -93,6 +93,16 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </svg>
 </section>
 
+<section id="boat" class="torn tr" style="background: #E6E2F2; padding: 30px 36px; display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; color: #2F2B28" aria-labelledby="boat-title">
+<div style="flex: 1 1 480px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">Your Boat</div>
+<h2 id="boat-title" style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em">Set off with your own Boat</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; max-width: 640px">Your Boat is your own private vessel on the River. It carries your answers from the Source, the practices you tend, a cycle with Moon, and a constellation of the relationships that make up your “we”. No account is needed, and you choose how it is kept.</p>
+<p style="margin: 0; font-size: 15px; font-style: italic">{{boatStartNote}}</p>
+</div>
+<button class="go tornbtn" style="background: #F5EEE1" onClick="{{boatStart}}">{{boatStartLabel}}</button>
+</section>
+
 <section class="torn tl" style="background: #FBF7EF; padding: 48px 52px; display: flex; flex-direction: column; gap: 34px" aria-labelledby="q-title">
 <h2 id="q-title" style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 30px; letter-spacing: -0.02em">A few questions, if you'd like</h2>
 
@@ -224,6 +234,9 @@ class Component extends DCLogic {
       loves: this.chips([['tree', 'A tree'], ['water', 'Water'], ['garden', 'A garden'], ['animals', 'Animals and birds'], ['sky', 'The sky and Moon'], ['park', 'A city park']], 'love'),
       ways: this.chips([['watching', 'Watching'], ['reading', 'Reading'], ['listening', 'Listening'], ['doing', 'Doing'], ['others', 'Being with others']], 'way'),
       show: function () { self.setState({ done: true, kept: false }); },
+      boatStartLabel: this.boatRead() ? 'Open my Boat' : 'Launch my Boat',
+      boatStartNote: this.boatRead() ? 'Your Boat is ready. Answers you keep below will sail with it.' : 'Or answer the questions first, and launch it at the end.',
+      boatStart: function () { if (!self.boatRead()) { try { sessionStorage.setItem('rr.boat.from', 'source'); } catch (x) {} } window.location.href = '/boat'; },
       keepLabel: s.kept ? 'Open my Boat' : 'Keep my answers in my Boat',
       keepNote: s.kept ? 'Kept. Your answers are in your Boat, with today’s date.' : (this.boatRead() ? 'They will be kept beside any earlier answers.' : 'No account needed. You will choose how your Boat is kept first.'),
       keep: function () {

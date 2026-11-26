@@ -169,6 +169,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </section>
 
 <sc-if value="{{flash}}" hint-placeholder-val="{{ false }}"><p class="flash" role="status">{{flash}}</p></sc-if>
+<sc-if value="{{fromSource}}" hint-placeholder-val="{{ false }}"><div class="row"><a class="go tornbtn" href="/source#q-title" onClick="{{backToSource}}" style="background: #C8D9B9">Back to the Source questions</a></div></sc-if>
 
 <sc-if value="{{noBoat}}" hint-placeholder-val="{{ true }}">
 <section style="display: flex; flex-direction: column; gap: 20px">
@@ -475,7 +476,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' }, lnSky: null, lnWord: null, lnNote: null, remindTime: '20:30', remindSpan: 'cycle' };
+    this.state = { fromSource: (function () { try { return sessionStorage.getItem('rr.boat.from') === 'source'; } catch (x) { return false; } })(), boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' }, lnSky: null, lnWord: null, lnNote: null, remindTime: '20:30', remindSpan: 'cycle' };
   }
   // ---- keeping the Boat (on this device only) ----
   boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? this.boatClean(b) : null; } catch (x) { return null; } }
@@ -619,7 +620,7 @@ class Component extends DCLogic {
     var lab = function (l) { return (l || []).map(function (k) { return LABEL[k] || k; }); };
     var KINDS = [['being', 'A Being', '#A9C79A'], ['place', 'A place', '#D9B48F'], ['water', 'A water', '#9FD3DC'], ['food', 'A food', '#E8C77A'], ['ancestor', 'An ancestor', '#B9A3D9'], ['people', 'A person or people', '#E8A598'], ['other', 'Something else', '#D8D2C8']];
     var KIND = {}; KINDS.forEach(function (k) { KIND[k[0]] = k; });
-    var out = { flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : s.pending.list === 'lunar' ? 'a lunar journal' : (s.pending.item && s.pending.item.title) || '') : '',
+    var out = { fromSource: !!(s.fromSource && b), backToSource: function () { try { sessionStorage.removeItem('rr.boat.from'); } catch (x) {} }, flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : s.pending.list === 'lunar' ? 'a lunar journal' : (s.pending.item && s.pending.item.title) || '') : '',
       launchDevice: function () {
         var acct = !!(self.RB() && self.RB().signedIn());
         var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], lunar: null, moons: [], seen: { last: new Date().toISOString() } };
