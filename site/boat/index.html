@@ -175,7 +175,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <section style="display: flex; flex-direction: column; gap: 20px">
 <sc-if value="{{pending}}" hint-placeholder-val="{{ false }}"><p class="flash">Ready to bring aboard: <b>{{pendingTitle}}</b>. First, choose how your Boat is kept.</p></sc-if>
 <div style="display: flex; flex-direction: column; gap: 8px">
-<h2 class="h2">Launch your Boat</h2>
+<h2 class="h2">Build your Boat</h2>
 <p class="p light">Choose how your Boat is kept. There is no wrong choice, and you can change your mind later.</p>
 </div>
 <div class="choices">
@@ -188,7 +188,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <li>It is lost if you clear your browser’s data, browse privately, or switch devices. Safari on iPhone may also clear it after about a week without a visit.</li>
 <li>You can download a copy at any time, as a safety line.</li>
 </ul>
-<button class="go tornbtn" style="background: #C8D9B9" onClick="{{launchDevice}}">Launch your Boat here</button>
+<button class="go tornbtn" style="background: #C8D9B9" onClick="{{launchDevice}}">Build your Boat here</button>
 </article>
 <article class="torn tr choice" style="background: #E6E2F2">
 <div class="k">With your email</div>
@@ -217,7 +217,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 </sc-if>
 <sc-if value="{{noEmail}}" hint-placeholder-val="{{ true }}"><p class="p minor">Keeping a Boat with your email works on relationalriver.org.</p></sc-if>
-<sc-if value="{{signedNoBoat}}" hint-placeholder-val="{{ false }}"><p class="p">You are signed in as <b>{{signedEmail}}</b>, and there is no Boat in your account yet.</p><div class="row"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{launchDevice}}">Launch your Boat in your account</button><button class="quiet" onClick="{{launchSignOut}}">Sign out</button></div></sc-if>
+<sc-if value="{{signedNoBoat}}" hint-placeholder-val="{{ false }}"><p class="p">You are signed in as <b>{{signedEmail}}</b>, and there is no Boat in your account yet.</p><div class="row"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{launchDevice}}">Build your Boat in your account</button><button class="quiet" onClick="{{launchSignOut}}">Sign out</button></div></sc-if>
 </article>
 </div>
 <p class="p light fine">Either way, nothing is scored, nothing is sold, and you can sink your Boat (delete everything in it) at any time. <a href="/privacy#boat">How your information is cared for</a></p>
@@ -240,6 +240,16 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <p class="p">{{bendText}}</p>
 <a href="{{bendHref}}" class="lnk">{{bendCta}}</a>
 </article>
+</section>
+
+<section id="voyage" class="torn tr panel" style="background: #CFE1E4">
+<div class="k">Launch your Boat</div>
+<h2 class="h2 dark">Set sail on the River</h2>
+<p class="p">Your Boat can sail the main River through the waters you have visited, with Raven alongside, offering a little reflection on your journey so far and a few gentle ideas for where you might go next.</p>
+<p class="p" style="font-style: italic">{{wakeLine}}</p>
+<div class="row"><a href="/flow?voyage=1" class="go tornbtn" style="background: #F5EEE1">Launch your Boat</a></div>
+<p class="p" style="font-size: 15px">To sail with you, your Boat remembers which waters you visit, one mark per water each day. This stays inside your Boat and nowhere else.</p>
+<div class="row"><button class="sbtn" onClick="{{wakeToggle}}">{{wakeToggleLabel}}</button><button class="quiet" onClick="{{wakeClear}}">Clear your wake</button></div>
 </section>
 
 <section id="began" class="torn tl panel" style="background: #FBF7EF">
@@ -494,7 +504,9 @@ class Component extends DCLogic {
       gathered: arr(b.gathered, 120).map(item).filter(function (g) { return g && g.id; }),
       lunar: b.lunar && typeof b.lunar === 'object' ? { since: str(b.lunar.since, 30), on: b.lunar.on !== false } : null,
       moons: arr(b.moons, 400).filter(function (m) { return m && typeof m === 'object' && typeof m.id === 'string'; }).map(function (m) { return { id: str(m.id, 40), at: str(m.at, 30), sky: str(m.sky, 20), word: str(m.word, 30), note: str(m.note, 600), phase: str(m.phase, 30) }; }),
-      seen: { last: str(b.seen && b.seen.last, 30) }
+      seen: { last: str(b.seen && b.seen.last, 30) },
+      wake: arr(b.wake, 400).filter(function (x) { return x && typeof x.w === 'string'; }).map(function (x) { return { id: str(x.id, 60), w: str(x.w, 40), at: str(x.at, 10) }; }),
+      wakeOff: !!b.wakeOff
     };
   }
   RB() { return window.RiverBoat || null; }
@@ -623,8 +635,8 @@ class Component extends DCLogic {
     var out = { fromSource: !!(s.fromSource && b), backToSource: function () { try { sessionStorage.removeItem('rr.boat.from'); } catch (x) {} }, flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : s.pending.list === 'lunar' ? 'a lunar journal' : (s.pending.item && s.pending.item.title) || '') : '',
       launchDevice: function () {
         var acct = !!(self.RB() && self.RB().signedIn());
-        var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], lunar: null, moons: [], seen: { last: new Date().toISOString() } };
-        var msg = acct ? 'Your Boat is launched, kept with your IRB account.' : 'Your Boat is launched, here on this device.';
+        var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], lunar: null, moons: [], wake: [], seen: { last: new Date().toISOString() } };
+        var msg = acct ? 'Your Boat is built, kept with your IRB account.' : 'Your Boat is built, here on this device.';
         if (s.pending) { var m2 = self.addPending(nb, s.pending); if (m2) { msg += ' ' + m2; } try { sessionStorage.removeItem('rr.boat.pending'); } catch (x) {} }
         self.setState({ pending: null }); self.save(nb, msg);
         try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {}
@@ -669,6 +681,12 @@ class Component extends DCLogic {
     var prevDays = s.prev ? Math.floor((Date.now() - new Date(s.prev).getTime()) / 86400000) : null;
     var aboard = b.name ? 'aboard ' + b.name : 'aboard';
     out.sinceLine = prevDays === null ? 'Welcome ' + aboard + '. Your Boat was launched on ' + this.day(b.launched) + '.' : 'Welcome back ' + aboard + '. You were last here ' + (prevDays === 0 ? 'earlier today' : prevDays === 1 ? 'yesterday' : prevDays + ' days ago') + '.';
+    var wk = (b && b.wake) || [], wWaters = {}, wDays = {}; wk.forEach(function (x) { wWaters[x.w] = 1; wDays[x.at] = 1; });
+    var nW = Object.keys(wWaters).length, nD = Object.keys(wDays).length;
+    out.wakeLine = b && b.wakeOff ? 'Your wake is paused, so your Boat is not marking the waters you visit.' + (nW ? ' It still remembers ' + nW + (nW === 1 ? ' water' : ' waters') + ' from before.' : '') : (nW ? 'Your wake so far: ' + nW + (nW === 1 ? ' water' : ' waters') + ', over ' + nD + (nD === 1 ? ' day' : ' days') + '.' : 'Your Boat has not visited any waters yet. Wander the River, then come back and set sail, or launch now for a first look.');
+    out.wakeToggleLabel = b && b.wakeOff ? 'Resume your wake' : 'Pause your wake';
+    out.wakeToggle = function () { var nb = self.boatRead() || b; nb.wakeOff = !nb.wakeOff; self.save(nb, nb.wakeOff ? 'Your wake is paused. Your Boat will not mark the waters you visit until you resume it.' : 'Your wake is flowing again. Your Boat will mark the waters you visit.'); };
+    out.wakeClear = function () { var nb = self.boatRead() || b; nb.wake = []; self.save(nb, 'Your wake is cleared. Your Boat starts its journey afresh.'); };
     out.roundKicker = r.k; out.roundTitle = r.t; out.roundText = r.x; out.roundHref = r.h; out.roundCta = r.c;
     out.bendTitle = bd.t; out.bendText = bd.x; out.bendHref = bd.h; out.bendCta = bd.c;
     // where you began

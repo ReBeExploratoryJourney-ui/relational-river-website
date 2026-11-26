@@ -69,7 +69,7 @@
   // Lists are joined by id; nothing either side added is lost.
   function merge(a, b) {
     var out = JSON.parse(JSON.stringify(a || {})), byId = function (list) { var m = {}; (list || []).forEach(function (x) { if (x && x.id) { m[x.id] = x; } }); return m; };
-    ['tending', 'stars', 'gathered', 'moons'].forEach(function (k) {
+    ['tending', 'stars', 'gathered', 'moons', 'wake'].forEach(function (k) {
       var m = byId(out[k]);
       (b[k] || []).forEach(function (x) {
         if (!x || !x.id) { return; }
@@ -149,4 +149,27 @@
     }
   };
   window.RiverBoat = RB;
+
+  // Your Boat's wake: which waters of the River you have visited, one mark per water per day,
+  // so "Launch your Boat" can sail them with you. It is kept only inside your Boat (on this
+  // device, or with your IRB account if you chose that), and never sent anywhere else.
+  // You can pause or clear it on the Boat page.
+  var WATERS = { '/source': 'Source', '/springs': 'Springs', '/streams': 'Streams', '/tributaries': 'Tributaries',
+    '/eddies': 'Eddies', '/lakes': 'Lakes', '/islands': 'Islands of coherence', '/waterfall': 'Waterfall',
+    '/local-currents': 'Local currents', '/channels': 'Channels', '/estuary': 'Estuary', '/confluences': 'Confluences',
+    '/capital-journey': 'Confluences', '/ocean': 'Ocean', '/groundwater': 'Groundwater', '/well': 'The Well',
+    '/moon': 'Moon', '/lunar-journal': 'Moon' };
+  function markWake() {
+    var path = (location.pathname || '').replace(/\/index\.html$/, '').replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+    var w = WATERS[path]; if (!w) { return; }
+    var b = load(BKEY); if (!b || b.v !== 1 || b.wakeOff) { return; }
+    var d = new Date(), day = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    var id = w + '|' + day;
+    b.wake = Array.isArray(b.wake) ? b.wake : [];
+    if (b.wake.some(function (x) { return x && x.id === id; })) { return; }
+    b.wake.push({ id: id, w: w, at: day });
+    if (b.wake.length > 400) { b.wake = b.wake.slice(-400); }
+    b.dirty = true; store(BKEY, b); RB.touched();
+  }
+  try { markWake(); } catch (e) {}
 })();

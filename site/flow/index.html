@@ -146,6 +146,11 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .guidebtn.faint:hover,.guidebtn.faint:focus-visible{opacity:1;border-color:rgba(232,199,122,.7)}
 .glayer{position:absolute;left:0;top:0;width:100%;height:0;overflow:visible;overflow-x:clip;z-index:60;pointer-events:none}
 @supports not (overflow-x:clip){html,body{overflow-x:hidden}}
+.vboat{position:absolute;left:0;top:0;width:56px;height:42px;pointer-events:none;opacity:0;transition:transform 1.9s cubic-bezier(.45,0,.55,1),opacity .6s ease;will-change:transform}
+.vboat.on{opacity:1}
+.vboat svg{display:block;width:100%;height:100%;animation:vbob 3.2s ease-in-out infinite;filter:drop-shadow(0 2px 6px rgba(8,10,30,.45))}
+@keyframes vbob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-3px) rotate(1.5deg)}}
+@media (prefers-reduced-motion: reduce){.vboat{transition:opacity .3s ease}.vboat svg{animation:none}}
 .rv{position:absolute;left:0;top:0;width:100px;height:107px;transform-origin:57% 87%;opacity:0;transition:opacity .5s ease;will-change:transform}
 .rv.on{opacity:1}
 .rv-flip{width:100%;height:100%;transition:transform .95s cubic-bezier(.45,0,.55,1);filter:drop-shadow(0 0 3px rgba(245,238,225,.55)) drop-shadow(0 0 12px rgba(190,205,255,.3))}
@@ -392,7 +397,7 @@ class Component extends DCLogic {
     ];
     var deep = [
       { at: 'Source', node: 'Source', text: 'Here is how the River flows. It begins with you, then widens, little by little, from small moments in your own day to people and projects all around the world.' },
-      { at: 'Source', node: 'Source', text: 'It starts at the Source, with a few gentle questions that help you become more aware of the relationships beyond the human world that we are always a part of. There are no wrong answers. Here you can also launch your Boat: your own private vessel on the River, carrying your answers, the practices you tend and the relationships that make up your “we”. No account is needed.', go: { label: 'Launch your Boat at the Source', href: '/source#boat' } },
+      { at: 'Source', node: 'Source', text: 'It starts at the Source, with a few gentle questions that help you become more aware of the relationships beyond the human world that we are always a part of. There are no wrong answers. Here you can also build your Boat: your own private vessel on the River, carrying your answers, the practices you tend and the relationships that make up your “we”. No account is needed.', go: { label: 'Build your Boat at the Source', href: '/source#boat' } },
       { at: 'Springs', node: 'Springs', text: 'Close to the Source are the springs, where fresh offerings bubble up: courses, cohorts and gatherings with a closing date, so you can join while the doors are open.' },
       { at: 'Streams', node: 'Streams', text: 'Next come the streams: small things to try on any day, like sitting with a tree, listening to rain, or thanking the Beings who helped make your meal.' },
       { at: 'Tributaries', node: 'Tributaries', text: 'The tributaries flow in from the sides, bringing films, talks and short lessons that help these times make sense. Each one is credited to the people who made it.' },
@@ -430,8 +435,85 @@ class Component extends DCLogic {
     ];
     var tour = T.map(function (t) { return { at: t[0] === 'Moon' ? 'moon' : t[0], node: t[0], text: t[1] }; });
     var end = { at: 'moon', text: 'That’s the River, for now. It will keep changing, and so will you. Where would you like to begin?', final: true };
-    return { find: [{ at: 'moon', text: 'What are you longing for today? Choose whatever feels closest.', find: true }], welcome: [{ at: 'moon', text: 'Hello, and welcome to the Relational River! I am Raven, and I would love to be your guide. Shall I tell you about the River, show you around, or help you find your way?', choice: true }], deep: pre.concat(deep, [end]), tour: pre.concat(tour, [end]) };
+    return { voyage: this.voyageBeats(), find: [{ at: 'moon', text: 'What are you longing for today? Choose whatever feels closest.', find: true }], welcome: [{ at: 'moon', text: 'Hello, and welcome to the Relational River! I am Raven, and I would love to be your guide. Shall I tell you about the River, show you around, or help you find your way?', choice: true }], deep: pre.concat(deep, [end]), tour: pre.concat(tour, [end]) };
   }
+  // ---- Launch your Boat: a voyage through the waters in your Boat's wake ----
+  voyageBeats() {
+    var b = null; try { b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); } catch (x) {}
+    if (!b || b.v !== 1) {
+      return [{ at: 'moon', text: 'There is no Boat on this device yet, so there is nowhere to sail from. You can build your Boat at the Source, then come back and set sail.', voyageEnd: true, recs: [{ label: 'Build your Boat at the Source', href: '/source#boat' }] }];
+    }
+    var order = (this.nodeNames && this.nodeNames.length) ? this.nodeNames : ['Source', 'Springs', 'Streams', 'Tributaries', 'Eddies', 'Lakes', 'Islands of coherence', 'Waterfall', 'Local currents', 'Channels', 'Estuary', 'Confluences', 'Ocean', 'Groundwater', 'The Well', 'Moon'];
+    var days = {}, allDays = {};
+    (Array.isArray(b.wake) ? b.wake : []).forEach(function (x) { if (x && x.w) { days[x.w] = (days[x.w] || 0) + 1; allDays[x.at] = 1; } });
+    var visited = order.filter(function (k) { return days[k]; });
+    var tending = (b.tending || []).map(function (t) { return t.title ? '“' + t.title + '”' : ''; }).filter(Boolean);
+    var moons = (b.moons || []).length, stars = (b.stars || []).length, gathered = (b.gathered || []).length, began = (b.began || []).length;
+    var name = (b.name || '').trim(), boat = name ? 'Your Boat, ' + name + ',' : 'Your Boat';
+    var times = function (k) { var n = days[k]; return n > 1 ? ' You have come here on ' + n + ' different days.' : ''; };
+    var list = function (a) { return a.length > 1 ? a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] : a[0]; };
+    var R = {
+      'Source': 'You began here, at the Source, noticing where you are and who is around you.' + (began ? ' Your answers are aboard, so you can see how they change over time.' : '') + ' Who feels closest to you today?',
+      'Springs': 'At the springs you looked at offerings with a season of their own. Did one of them call to you?',
+      'Streams': 'In the streams you met small practices, the kind that slowly change how we see.' + (tending.length ? ' You are tending ' + list(tending.slice(0, 3)) + (tending.length > 3 ? ' and more' : '') + '. How are they settling into your days?' : ' Is there one you would like to try this week?'),
+      'Tributaries': 'You came to the tributaries to learn from others making sense of these times. What has stayed with you?',
+      'Eddies': 'You paused in the eddies, for grief, gratitude or rest. Pausing is part of the journey too.',
+      'Lakes': 'In the lakes you looked for ways to slow down together. Who might you gather with?',
+      'Islands of coherence': 'You visited the islands of coherence, where steadiness is shared. Where, and with whom, do you feel steady?',
+      'Waterfall': 'At the waterfall you let an idea tumble toward action. What might one small next step be?',
+      'Local currents': 'You looked toward the place where you live, and the people already caring for it.',
+      'Channels': 'In the channels you looked for ways to help. Small acts count, and so does rest.',
+      'Estuary': 'In the estuary you carried all of this toward work, school or community life.',
+      'Confluences': 'At the confluences you explored where streams meet, and the many ways in.',
+      'Ocean': 'You sailed out to the ocean, to projects caring for land, water and people around the world.',
+      'Groundwater': 'You noticed the groundwater, the quiet connections running underneath.',
+      'The Well': 'You visited the Well, where gifts and needs meet, like stone soup.',
+      'Moon': 'You spent time with Moon, who moves the waters, and us too.' + (moons ? ' Your lunar journal holds ' + moons + (moons === 1 ? ' night.' : ' nights.') : '')
+    };
+    var beats = [];
+    var nd = Object.keys(allDays).length;
+    if (!visited.length) {
+      beats.push({ at: 'moon', node: 'Moon', text: boat + ' is ready to set sail, though it has not travelled far yet. That is a fine place to begin. Every river starts small.' });
+    } else {
+      beats.push({ at: 'moon', node: 'Moon', text: boat + ' is setting sail. Over ' + nd + (nd === 1 ? ' day' : ' days') + ' you have visited ' + visited.length + (visited.length === 1 ? ' water' : ' waters') + ' of the River. Let us travel them together, from the Source toward the sea.' });
+      visited.forEach(function (k) { var t = R[k], tm = times(k), q = t.lastIndexOf('. '); if (tm && t.charAt(t.length - 1) === '?' && q > 0) { t = t.slice(0, q + 1) + tm + t.slice(q + 1); } else { t = t + tm; } beats.push({ at: k === 'Moon' ? 'moon' : k, node: k, text: t, voyage: true }); });
+    }
+    // Gentle next steps: a few ways on, chosen from what is not yet in the Boat or the wake.
+    var recs = [], has = function (k) { return !!days[k]; }, add = function (label, href) { if (recs.length < 3) { recs.push({ label: label, href: href }); } };
+    var page = { 'Source': '/source', 'Springs': '/springs', 'Streams': '/streams', 'Tributaries': '/tributaries', 'Eddies': '/eddies', 'Lakes': '/lakes', 'Islands of coherence': '/islands', 'Waterfall': '/waterfall', 'Local currents': '/local-currents', 'Channels': '/channels', 'Estuary': '/estuary', 'Confluences': '/confluences', 'Ocean': '/ocean', 'Groundwater': '/groundwater', 'The Well': '/well', 'Moon': '/moon' };
+    if (!has('Source') && !began) { add('Begin at the Source', page['Source']); }
+    if (!tending.length) { add('Try a small practice in the streams', page['Streams']); }
+    var next = order.filter(function (k) { return !has(k) && k !== 'Source' && k !== 'Moon'; })[0];
+    if (next) { add('Visit ' + (next === 'The Well' ? 'the Well' : next === 'Islands of coherence' ? 'the islands of coherence' : next === 'Local currents' ? 'your local currents' : 'the ' + next.toLowerCase()), page[next]); }
+    if (!(b.lunar && b.lunar.on)) { add('Begin your lunar journal', '/moon'); }
+    if (!stars) { add('Draw your constellation', '/boat#constellation'); }
+    if (began && recs.length < 2) { add('Revisit the Source, and see what has changed', page['Source']); }
+    var close = [];
+    if (stars) { close.push('Your constellation holds ' + stars + (stars === 1 ? ' relationship' : ' relationships') + '.'); }
+    if (gathered) { close.push('You have brought ' + gathered + (gathered === 1 ? ' thing' : ' things') + ' aboard.'); }
+    beats.push({ at: 'moon', node: 'Moon', voyageEnd: true, recs: recs, text: (close.length ? close.join(' ') + ' ' : '') + 'Every river meanders, and so do we. Wherever you are on this journey is a good place to be. ' + (recs.length ? 'If you would like a next bend, here are a few gentle ways on.' : 'Keep wandering, and come back to set sail whenever you like.') });
+    return beats;
+  }
+  vBoat() {
+    var e = this.gEls(); if (!e.layer) { return null; }
+    var el = e.layer.querySelector('.vboat');
+    if (!el) {
+      el = document.createElement('div'); el.className = 'vboat'; el.setAttribute('aria-hidden', 'true');
+      el.innerHTML = '<svg viewBox="0 0 64 48"><path d="M2 41 C 12 37, 20 45, 32 41 S 52 37, 62 41" fill="none" stroke="#9FD3DC" stroke-width="2" stroke-linecap="round"/><path d="M6 30 C 13 40, 49 41, 58 29 Z" fill="#F5EEE1" stroke="#2F2B28" stroke-width="2" stroke-linejoin="round"/><path d="M33 5 L33 30" stroke="#2F2B28" stroke-width="2" stroke-linecap="round"/><path d="M35 8 C 46 15, 51 23, 53 28 L35 28 Z" fill="#E8C77A" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/><path d="M31 12 C 24 17, 20 23, 17 28 L31 28 Z" fill="#CFE1E4" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+      e.layer.insertBefore(el, e.layer.firstChild);
+    }
+    return el;
+  }
+  vSail(at, instant) {
+    var el = this.vBoat(), p = this.gPoint(at); if (!el || !p) { return; }
+    this.vAt = at;
+    var x = p.x - (at === 'moon' ? 70 : 28), y = p.y + (at === 'moon' ? 34 : 30);
+    if (instant) { el.style.transition = 'none'; }
+    el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+    if (instant) { void el.offsetWidth; el.style.transition = ''; }
+    el.classList.add('on');
+  }
+  vDock() { var el = this.gEls().layer ? this.gEls().layer.querySelector('.vboat') : null; if (el) { el.classList.remove('on'); } this.vAt = null; }
   gEls() {
     if (!this.glayer || !document.body.contains(this.glayer)) {
       var d = document.createElement('div');
@@ -580,6 +662,10 @@ class Component extends DCLogic {
       var lf = this.gFound;
       lf.links.forEach(function (x) { mk(x.label, function () { self.gStop(true); try { location.href = x.href; } catch (e) {} }, true); });
       mk('Something else', function () { self.gFound = null; self.gRender(); });
+    } else if (beat.voyageEnd) {
+      (beat.recs || []).forEach(function (r) { mk(r.label, function () { self.gStop(true); try { location.href = r.href; } catch (x) {} }, true); });
+      mk('Back to Your Boat', function () { self.gStop(true); try { location.href = '/boat#voyage'; } catch (x) {} });
+      mk('Rest here', function () { self.gStop(); });
     } else if (beat.final) {
       mk('Begin at the Source', function () { self.gStop(true); try { location.href = '/source'; } catch (x) {} }, true);
       if (g.seq === 'deep') { mk('Show me around', function () { self.gGo('tour', 0); }); }
@@ -596,7 +682,7 @@ class Component extends DCLogic {
     opts.forEach(function (o) { var btn = document.createElement('button'); btn.type = 'button'; btn.className = o.main ? 'gopt main' : 'gopt'; btn.textContent = o.label; btn.addEventListener('click', o.fn); row.appendChild(btn); });
     b.appendChild(row);
     var foot = document.createElement('div'); foot.className = 'gfoot';
-    var count = document.createElement('span'); count.textContent = (beat.choice || beat.final || beat.find) ? '' : (g.idx + 1) + ' of ' + (beats.length - 1); foot.appendChild(count);
+    var count = document.createElement('span'); count.textContent = (beat.choice || beat.final || beat.find || beat.voyageEnd) ? '' : (g.idx + 1) + ' of ' + (beats.length - 1); foot.appendChild(count);
     var endb = document.createElement('button'); endb.type = 'button'; endb.className = 'glink'; endb.textContent = 'End the guide'; endb.addEventListener('click', function () { self.gStop(); }); foot.appendChild(endb);
     b.appendChild(foot);
     b.classList.remove('placed'); b.style.display = 'flex'; b.scrollTop = 0;
@@ -636,7 +722,7 @@ class Component extends DCLogic {
     if (!beat) { this.gStop(); return; }
     var nodeIndex = -1;
     var cardName = beat.node || (beat.at === 'moon' ? 'Moon' : null); if (cardName) { nodeIndex = this.nodeNames.indexOf(cardName); }
-    var show = function () { if (!self.gActive) { return; } self.gPerch(beat.at); self.gFocus = true; self.g = { seq: seq, idx: idx }; self.gRender(); setTimeout(function () { self.gEnsure(); }, 80); };
+    var show = function () { if (!self.gActive) { return; } self.gPerch(beat.at); if (seq === 'voyage') { self.vSail(beat.at, !self.vAt); } self.gFocus = true; self.g = { seq: seq, idx: idx }; self.gRender(); setTimeout(function () { self.gEnsure(); }, 80); };
     if (nodeIndex >= 0 && this.state.i !== nodeIndex) { this.stopTour(); this.setState({ i: nodeIndex, tour: false }); }
     if (this.gAt === beat.at) { show(); return; }
     this.gHide();
@@ -689,6 +775,7 @@ class Component extends DCLogic {
     var e = this.gEls();
     if (!this.gActive || !this.gAt || this.raf || !e.rv || !e.rv.classList.contains('perched') || !this.gPos) { return; }
     var p = this.gPoint(this.gAt); if (!p) { return; }
+    if (this.vAt) { this.vSail(this.vAt, true); }
     var dx = p.x - this.gPos.x, dy = p.y - this.gPos.y;
     if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) { return; }
     this.gPlace(p.x, p.y, 1);
@@ -784,7 +871,7 @@ class Component extends DCLogic {
     var start = this.gPoint('logo');
     if (this.still() || !start) {
       var m = this.gPoint('moon'); if (m) { this.gPlace(m.x, m.y, 1); }
-      e.rv.classList.add('on'); this.gGo('welcome', 0); return;
+      e.rv.classList.add('on'); this.gGo(this.gEntry || 'welcome', 0); return;
     }
     // The raven in the logo glows, peels gently away, then slowly becomes Raven, who soars.
     this.setState({ emerging: true });
@@ -813,7 +900,7 @@ class Component extends DCLogic {
       if (!self.gActive) { return; }
       self.gMoonScroll = true; self.gMapX(document.querySelector('.mapinner svg'));
       var L = e.layer.getBoundingClientRect(), W = L.width, top0 = -L.top, vh = window.innerHeight || 800, from = self.gPos, moon = self.gPoint('moon');
-      if (!moon) { self.gGo('welcome', 0); return; }
+      if (!moon) { self.gGo(self.gEntry || 'welcome', 0); return; }
       var lx = W * (W < 700 ? 0.16 : 0.1), X = function (f) { return lx + (moon.x - lx) * f; };
       // The same gentle arc as Raven's flight home, in reverse: down and around, then across to Moon.
       var m = W < 700;
@@ -826,14 +913,14 @@ class Component extends DCLogic {
       self.gPath(pts, { fromScale: self.gRS || 0.55, toScale: 1, speed: W < 700 ? 0.13 : 0.17, minDur: 9000, maxDur: 16000, roll: { from: 1, to: -1, at: 'start', d: 1500 }, face: 'left' }, function () {
         if (!self.gActive) { return; }
         self.gPerch('moon');
-        self.gGo('welcome', 0);
+        self.gGo(self.gEntry || 'welcome', 0);
       });
     };
   }
   gStop(quick) {
     var self = this, e = this.gEls();
     if (this.gReturning) { return; }
-    this.gActive = false; this.gAt = null;
+    this.gActive = false; this.gAt = null; this.gEntry = null; this.vDock();
     if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
     this.gHide(); this.setState({ guiding: false, emerging: false, peel: false });
     var finish = function () {
@@ -900,6 +987,12 @@ class Component extends DCLogic {
     var selfS = this; try { fetch('/data/springs.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.springs) { selfS.setState({ springs: d.springs }); } }).catch(function () {}); } catch (e) {}
     var self = this;
     this.glowTimer = setTimeout(function () { self.setState({ glow: false }); }, 5000);
+    try {
+      if (/[?&]voyage=1\b/.test(location.search)) {
+        try { history.replaceState(null, '', location.pathname + location.hash); } catch (x) {}
+        setTimeout(function () { self.gEntry = 'voyage'; self.gStart(); }, 700);
+      }
+    } catch (e) {}
     try {
       var s = document.querySelector('.mapscroll');
       if (s && s.scrollWidth > s.clientWidth) { s.scrollLeft = (s.scrollWidth - s.clientWidth) / 2; }
