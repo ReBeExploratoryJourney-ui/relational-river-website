@@ -1,6 +1,6 @@
 {
   "about": "Murmurations profiles published by the Relational River (https://murmurations.network).",
-  "updated": "2026-11-25",
+  "updated": "2026-11-26",
   "profiles": [
     "https://relationalriver.org/murmurations/relational-river.json",
     "https://relationalriver.org/murmurations/canal.json",
@@ -13,6 +13,7 @@
     "https://relationalriver.org/murmurations/spring-essense-imagination-2026-12.json",
     "https://relationalriver.org/murmurations/spring-xerces-invertebrates-2026-12.json",
     "https://relationalriver.org/murmurations/spring-otherwise-grieving-together-2026-12.json",
-    "https://relationalriver.org/murmurations/spring-kincentric-governance-2026-12.json"
+    "https://relationalriver.org/murmurations/spring-kincentric-governance-2026-12.json",
+    "https://relationalriver.org/murmurations/spring-pham-2027-tokyo.json"
   ]
 }

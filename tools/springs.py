@@ -69,6 +69,11 @@ SPRINGS = [
      'when': 'Monday 14 December 2026, 8am Pacific (4pm GMT), one hour', 'where': 'Online', 'lang': 'English',
      'text': 'How do we bring a sense of kinship with the more-than-human world into the boardroom, where power is shared, decisions are made and value is distributed? A dialogue with Leena Al Olaimy, co-founder of Diversity on Board, in the 19th session of the Co-creation with the More-than-Human sandbox, hosted by Renilde Becqué and Justine Huxley.',
      'closes': '2026-12-14', 'href': 'https://repatterningcollective.substack.com/p/upcoming-learning-session-14-december', 'cta': 'Learn more and register', 'theme': 'work', 'cost': 'free', 'costNote': 'Free to join; the hosts welcome tips', 'found': 'Shared by Joe, from the sandbox newsletter'},
+    {'id': 'pham-2027-tokyo', 'host': 'Planetary Health Alliance and the Planetary Health Japan Hub', 'hostHref': 'https://planetaryhealthalliance.org/',
+     'title': 'Planetary Health Annual Meeting 2027', 'kind': 'Gathering', 'fmt': 'hybrid',
+     'when': '7 to 11 June 2027', 'where': 'University of Tokyo, Japan, and online', 'lang': 'English',
+     'text': 'A five-day gathering of researchers, educators, students, health workers, artists, Indigenous leaders and community groups from around the world, learning together about how the health of people and the living Earth are woven together, and seeking solutions. The first time the meeting comes to Japan, and open to join online.',
+     'closes': '2027-06-07', 'href': 'https://planetaryhealthalliance.org/events/2027-planetary-health-annual-meeting/', 'cta': 'Learn more and register', 'theme': 'land', 'cost': 'paid', 'costNote': 'See their page for registration and fees', 'found': 'Shared by Joe, from the Planetary Health Alliance newsletter'},
 ]
 if __name__ == '__main__':
     data = {'updated': __import__('datetime').date.today().isoformat(), 'springs': SPRINGS}

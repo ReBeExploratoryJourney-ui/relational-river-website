@@ -219,6 +219,16 @@
    "href": "https://repatterningcollective.substack.com/",
    "founder": "Tended by Renilde Becqué",
    "shaped": false
+  },
+  {
+   "name": "Planetary Health Alliance",
+   "place": "Based at Johns Hopkins University in Washington, DC, with members in more than seventy countries",
+   "text": "A global alliance of universities, research institutes, community groups and people caring for the health of people and the living Earth together. It shares planetary health science, stories and solutions, curates courses and teaching resources, and gathers its members on Hylo and through volunteer-led regional hubs, a Next Generation network for students and young leaders, and an annual meeting.",
+   "theme": "Planetary health",
+   "k": "land",
+   "href": "https://planetaryhealthalliance.org/",
+   "founder": "Founded in 2015, following the Rockefeller Foundation–Lancet Commission on Planetary Health",
+   "shaped": false
   }
  ]
 }

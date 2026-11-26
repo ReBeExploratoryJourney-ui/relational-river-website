@@ -1,0 +1,28 @@
+{
+  "linked_schemas": [
+    "offers_wants_schema-v0.1.0"
+  ],
+  "exchange_type": "offer",
+  "item_type": "service",
+  "transaction_type": [
+    "buy-sell"
+  ],
+  "title": "Planetary Health Annual Meeting 2027",
+  "description": "A five-day gathering of researchers, educators, students, health workers, artists, Indigenous leaders and community groups from around the world, learning together about how the health of people and the living Earth are woven together, and seeking solutions. The first time the meeting comes to Japan, and open to join online. 7 to 11 June 2027; University of Tokyo, Japan, and online; See their page for registration and fees. Offered by Planetary Health Alliance and the Planetary Health Japan Hub. Listed in the Relational River's Springs; join through the makers' own page.",
+  "details_url": "https://planetaryhealthalliance.org/events/2027-planetary-health-annual-meeting/",
+  "tags": [
+    "relational river spring",
+    "land",
+    "regenerative practice",
+    "bioregional",
+    "gathering",
+    "online",
+    "in person"
+  ],
+  "image": "https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png",
+  "geographic_scope": "international",
+  "contact_details": {
+    "contact_form": "https://planetaryhealthalliance.org/events/2027-planetary-health-annual-meeting/"
+  },
+  "expires_at": 1812412799
+}
