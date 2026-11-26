@@ -69,7 +69,7 @@
   // Lists are joined by id; nothing either side added is lost.
   function merge(a, b) {
     var out = JSON.parse(JSON.stringify(a || {})), byId = function (list) { var m = {}; (list || []).forEach(function (x) { if (x && x.id) { m[x.id] = x; } }); return m; };
-    ['tending', 'stars', 'gathered', 'moons', 'wake'].forEach(function (k) {
+    ['tending', 'stars', 'gathered', 'moons', 'wake', 'log'].forEach(function (k) {
       var m = byId(out[k]);
       (b[k] || []).forEach(function (x) {
         if (!x || !x.id) { return; }
@@ -198,4 +198,35 @@
     b.dirty = true; store(BKEY, b); RB.touched();
   }
   try { markWake(); } catch (e) {}
+
+  // Your Boat's logbook: the films, talks, articles and offerings you open from the River, so you
+  // can find them again and "Launch your Boat" can remember them with you. Only the title, the
+  // link, the kind of thing it is and the water it came from are kept, inside your Boat. Nothing
+  // about what you do on other websites is ever seen. Pausing your wake pauses the logbook too.
+  function waterHere() {
+    var path = (location.pathname || '').replace(/\/index\.html$/, '').replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+    return WATERS[path] || '';
+  }
+  function textOf(el, n) { return el ? String(el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, n) : ''; }
+  function logClick(ev) {
+    var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null; if (!a) { return; }
+    if (a.closest('nav, header, footer, .vmenu, .gbubble')) { return; }
+    var href = a.href || ''; if (!/^https?:\/\//i.test(href)) { return; }
+    var u; try { u = new URL(href); } catch (e) { return; }
+    if (u.host === location.host) { return; }
+    var b = load(BKEY); if (!b || b.v !== 1 || b.wakeOff) { return; }
+    var card = a.closest('article, section, li') || a.parentNode;
+    var head = card ? card.querySelector('h3, h2, h4') : null;
+    var title = textOf(head, 140) || textOf(a, 140) || u.host;
+    var kindEl = card ? card.querySelector('.k, [style*="uppercase"]') : null;
+    var kind = textOf(kindEl, 60);
+    var d = new Date(), day = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    var id = 'l' + (u.host + u.pathname + u.search).toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 100);
+    b.log = Array.isArray(b.log) ? b.log : [];
+    var had = null; b.log = b.log.filter(function (x) { if (x && x.id === id) { had = x; return false; } return true; });
+    b.log.push({ id: id, t: title, h: href.slice(0, 400), k: kind, w: waterHere(), at: day, n: (had && had.n ? had.n : 0) + 1, first: had && had.first ? had.first : day });
+    if (b.log.length > 300) { b.log = b.log.slice(-300); }
+    b.dirty = true; store(BKEY, b); RB.touched();
+  }
+  try { document.addEventListener('click', logClick, true); document.addEventListener('auxclick', logClick, true); } catch (e) {}
 })();

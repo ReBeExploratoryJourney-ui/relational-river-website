@@ -447,6 +447,18 @@ class Component extends DCLogic {
     var days = {}, allDays = {};
     (Array.isArray(b.wake) ? b.wake : []).forEach(function (x) { if (x && x.w) { days[x.w] = (days[x.w] || 0) + 1; allDays[x.at] = 1; } });
     var visited = order.filter(function (k) { return days[k]; });
+    var log = (Array.isArray(b.log) ? b.log : []).filter(function (x) { return x && x.t; });
+    var opened = {}; log.forEach(function (x) { if (x.w) { (opened[x.w] = opened[x.w] || []).push(x); } });
+    var q = function (t) { return '“' + t + '”'; };
+    var openedLine = function (k) {
+      var l = (opened[k] || []).slice().sort(function (a2, b2) { return (b2.at || '') < (a2.at || '') ? -1 : 1; });
+      if (!l.length) { return ''; }
+      var names = l.slice(0, 2).map(function (x) { return q(x.t); });
+      return ' Here you opened ' + (names.length > 1 ? names[0] + ' and ' + names[1] : names[0]) + (l.length > 2 ? ', and ' + (l.length - 2) + ' more' : '') + '.';
+    };
+    // Waters where something was opened count as visited too, even if the wake began later.
+    Object.keys(opened).forEach(function (k) { if (!days[k] && order.indexOf(k) >= 0) { days[k] = 1; } });
+    visited = order.filter(function (k) { return days[k]; });
     var tending = (b.tending || []).map(function (t) { return t.title ? '“' + t.title + '”' : ''; }).filter(Boolean);
     var moons = (b.moons || []).length, stars = (b.stars || []).length, gathered = (b.gathered || []).length, began = (b.began || []).length;
     var name = (b.name || '').trim(), boat = name ? 'Your Boat, ' + name + ',' : 'Your Boat';
@@ -475,8 +487,8 @@ class Component extends DCLogic {
     if (!visited.length) {
       beats.push({ at: 'moon', node: 'Moon', text: boat + ' is ready to set sail, though it has not travelled far yet. That is a fine place to begin. Every river starts small.' });
     } else {
-      beats.push({ at: 'moon', node: 'Moon', text: boat + ' is setting sail. Over ' + nd + (nd === 1 ? ' day' : ' days') + ' you have visited ' + visited.length + (visited.length === 1 ? ' water' : ' waters') + ' of the River. Let us travel them together, from the Source toward the sea.' });
-      visited.forEach(function (k) { var t = R[k], tm = times(k), q = t.lastIndexOf('. '); if (tm && t.charAt(t.length - 1) === '?' && q > 0) { t = t.slice(0, q + 1) + tm + t.slice(q + 1); } else { t = t + tm; } beats.push({ at: k === 'Moon' ? 'moon' : k, node: k, text: t, voyage: true }); });
+      beats.push({ at: 'moon', node: 'Moon', text: boat + ' is setting sail. ' + (nd ? 'Over ' + nd + (nd === 1 ? ' day' : ' days') + ' you' : 'You') + ' have visited ' + visited.length + (visited.length === 1 ? ' water' : ' waters') + ' of the River' + (log.length ? ', and opened ' + log.length + (log.length === 1 ? ' thing' : ' things') + ' along the way' : '') + '. Let us travel them together, from the Source toward the sea.' });
+      visited.forEach(function (k) { var t = R[k], tm = times(k) + openedLine(k), q = t.lastIndexOf('. '); if (tm && t.charAt(t.length - 1) === '?' && q > 0) { t = t.slice(0, q + 1) + tm + t.slice(q + 1); } else { t = t + tm; } beats.push({ at: k === 'Moon' ? 'moon' : k, node: k, text: t, voyage: true }); });
     }
     // Gentle next steps: a few ways on, chosen from what is not yet in the Boat or the wake.
     var recs = [], has = function (k) { return !!days[k]; }, add = function (label, href) { if (recs.length < 3) { recs.push({ label: label, href: href }); } };
@@ -485,12 +497,17 @@ class Component extends DCLogic {
     if (!tending.length) { add('Try a small practice in the streams', page['Streams']); }
     var next = order.filter(function (k) { return !has(k) && k !== 'Source' && k !== 'Moon'; })[0];
     if (next) { add('Visit ' + (next === 'The Well' ? 'the Well' : next === 'Islands of coherence' ? 'the islands of coherence' : next === 'Local currents' ? 'your local currents' : 'the ' + next.toLowerCase()), page[next]); }
+    var today = new Date(), ago = function (d) { try { var p = d.split('-'); return (today - new Date(+p[0], +p[1] - 1, +p[2])) / 864e5; } catch (x) { return 0; } };
+    var back = log.filter(function (x) { return x.h && ago(x.at) >= 7; }).sort(function (a2, b2) { return (b2.n || 1) - (a2.n || 1); })[0];
+    if (back) { add('Return to ' + q(back.t.length > 48 ? back.t.slice(0, 46) + '…' : back.t), back.h); }
+    if (log.length >= 3) { add('Meet others in the Harbour', '/harbour'); }
     if (!(b.lunar && b.lunar.on)) { add('Begin your lunar journal', '/moon'); }
     if (!stars) { add('Draw your constellation', '/boat#constellation'); }
     if (began && recs.length < 2) { add('Revisit the Source, and see what has changed', page['Source']); }
     var close = [];
     if (stars) { close.push('Your constellation holds ' + stars + (stars === 1 ? ' relationship' : ' relationships') + '.'); }
     if (gathered) { close.push('You have brought ' + gathered + (gathered === 1 ? ' thing' : ' things') + ' aboard.'); }
+    if (log.length) { close.push('Everything you opened is kept in your logbook, so you can find your way back to it.'); }
     beats.push({ at: 'moon', node: 'Moon', voyageEnd: true, recs: recs, text: (close.length ? close.join(' ') + ' ' : '') + 'Every river meanders, and so do we. Wherever you are on this journey is a good place to be. ' + (recs.length ? 'If you would like a next bend, here are a few gentle ways on.' : 'Keep wandering, and come back to set sail whenever you like.') });
     return beats;
   }
@@ -663,7 +680,7 @@ class Component extends DCLogic {
       lf.links.forEach(function (x) { mk(x.label, function () { self.gStop(true); try { location.href = x.href; } catch (e) {} }, true); });
       mk('Something else', function () { self.gFound = null; self.gRender(); });
     } else if (beat.voyageEnd) {
-      (beat.recs || []).forEach(function (r) { mk(r.label, function () { self.gStop(true); try { location.href = r.href; } catch (x) {} }, true); });
+      (beat.recs || []).forEach(function (r) { mk(r.label, function () { if (/^https?:\/\//i.test(r.href)) { try { window.open(r.href, '_blank', 'noopener'); } catch (x) {} return; } self.gStop(true); try { location.href = r.href; } catch (x) {} }, true); });
       mk('Back to Your Boat', function () { self.gStop(true); try { location.href = '/boat#voyage'; } catch (x) {} });
       mk('Rest here', function () { self.gStop(); });
     } else if (beat.final) {

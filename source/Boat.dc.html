@@ -241,8 +241,29 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <p class="p">Your Boat can sail the main River through the waters you have visited, with Raven alongside, offering a little reflection on your journey so far and a few gentle ideas for where you might go next.</p>
 <p class="p" style="font-style: italic">{{wakeLine}}</p>
 <div class="row"><a href="Welcome.dc.html?voyage=1" class="go tornbtn" style="background: #F5EEE1">Launch your Boat</a></div>
-<p class="p" style="font-size: 15px">To sail with you, your Boat remembers which waters you visit, one mark per water each day. This stays inside your Boat and nowhere else.</p>
+<p class="p" style="font-size: 15px">To sail with you, your Boat remembers which waters you visit, one mark per water each day, and keeps a logbook of the films, talks, readings and offerings you open from the River. This stays inside your Boat and nowhere else, and nothing you do on other websites is ever seen.</p>
 <div class="row"><button class="sbtn" onClick="{{wakeToggle}}">{{wakeToggleLabel}}</button><button class="quiet" onClick="{{wakeClear}}">Clear your wake</button></div>
+</section>
+
+<section id="logbook" class="torn tl panel" style="background: #FBF7EF">
+<div class="k">Your logbook</div>
+<h2 class="h2 dark">What you have opened along the way</h2>
+<p class="p">Films, talks, readings and offerings you have opened from the River, most recent first, so you can find your way back to them.</p>
+<sc-if value="{{logEmpty}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">{{logEmptyText}}</p></sc-if>
+<sc-if value="{{logMany}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 6px; max-width: 420px"><label class="alabel" for="logFind">Find something in your logbook</label><input id="logFind" class="field" type="search" maxlength="60" value="{{logQuery}}" onChange="{{logType}}" placeholder="A word from the title"></div></sc-if>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{logItems}}" as="l" hint-placeholder-count="3">
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; justify-content: space-between; border-bottom: 1.5px dashed #C9BFB2; padding-bottom: 10px">
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 360px">
+<a href="{{l.href}}" target="_blank" rel="noopener" class="lnk" style="min-height: 0">{{l.title}}</a>
+<span style="font-size: 14px; font-style: italic">{{l.meta}}</span>
+</div>
+<button class="quiet" onClick="{{l.drop}}">{{l.dropLabel}}</button>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{logMore}}" hint-placeholder-val="{{ false }}"><button class="sbtn" onClick="{{logShowAll}}" style="align-self: flex-start">{{logMoreLabel}}</button></sc-if>
+<sc-if value="{{logHas}}" hint-placeholder-val="{{ false }}"><div class="row"><button class="quiet" onClick="{{logClear}}">Clear your logbook</button></div></sc-if>
 </section>
 
 <section id="harbour" class="torn tl panel" style="background: #F5E3B0">
@@ -501,7 +522,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { hb: { loaded: false, loading: false, card: null, name: '', working: '', invite: '', place: '', themes: [], hylo: '', agree: false, busy: false, msg: '' }, fromSource: (function () { try { return sessionStorage.getItem('rr.boat.from') === 'source'; } catch (x) { return false; } })(), boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' }, lnSky: null, lnWord: null, lnNote: null, remindTime: '20:30', remindSpan: 'cycle' };
+    this.state = { logQuery: '', logAll: false, hb: { loaded: false, loading: false, card: null, name: '', working: '', invite: '', place: '', themes: [], hylo: '', agree: false, busy: false, msg: '' }, fromSource: (function () { try { return sessionStorage.getItem('rr.boat.from') === 'source'; } catch (x) { return false; } })(), boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' }, lnSky: null, lnWord: null, lnNote: null, remindTime: '20:30', remindSpan: 'cycle' };
   }
   // ---- keeping the Boat (on this device only) ----
   boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? this.boatClean(b) : null; } catch (x) { return null; } }
@@ -521,7 +542,8 @@ class Component extends DCLogic {
       moons: arr(b.moons, 400).filter(function (m) { return m && typeof m === 'object' && typeof m.id === 'string'; }).map(function (m) { return { id: str(m.id, 40), at: str(m.at, 30), sky: str(m.sky, 20), word: str(m.word, 30), note: str(m.note, 600), phase: str(m.phase, 30) }; }),
       seen: { last: str(b.seen && b.seen.last, 30) },
       wake: arr(b.wake, 400).filter(function (x) { return x && typeof x.w === 'string'; }).map(function (x) { return { id: str(x.id, 60), w: str(x.w, 40), at: str(x.at, 10) }; }),
-      wakeOff: !!b.wakeOff
+      wakeOff: !!b.wakeOff,
+      log: arr(b.log, 300).filter(function (x) { return x && typeof x.id === 'string'; }).map(function (x) { return { id: str(x.id, 120), t: str(x.t, 140), h: /^https?:\/\//i.test(x.h || '') ? str(x.h, 400) : '', k: str(x.k, 60), w: str(x.w, 40), at: str(x.at, 10), first: str(x.first, 10), n: Math.max(1, Math.min(9999, parseInt(x.n, 10) || 1)) }; })
     };
   }
   RB() { return window.RiverBoat || null; }
@@ -650,7 +672,7 @@ class Component extends DCLogic {
     var out = { fromSource: !!(s.fromSource && b), backToSource: function () { try { sessionStorage.removeItem('rr.boat.from'); } catch (x) {} }, flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : s.pending.list === 'lunar' ? 'a lunar journal' : (s.pending.item && s.pending.item.title) || '') : '',
       launchDevice: function () {
         var acct = !!(self.RB() && self.RB().signedIn());
-        var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], lunar: null, moons: [], wake: [], seen: { last: new Date().toISOString() } };
+        var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], lunar: null, moons: [], wake: [], log: [], seen: { last: new Date().toISOString() } };
         var msg = acct ? 'Your Boat is built, kept with your IRB account.' : 'Your Boat is built, here on this device.';
         if (s.pending) { var m2 = self.addPending(nb, s.pending); if (m2) { msg += ' ' + m2; } try { sessionStorage.removeItem('rr.boat.pending'); } catch (x) {} }
         self.setState({ pending: null }); self.save(nb, msg);
@@ -699,8 +721,23 @@ class Component extends DCLogic {
     var wk = (b && b.wake) || [], wWaters = {}, wDays = {}; wk.forEach(function (x) { wWaters[x.w] = 1; wDays[x.at] = 1; });
     var nW = Object.keys(wWaters).length, nD = Object.keys(wDays).length;
     out.wakeLine = b && b.wakeOff ? 'Your wake is paused, so your Boat is not marking the waters you visit.' + (nW ? ' It still remembers ' + nW + (nW === 1 ? ' water' : ' waters') + ' from before.' : '') : (nW ? 'Your wake so far: ' + nW + (nW === 1 ? ' water' : ' waters') + ', over ' + nD + (nD === 1 ? ' day' : ' days') + '.' : 'Your Boat has not visited any waters yet. Wander the River, then come back and set sail, or launch now for a first look.');
-    out.wakeToggleLabel = b && b.wakeOff ? 'Resume your wake' : 'Pause your wake';
-    out.wakeToggle = function () { var nb = self.boatRead() || b; nb.wakeOff = !nb.wakeOff; self.save(nb, nb.wakeOff ? 'Your wake is paused. Your Boat will not mark the waters you visit until you resume it.' : 'Your wake is flowing again. Your Boat will mark the waters you visit.'); };
+    out.wakeToggleLabel = b && b.wakeOff ? 'Resume your wake and logbook' : 'Pause your wake and logbook';
+    var WN = { 'Source': 'the Source', 'Springs': 'the springs', 'Streams': 'the streams', 'Tributaries': 'the tributaries', 'Eddies': 'the eddies', 'Lakes': 'the lakes', 'Islands of coherence': 'the islands of coherence', 'Waterfall': 'the waterfall', 'Local currents': 'your local currents', 'Channels': 'the channels', 'Estuary': 'the estuary', 'Confluences': 'the confluences', 'Ocean': 'the ocean', 'Groundwater': 'the groundwater', 'The Well': 'the Well', 'Moon': 'Moon' };
+    var fmtDay = function (d) { try { var p = d.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString(undefined, { day: 'numeric', month: 'long' }); } catch (x) { return d; } };
+    var logAll = ((b && b.log) || []).slice().reverse(), q = (s.logQuery || '').trim().toLowerCase();
+    var logF = q ? logAll.filter(function (x) { return (x.t + ' ' + x.k).toLowerCase().indexOf(q) >= 0; }) : logAll;
+    var logShown = s.logAll || q ? logF : logF.slice(0, 12);
+    out.logHas = logAll.length > 0; out.logEmpty = logF.length === 0; out.logMany = logAll.length > 6;
+    out.logEmptyText = logAll.length ? 'Nothing in your logbook matches that word.' : (b && b.wakeOff ? 'Your logbook is paused. Resume it above to keep track of what you open.' : 'Nothing yet. When you open a film, talk, reading or offering from the River, it will appear here.');
+    out.logQuery = s.logQuery; out.logType = function (e) { self.setState({ logQuery: e && e.target ? e.target.value : '' }); };
+    out.logMore = !q && !s.logAll && logF.length > 12; out.logMoreLabel = 'Show all ' + logF.length; out.logShowAll = function () { self.setState({ logAll: true }); };
+    out.logItems = logShown.map(function (x) {
+      var bits = []; if (x.k) { bits.push(x.k.charAt(0) + x.k.slice(1).toLowerCase()); } if (x.w && WN[x.w]) { bits.push('from ' + WN[x.w]); }
+      bits.push(x.n > 1 ? 'opened ' + x.n + ' times, last on ' + fmtDay(x.at) : 'opened on ' + fmtDay(x.at));
+      return { title: x.t || x.h, href: x.h || '#', meta: bits.join(' · '), dropLabel: 'Let go', drop: function () { var nb = self.boatRead() || b; nb.log = (nb.log || []).filter(function (y) { return y.id !== x.id; }); self.save(nb, '“' + (x.t || 'That') + '” is no longer in your logbook.'); } };
+    });
+    out.logClear = function () { var nb = self.boatRead() || b; nb.log = []; self.save(nb, 'Your logbook is cleared.'); };
+    out.wakeToggle = function () { var nb = self.boatRead() || b; nb.wakeOff = !nb.wakeOff; self.save(nb, nb.wakeOff ? 'Your wake and logbook are paused. Your Boat will not mark the waters you visit or the things you open until you resume them.' : 'Your wake and logbook are flowing again.'); };
     out.wakeClear = function () { var nb = self.boatRead() || b; nb.wake = []; self.save(nb, 'Your wake is cleared. Your Boat starts its journey afresh.'); };
     out.roundKicker = r.k; out.roundTitle = r.t; out.roundText = r.x; out.roundHref = r.h; out.roundCta = r.c;
     out.bendTitle = bd.t; out.bendText = bd.x; out.bendHref = bd.h; out.bendCta = bd.c;
