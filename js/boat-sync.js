@@ -135,7 +135,33 @@
       RB._t = setTimeout(function () { RB.sync().catch(function () {}); }, 500);
     },
     sinkRemote: function () {
-      return token().then(function (s) { return call('/rest/v1/river_boats?owner_id=eq.' + s.user_id, { method: 'DELETE', token: s.access_token }); });
+      return token().then(function (s) {
+        return call('/rest/v1/harbour_boats?owner_id=eq.' + s.user_id, { method: 'DELETE', token: s.access_token }).catch(function () {})
+          .then(function () { return call('/rest/v1/river_boats?owner_id=eq.' + s.user_id, { method: 'DELETE', token: s.access_token }); });
+      });
+    },
+    // ---- The Harbour: Boats their owners have opened to others ----
+    // Only what the owner writes on their Harbour card is public; nothing from the private Boat is shared.
+    HARBOUR_COLS: 'owner_id,display_name,working_on,invitation,place,themes,hylo_url,updated_at',
+    harbourMine: function () {
+      return token().then(function (s) { return call('/rest/v1/harbour_boats?select=' + RB.HARBOUR_COLS + ',hidden&owner_id=eq.' + s.user_id, { token: s.access_token }); })
+        .then(function (rows) { return rows && rows[0] ? rows[0] : null; });
+    },
+    harbourSave: function (card) {
+      return token().then(function (s) {
+        var body = { owner_id: s.user_id, display_name: card.display_name, working_on: card.working_on, invitation: card.invitation || null,
+          place: card.place || null, themes: card.themes || [], hylo_url: card.hylo_url || null };
+        return call('/rest/v1/harbour_boats?on_conflict=owner_id', { method: 'POST', token: s.access_token, headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: body });
+      });
+    },
+    harbourLeave: function () {
+      return token().then(function (s) { return call('/rest/v1/harbour_boats?owner_id=eq.' + s.user_id, { method: 'DELETE', token: s.access_token }); });
+    },
+    harbourList: function () {
+      return call('/rest/v1/harbour_boats?select=' + RB.HARBOUR_COLS + '&order=updated_at.desc&limit=300');
+    },
+    harbourReport: function (ownerId, reason) {
+      return call('/rest/v1/harbour_reports', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: { owner_id: ownerId, reason: String(reason || '').slice(0, 500) || null } });
     },
     signOut: function () {
       var s = load(SKEY);

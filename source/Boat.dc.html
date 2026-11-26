@@ -138,7 +138,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <nav class="vnav" aria-label="Main">
 <div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="Welcome.dc.html"><b>The River</b><span>the whole River at a glance</span></a><a href="Main.dc.html"><b>The source</b><span>a minute of gentle questions</span></a><a href="Arrival.dc.html"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="Streams.dc.html"><b>Streams</b><span>small practices for ordinary days</span></a><a href="Tributary.dc.html"><b>Tributaries</b><span>films, talks and readings</span></a><a href="Seeing.dc.html"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="Eddies.dc.html"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="Moon.dc.html"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="CapitalJourney.dc.html"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
-<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="Springs.dc.html"><b>Springs</b><span>offerings to join soon</span></a><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="Islands.dc.html"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean</b><span>projects and collaborators worldwide</span></a><a href="Confluences.dc.html"><b>Confluences</b><span>kindred platforms, many ways in</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Connect</button><div class="vmenu"><a href="Springs.dc.html"><b>Springs</b><span>offerings to join soon</span></a><a href="Lakes.dc.html"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="Islands.dc.html"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="LocalCurrents.dc.html"><b>Local currents</b><span>groups and circles near you</span></a><a href="Ocean.dc.html"><b>Ocean</b><span>projects and collaborators worldwide</span></a><a href="Confluences.dc.html"><b>Confluences</b><span>kindred platforms, many ways in</span></a><a href="Harbour.dc.html"><b>Harbour</b><span>Boats open to collaborating</span></a><a href="Hylo.dc.html"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="Well.dc.html"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
 <div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="Channels.dc.html"><b>Channels</b><span>ways to act, from small to large</span></a><a href="Waterfall.dc.html"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="Estuary.dc.html"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="Canal.dc.html"><b>The Canal</b><span>guided paths toward deeper offerings</span></a><a href="Groundwater.dc.html"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
 <a href="Boat.dc.html" class="vmine here">Your Boat</a>
 </nav>
@@ -243,6 +243,28 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="row"><a href="Welcome.dc.html?voyage=1" class="go tornbtn" style="background: #F5EEE1">Launch your Boat</a></div>
 <p class="p" style="font-size: 15px">To sail with you, your Boat remembers which waters you visit, one mark per water each day. This stays inside your Boat and nowhere else.</p>
 <div class="row"><button class="sbtn" onClick="{{wakeToggle}}">{{wakeToggleLabel}}</button><button class="quiet" onClick="{{wakeClear}}">Clear your wake</button></div>
+</section>
+
+<section id="harbour" class="torn tl panel" style="background: #F5E3B0">
+<div class="k">The Harbour</div>
+<h2 class="h2 dark">Moor your Boat in the Harbour</h2>
+<p class="p">The Harbour is where Boats are moored by people open to connecting and collaborating, especially if you are working on something and would welcome others into the process. Your Harbour card shows only what you write here. Nothing else in your Boat is shared.</p>
+<sc-if value="{{hbNeedsAccount}}" hint-placeholder-val="{{ false }}"><p class="p">To moor in the Harbour, first keep your Boat with your IRB account, so your card is yours to change or take down from any device.</p><div class="row"><a href="#keeping" class="lnk">Keep your Boat with your email</a><a href="Harbour.dc.html" class="lnk">Visit the Harbour</a></div></sc-if>
+<sc-if value="{{hbLoading}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">Checking the Harbour…</p></sc-if>
+<sc-if value="{{hbReady}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{hbMoored}}" hint-placeholder-val="{{ false }}"><p class="flash">{{hbStatus}}</p></sc-if>
+<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbName">Name on your card</label><input id="hbName" class="field" type="text" maxlength="60" value="{{hbName}}" onChange="{{hbTypeName}}" placeholder="Your name, or your Boat’s name"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbWorking">What you are working on</label><textarea id="hbWorking" class="field" rows="3" maxlength="400" value="{{hbWorking}}" onChange="{{hbTypeWorking}}" placeholder="A seed library for our valley, a podcast about rivers, a grief circle at my school…"></textarea></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbInvite">How others could join in (optional)</label><textarea id="hbInvite" class="field" rows="2" maxlength="400" value="{{hbInvite}}" onChange="{{hbTypeInvite}}" placeholder="Looking for a designer, fellow gardeners nearby, or anyone who loves rivers"></textarea></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbPlace">Where, roughly (optional)</label><input id="hbPlace" class="field" style="max-width: 420px" type="text" maxlength="80" value="{{hbPlace}}" onChange="{{hbTypePlace}}" placeholder="A town, a valley, a bioregion, or online"></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div class="alabel" id="hbThemesLabel">Themes (choose up to three)</div><div class="row" role="group" aria-labelledby="hbThemesLabel"><sc-for list="{{hbThemes}}" as="t" hint-placeholder-count="8"><button class="{{t.cls}}" aria-pressed="{{t.on}}" onClick="{{t.pick}}">{{t.label}}</button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbHylo">Your Hylo profile (optional)</label><input id="hbHylo" class="field" type="url" inputmode="url" maxlength="300" value="{{hbHylo}}" onChange="{{hbTypeHylo}}" placeholder="https://www.hylo.com/members/…">
+<p class="p" style="font-size: 15px; margin: 0">On Hylo, open your profile and copy the address from your browser’s address bar. On your Harbour card it becomes the Hylo icon, which opens your profile so people can reach you there.</p></div>
+<button class="{{hbAgreeCls}}" aria-pressed="{{hbAgreeOn}}" onClick="{{hbAgree}}" style="align-self: flex-start">I will moor with care, following the Harbour’s care agreements</button>
+<a href="Harbour.dc.html#care" class="lnk" style="margin-top: -6px">Read the care agreements</a>
+<sc-if value="{{hbMsg}}" hint-placeholder-val="{{ false }}"><p class="p" role="status" style="font-weight: 600">{{hbMsg}}</p></sc-if>
+<div class="row"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{hbSave}}">{{hbSaveLabel}}</button><sc-if value="{{hbMoored}}" hint-placeholder-val="{{ false }}"><button class="quiet" onClick="{{hbLeave}}">Leave the Harbour</button></sc-if><a href="Harbour.dc.html" class="lnk">Visit the Harbour</a></div>
+</sc-if>
 </section>
 
 <section id="began" class="torn tl panel" style="background: #FBF7EF">
@@ -479,7 +501,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { fromSource: (function () { try { return sessionStorage.getItem('rr.boat.from') === 'source'; } catch (x) { return false; } })(), boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' }, lnSky: null, lnWord: null, lnNote: null, remindTime: '20:30', remindSpan: 'cycle' };
+    this.state = { hb: { loaded: false, loading: false, card: null, name: '', working: '', invite: '', place: '', themes: [], hylo: '', agree: false, busy: false, msg: '' }, fromSource: (function () { try { return sessionStorage.getItem('rr.boat.from') === 'source'; } catch (x) { return false; } })(), boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' }, lnSky: null, lnWord: null, lnNote: null, remindTime: '20:30', remindSpan: 'cycle' };
   }
   // ---- keeping the Boat (on this device only) ----
   boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? this.boatClean(b) : null; } catch (x) { return null; } }
@@ -860,6 +882,51 @@ class Component extends DCLogic {
       var done = function (msg) { try { localStorage.removeItem('rr.boat.v1'); } catch (x) {} self.setState({ boat: null, sinking: false, prev: null, boatName: '', flash: msg }); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {} };
       if (acct) { rb.sinkRemote().then(function () { done('Your Boat has been sunk. Everything in it has been deleted from your account and this device. Your IRB account is still open.'); }, function (e) { self.setState({ flash: e.message }); }); }
       else { done('Your Boat has been sunk. Everything in it has been deleted from this device.'); }
+    };
+    // ---- The Harbour ----
+    var hb = s.hb, hbSet = function (patch) { var n = {}; for (var k in self.state.hb) { n[k] = self.state.hb[k]; } for (var k2 in patch) { n[k2] = patch[k2]; } self.setState({ hb: n }); };
+    if (acct && b && !hb.loaded && !hb.loading && rb && rb.harbourMine) {
+      hb.loading = true;
+      setTimeout(function () {
+        rb.harbourMine().then(function (c) {
+          hbSet({ loaded: true, loading: false, card: c, name: c ? c.display_name : (b.name || ''), working: c ? c.working_on : '', invite: c ? (c.invitation || '') : '', place: c ? (c.place || '') : '', themes: c ? (c.themes || []) : [], hylo: c ? (c.hylo_url || '') : '', agree: !!c });
+        }, function (e) { hbSet({ loaded: true, loading: false, msg: e.message }); });
+      }, 0);
+    }
+    var THEMES = [['land', 'Land and water'], ['beings', 'Beings and bioregions'], ['grief', 'Grief and care'], ['money', 'Money and value'], ['work', 'Work and leadership'], ['learning', 'Learning and seeing'], ['gathering', 'Gathering and community'], ['art', 'Art and story']];
+    out.hbNeedsAccount = !!b && !acct; out.hbLoading = acct && !!b && !hb.loaded; out.hbReady = acct && !!b && hb.loaded;
+    out.hbMoored = !!hb.card;
+    out.hbStatus = hb.card && hb.card.hidden ? 'Your card is resting out of view while a steward of the Harbour looks at it. You can still update it or leave the Harbour.' : 'Your Boat is moored in the Harbour, where others can find it.';
+    out.hbName = hb.name; out.hbWorking = hb.working; out.hbInvite = hb.invite; out.hbPlace = hb.place; out.hbHylo = hb.hylo; out.hbMsg = hb.msg;
+    out.hbTypeName = function (e) { self.state.hb.name = e && e.target ? e.target.value : ''; };
+    out.hbTypeWorking = function (e) { self.state.hb.working = e && e.target ? e.target.value : ''; };
+    out.hbTypeInvite = function (e) { self.state.hb.invite = e && e.target ? e.target.value : ''; };
+    out.hbTypePlace = function (e) { self.state.hb.place = e && e.target ? e.target.value : ''; };
+    out.hbTypeHylo = function (e) { self.state.hb.hylo = e && e.target ? e.target.value : ''; };
+    out.hbThemes = THEMES.map(function (t) { var on = hb.themes.indexOf(t[0]) >= 0; return { label: t[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { var cur = self.state.hb.themes.slice(), i = cur.indexOf(t[0]); if (i >= 0) { cur.splice(i, 1); } else if (cur.length < 3) { cur.push(t[0]); } else { hbSet({ msg: 'Choose up to three themes.' }); return; } hbSet({ themes: cur, msg: '' }); } }; });
+    out.hbAgreeOn = hb.agree ? 'true' : 'false'; out.hbAgreeCls = hb.agree ? 'chip on' : 'chip';
+    out.hbAgree = function () { hbSet({ agree: !self.state.hb.agree }); };
+    out.hbSaveLabel = hb.busy ? 'Mooring…' : (hb.card ? 'Update your Harbour card' : 'Moor your Boat in the Harbour');
+    out.hbSave = function () {
+      var h = self.state.hb; if (h.busy) { return; }
+      var name = (h.name || '').trim(), working = (h.working || '').trim(), hylo = (h.hylo || '').trim();
+      if (hylo && !/^https?:\/\//i.test(hylo)) { hylo = 'https://' + hylo; }
+      hylo = hylo.replace(/^http:\/\//i, 'https://');
+      if (!name) { hbSet({ msg: 'Please add a name for your card.' }); return; }
+      if (!working) { hbSet({ msg: 'Please share a line about what you are working on.' }); return; }
+      if (hylo && !/^https:\/\/(www\.)?hylo\.com\/[A-Za-z0-9\/_.~%=&?#-]+$/.test(hylo)) { hbSet({ msg: 'That Hylo address doesn’t look quite right. It should start with https://www.hylo.com/' }); return; }
+      if (!h.agree) { hbSet({ msg: 'Please read and agree to the Harbour’s care agreements first.' }); return; }
+      hbSet({ busy: true, msg: '' });
+      var was = !!h.card;
+      rb.harbourSave({ display_name: name.slice(0, 60), working_on: working.slice(0, 400), invitation: (h.invite || '').trim().slice(0, 400), place: (h.place || '').trim().slice(0, 80), themes: h.themes, hylo_url: hylo || null })
+        .then(function () { return rb.harbourMine(); })
+        .then(function (c) { hbSet({ busy: false, card: c, hylo: hylo, msg: was ? 'Your Harbour card is updated.' : 'Your Boat is moored in the Harbour. Others can find it there now.' }); },
+          function (e) { hbSet({ busy: false, msg: e.message }); });
+    };
+    out.hbLeave = function () {
+      if (self.state.hb.busy) { return; }
+      hbSet({ busy: true, msg: '' });
+      rb.harbourLeave().then(function () { hbSet({ busy: false, card: null, agree: false, msg: 'Your Boat has left the Harbour. Your card is no longer visible to anyone.' }); }, function (e) { hbSet({ busy: false, msg: e.message }); });
     };
     return out;
   }

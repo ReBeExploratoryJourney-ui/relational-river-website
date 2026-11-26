@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · the Harbour</title>
+<meta name="description" content="The Harbour: Boats their owners have opened to connecting and collaborating on the Relational River, with ways to meet on Hylo.">
+<meta property="og:title" content="Relational River · the Harbour">
+<meta property="og:description" content="The Harbour: Boats their owners have opened to connecting and collaborating on the Relational River, with ways to meet on Hylo.">
+<meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<meta name="theme-color" content="#0E2849">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#EDEDED}a:hover{color:#FFFFFF}
+.torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.torn{-webkit-mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.chip,.node{-webkit-mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);mask-image:url(/assets/16dc687d69c8a9da92896e785f4647a8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;border:none!important}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
+.chip.on{background:#E6E2F2;border-color:#2F2B28;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer;text-decoration:none;display:inline-block}
+.nav a{text-decoration:none;font-size:15px;padding:12px 4px;min-height:44px;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.vnav{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vgroup{position:relative}
+.vbtn{font-family:Jost,sans-serif;font-size:16px;color:#EDEDED;background:transparent;border:none;padding:10px 14px;min-height:44px;cursor:pointer;border-radius:8px}
+.vbtn:hover,.vgroup:focus-within .vbtn{background:rgba(220,220,220,0.12)}
+.vbtn.here{font-weight:600;text-decoration:underline;text-underline-offset:7px;text-decoration-color:#9FD3DC;text-decoration-thickness:2px}
+.vmenu{display:none;position:absolute;right:0;top:100%;z-index:30;min-width:280px;background:#F5EEE1;border-radius:12px 16px 12px 18px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,0.4)}
+.vgroup:hover .vmenu,.vgroup:focus-within .vmenu{display:block}
+.vmenu a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px;min-height:44px;text-decoration:none;color:#2F2B28;border-radius:8px}
+.vmenu a:hover,.vmenu a:focus-visible{background:#E6DDCC;color:#2F2B28}
+.vmenu b{font-weight:600;font-size:15px}
+.vmenu span{font-size:13px;color:#5A524B}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none;margin-left:6px}
+.vmine.here{background:rgba(159,211,220,0.18)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:start}
+.card{padding:36px 32px 30px;display:flex;flex-direction:column;gap:8px;color:#2F2B28}
+.k{font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
+.h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:30px;letter-spacing:-0.02em}
+.h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:21px}
+.p{margin:0;font-size:16px;line-height:1.55}
+.lnk{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.note{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;color:#E8C77A;max-width:760px}
+.steps{margin:4px 0 0;padding-left:22px;font-size:16px;line-height:1.6}
+.steps li{margin-bottom:4px}
+.locks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px;position:relative}
+.locks:before{content:"";position:absolute;left:27px;top:20px;bottom:20px;width:6px;border-radius:3px;background:#BFE6EC;opacity:.55}
+.lock{position:relative;display:flex;gap:22px;align-items:flex-start}
+.lockno{flex:0 0 60px;height:60px;border-radius:46% 54% 50% 50% / 55% 45% 55% 45%;background:#BFE6EC;color:#1B2D4F;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:24px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.lockcard{flex:1 1 auto;padding:26px 28px 22px;display:flex;flex-direction:column;gap:8px;color:#2F2B28}
+.meta{font-size:14px;font-style:italic}
+.quote{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-size:20px;line-height:1.5}
+@media (max-width: 640px){.locks:before{left:21px}.lockno{flex-basis:48px;height:48px;font-size:20px}.lock{gap:14px}.lockcard{padding:22px 20px 18px}}
+.minor{font-size:14px;font-style:italic}
+.toggle{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:transparent;border:1.5px solid #2F2B28;border-radius:10px 14px 10px 12px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
+.chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chiplabel{font-size:14px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
+.care{background:#E6E2F2;padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
+@keyframes swirl{to{stroke-dashoffset:-120}}
+.eddy{stroke-dasharray:6 8;animation:swirl 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 14s linear infinite}
+.spin.ccw{animation-direction:reverse}
+@media (max-width: 700px){
+.torn{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,center!important;mask-position:top center,bottom center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+}
+@media (max-width: 700px){
+.vnav{position:relative;width:100%}
+.vgroup{position:static}
+.vmenu{left:0;right:0;min-width:0;width:auto}
+}
+/* Torn edges of a fixed, shallow depth on every side, so text is never covered. */
+.torn,.torn.tall{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,left center,right center,center!important;mask-position:top center,bottom center,left center,right center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+</style>
+<style>body{background:#0E2849}</style>
+</head>
+<body>
+<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>
+<template id="rr-template">
+
+<div style="background: linear-gradient(180deg, #231C4D 0%, #0E2849 42%, #174A5B 100%); font-family: Jost, sans-serif; color: #EDEDED; min-height: 100vh">
+<header style="max-width: 1160px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<a href="/flow" style="display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 48px; height: 48px; display: block">Relational River</a>
+<nav class="vnav" aria-label="Main">
+<div class="vgroup"><button class="vbtn">Begin</button><div class="vmenu"><a href="/flow"><b>The River</b><span>the whole River at a glance</span></a><a href="/source"><b>The source</b><span>a minute of gentle questions</span></a><a href="/"><b>The arrival</b><span>watch the Beings gather</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Learn</button><div class="vmenu"><a href="/streams"><b>Streams</b><span>small practices for ordinary days</span></a><a href="/tributaries"><b>Tributaries</b><span>films, talks and readings</span></a><a href="/ways-of-seeing"><b>Ways of seeing</b><span>three horizons, emergence, philosophy</span></a><a href="/eddies"><b>Eddies</b><span>grief, gratitude and returning</span></a><a href="/moon"><b>Moon</b><span>tides, and Making with Moon</span></a><a href="/capital-journey"><b>Capital journey</b><span>money as part of the living world</span></a></div></div>
+<div class="vgroup"><button class="vbtn here">Connect</button><div class="vmenu"><a href="/springs"><b>Springs</b><span>offerings to join soon</span></a><a href="/lakes"><b>Lakes</b><span>circles, fellowships and retreats</span></a><a href="/islands"><b>Islands of coherence</b><span>steady places in turbulent water</span></a><a href="/local-currents"><b>Local currents</b><span>groups and circles near you</span></a><a href="/ocean"><b>Ocean</b><span>projects and collaborators worldwide</span></a><a href="/confluences"><b>Confluences</b><span>kindred platforms, many ways in</span></a><a href="/harbour"><b>Harbour</b><span>Boats open to collaborating</span></a><a href="/hylo"><b>Gather on Hylo</b><span>where River circles meet and organise</span></a><a href="/well"><b>The Well</b><span>wonder, wit, wisdom and wealth to share</span></a></div></div>
+<div class="vgroup"><button class="vbtn">Act</button><div class="vmenu"><a href="/channels"><b>Channels</b><span>ways to act, from small to large</span></a><a href="/waterfall"><b>Waterfall</b><span>offer an idea, see what it feeds</span></a><a href="/estuary"><b>Estuary</b><span>workplaces, schools and councils</span></a><a href="/canal"><b>The Canal</b><span>guided paths toward deeper offerings</span></a><a href="/groundwater"><b>Groundwater</b><span>emerging threads and systems</span></a></div></div>
+<a href="/boat" class="vmine">Your Boat</a>
+</nav>
+</header>
+
+<main style="max-width: 1160px; margin: 0 auto; padding: 16px 32px 64px; display: flex; flex-direction: column; gap: 36px">
+<a href="/flow" style="font-size: 15px; font-style: italic; min-height: 44px; display: inline-flex; align-items: center">Back to the whole River</a>
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: -20px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">The Harbour</div>
+<h1 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 52px; letter-spacing: -0.03em; line-height: 1.02">Boats open to connecting</h1>
+<p style="margin: 0; font-size: 19px; max-width: 760px; line-height: 1.55">In the Harbour, collaborators moor their Boats when they are open to meeting others, especially when they are working on something and would welcome company in the process. Each card shares only what its owner chose to write.</p>
+<p style="margin: 0; font-size: 19px; max-width: 760px; line-height: 1.55">When something here sparks, reach out on Hylo, where conversations and collaborations can grow.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase" id="flabel">Find Boats by theme</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px" role="group" aria-labelledby="flabel"><sc-for list="{{filters}}" as="f" hint-placeholder-count="9"><button class="{{f.cls}}" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.label}}</button></sc-for></div>
+</div>
+
+<sc-if value="{{loading}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-style: italic; font-size: 17px">Looking around the Harbour…</p></sc-if>
+<sc-if value="{{problem}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 17px">{{problem}}</p></sc-if>
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
+<section class="torn tl" style="background: #FBF7EF; padding: 32px 40px; display: flex; flex-direction: column; gap: 10px; color: #2F2B28">
+<h2 class="h2" style="font-size: 24px">{{emptyTitle}}</h2>
+<p class="p" style="font-size: 17px">{{emptyText}}</p>
+<a href="/boat#harbour" class="lnk">Moor your Boat</a>
+</section>
+</sc-if>
+<div class="hgrid">
+<sc-for list="{{boats}}" as="h" hint-placeholder-count="3">
+<article class="torn {{h.tilt}} hcard" style="background: {{h.bg}}">
+<h3 class="hname">{{h.name}}</h3>
+<sc-if value="{{h.hasPlace}}" hint-placeholder-val="{{ false }}"><div class="hplace">{{h.place}}</div></sc-if>
+<p class="p" style="margin: 0; font-size: 16px; line-height: 1.5">{{h.working}}</p>
+<sc-if value="{{h.hasInvite}}" hint-placeholder-val="{{ false }}"><p class="p" style="margin: 0; font-size: 15px; line-height: 1.5"><b>How to join in:</b> {{h.invite}}</p></sc-if>
+<sc-if value="{{h.hasTags}}" hint-placeholder-val="{{ false }}"><div class="htags"><sc-for list="{{h.tags}}" as="t" hint-placeholder-count="2"><span class="htag">{{t.label}}</span></sc-for></div></sc-if>
+<div class="hfoot">
+<sc-if value="{{h.hasHylo}}" hint-placeholder-val="{{ false }}"><a class="hylo" href="{{h.hylo}}" target="_blank" rel="noopener" aria-label="{{h.hyloLabel}}"><img src="/assets/hylo-merkaba.svg" alt="">Hylo</a></sc-if>
+<button class="hreport" onClick="{{h.report}}">{{h.reportLabel}}</button>
+</div>
+<sc-if value="{{h.reporting}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="{{h.rid}}" style="font-size: 14px; font-weight: 600">What concerns you? (optional)</label>
+<textarea id="{{h.rid}}" class="hfield" rows="2" maxlength="500" onChange="{{h.typeReason}}"></textarea>
+<div style="display: flex; flex-wrap: wrap; gap: 12px"><button class="fchip on" onClick="{{h.send}}">Send to the stewards</button><button class="hreport" onClick="{{h.cancel}}">Never mind</button></div>
+</div>
+</sc-if>
+<sc-if value="{{h.reported}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; font-style: italic">Thank you. The Harbour’s stewards will take a look.</p></sc-if>
+</article>
+</sc-for>
+</div>
+
+<section class="torn tr" style="background: #F5E3B0; padding: 34px 42px; display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; color: #2F2B28">
+<div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 8px">
+<h2 class="h2" style="font-size: 26px">Moor your own Boat</h2>
+<p class="p" style="font-size: 17px">If you are working on something and would welcome others, open your Boat to the Harbour. You write your card, you can change it any time, and you can leave whenever you like.</p>
+</div>
+<a href="/boat#harbour" class="go tornbtn" style="background: #F5EEE1">Moor your Boat</a>
+</section>
+
+<section id="care" class="torn tl" style="background: #FBF7EF; padding: 32px 40px; display: flex; flex-direction: column; gap: 10px; color: #2F2B28">
+<div class="k">Care agreements</div>
+<h2 class="h2" style="font-size: 26px">How we moor together</h2>
+<ul class="steps" style="font-size: 17px">
+<li>Be kind and honest about who you are and what you are working on.</li>
+<li>Share only your own words and work, and no one else’s personal details.</li>
+<li>The Harbour is for connecting and collaborating, not for advertising, selling or recruiting into unrelated schemes.</li>
+<li>Meet people on Hylo with the same care, and respect a quiet “no, thank you”.</li>
+<li>Honour Indigenous knowledge and its keepers. Stories, ceremonies and teachings are shared only with their consent.</li>
+<li>Stewards from the Institute of Relational Being look over the Harbour regularly, and may rest a card out of view if it does not follow these agreements.</li>
+<li>If three people raise a concern about a card within a week, it rests out of view until a steward has looked at it.</li>
+<li>You can update your card or leave the Harbour at any time, and leaving takes effect straight away.</li>
+</ul>
+<p class="p" style="font-size: 15px">The Harbour is part of the River’s <a href="/privacy" style="color: #2F2B28">privacy promise</a>. Questions or concerns can also go to the Institute of Relational Being’s group on <a href="https://www.hylo.com/groups/institute-of-relational-being" target="_blank" rel="noopener" style="color: #2F2B28">Hylo</a>.</p>
+</section>
+
+<footer style="max-width: 1160px; margin: 0 auto; padding: 24px 32px 40px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 14px; font-style: italic; color: #C9CCD6"><a href="https://instituteofrelationalbeing.org" target="_blank" rel="noopener" aria-label="The Institute of Relational Being (opens in a new tab)" style="display: block; min-height: 44px"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 64px; height: 64px; display: block"></a><span>An open commons tended by the Institute of Relational Being. Every offering links to its makers.</span><a href="/privacy" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">Privacy</a><a href="/ai" style="color: #EDEDED; min-height: 44px; display: inline-flex; align-items: center">How the River uses AI</a></footer>
+</div>
+</template>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { boats: null, problem: '', theme: 'all', reporting: '', reasons: {}, reported: {} }; }
+  componentDidMount() {
+    var self = this, rb = window.RiverBoat;
+    if (!rb || !rb.harbourList) { this.setState({ boats: [], problem: 'The Harbour could not be reached just now. Please try again in a little while.' }); return; }
+    rb.harbourList().then(function (rows) { self.setState({ boats: Array.isArray(rows) ? rows : [] }); }, function (e) { self.setState({ boats: [], problem: e.message }); });
+  }
+  renderVals() {
+    var self = this, s = this.state;
+    var THEMES = [['land', 'Land and water'], ['beings', 'Beings and bioregions'], ['grief', 'Grief and care'], ['money', 'Money and value'], ['work', 'Work and leadership'], ['learning', 'Learning and seeing'], ['gathering', 'Gathering and community'], ['art', 'Art and story']];
+    var LABEL = {}; THEMES.forEach(function (t) { LABEL[t[0]] = t[1]; });
+    var all = s.boats || [];
+    var shown = s.theme === 'all' ? all : all.filter(function (h) { return (h.themes || []).indexOf(s.theme) >= 0; });
+    var BG = ['#CFE1E4', '#DCE6D2', '#E6E2F2', '#F2D3BC', '#F5E3B0', '#FBF7EF'];
+    var okHylo = function (u) { return typeof u === 'string' && /^https:\/\/(www\.)?hylo\.com\//.test(u) ? u : ''; };
+    return {
+      loading: s.boats === null,
+      problem: s.problem,
+      empty: s.boats !== null && !s.problem && shown.length === 0,
+      emptyTitle: all.length ? 'No Boats with that theme yet' : 'The Harbour is quiet for now',
+      emptyText: all.length ? 'Try another theme, or moor your own Boat with this one.' : 'Be one of the first to moor your Boat here, and invite others into what you are working on.',
+      filters: [['all', 'All Boats']].concat(THEMES).map(function (t) { var on = s.theme === t[0]; return { label: t[1], on: on ? 'true' : 'false', cls: on ? 'fchip on' : 'fchip', pick: function () { self.setState({ theme: t[0] }); } }; }),
+      boats: shown.map(function (h, i) {
+        var id = h.owner_id, hylo = okHylo(h.hylo_url), rep = s.reporting === id;
+        return {
+          tilt: i % 2 ? 'tr' : 'tl', bg: BG[i % BG.length], name: h.display_name, place: h.place || '', hasPlace: !!h.place,
+          working: h.working_on, invite: h.invitation || '', hasInvite: !!h.invitation,
+          tags: (h.themes || []).filter(function (k) { return LABEL[k]; }).map(function (k) { return { label: LABEL[k] }; }), hasTags: (h.themes || []).some(function (k) { return LABEL[k]; }),
+          hylo: hylo, hasHylo: !!hylo, hyloLabel: 'Open ' + h.display_name + '’s profile on Hylo (opens in a new tab)',
+          reportLabel: s.reported[id] ? 'Concern sent' : 'Raise a concern', reporting: rep && !s.reported[id], reported: !!s.reported[id], rid: 'r' + i,
+          report: function () { if (self.state.reported[id]) { return; } self.setState({ reporting: rep ? '' : id }); },
+          typeReason: function (e) { self.state.reasons[id] = e && e.target ? e.target.value : ''; },
+          cancel: function () { self.setState({ reporting: '' }); },
+          send: function () {
+            window.RiverBoat.harbourReport(id, self.state.reasons[id] || '').then(function () { var r = {}; for (var k in self.state.reported) { r[k] = 1; } r[id] = 1; self.setState({ reported: r, reporting: '' }); },
+              function (e) { self.setState({ problem: e.message }); });
+          }
+        };
+      })
+    };
+  }
+}
+</script>
+<script src="/js/boat-sync.js"></script>
+<script src="/js/river-runtime.js"></script>
+</body>
+</html>

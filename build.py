@@ -32,6 +32,7 @@ PAGES = {
     'Eddies': ('eddies.html', '/eddies', 'Grief, gratitude and practices that return at turning points.'),
     'Estuary': ('estuary.html', '/estuary', 'Where personal change meets workplaces, schools and councils.'),
     'Canal': ('canal.html', '/canal', 'The Canal: paths guided by people helping to reveal potentially beneficial and regenerative ways forward, with locks you climb only when ready.'),
+    'Harbour': ('harbour.html', '/harbour', 'The Harbour: Boats their owners have opened to connecting and collaborating on the Relational River, with ways to meet on Hylo.'),
     'Confluences': ('confluences.html', '/confluences', 'Confluences: kindred platforms and protocols that help people find each other and work together, and how the River relates to each.'),
     'Groundwater': ('groundwater.html', '/groundwater', 'The hidden water that connects everything: the River as a living system.'),
     'Seeing': ('ways-of-seeing.html', '/ways-of-seeing', 'Ways of seeing: short lessons on three horizons, emergence, philosophy as practice and learning on the land, with partners who live this work.'),
