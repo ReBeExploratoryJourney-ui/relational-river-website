@@ -26,7 +26,8 @@
 .hgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
 .harbour{position:relative;border-radius:20px 26px 18px 24px;overflow:visible;background:linear-gradient(180deg,#14284A 0%,#1A3E5C 40%,#173550 100%);padding:0 0 30px;box-shadow:inset 0 0 60px rgba(0,0,0,.35)}
 .harbour:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(159,211,220,0) 0 34px,rgba(159,211,220,.10) 34px 35px,rgba(159,211,220,0) 35px 70px)}
-.berths{position:relative;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));row-gap:26px}
+.berths{position:relative;display:grid;grid-template-columns:repeat(4,1fr);row-gap:26px}
+@media (max-width: 959px){.berths{grid-template-columns:repeat(3,1fr)}}
 .berth{position:relative;display:flex;flex-direction:column;align-items:center;padding-bottom:6px}
 .pier{width:100%;height:30px;background:linear-gradient(180deg,rgba(255,236,200,.25) 0%,rgba(0,0,0,0) 40%,rgba(40,20,6,.45) 100%),repeating-linear-gradient(90deg,#8E6440 0 26px,#7A5434 26px 28px,#9C7048 28px 54px,#7A5434 54px 56px);box-shadow:0 8px 12px rgba(0,0,0,.35)}
 .post{width:16px;height:30px;margin-top:-14px;border-radius:7px 7px 4px 4px;background:radial-gradient(ellipse at 40% 25%,#C79A6B,#7A4B26 70%);box-shadow:0 3px 5px rgba(0,0,0,.4);position:relative;z-index:1}
@@ -269,7 +270,8 @@ class Component extends DCLogic {
             }
           };
         });
-        var total = Math.max(4, filled.length + 2 - (filled.length % 2));
+        var w = (typeof window !== 'undefined' && window.innerWidth) || 1200, cols = w >= 960 ? 4 : w >= 641 ? 3 : 2;
+        var total = Math.max(cols, Math.ceil((filled.length + 1) / cols) * cols);
         var n0 = filled.length;
         for (var k = n0; k < total; k++) { filled.push({ cls: 'berth empty', filled: false, empty: true, ghost: k === n0 ? 'A berth, waiting for you' : '' }); }
         return filled;
