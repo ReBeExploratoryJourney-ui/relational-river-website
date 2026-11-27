@@ -184,6 +184,7 @@ async function inat(request, url, ctx) {
 // Only what groups have chosen to make public is ever returned. Everything links back to Hylo.
 const HYLO_API = 'https://hylo.com/noo/graphql';
 const HYLO_EVENT_GROUPS = ['institute-of-relational-being'];
+const HYLO_IMAGE_HOSTS = ['d3ngex8q79bk55.cloudfront.net'];
 
 async function hyloQuery(query, variables) {
   // GraphQL over GET, so the request survives Hylo's redirects intact.
@@ -204,6 +205,10 @@ function km(a, b) {
 
 function plain(text, n) {
   return String(text || '').replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim().slice(0, n);
+}
+
+function hyloImage(u) {
+  try { const x = new URL(u || ''); return x.protocol === 'https:' && HYLO_IMAGE_HOSTS.includes(x.hostname) ? '/api/hylo/avatar?u=' + encodeURIComponent(x.toString()) : ''; } catch (e) { return ''; }
 }
 
 async function hyloGroups(url) {
@@ -230,7 +235,7 @@ async function hyloGroups(url) {
       about: plain(g.purpose || g.description, 220),
       where: plain(g.location || [g.locationObject && g.locationObject.city, g.locationObject && g.locationObject.region].filter(Boolean).join(', '), 80),
       members: g.memberCount || 0,
-      avatar: /^https:\/\//.test(g.avatarUrl || '') ? g.avatarUrl : '',
+      avatar: hyloImage(g.avatarUrl),
       km: at ? Math.round(km(here, at)) : null,
       url: 'https://www.hylo.com/groups/' + encodeURIComponent(g.slug),
     };
@@ -261,6 +266,15 @@ async function hylo(request, url, ctx) {
   if (request.method !== 'GET') return json({ error: 'not_found' }, 404);
   if (url.pathname === '/api/hylo/groups') return cached(request, ctx, () => hyloGroups(url));
   if (url.pathname === '/api/hylo/events') return cached(request, ctx, () => hyloEvents(url));
+  if (url.pathname === '/api/hylo/avatar') {
+    let src; try { src = new URL(url.searchParams.get('u') || ''); } catch (e) { return json({ error: 'bad_request' }, 400); }
+    if (src.protocol !== 'https:' || !HYLO_IMAGE_HOSTS.includes(src.hostname)) return json({ error: 'bad_request' }, 400);
+    return cached(request, ctx, async () => {
+      const r = await fetch(src.toString());
+      if (!r.ok || !/^image\//.test(r.headers.get('content-type') || '')) return json({ error: 'upstream' }, 502);
+      return new Response(r.body, { headers: { 'content-type': r.headers.get('content-type'), 'cache-control': 'public, max-age=604800' } });
+    });
+  }
   return json({ error: 'not_found' }, 404);
 }
 

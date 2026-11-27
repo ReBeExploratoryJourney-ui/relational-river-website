@@ -90,6 +90,25 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px dashed #9FD
 </div>
 </section>
 
+<section id="gatherings" aria-live="polite" style="display: flex; flex-direction: column; gap: 18px">
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 34px; color: #DCDCDC">River gatherings</h2>
+<p style="margin: 0; font-size: 18px; max-width: 760px; line-height: 1.5; color: #DCDCDC">Upcoming public gatherings from the Institute of Relational Being’s group on Hylo: circles, walks and conversations for those tending the Relational River. Each one opens on Hylo, where you can say you are coming.</p>
+<sc-if value="{{evLoading}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-style: italic; color: #DCDCDC">Looking for gatherings…</p></sc-if>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px">
+<sc-for list="{{events}}" as="ev" hint-placeholder-count="2">
+<article class="torn {{ev.tilt}}" style="background: {{ev.bg}}; padding: 28px 30px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">{{ev.when}}</div>
+<h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 22px">{{ev.title}}</h3>
+<sc-if value="{{ev.hasWhere}}" hint-placeholder-val="{{ false }}"><div style="font-size: 14px; font-style: italic">{{ev.where}}</div></sc-if>
+<sc-if value="{{ev.hasAbout}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 16px; line-height: 1.5">{{ev.about}}</p></sc-if>
+<a href="{{ev.url}}" target="_blank" rel="noopener" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; gap: 8px"><img src="/assets/hylo-merkaba.svg" alt="" style="width: 22px; height: 25px">Open on Hylo</a>
+</article>
+</sc-for>
+</div>
+<sc-if value="{{evEmpty}}" hint-placeholder-val="{{ true }}"><div class="torn tl" style="background: #FBF7EF; padding: 28px 32px; display: flex; flex-direction: column; gap: 8px"><p style="margin: 0; font-size: 17px; line-height: 1.5">No River gatherings are planned just now. Join the Institute of Relational Being on Hylo to hear when the next one is called, or suggest one yourself.</p><a href="https://www.hylo.com/groups/institute-of-relational-being" target="_blank" rel="noopener" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Visit IRB on Hylo</a></div></sc-if>
+<p style="margin: 0; font-size: 14px; font-style: italic; color: #C9CCD6">Read from Hylo’s public events and refreshed about once an hour. Times are shown in your own time zone.</p>
+</section>
+
 <section style="display: flex; flex-direction: column; gap: 18px">
 <h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: 34px; color: #DCDCDC">Groups to begin with</h2>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px">
@@ -112,7 +131,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px dashed #9FD
 <h3 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-size: 24px">Hylo’s public map</h3>
 <p style="margin: 0; font-size: 16px; line-height: 1.55">A map of public groups and public posts from around the world. A good way to find who is already gathering in your watershed.</p>
 <div style="font-size: 14px; font-style: italic">Only groups that choose to be public appear.</div>
-<a href="https://www.hylo.com/" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Explore Hylo</a>
+<a href="https://www.hylo.com/public" target="_blank" rel="noopener" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center">Explore Hylo’s public groups</a>
 </article>
 </div>
 </section>
@@ -132,7 +151,12 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px dashed #9FD
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2200}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { r: 'la', a: true, b: false, c: true, connected: false }; }
+  constructor(props) { super(props); this.state = { r: 'la', a: true, b: false, c: true, connected: false, events: null }; }
+  componentDidMount() {
+    var self = this;
+    try { fetch('/api/hylo/events').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { self.setState({ events: d && d.events ? d.events : [] }); }, function () { self.setState({ events: [] }); }); } catch (e) { this.setState({ events: [] }); }
+    if (location.hash === '#gatherings') { setTimeout(function () { var el = document.getElementById('gatherings'); if (el) { el.scrollIntoView(); } }, 500); }
+  }
   renderVals() {
     var self = this, s = this.state;
     var O = { la: [], clare: [] };
@@ -141,6 +165,11 @@ class Component extends DCLogic {
     return {
       regions: keys.map(function (k) { var on = k[0] === s.r; return { label: k[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ r: k[0] }); } }; }),
       offers: O[s.r].map(function (o, i) { return { kind: o.kind, title: o.title, group: o.group, bg: bgs[i % 3], tilt: i % 2 ? 'tr' : 'tl' }; }),
+      evLoading: s.events === null, evEmpty: s.events !== null && s.events.length === 0,
+      events: (s.events || []).map(function (e, i) {
+        var when = ''; try { var d = new Date(e.start); when = d.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' }) + ' · ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }); } catch (x) {}
+        return { tilt: i % 2 ? 'tr' : 'tl', bg: ['#CFE1E4', '#E6E2F2', '#F5E3B0', '#DCE6D2'][i % 4], when: when, title: e.title, where: e.online ? (e.where ? e.where + ' · online too' : 'Online') : e.where, hasWhere: !!(e.online || e.where), about: e.about, hasAbout: !!e.about, url: e.url };
+      }),
       a: s.a, b: s.b, c: s.c,
       toggleA: function () { self.setState({ a: !self.state.a }); },
       toggleB: function () { self.setState({ b: !self.state.b }); },

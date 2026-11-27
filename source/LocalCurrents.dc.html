@@ -28,6 +28,17 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .bcredit{font-size:11px;line-height:1.3;text-align:center;color:#4A443F}
 .being:hover .bname{text-decoration:underline}
 .tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.hylogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;align-items:start}
+.hylocard{background:#FBF7EF;color:#2F2B28;padding:26px 28px 20px;display:flex;flex-direction:column;gap:10px}
+.hylohead{display:flex;gap:14px;align-items:center}
+.hyloav{width:52px;height:52px;flex:0 0 52px;border-radius:46% 54% 50% 50%/52% 48% 52% 48%;object-fit:cover;background:#DCE6D2}
+.hyloini{display:inline-flex;align-items:center;justify-content:center;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:22px;color:#2F2B28}
+.hyloname{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:20px;line-height:1.2}
+.hylowhere{font-size:14px;font-style:italic}
+.hyloabout{margin:0;font-size:16px;line-height:1.5}
+.hylofoot{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;justify-content:space-between}
+.hylomem{font-size:14px}
+.hylolink{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600;color:#2F2B28}
 .chip{font-family:Jost,sans-serif;font-size:16px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:10px 18px;min-height:44px;cursor:pointer}
 .chip.on{background:#DCE6D2;border-color:#2F2B28;font-weight:600}
 .chip.sm{font-size:14px;padding:8px 14px;min-height:44px}
@@ -150,6 +161,28 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 
 <section aria-live="polite" style="display: flex; flex-direction: column; gap: 18px">
 <div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">On Hylo, in this watershed</div>
+<h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 34px; letter-spacing: -0.02em">Gathering nearby</h2>
+<p style="margin: 0; font-size: 18px; max-width: 760px; line-height: 1.5">{{hyloIntro}}</p>
+</div>
+<sc-if value="{{hyloLoading}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-style: italic">Looking along the watershed…</p></sc-if>
+<sc-if value="{{hyloProblem}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 16px">Hylo couldn’t be reached just now. You can still <a href="https://www.hylo.com/public" target="_blank" rel="noopener">browse Hylo’s public groups</a> directly.</p></sc-if>
+<sc-if value="{{hyloEmpty}}" hint-placeholder-val="{{ false }}"><div class="torn tl" style="background: #FBF7EF; padding: 26px 30px; display: flex; flex-direction: column; gap: 8px; color: #2F2B28"><p style="margin: 0; font-size: 17px; line-height: 1.5">No public Hylo groups have marked a home in this watershed yet. Perhaps you will be one of the first to gather people here.</p><a href="https://www.hylo.com/public" target="_blank" rel="noopener" style="font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; color: #2F2B28">Explore Hylo’s public groups</a></div></sc-if>
+<div class="hylogrid">
+<sc-for list="{{hyloGroups}}" as="hg" hint-placeholder-count="3">
+<article class="torn {{hg.tilt}} hylocard">
+<div class="hylohead"><sc-if value="{{hg.hasAvatar}}" hint-placeholder-val="{{ false }}"><img class="hyloav" src="{{hg.avatar}}" alt="" loading="lazy"></sc-if><sc-if value="{{hg.noAvatar}}" hint-placeholder-val="{{ true }}"><span class="hyloav hyloini" aria-hidden="true">{{hg.initial}}</span></sc-if><div><h3 class="hyloname">{{hg.name}}</h3><div class="hylowhere">{{hg.where}}</div></div></div>
+<sc-if value="{{hg.hasAbout}}" hint-placeholder-val="{{ false }}"><p class="hyloabout">{{hg.about}}</p></sc-if>
+<div class="hylofoot"><span class="hylomem">{{hg.members}}</span><a href="{{hg.url}}" target="_blank" rel="noopener" class="hylolink" aria-label="{{hg.label}}"><img src="/assets/hylo-merkaba.svg" alt="" style="width: 22px; height: 25px">Visit on Hylo</a></div>
+</article>
+</sc-for>
+</div>
+<sc-if value="{{hasGathering}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 17px">Next River gathering: <a href="{{gatheringUrl}}" target="_blank" rel="noopener">{{gatheringTitle}}</a>, {{gatheringWhen}}. <a href="Hylo.dc.html#gatherings">All River gatherings</a></p></sc-if>
+<p style="margin: 0; font-size: 14px; font-style: italic; color: #C9CCD6">From Hylo’s public directory, read by the River and refreshed about once an hour. Only groups that choose to be public appear, and joining always happens on Hylo, with the group’s own welcome.</p>
+</section>
+
+<section aria-live="polite" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px">
 <div style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Threads in this place</div>
 <h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 34px; letter-spacing: -0.02em">Who is already weaving here</h2>
 <p style="margin: 0; font-size: 18px; max-width: 760px; line-height: 1.5">Organisations and projects in {{placeName}} whose work runs alongside each other, gathered by the River from open, public sources. Each thread shows how it was noticed and where the facts come from.</p>
@@ -207,11 +240,19 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { r: 'la', n: 0, threads: null, ep: '', epLabel: '', found: [], finding: false, findNote: '' }; this.cache = {}; this.loading = {}; this.labels = null; }
+  constructor(props) { super(props); this.state = { r: 'la', n: 0, threads: null, ep: '', epLabel: '', epLoc: '', found: [], finding: false, findNote: '', hylo: {}, events: null }; this.cache = {}; this.hyloLoading = {}; this.loading = {}; this.labels = null; }
   componentDidMount() {
     var self = this;
     try { fetch('/data/beings.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d) { self.saved = d; self.labels = d.labels || {}; self.setState({ n: self.state.n + 1 }); } }).catch(function () {}); } catch (e) {}
+    try { fetch('/api/hylo/events').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { self.setState({ events: d && d.events ? d.events : [] }); }).catch(function () { self.setState({ events: [] }); }); } catch (e) {}
     try { fetch('/data/threads.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.threads) { self.setState({ threads: d }); } }).catch(function () {}); } catch (e) {}
+  }
+  fetchHylo(key, pt) {
+    var self = this;
+    if (this.state.hylo[key] || this.hyloLoading[key]) { return; }
+    this.hyloLoading[key] = true;
+    var done = function (v) { self.hyloLoading[key] = false; var h = {}; for (var k in self.state.hylo) { h[k] = self.state.hylo[k]; } h[key] = v; self.setState({ hylo: h }); };
+    fetch('/api/hylo/groups?lat=' + pt[0].toFixed(2) + '&lng=' + pt[1].toFixed(2) + '&km=60').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { done(d && d.groups ? { groups: d.groups } : { problem: true }); }, function () { done({ problem: true }); });
   }
   fetchBeings(key, q) {
     var self = this;
@@ -282,15 +323,29 @@ class Component extends DCLogic {
         orgs: x.orgs.map(function (o) { return { name: o[0], url: o[1], where: o[2] }; }),
         sources: x.sources.map(function (s) { return { label: s[0], url: s[1] }; }) };
     });
+    var C = { la: [34.12, -118.39], clare: [52.93, -8.47], portland: [45.52, -122.68], dart: [50.45, -3.69], berlin: [52.52, 13.40], brussels: [50.85, 4.35], 'northern-rivers': [-28.65, 153.35], 'mata-atlantica': [-23.55, -46.63], nairobi: [-1.29, 36.82], kyoto: [35.01, 135.77] };
+    var pt = r !== 'else' ? C[r] : (ep && C[ep] ? C[ep] : null);
+    if (!pt && r === 'else' && this.state.epLoc) { var ll = String(this.state.epLoc).split(','); if (ll.length === 2 && isFinite(parseFloat(ll[0])) && isFinite(parseFloat(ll[1]))) { pt = [parseFloat(ll[0]), parseFloat(ll[1])]; } }
+    var hkey = pt ? pt[0].toFixed(2) + ',' + pt[1].toFixed(2) : '';
+    if (pt) { this.fetchHylo(hkey, pt); }
+    var hres = hkey ? this.state.hylo[hkey] : null;
+    var hlist = hres && hres.groups ? hres.groups : [];
+    var hereName = ep ? this.state.epLabel : cur[0];
+    var nextEv = (this.state.events || [])[0];
+    var whenOf = function (e) { try { var d = new Date(e.start); return d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'long' }) + ', ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }) + (e.online ? ' (online)' : e.where ? ' · ' + e.where : ''); } catch (x) { return ''; } };
     return {
+      hyloIntro: pt ? 'Public groups on Hylo with a home within about 60 km of ' + hereName + '. Each links to the group’s own page, where you can read their welcome and ask to join.' : 'Choose a place above to see public groups gathering on Hylo in that watershed.',
+      hyloLoading: !!pt && !hres, hyloProblem: !!(hres && hres.problem), hyloEmpty: !!(hres && hres.groups && hres.groups.length === 0),
+      hyloGroups: hlist.map(function (g, i) { return { tilt: i % 2 ? 'tr' : 'tl', name: g.name, where: [g.where, g.km !== null && g.km !== undefined ? (g.km < 2 ? 'right here' : 'about ' + g.km + ' km away') : ''].filter(Boolean).join(' · '), about: g.about, hasAbout: !!g.about, avatar: g.avatar, hasAvatar: !!g.avatar, noAvatar: !g.avatar, initial: (g.name || '?').charAt(0).toUpperCase(), members: g.members ? g.members + (g.members === 1 ? ' member' : ' members') : '', url: g.url, label: 'Visit ' + g.name + ' on Hylo (opens in a new tab)' }; }),
+      hasGathering: !!nextEv, gatheringTitle: nextEv ? nextEv.title : '', gatheringUrl: nextEv ? nextEv.url : '', gatheringWhen: nextEv ? whenOf(nextEv) : '',
       threadCards: threadCards, placeName: r === 'else' ? 'many places at once' : (r === 'la' ? 'the ' : '') + cur[0],
       hasBeings: list.length > 0, noBeings: list.length === 0, beings: list, beingsNote: note,
       regions: keys.map(function (k) { var on = k[0] === r; return { label: k[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ r: k[0] }); } }; }),
       mapLabel: ep ? this.state.epLabel : cur[1],
       isElse: r === 'else',
-      elsePlaces: Object.keys(this.labels || {}).map(function (k) { var on = k === ep; return { label: self.labels[k], on: on ? 'true' : 'false', cls: on ? 'chip sm on' : 'chip sm', pick: function () { self.setState({ ep: k, epLabel: self.labels[k] }); } }; }),
+      elsePlaces: Object.keys(this.labels || {}).map(function (k) { var on = k === ep; return { label: self.labels[k], on: on ? 'true' : 'false', cls: on ? 'chip sm on' : 'chip sm', pick: function () { self.setState({ ep: k, epLabel: self.labels[k], epLoc: '' }); } }; }),
       hasFound: this.state.found.length > 0,
-      foundPlaces: this.state.found.map(function (f) { var k = 'place-' + f.id; var on = k === ep; return { label: f.name, on: on ? 'true' : 'false', cls: on ? 'chip sm on' : 'chip sm', pick: function () { self.setState({ ep: k, epLabel: f.name }); } }; }),
+      foundPlaces: this.state.found.map(function (f) { var k = 'place-' + f.id; var on = k === ep; return { label: f.name, on: on ? 'true' : 'false', cls: on ? 'chip sm on' : 'chip sm', pick: function () { self.setState({ ep: k, epLabel: f.name, epLoc: f.loc || '' }); } }; }),
       hasFindNote: !!this.state.findNote, findNote: this.state.findNote,
       findPlace: function (e) {
         if (e && e.preventDefault) { e.preventDefault(); }
