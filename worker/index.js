@@ -278,6 +278,23 @@ async function hylo(request, url, ctx) {
   return json({ error: 'not_found' }, 404);
 }
 
+// Still frames for films the River features, fetched by the worker so visitors' browsers
+// make no request to YouTube until they choose to press play.
+const FILM_STILLS = { '-xr9rIQxwj4': 'The Great Simplification' };
+async function still(request, url, ctx) {
+  const v = url.searchParams.get('v') || '';
+  if (!Object.prototype.hasOwnProperty.call(FILM_STILLS, v)) return json({ error: 'bad_request' }, 400);
+  return cached(request, ctx, async () => {
+    for (const size of ['maxresdefault', 'hqdefault']) {
+      const r = await fetch('https://i.ytimg.com/vi/' + encodeURIComponent(v) + '/' + size + '.jpg');
+      if (r.ok && /^image\//.test(r.headers.get('content-type') || '')) {
+        return new Response(r.body, { headers: { 'content-type': r.headers.get('content-type'), 'cache-control': 'public, max-age=604800' } });
+      }
+    }
+    return json({ error: 'upstream' }, 502);
+  });
+}
+
 // Offerings are kept no longer than three years.
 async function tidy(env) {
   if (!env.WELL_DB) return;
@@ -292,6 +309,9 @@ export default {
   },
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (url.pathname === '/api/still') {
+      try { return await still(request, url, ctx); } catch (e) { return json({ error: 'upstream' }, 502); }
+    }
     if (url.pathname.startsWith('/api/hylo/')) {
       try { return await hylo(request, url, ctx); } catch (e) { return json({ error: 'upstream', detail: String(e && e.message || e).slice(0, 300) }, 502); }
     }

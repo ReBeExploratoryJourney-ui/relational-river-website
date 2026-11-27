@@ -50,6 +50,17 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 }
 /* Torn edges of a fixed, shallow depth on every side, so text is never covered. */
 .torn,.torn.tall{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,left center,right center,center!important;mask-position:top center,bottom center,left center,right center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+.film{flex:0 1 380px;width:100%;max-width:380px;display:flex;flex-direction:column;gap:8px}
+.filmstill{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:none;border-radius:8px;overflow:hidden;cursor:pointer;background:#2F2B28}
+.filmstill img{display:block;width:100%;height:100%;object-fit:cover}
+.filmplay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .2s ease}
+.filmstill:hover .filmplay{transform:scale(1.08)}
+.filmstill:focus-visible{outline:2px dashed #2F2B28;outline-offset:3px}
+.filmnote{margin:0;font-size:13px;font-style:italic;line-height:1.4}
+.filmframe{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#000}
+.filmframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.linkbtn{font:inherit;font-style:normal;font-weight:600;background:none;border:none;padding:0;text-decoration:underline;cursor:pointer;color:inherit;min-height:44px}
+@media (prefers-reduced-motion: reduce){.filmplay{transition:none}}
 </style>
 <style>body{background:#0E2849}</style>
 </head>
@@ -78,9 +89,10 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 
 <article class="torn tl" style="background: #CFE1E4; padding: 44px 48px; display: flex; flex-wrap: wrap; gap: 36px; align-items: center">
-<div style="flex: 0 1 340px; width: 100%; max-width: 340px; aspect-ratio: 16 / 9; background: #2F2B28; color: #F3ECDF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border-radius: 6px">
-<svg viewBox="0 0 24 24" width="44" height="44" aria-hidden="true" fill="none" stroke="#F3ECDF" stroke-width="1.6"><circle cx="12" cy="12" r="10"></circle><path d="M10 8l6 4-6 4z" fill="#F3ECDF"></path></svg>
-<span style="font-size: 13px; font-style: italic">Plays on the makers' own site</span>
+<div class="film">
+<sc-if value="{{notPlaying}}" hint-placeholder-val="{{ true }}"><button class="filmstill" onClick="{{play}}" aria-label="Play The Great Simplification here (the film plays from YouTube)"><img src="/api/still?v=-xr9rIQxwj4" alt="" loading="lazy"><span class="filmplay" aria-hidden="true"><svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="#F3ECDF" stroke-width="1.4"><circle cx="12" cy="12" r="10" fill="rgba(20,22,40,0.55)"></circle><path d="M10 8l6 4-6 4z" fill="#F3ECDF"></path></svg></span></button>
+<p class="filmnote">Press play to watch here. The film then plays from YouTube, where Nate’s team published it.</p></sc-if>
+<sc-if value="{{playing}}" hint-placeholder-val="{{ false }}"><div class="filmframe"><iframe src="https://www.youtube-nocookie.com/embed/-xr9rIQxwj4?autoplay=1&amp;rel=0" title="The Great Simplification, an animated film by Nate Hagens and team" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div></sc-if>
 </div>
 <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 12px">
 <div style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">Film · 32 minutes · four acts · transcripts available</div>
@@ -89,7 +101,8 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div style="font-size: 15px; font-style: italic">Made by Nate Hagens and the Institute for the Study of Energy and Our Future</div>
 <a href="/islands" style="font-size: 16px; color: inherit; min-height: 44px; display: inline-flex; align-items: center">Nate’s reflections on organisations at the end of growth flow into the River’s islands of coherence</a>
 <a href="/ways-of-seeing" style="font-size: 16px; color: inherit; min-height: 44px; display: inline-flex; align-items: center">For more lenses, see ways of seeing: three horizons, emergence and philosophy as practice</a>
-<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center"><a href="https://thegreatsimplification.com/animations" class="go tornbtn" style="background: #F5EEE1">Watch on their site</a><button class="chip" onClick="{{watched}}">I've watched it</button></div>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center"><a href="https://thegreatsimplification.com/animations" class="go tornbtn" style="background: #F5EEE1" target="_blank" rel="noopener">Watch in four parts on their site</a><button class="{{watchedCls}}" aria-pressed="{{watchedOn}}" onClick="{{watched}}">{{watchedLabel}}</button></div>
+<sc-if value="{{watchedNote}}" hint-placeholder-val="{{ false }}"><p role="status" style="margin: 0; font-size: 16px; font-style: italic">{{watchedNote}} <sc-if value="{{needsBoat}}" hint-placeholder-val="{{ false }}"><button class="linkbtn" onClick="{{keepInBoat}}">Build your Boat to keep it</button></sc-if><sc-if value="{{inBoat}}" hint-placeholder-val="{{ false }}"><a href="/boat#gathered">See it in your Boat</a></sc-if></p></sc-if>
 </div>
 </article>
 
@@ -99,7 +112,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </section>
 
 <sc-if value="{{hasWatched}}" hint-placeholder-val="{{ false }}">
-<section aria-live="polite" style="display: flex; flex-direction: column; gap: 22px">
+<section id="landed" aria-live="polite" style="display: flex; flex-direction: column; gap: 22px">
 <h2 style="margin: 0; font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 800; font-size: 30px; letter-spacing: -0.02em">How did it land?</h2>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <sc-for list="{{lands}}" as="c" hint-placeholder-count="4"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
@@ -166,7 +179,12 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1640}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { watched: false, land: null }; }
+  constructor(props) {
+    super(props);
+    var done = false; try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); done = !!(b && Array.isArray(b.gathered) && b.gathered.some(function (g) { return g && g.id === 'watched:great-simplification'; })); } catch (x) {}
+    this.state = { watched: done, land: null, playing: false, note: done ? 'You have watched this. It is noted in your Boat.' : '', inBoat: done, needsBoat: false };
+  }
+  filmItem() { return { id: 'watched:great-simplification', title: 'The Great Simplification (watched)', kind: 'Film · watched', by: 'Nate Hagens and the Institute for the Study of Energy and Our Future', href: 'https://thegreatsimplification.com/animations' }; }
   renderVals() {
     var self = this, s = this.state;
     var replies = {
@@ -177,7 +195,26 @@ class Component extends DCLogic {
     };
     var opts = [['heavy', 'Heavy'], ['eye', 'Eye-opening'], ['familiar', 'Familiar'], ['unsure', 'Not sure yet']];
     return {
-      watched: function () { self.setState({ watched: true }); },
+      play: function () { self.setState({ playing: true }); },
+      playing: s.playing, notPlaying: !s.playing,
+      watchedLabel: s.watched ? 'Watched ✓' : 'I’ve watched it', watchedOn: s.watched ? 'true' : 'false', watchedCls: s.watched ? 'chip on' : 'chip',
+      watchedNote: s.note, inBoat: s.inBoat, needsBoat: s.needsBoat,
+      keepInBoat: function () { try { sessionStorage.setItem('rr.boat.pending', JSON.stringify({ list: 'gathered', item: self.filmItem() })); } catch (x) {} window.location.href = '/boat'; },
+      watched: function () {
+        if (self.state.watched) { return; }
+        var b = null; try { b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); } catch (x) {}
+        if (b && b.v === 1) {
+          b.gathered = Array.isArray(b.gathered) ? b.gathered : [];
+          var it = self.filmItem(); it.at = new Date().toISOString();
+          b.gathered = b.gathered.filter(function (g) { return g && g.id !== it.id; }); b.gathered.push(it); b.dirty = true;
+          try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) {}
+          if (window.RiverBoat) { window.RiverBoat.touched(); }
+          self.setState({ watched: true, inBoat: true, needsBoat: false, note: 'Thank you for watching. It is noted in your Boat.' });
+        } else {
+          self.setState({ watched: true, needsBoat: true, note: 'Thank you for watching.' });
+        }
+        setTimeout(function () { var el = document.getElementById('landed'); if (el && el.scrollIntoView) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }, 120);
+      },
       hasWatched: s.watched,
       lands: opts.map(function (o) { var on = s.land === o[0]; return { label: o[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { self.setState({ land: o[0] }); } }; }),
       hasLand: !!s.land,
