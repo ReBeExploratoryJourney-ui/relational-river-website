@@ -26,6 +26,7 @@
     if (/email.*invalid|invalid.*email|validate email/i.test(m)) { return 'That email address doesn’t look quite right.'; }
     if (status >= 500 && /email|smtp|domain|send/i.test(m)) { return 'The code email couldn’t be sent just now. Please try again later.'; }
     if (status >= 500) { return 'The account home had a hiccup. Please try again in a moment.'; }
+    if (status === 401 || /jwt expired/i.test(m)) { return 'Your sign-in has gently expired. Please sign in again on Your Boat, then try once more.'; }
     if (status === 0) { return 'The River couldn’t reach the account home. Please check your connection and try again.'; }
     return 'Something went wrong. Please try again in a moment.';
   }

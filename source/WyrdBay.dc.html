@@ -87,6 +87,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .dchip{font-family:Jost,sans-serif;font-size:15px;color:#EFE6D2;background:transparent;border:1.5px solid rgba(239,230,210,.55);border-radius:18px 22px 16px 24px;padding:8px 14px;min-height:44px;cursor:pointer}
 .dchip.on{background:#E8C77A;color:#14163A;border-color:#E8C77A;font-weight:600}
 .field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
+.agree{display:flex;align-items:center;gap:12px;align-self:flex-start;text-align:left;font-family:Jost,sans-serif;font-size:16px;font-weight:500;color:#2F2B28;background:rgba(255,253,248,0.7);border:1.5px solid #8C8178;border-radius:14px 18px 12px 16px;padding:10px 16px 10px 12px;min-height:48px;cursor:pointer;line-height:1.35}
+.agree:hover{border-color:#2F2B28}
+.agree .abox{flex:0 0 26px;width:26px;height:26px;border:2px solid #2F2B28;border-radius:7px 9px 6px 8px;background:#FFFFFF;display:inline-flex;align-items:center;justify-content:center}
+.agree .abox svg{width:18px;height:18px;opacity:0}
+.agree[aria-checked="true"]{background:#DCE6D2;border-color:#2F2B28}
+.agree[aria-checked="true"] .abox{background:#2F2B28}
+.agree[aria-checked="true"] .abox svg{opacity:1}
 .fld{display:flex;flex-direction:column;gap:6px}
 .alabel{font-size:15px;font-weight:600}
 .go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer}
@@ -305,7 +312,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 <div class="fld"><div class="alabel" id="wyOpenL">How you are questing</div><div style="display: flex; flex-wrap: wrap; gap: 10px" role="group" aria-labelledby="wyOpenL"><sc-for list="{{mOpenChips}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for></div></div>
 <div class="fld"><div class="alabel" id="wyQuestL">A quest you would welcome company on (optional)</div><div style="display: flex; flex-wrap: wrap; gap: 10px" role="group" aria-labelledby="wyQuestL"><sc-for list="{{mQuestChips}}" as="c" hint-placeholder-count="8"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for></div></div>
 <div class="fld"><label class="alabel" for="wyHylo">Your Hylo profile (optional)</label><input id="wyHylo" class="field" type="url" inputmode="url" maxlength="300" value="{{mHylo}}" onChange="{{mTypeHylo}}" placeholder="https://www.hylo.com/members/…"></div>
-<button class="{{mAgreeCls}}" aria-pressed="{{mAgreeOn}}" onClick="{{mAgree}}" style="align-self: flex-start">I will moor with care, following the Bay’s agreements below</button>
+<button type="button" class="agree" role="checkbox" aria-checked="{{mAgreeOn}}" onClick="{{mAgree}}"><span class="abox" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M3.5 9.5 L7.5 13 L14.5 5" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>I will moor with care, following the Bay’s agreements below</span></button>
 <sc-if value="{{mMsg}}" hint-placeholder-val="{{ false }}"><p class="p" role="status">{{mMsg}}</p></sc-if>
 <div style="display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{mSave}}">{{mSaveLabel}}</button><sc-if value="{{mMoored}}" hint-placeholder-val="{{ false }}"><button class="hreport" onClick="{{mLeave}}">Cast off</button></sc-if></div>
 </div>
