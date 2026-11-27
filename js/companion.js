@@ -102,7 +102,7 @@
     // Step aside while Raven is speaking, or a note from the River is open.
     setInterval(function () {
       var g = document.querySelector('.gbubble'), n = document.querySelector('.wy-note, .wy-entry');
-      var busy = !!n || !!(g && g.style.display !== 'none' && g.offsetParent !== null);
+      var busy = !!n; if (g && !busy) { var cs = window.getComputedStyle(g), r = g.getBoundingClientRect(); busy = cs.display !== 'none' && cs.visibility !== 'hidden' && r.height > 0; }
       root.classList.toggle('rc-hide', busy);
     }, 700);
   }
