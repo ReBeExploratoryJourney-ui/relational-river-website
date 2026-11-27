@@ -201,7 +201,7 @@ class Component extends DCLogic {
     var list = L.filter(function (l) { return s.fmt === 'all' || l.fmt.indexOf(s.fmt) >= 0; });
     return {
       fmtChips: this.chipVals([['all', 'All'], ['online', 'Online'], ['person', 'In person']], 'fmt'),
-      lakes: list.map(function (l, k) { var ab = self.aboardFor('gathered', { id: 'lake:' + l.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 60), title: l.title, kind: 'Lake · ' + l.kind, by: '', href: l.href }); return { aboardOn: ab.aboardOn, aboardLabel: ab.aboardLabel, aboard: ab.aboard, idLink: /Relational ID/.test(l.title), kind: l.kind, title: l.title, text: l.text, notes: l.notes, href: l.href, cta: l.cta, bg: l.bg, cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') }; })
+      lakes: list.map(function (l, k) { var ab = self.aboardFor('gathered', { id: 'lake:' + l.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 60), title: l.title, kind: 'Lake · ' + l.kind, by: '', href: l.href }); return { aboardOn: ab.aboardOn, aboardHint: ab.aboardHint, aboardLabel: ab.aboardLabel, aboard: ab.aboard, idLink: /Relational ID/.test(l.title), kind: l.kind, title: l.title, text: l.text, notes: l.notes, href: l.href, cta: l.cta, bg: l.bg, cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') }; })
     };
   }
 }

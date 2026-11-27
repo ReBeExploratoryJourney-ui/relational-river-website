@@ -198,7 +198,7 @@ class Component extends DCLogic {
       springs: list.map(function (o, k) {
         var d = o.days, left = d === 0 ? 'Closes today' : (d === 1 ? 'Closes tomorrow' : (d <= 21 ? 'Closes in ' + d + ' days · ' + fmtDate(o.c) : 'Open until ' + fmtDate(o.c)));
         var ab = self.aboardFor('gathered', { id: 'spring:' + o.s.id, title: o.s.title, kind: 'Spring · ' + o.s.kind, by: o.s.host, href: o.s.href, closes: o.s.closes || '' });
-        return { anchor: 'spring-' + o.s.id, aboardOn: ab.aboardOn, aboardLabel: ab.aboardLabel, aboard: ab.aboard, left: left, kind: o.s.kind, title: o.s.title, host: o.s.host, hostHref: o.s.hostHref, text: o.s.text, when: o.s.when, where: o.s.where, lang: o.s.lang, cost: o.s.costNote || ({ free: 'Free', gift: 'By donation', paid: 'Paid' }[o.s.cost] || ''), noticed: !!o.s.noticed, href: o.s.href, cta: o.s.cta, bg: BG[k % BG.length], cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') + (d <= 21 ? ' soonest' : '') };
+        return { anchor: 'spring-' + o.s.id, aboardOn: ab.aboardOn, aboardHint: ab.aboardHint, aboardLabel: ab.aboardLabel, aboard: ab.aboard, left: left, kind: o.s.kind, title: o.s.title, host: o.s.host, hostHref: o.s.hostHref, text: o.s.text, when: o.s.when, where: o.s.where, lang: o.s.lang, cost: o.s.costNote || ({ free: 'Free', gift: 'By donation', paid: 'Paid' }[o.s.cost] || ''), noticed: !!o.s.noticed, href: o.s.href, cta: o.s.cta, bg: BG[k % BG.length], cls: 'torn card ' + (k % 2 ? 'tr' : 'tl') + (d <= 21 ? ' soonest' : '') };
       })
     };
   }
