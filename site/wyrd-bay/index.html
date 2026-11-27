@@ -46,6 +46,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .refl{animation:wyrefl 9s ease-in-out infinite}
 @keyframes wyrefl{0%,100%{opacity:.7}50%{opacity:1}}
 .weave{transform-box:fill-box;transform-origin:center}
+.aurora{animation:wyaur 26s ease-in-out infinite alternate}.aur2{animation:wyaur 34s ease-in-out infinite alternate-reverse}
+@keyframes wyaur{0%{transform:translateX(-40px)}100%{transform:translateX(40px)}}
+.thread{stroke-width:1.1;stroke-opacity:.38;stroke-dasharray:3 7;animation:wythread 8s ease-in-out infinite}.th2{animation-delay:-2.6s}.th3{animation-delay:-5.2s}
+@keyframes wythread{0%,100%{stroke-opacity:.18}50%{stroke-opacity:.55}}
+.bayscene.pre .threads,.bayscene.pre .sparks{opacity:0}
+.bayscene.bloom .threads{animation:wyfadein 3.6s ease-out 1.2s both}
+@keyframes wyfadein{from{opacity:0}to{opacity:1}}
+.spark{animation:wyrise 7s linear infinite;opacity:0}.s2{animation-delay:-1.4s}.s3{animation-delay:-2.8s}.s4{animation-delay:-4.2s}.s5{animation-delay:-5.6s}
+@keyframes wyrise{0%{transform:translateY(0);opacity:0}15%{opacity:.9}100%{transform:translateY(-170px);opacity:0}}
 .bayscene.pre .weave{opacity:0;transform:scale(.55)}
 .bayscene.bloom .weave{animation:wybloom 2.8s cubic-bezier(.2,.7,.2,1) both}
 @keyframes wybloom{0%{opacity:0;transform:scale(.55) rotate(-25deg)}60%{opacity:1}100%{opacity:1;transform:scale(1) rotate(0)}}
@@ -104,7 +113,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .we-thick{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,#E3EAF1 0%,#C9D4DF 60%,#B3C0CD 100%);opacity:0}
 .we-word{position:absolute;left:0;right:0;top:46%;margin:0;text-align:center;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:28px;color:#14163A;opacity:0;padding:0 24px}
 .we-skip{position:absolute;right:20px;bottom:20px;font-family:Jost,sans-serif;font-size:15px;min-height:44px;padding:8px 16px;background:rgba(20,22,58,.55);color:#EFE6D2;border:1px solid rgba(239,230,210,.5);border-radius:12px 16px 10px 14px;cursor:pointer}
-@media (prefers-reduced-motion: reduce){.ring,.core,.tw,.glim,.lant,.refl{animation:none!important}.bayscene.pre .weave{opacity:1;transform:none}.bayscene.bloom .weave{animation:none}}
+@media (prefers-reduced-motion: reduce){.ring,.core,.tw,.glim,.lant,.refl,.aurora,.aur2,.thread,.spark,.bayscene.bloom .threads{animation:none!important}.spark{opacity:.6}.bayscene.pre .threads,.bayscene.pre .sparks{opacity:1}.bayscene.pre .weave{opacity:1;transform:none}.bayscene.bloom .weave{animation:none}}
 .torn{-webkit-mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply}
 .torn.tall{-webkit-mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 .tornbtn{-webkit-mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
@@ -146,8 +155,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 <radialGradient id="bsGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#B9A7E8" stop-opacity="0.32"></stop><stop offset="1" stop-color="#B9A7E8" stop-opacity="0"></stop></radialGradient>
 <radialGradient id="bsLamp" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFD98A" stop-opacity="0.9"></stop><stop offset="1" stop-color="#FFD98A" stop-opacity="0"></stop></radialGradient>
 <radialGradient id="bsRefl" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#E8C77A" stop-opacity="0.35"></stop><stop offset="1" stop-color="#E8C77A" stop-opacity="0"></stop></radialGradient>
+<linearGradient id="bsAur" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9FD3DC" stop-opacity="0"></stop><stop offset="0.3" stop-color="#9FD3DC" stop-opacity="0.22"></stop><stop offset="0.6" stop-color="#B9A7E8" stop-opacity="0.26"></stop><stop offset="1" stop-color="#B9A7E8" stop-opacity="0"></stop></linearGradient>
 </defs>
 <rect x="0" y="0" width="1200" height="520" fill="url(#bsSky)"></rect>
+<g class="aurora"><path d="M-60 170 C 150 90, 330 210, 560 120 S 930 60, 1260 150 L 1260 200 C 950 120, 760 200, 560 175 S 160 150, -60 225 Z" fill="url(#bsAur)"></path><path class="aur2" d="M-60 250 C 200 180, 420 270, 640 210 S 1000 160, 1260 230 L 1260 255 C 1000 200, 820 260, 640 240 S 220 220, -60 280 Z" fill="url(#bsAur)" opacity="0.7"></path></g>
 <g fill="#EFE6D2"><circle class="tw" cx="80" cy="60" r="1.4"></circle><circle class="tw t2" cx="210" cy="140" r="1.1"></circle><circle class="tw t3" cx="330" cy="40" r="1.6"></circle><circle class="tw" cx="1010" cy="70" r="1.5"></circle><circle class="tw t2" cx="1120" cy="160" r="1.2"></circle><circle class="tw t3" cx="900" cy="30" r="1.1"></circle><circle class="tw" cx="760" cy="110" r="1"></circle><circle class="tw t2" cx="440" cy="120" r="1"></circle><circle class="tw t3" cx="150" cy="250" r="1.2"></circle><circle class="tw" cx="1060" cy="250" r="1.3"></circle></g>
 <g class="weave">
 <ellipse cx="600" cy="205" rx="260" ry="230" fill="url(#bsGlow)"></ellipse>
@@ -171,6 +182,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 <path class="glim" d="M1030 410 q26 -5 52 0" stroke="#9FD3DC" stroke-width="1.2"></path>
 <path d="M0 384 C 200 376, 400 392, 600 384 S 1000 376, 1200 386" stroke="#9FD3DC" stroke-opacity="0.25" stroke-width="1"></path>
 </g>
+<g class="threads" fill="none" stroke-linecap="round">
+<path class="thread" d="M600 205 C 520 260, 380 300, 330 396" stroke="#E8C77A"></path>
+<path class="thread th2" d="M600 205 C 690 280, 780 330, 820 420" stroke="#9FD3DC"></path>
+<path class="thread th3" d="M600 205 C 560 300, 500 360, 470 440" stroke="#B9A7E8"></path>
+<path class="thread" d="M600 205 C 760 230, 940 300, 1000 392" stroke="#E8C77A"></path>
+<path class="thread th2" d="M600 205 C 740 280, 900 360, 942 432" stroke="#EFE6D2"></path>
+<path class="thread th3" d="M600 205 C 500 150, 400 80, 330 40" stroke="#9FD3DC"></path>
+<path class="thread" d="M600 205 C 760 160, 900 100, 1010 70" stroke="#B9A7E8"></path>
+<path class="thread th2" d="M600 205 C 420 220, 220 260, 150 250" stroke="#E8C77A"></path>
+</g>
+<g class="sparks" fill="#FFE2A0"><circle class="spark" cx="360" cy="400" r="1.8"></circle><circle class="spark s2" cx="560" cy="420" r="1.5"></circle><circle class="spark s3" cx="640" cy="400" r="2"></circle><circle class="spark s4" cx="760" cy="430" r="1.6"></circle><circle class="spark s5" cx="480" cy="450" r="1.4"></circle><circle class="spark s2" cx="880" cy="410" r="1.7"></circle><circle class="spark s4" cx="250" cy="440" r="1.5"></circle><circle class="spark s3" cx="1040" cy="420" r="1.4"></circle></g>
 <g class="lant"><circle cx="330" cy="396" r="16" fill="url(#bsLamp)"></circle><circle cx="330" cy="396" r="3" fill="#FFE2A0"></circle></g>
 <g class="lant l2"><circle cx="820" cy="420" r="18" fill="url(#bsLamp)"></circle><circle cx="820" cy="420" r="3.2" fill="#FFE2A0"></circle></g>
 <g class="lant l3"><circle cx="470" cy="440" r="13" fill="url(#bsLamp)"></circle><circle cx="470" cy="440" r="2.6" fill="#FFE2A0"></circle></g>
