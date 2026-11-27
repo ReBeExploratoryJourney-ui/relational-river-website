@@ -21,6 +21,11 @@
 .hfoot{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;margin-top:4px}
 .hylo{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600;color:#2F2B28}
 .hylo img{width:30px;height:34px;display:block}
+.hylobtn{background:rgba(255,253,248,.75);border:1.5px solid #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 14px 8px 10px;text-decoration:none;align-items:center}
+.hylobtn span{display:flex;flex-direction:column;line-height:1.25}
+.hylobtn b{font-size:15px}
+.hylobtn small{font-size:12px;font-weight:400;font-style:italic}
+.hylobtn:hover{background:#F5E3B0}
 .hreport{font-family:Jost,sans-serif;font-size:14px;background:none;border:none;color:#5A524B;text-decoration:underline;cursor:pointer;min-height:44px;padding:0}
 .hfield{font-family:Jost,sans-serif;font-size:15px;padding:10px 12px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 10px 14px;background:#FFFDF8;color:#2F2B28}
 .fchip{font-family:Jost,sans-serif;font-size:15px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:8px 14px;min-height:44px;cursor:pointer}
@@ -183,7 +188,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <sc-if value="{{h.hasInvite}}" hint-placeholder-val="{{ false }}"><p class="p" style="margin: 0; font-size: 15px; line-height: 1.5"><b>How to join in:</b> {{h.invite}}</p></sc-if>
 <sc-if value="{{h.hasTags}}" hint-placeholder-val="{{ false }}"><div class="htags"><sc-for list="{{h.tags}}" as="t" hint-placeholder-count="2"><span class="htag">{{t.label}}</span></sc-for></div></sc-if>
 <div class="hfoot">
-<sc-if value="{{h.hasHylo}}" hint-placeholder-val="{{ false }}"><a class="hylo" href="{{h.hylo}}" target="_blank" rel="noopener" aria-label="{{h.hyloLabel}}"><img src="/assets/hylo-merkaba.svg" alt="">Hylo</a></sc-if>
+<sc-if value="{{h.hasHylo}}" hint-placeholder-val="{{ false }}"><a class="hylo hylobtn" href="{{h.hylo}}" target="_blank" rel="noopener" aria-label="{{h.hyloLabel}}"><img src="/assets/hylo-merkaba.svg" alt=""><span><b>Meet them on Hylo</b><small>Opens their Hylo profile, where you can send a message</small></span></a></sc-if>
 <button class="hreport" onClick="{{h.report}}">{{h.reportLabel}}</button>
 </div>
 <sc-if value="{{h.reporting}}" hint-placeholder-val="{{ false }}">
@@ -266,7 +271,7 @@ class Component extends DCLogic {
             tilt: i % 2 ? 'tr' : 'tl', bg: BG[i % BG.length], name: h.display_name, place: h.place || '', hasPlace: !!h.place,
             working: h.working_on, invite: h.invitation || '', hasInvite: !!h.invitation,
             tags: (h.themes || []).filter(function (k) { return LABEL[k]; }).map(function (k) { return { label: LABEL[k] }; }), hasTags: (h.themes || []).some(function (k) { return LABEL[k]; }),
-            hylo: hylo, hasHylo: !!hylo, hyloLabel: 'Open ' + h.display_name + '’s profile on Hylo (opens in a new tab)',
+            hylo: hylo, hasHylo: !!hylo, hyloLabel: 'Meet ' + h.display_name + ' on Hylo: opens their Hylo profile, where you can send a message (opens in a new tab)',
             reportLabel: s.reported[id] ? 'Concern sent' : 'Raise a concern', reporting: rep && !s.reported[id], reported: !!s.reported[id], rid: 'r' + i,
             report: function () { if (self.state.reported[id]) { return; } self.setState({ reporting: rep ? '' : id, open: id }); },
             typeReason: function (e) { self.state.reasons[id] = e && e.target ? e.target.value : ''; },
