@@ -181,7 +181,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 
 <sc-if value="{{noBoat}}" hint-placeholder-val="{{ true }}">
 <section style="display: flex; flex-direction: column; gap: 20px">
-<sc-if value="{{pending}}" hint-placeholder-val="{{ false }}"><p class="flash">Ready to bring aboard: <b>{{pendingTitle}}</b>. First, choose how your Boat is kept.</p></sc-if>
+<sc-if value="{{pending}}" hint-placeholder-val="{{ false }}"><p class="flash">Ready to bring aboard: <b>{{pendingTitle}}</b>. First, build your Boat. It takes a minute, and it will be waiting aboard.</p></sc-if>
 <sc-if value="{{introMeet}}" hint-placeholder-val="{{ true }}">
 <div class="intro">
 <div class="kick">Before you build</div>
@@ -302,6 +302,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <section id="tending" class="torn tr panel" style="background: #DCE6D2">
 <div class="k">What you’re tending</div>
 <h2 class="h2 dark">Practices you are staying with</h2>
+<p class="p">Try a practice out in the world, then come back and add a line about what you noticed. These lines are your log, and your Boat gathers its keepsakes from them.</p>
 <sc-for list="{{tending}}" as="t" hint-placeholder-count="1">
 <article class="tend">
 <div class="k">{{t.kind}}</div>
