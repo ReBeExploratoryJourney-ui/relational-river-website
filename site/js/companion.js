@@ -31,7 +31,7 @@
     '.rc-boat{display:flex;align-items:center;gap:8px;min-height:52px;padding:4px 16px 4px 6px;background:rgba(14,30,58,.9);color:#EFE6D2;border:1.5px solid rgba(159,211,220,.55);border-radius:28px 34px 26px 36px;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.35);text-align:left}' +
     '.rc-boat:hover{border-color:#9FD3DC}' +
     '.rc-boat:focus-visible,.rc-menu a:focus-visible,.rc-menu button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}' +
-    '.rc-art{width:58px;height:42px;display:block;flex:0 0 58px}' +
+    '.rc-art{width:64px;height:46px;display:block;flex:0 0 64px;border-radius:50%;background:radial-gradient(ellipse at 50% 58%,rgba(239,230,210,.3),rgba(239,230,210,0) 70%)}' +
     '.rc-art svg{display:block;width:100%;height:100%;overflow:visible}' +
     '@keyframes rcbob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-2px) rotate(-1.5deg)}}' +
     '.rc-art svg{animation:rcbob 4.2s ease-in-out infinite}' +

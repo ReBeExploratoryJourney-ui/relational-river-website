@@ -55,7 +55,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .kick{font-size:14px;letter-spacing:0.12em;text-transform:uppercase;color:#9FD3DC}
 .h1{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:52px;letter-spacing:-0.03em;line-height:1}
 .lede{margin:0;font-size:19px;line-height:1.55;max-width:640px}
-.boatart{width:300px;max-width:100%;height:auto;flex:0 1 300px}
+.boatart{width:300px;max-width:100%;height:auto;flex:0 1 300px;background:radial-gradient(ellipse at 50% 58%,rgba(239,230,210,.2),rgba(239,230,210,0) 68%);border-radius:44% 50% 40% 46%}
 .h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:32px;letter-spacing:-0.02em;line-height:1.1}
 .h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:22px;line-height:1.2}
 .h3.sm{font-size:19px}
@@ -85,6 +85,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .sbtn{line-height:1.2;box-sizing:border-box;font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:#FBF7EF;border:1.5px solid #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 16px;min-height:44px;cursor:pointer;display:inline-flex;align-items:center}
 .sbtn:hover{background:#EFE6D6}
+.deckplan{display:flex;flex-wrap:wrap;gap:2px 16px;align-items:center;margin-top:-14px}
+.deckplan span{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#C9CCD6}
+.deckplan a{font-size:15px;min-height:44px;display:inline-flex;align-items:center;color:#EDEDED;text-underline-offset:5px;text-decoration-color:#9FD3DC}
 .intro{display:flex;flex-direction:column;gap:18px}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
 .tile{font-family:Jost,sans-serif;text-align:left;color:#2F2B28;border:none;padding:24px 22px;min-height:140px;cursor:pointer;display:flex;flex-direction:column;gap:8px;justify-content:flex-start}
@@ -260,6 +263,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 
 <sc-if value="{{hasBoat}}" hint-placeholder-val="{{ false }}">
 <p class="p light" style="margin-top: -18px">{{sinceLine}}</p>
+<nav class="deckplan" aria-label="Aboard your Boat"><span>Aboard:</span><a href="#look">Its look and keepsakes</a><a href="#tending">Practices</a><a href="#gathered">Brought aboard</a><a href="#constellation">Your “we”</a><a href="#lunar">Moon</a><a href="#voyage">Set sail</a><a href="#logbook">Logbook</a><a href="#harbour">Harbour</a><a href="#keeping">How it is kept</a></nav>
 <section class="deck">
 <article class="torn tl card" style="background: #E3D2F7">
 <div class="k">What comes round · {{roundKicker}}</div>
@@ -286,93 +290,6 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div></div>
 <div class="row"><button class="sbtn" aria-expanded="{{repaintAttr}}" onClick="{{repaintToggle}}">{{repaintLabel}}</button></div>
 <sc-if value="{{repaintOpen}}" hint-placeholder-val="{{ false }}"><div class="lookgrid" role="group" aria-label="Repaint your Boat"><sc-for list="{{repaintLooks}}" as="o" hint-placeholder-count="13"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}"><img src="{{o.src}}" alt="">{{o.name}}</button></sc-for></div></sc-if>
-</section>
-
-<sc-if value="{{hasOfferings}}" hint-placeholder-val="{{ false }}">
-<section id="offerings" class="torn tr panel" style="background: #E6E2F2">
-<div class="k">Your offerings to the Well</div>
-<h2 class="h2 dark">Kept safely aboard</h2>
-<p class="p">The private keys to what you have poured into the Well. Open an offering to read it, or to withdraw it from the Well.</p>
-<ul class="list" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px"><sc-for list="{{offerings}}" as="o" hint-placeholder-count="1"><li style="display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: center"><span style="flex: 1 1 260px"><b>{{o.title}}</b> <span class="minor">· poured {{o.when}}</span></span><a href="{{o.href}}" class="lnk">Open your offering</a><button class="quiet" onClick="{{o.forget}}">Let go of this key</button></li></sc-for></ul>
-<p class="p" style="font-size: 15px">Letting go of a key only removes it from your Boat. The offering stays in the Well until you withdraw it.</p>
-</section>
-</sc-if>
-
-<section id="voyage" class="torn tr panel" style="background: #CFE1E4">
-<div class="k">Launch your Boat</div>
-<h2 class="h2 dark">Set sail on the River</h2>
-<p class="p">Your Boat can sail the main River through the waters you have visited, with Raven alongside, offering a little reflection on your journey so far and a few gentle ideas for where you might go next.</p>
-<p class="p" style="font-style: italic">{{wakeLine}}</p>
-<div class="row"><a href="Welcome.dc.html?voyage=1" class="go tornbtn" style="background: #F5EEE1">Launch your Boat</a></div>
-<p class="p" style="font-size: 15px">To sail with you, your Boat remembers which waters you visit, one mark per water each day, and keeps a logbook of the films, talks, readings and offerings you open from the River. This stays inside your Boat and nowhere else, and nothing you do on other websites is ever seen.</p>
-<div class="row"><button class="sbtn" onClick="{{wakeToggle}}">{{wakeToggleLabel}}</button><button class="quiet" onClick="{{wakeClear}}">Clear your wake</button></div>
-</section>
-
-<section id="logbook" class="torn tl panel" style="background: #FBF7EF">
-<div class="k">Your logbook</div>
-<h2 class="h2 dark">What you have opened along the way</h2>
-<p class="p">Films, talks, readings and offerings you have opened from the River, most recent first, so you can find your way back to them.</p>
-<sc-if value="{{logEmpty}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">{{logEmptyText}}</p></sc-if>
-<sc-if value="{{logMany}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 6px; max-width: 420px"><label class="alabel" for="logFind">Find something in your logbook</label><input id="logFind" class="field" type="search" maxlength="60" value="{{logQuery}}" onChange="{{logType}}" placeholder="A word from the title"></div></sc-if>
-<div style="display: flex; flex-direction: column; gap: 12px">
-<sc-for list="{{logItems}}" as="l" hint-placeholder-count="3">
-<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; justify-content: space-between; border-bottom: 1.5px dashed #C9BFB2; padding-bottom: 10px">
-<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 360px">
-<a href="{{l.href}}" target="_blank" rel="noopener" class="lnk" style="min-height: 0">{{l.title}}</a>
-<span style="font-size: 14px; font-style: italic">{{l.meta}}</span>
-</div>
-<button class="quiet" onClick="{{l.drop}}">{{l.dropLabel}}</button>
-</div>
-</sc-for>
-</div>
-<sc-if value="{{logMore}}" hint-placeholder-val="{{ false }}"><button class="sbtn" onClick="{{logShowAll}}" style="align-self: flex-start">{{logMoreLabel}}</button></sc-if>
-<sc-if value="{{logHas}}" hint-placeholder-val="{{ false }}"><div class="row"><button class="quiet" onClick="{{logClear}}">Clear your logbook</button></div></sc-if>
-</section>
-
-<section id="harbour" class="torn tl panel" style="background: #F5E3B0">
-<div class="k">The Harbour</div>
-<h2 class="h2 dark">Moor your Boat in the Harbour</h2>
-<p class="p">The Harbour is where Boats are moored by people open to connecting and collaborating, especially if you are working on something and would welcome others into the process. Your Harbour card shows only what you write here. Nothing else in your Boat is shared.</p>
-<sc-if value="{{hbNeedsAccount}}" hint-placeholder-val="{{ false }}"><p class="p">To moor in the Harbour, first keep your Boat with your IRB account, so your card is yours to change or take down from any device.</p><div class="row"><a href="#keeping" class="lnk">Keep your Boat with your email</a><a href="Harbour.dc.html" class="lnk">Visit the Harbour</a></div></sc-if>
-<sc-if value="{{hbLoading}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">Checking the Harbour…</p></sc-if>
-<sc-if value="{{hbReady}}" hint-placeholder-val="{{ false }}">
-<sc-if value="{{hbMoored}}" hint-placeholder-val="{{ false }}"><p class="flash">{{hbStatus}}</p></sc-if>
-<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbName">Name on your card</label><input id="hbName" class="field" type="text" maxlength="60" value="{{hbName}}" onChange="{{hbTypeName}}" placeholder="Your name, or your Boat’s name"></div>
-<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbWorking">What you are working on</label><textarea id="hbWorking" class="field" rows="3" maxlength="400" value="{{hbWorking}}" onChange="{{hbTypeWorking}}" placeholder="A seed library for our valley, a podcast about rivers, a grief circle at my school…"></textarea></div>
-<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbInvite">How others could join in (optional)</label><textarea id="hbInvite" class="field" rows="2" maxlength="400" value="{{hbInvite}}" onChange="{{hbTypeInvite}}" placeholder="Looking for a designer, fellow gardeners nearby, or anyone who loves rivers"></textarea></div>
-<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbPlace">Where, roughly (optional)</label><input id="hbPlace" class="field" style="max-width: 420px" type="text" maxlength="80" value="{{hbPlace}}" onChange="{{hbTypePlace}}" placeholder="A town, a valley, a bioregion, or online"></div>
-<div style="display: flex; flex-direction: column; gap: 8px"><div class="alabel" id="hbThemesLabel">Themes (choose up to three)</div><div class="row" role="group" aria-labelledby="hbThemesLabel"><sc-for list="{{hbThemes}}" as="t" hint-placeholder-count="8"><button class="{{t.cls}}" aria-pressed="{{t.on}}" onClick="{{t.pick}}">{{t.label}}</button></sc-for></div></div>
-<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbHylo">Your Hylo profile (optional)</label><input id="hbHylo" class="field" type="url" inputmode="url" maxlength="300" value="{{hbHylo}}" onChange="{{hbTypeHylo}}" placeholder="https://www.hylo.com/members/…">
-<p class="p" style="font-size: 15px; margin: 0">On Hylo, open your profile and copy the address from your browser’s address bar. On your Harbour card it becomes the Hylo icon, which opens your profile so people can reach you there.</p></div>
-<button class="{{hbAgreeCls}}" aria-pressed="{{hbAgreeOn}}" onClick="{{hbAgree}}" style="align-self: flex-start">I will moor with care, following the Harbour’s care agreements</button>
-<a href="Harbour.dc.html#care" class="lnk" style="margin-top: -6px">Read the care agreements</a>
-<sc-if value="{{hbMsg}}" hint-placeholder-val="{{ false }}"><p class="p" role="status" style="font-weight: 600">{{hbMsg}}</p></sc-if>
-<div class="row"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{hbSave}}">{{hbSaveLabel}}</button><sc-if value="{{hbMoored}}" hint-placeholder-val="{{ false }}"><button class="quiet" onClick="{{hbLeave}}">Leave the Harbour</button></sc-if><a href="Harbour.dc.html" class="lnk">Visit the Harbour</a></div>
-</sc-if>
-</section>
-
-<section id="began" class="torn tl panel" style="background: #FBF7EF">
-<div class="k">Where you began</div>
-<h2 class="h2 dark">Your answers at the Source</h2>
-<sc-if value="{{hasBegan}}" hint-placeholder-val="{{ false }}">
-<p class="p minor">Kept on {{beganDate}}</p>
-<div class="answers">
-<div><div class="alabel">How the world felt</div><div class="tags"><sc-for list="{{beganFeel}}" as="a" hint-placeholder-count="2"><span class="tag">{{a}}</span></sc-for></div></div>
-<div><div class="alabel">Beings you feel close to</div><div class="tags"><sc-for list="{{beganLove}}" as="a" hint-placeholder-count="2"><span class="tag">{{a}}</span></sc-for></div></div>
-<div><div class="alabel">How you like to take things in</div><div class="tags"><sc-for list="{{beganWay}}" as="a" hint-placeholder-count="2"><span class="tag">{{a}}</span></sc-for></div></div>
-</div>
-<sc-if value="{{hasEarlier}}" hint-placeholder-val="{{ false }}">
-<details class="earlier"><summary>Earlier answers ({{earlierCount}})</summary>
-<ul><sc-for list="{{earlier}}" as="e" hint-placeholder-count="2"><li><b>{{e.date}}</b> · {{e.summary}}</li></sc-for></ul>
-</details>
-</sc-if>
-<p class="p">Your answers will change, and that is part of the journey. Each time you return to the Source and keep your answers, the earlier ones stay here too.</p>
-<div><a href="Main.dc.html" class="go tornbtn" style="background: #CFE1E4">Return to the Source</a></div>
-</sc-if>
-<sc-if value="{{noBegan}}" hint-placeholder-val="{{ true }}">
-<p class="p">A few gentle questions help you find a way in. When you answer them, you can keep your answers here and see how they change over time.</p>
-<div><a href="Main.dc.html" class="go tornbtn" style="background: #CFE1E4">Begin at the Source</a></div>
-</sc-if>
 </section>
 
 <section id="tending" class="torn tr panel" style="background: #DCE6D2">
@@ -403,6 +320,51 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="tags"><sc-for list="{{suggestions}}" as="sg" hint-placeholder-count="3"><button class="chip" onClick="{{sg.add}}">{{sg.title}}</button></sc-for></div>
 <a href="Streams.dc.html" class="lnk">Find more in the Streams</a>
 </div>
+</section>
+
+<section id="gathered" class="torn tr panel" style="background: #CFE1E4">
+<div class="k">Gathered along the way</div>
+<h2 class="h2 dark">What you have brought aboard</h2>
+<sc-if value="{{hasGathered}}" hint-placeholder-val="{{ false }}">
+<div class="gathered"><sc-for list="{{gathered}}" as="g" hint-placeholder-count="2">
+<article class="gitem">
+<div class="k">{{g.kind}}</div>
+<h3 class="h3 sm">{{g.title}}</h3>
+<sc-if value="{{g.hasBy}}" hint-placeholder-val="{{ false }}"><div class="minor">{{g.by}}</div></sc-if>
+<sc-if value="{{g.hasCloses}}" hint-placeholder-val="{{ false }}"><div class="minor"><b>{{g.closes}}</b></div></sc-if>
+<div class="row"><a href="{{g.href}}" class="lnk">Open</a><button class="quiet" onClick="{{g.remove}}">Let go</button></div>
+</article>
+</sc-for></div>
+</sc-if>
+<sc-if value="{{noGathered}}" hint-placeholder-val="{{ true }}">
+<p class="p">As you explore the River, look for <b>Bring aboard</b> on springs, practices, circles and projects. They gather here, ready for when you are.</p>
+<div class="row"><a href="Springs.dc.html" class="lnk">Springs</a><a href="Lakes.dc.html" class="lnk">Lakes</a><a href="Ocean.dc.html" class="lnk">Ocean</a></div>
+</sc-if>
+</section>
+
+<section id="constellation" class="torn tl panel" style="background: #FBF7EF">
+<div class="k">Your constellation</div>
+<h2 class="h2 dark">Who is in your “we”</h2>
+<p class="p">The Beings, places, foods, waters, ancestors and people you belong with. Add whoever comes to mind. It grows over time, and each new Moon is a good moment to look again.</p>
+<div class="constgrid">
+<svg class="const" viewBox="-30 0 460 360" role="img" aria-label="{{constAria}}">
+<sc-for list="{{stars}}" as="s" hint-placeholder-count="3"><path d="{{s.line}}" stroke="#8C7FB8" stroke-width="1.2" fill="none"></path></sc-for>
+<sc-for list="{{stars}}" as="s" hint-placeholder-count="3"><circle cx="{{s.x}}" cy="{{s.y}}" r="11" fill="{{s.fill}}" stroke="#5B4A8B" stroke-width="1.5"></circle><text x="{{s.tx}}" y="{{s.ty}}" text-anchor="{{s.anchor}}" font-family="Jost, sans-serif" font-size="15" fill="#2F2B28">{{s.short}}</text></sc-for>
+<circle cx="200" cy="180" r="20" fill="#5B4A8B"></circle>
+<text x="200" y="185" text-anchor="middle" font-family="Jost, sans-serif" font-size="14" font-weight="600" fill="#FBF7EF">you</text>
+</svg>
+<div class="constform">
+<label class="alabel" for="starName">A Being, place or person</label>
+<input id="starName" class="field" type="text" maxlength="40" value="{{starName}}" onChange="{{typeStar}}" placeholder="The old oak by the creek">
+<div class="alabel">They are…</div>
+<div class="tags"><sc-for list="{{kinds}}" as="kd" hint-placeholder-count="7"><button class="{{kd.cls}}" aria-pressed="{{kd.on}}" onClick="{{kd.pick}}"><span class="dot" style="background: {{kd.fill}}"></span>{{kd.label}}</button></sc-for></div>
+<div><button class="go tornbtn" style="background: #E3D2F7" onClick="{{addStar}}">Add to your constellation</button></div>
+<sc-if value="{{hasStars}}" hint-placeholder-val="{{ false }}">
+<ul class="starlist"><sc-for list="{{starList}}" as="s" hint-placeholder-count="3"><li><span class="dot" style="background: {{s.fill}}"></span><span class="sname">{{s.name}}<span class="minor sk">{{s.kindLabel}}</span></span><button class="quiet" aria-label="{{s.removeLabel}}" onClick="{{s.remove}}">let go</button></li></sc-for></ul>
+</sc-if>
+</div>
+</div>
+<p class="p minor">Inspired by Relational ID, an exploration from the Institute of Relational Being. <a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality">Read about Relational ID</a></p>
 </section>
 
 <section id="lunar" class="torn tl panel" style="background: #E6E2F2">
@@ -458,48 +420,90 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </sc-if>
 </section>
 
-<section id="constellation" class="torn tl panel" style="background: #FBF7EF">
-<div class="k">Your constellation</div>
-<h2 class="h2 dark">Who is in your “we”</h2>
-<p class="p">The Beings, places, foods, waters, ancestors and people you belong with. Add whoever comes to mind. It grows over time, and each new Moon is a good moment to look again.</p>
-<div class="constgrid">
-<svg class="const" viewBox="-30 0 460 360" role="img" aria-label="{{constAria}}">
-<sc-for list="{{stars}}" as="s" hint-placeholder-count="3"><path d="{{s.line}}" stroke="#8C7FB8" stroke-width="1.2" fill="none"></path></sc-for>
-<sc-for list="{{stars}}" as="s" hint-placeholder-count="3"><circle cx="{{s.x}}" cy="{{s.y}}" r="11" fill="{{s.fill}}" stroke="#5B4A8B" stroke-width="1.5"></circle><text x="{{s.tx}}" y="{{s.ty}}" text-anchor="{{s.anchor}}" font-family="Jost, sans-serif" font-size="15" fill="#2F2B28">{{s.short}}</text></sc-for>
-<circle cx="200" cy="180" r="20" fill="#5B4A8B"></circle>
-<text x="200" y="185" text-anchor="middle" font-family="Jost, sans-serif" font-size="14" font-weight="600" fill="#FBF7EF">you</text>
-</svg>
-<div class="constform">
-<label class="alabel" for="starName">A Being, place or person</label>
-<input id="starName" class="field" type="text" maxlength="40" value="{{starName}}" onChange="{{typeStar}}" placeholder="The old oak by the creek">
-<div class="alabel">They are…</div>
-<div class="tags"><sc-for list="{{kinds}}" as="kd" hint-placeholder-count="7"><button class="{{kd.cls}}" aria-pressed="{{kd.on}}" onClick="{{kd.pick}}"><span class="dot" style="background: {{kd.fill}}"></span>{{kd.label}}</button></sc-for></div>
-<div><button class="go tornbtn" style="background: #E3D2F7" onClick="{{addStar}}">Add to your constellation</button></div>
-<sc-if value="{{hasStars}}" hint-placeholder-val="{{ false }}">
-<ul class="starlist"><sc-for list="{{starList}}" as="s" hint-placeholder-count="3"><li><span class="dot" style="background: {{s.fill}}"></span><span class="sname">{{s.name}}<span class="minor sk">{{s.kindLabel}}</span></span><button class="quiet" aria-label="{{s.removeLabel}}" onClick="{{s.remove}}">let go</button></li></sc-for></ul>
+<section id="began" class="torn tl panel" style="background: #FBF7EF">
+<div class="k">Where you began</div>
+<h2 class="h2 dark">Your answers at the Source</h2>
+<sc-if value="{{hasBegan}}" hint-placeholder-val="{{ false }}">
+<p class="p minor">Kept on {{beganDate}}</p>
+<div class="answers">
+<div><div class="alabel">How the world felt</div><div class="tags"><sc-for list="{{beganFeel}}" as="a" hint-placeholder-count="2"><span class="tag">{{a}}</span></sc-for></div></div>
+<div><div class="alabel">Beings you feel close to</div><div class="tags"><sc-for list="{{beganLove}}" as="a" hint-placeholder-count="2"><span class="tag">{{a}}</span></sc-for></div></div>
+<div><div class="alabel">How you like to take things in</div><div class="tags"><sc-for list="{{beganWay}}" as="a" hint-placeholder-count="2"><span class="tag">{{a}}</span></sc-for></div></div>
+</div>
+<sc-if value="{{hasEarlier}}" hint-placeholder-val="{{ false }}">
+<details class="earlier"><summary>Earlier answers ({{earlierCount}})</summary>
+<ul><sc-for list="{{earlier}}" as="e" hint-placeholder-count="2"><li><b>{{e.date}}</b> · {{e.summary}}</li></sc-for></ul>
+</details>
 </sc-if>
-</div>
-</div>
-<p class="p minor">Inspired by Relational ID, an exploration from the Institute of Relational Being. <a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality">Read about Relational ID</a></p>
+<p class="p">Your answers will change, and that is part of the journey. Each time you return to the Source and keep your answers, the earlier ones stay here too.</p>
+<div><a href="Main.dc.html" class="go tornbtn" style="background: #CFE1E4">Return to the Source</a></div>
+</sc-if>
+<sc-if value="{{noBegan}}" hint-placeholder-val="{{ true }}">
+<p class="p">A few gentle questions help you find a way in. When you answer them, you can keep your answers here and see how they change over time.</p>
+<div><a href="Main.dc.html" class="go tornbtn" style="background: #CFE1E4">Begin at the Source</a></div>
+</sc-if>
 </section>
 
-<section id="gathered" class="torn tr panel" style="background: #CFE1E4">
-<div class="k">Gathered along the way</div>
-<h2 class="h2 dark">What you have brought aboard</h2>
-<sc-if value="{{hasGathered}}" hint-placeholder-val="{{ false }}">
-<div class="gathered"><sc-for list="{{gathered}}" as="g" hint-placeholder-count="2">
-<article class="gitem">
-<div class="k">{{g.kind}}</div>
-<h3 class="h3 sm">{{g.title}}</h3>
-<sc-if value="{{g.hasBy}}" hint-placeholder-val="{{ false }}"><div class="minor">{{g.by}}</div></sc-if>
-<sc-if value="{{g.hasCloses}}" hint-placeholder-val="{{ false }}"><div class="minor"><b>{{g.closes}}</b></div></sc-if>
-<div class="row"><a href="{{g.href}}" class="lnk">Open</a><button class="quiet" onClick="{{g.remove}}">Let go</button></div>
-</article>
-</sc-for></div>
+<section id="voyage" class="torn tr panel" style="background: #CFE1E4">
+<div class="k">Launch your Boat</div>
+<h2 class="h2 dark">Set sail on the River</h2>
+<p class="p">Your Boat can sail the main River through the waters you have visited, with Raven alongside, offering a little reflection on your journey so far and a few gentle ideas for where you might go next.</p>
+<p class="p" style="font-style: italic">{{wakeLine}}</p>
+<div class="row"><a href="Welcome.dc.html?voyage=1" class="go tornbtn" style="background: #F5EEE1">Launch your Boat</a></div>
+<p class="p" style="font-size: 15px">To sail with you, your Boat remembers which waters you visit, one mark per water each day, and keeps a logbook of the films, talks, readings and offerings you open from the River. This stays inside your Boat and nowhere else, and nothing you do on other websites is ever seen.</p>
+<div class="row"><button class="sbtn" onClick="{{wakeToggle}}">{{wakeToggleLabel}}</button><button class="quiet" onClick="{{wakeClear}}">Clear your wake</button></div>
+</section>
+
+<section id="logbook" class="torn tl panel" style="background: #FBF7EF">
+<div class="k">Your logbook</div>
+<h2 class="h2 dark">What you have opened along the way</h2>
+<p class="p">Films, talks, readings and offerings you have opened from the River, most recent first, so you can find your way back to them.</p>
+<sc-if value="{{logEmpty}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">{{logEmptyText}}</p></sc-if>
+<sc-if value="{{logMany}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 6px; max-width: 420px"><label class="alabel" for="logFind">Find something in your logbook</label><input id="logFind" class="field" type="search" maxlength="60" value="{{logQuery}}" onChange="{{logType}}" placeholder="A word from the title"></div></sc-if>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{logItems}}" as="l" hint-placeholder-count="3">
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; justify-content: space-between; border-bottom: 1.5px dashed #C9BFB2; padding-bottom: 10px">
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 360px">
+<a href="{{l.href}}" target="_blank" rel="noopener" class="lnk" style="min-height: 0">{{l.title}}</a>
+<span style="font-size: 14px; font-style: italic">{{l.meta}}</span>
+</div>
+<button class="quiet" onClick="{{l.drop}}">{{l.dropLabel}}</button>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{logMore}}" hint-placeholder-val="{{ false }}"><button class="sbtn" onClick="{{logShowAll}}" style="align-self: flex-start">{{logMoreLabel}}</button></sc-if>
+<sc-if value="{{logHas}}" hint-placeholder-val="{{ false }}"><div class="row"><button class="quiet" onClick="{{logClear}}">Clear your logbook</button></div></sc-if>
+</section>
+
+<sc-if value="{{hasOfferings}}" hint-placeholder-val="{{ false }}">
+<section id="offerings" class="torn tr panel" style="background: #E6E2F2">
+<div class="k">Your offerings to the Well</div>
+<h2 class="h2 dark">Kept safely aboard</h2>
+<p class="p">The private keys to what you have poured into the Well. Open an offering to read it, or to withdraw it from the Well.</p>
+<ul class="list" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px"><sc-for list="{{offerings}}" as="o" hint-placeholder-count="1"><li style="display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: center"><span style="flex: 1 1 260px"><b>{{o.title}}</b> <span class="minor">· poured {{o.when}}</span></span><a href="{{o.href}}" class="lnk">Open your offering</a><button class="quiet" onClick="{{o.forget}}">Let go of this key</button></li></sc-for></ul>
+<p class="p" style="font-size: 15px">Letting go of a key only removes it from your Boat. The offering stays in the Well until you withdraw it.</p>
+</section>
 </sc-if>
-<sc-if value="{{noGathered}}" hint-placeholder-val="{{ true }}">
-<p class="p">As you explore the River, look for <b>Bring aboard</b> on springs, practices, circles and projects. They gather here, ready for when you are.</p>
-<div class="row"><a href="Springs.dc.html" class="lnk">Springs</a><a href="Lakes.dc.html" class="lnk">Lakes</a><a href="Ocean.dc.html" class="lnk">Ocean</a></div>
+
+<section id="harbour" class="torn tl panel" style="background: #F5E3B0">
+<div class="k">The Harbour</div>
+<h2 class="h2 dark">Moor your Boat in the Harbour</h2>
+<p class="p">The Harbour is where Boats are moored by people open to connecting and collaborating, especially if you are working on something and would welcome others into the process. Your Harbour card shows only what you write here. Nothing else in your Boat is shared.</p>
+<sc-if value="{{hbNeedsAccount}}" hint-placeholder-val="{{ false }}"><p class="p">To moor in the Harbour, first keep your Boat with your IRB account, so your card is yours to change or take down from any device.</p><div class="row"><a href="#keeping" class="lnk">Keep your Boat with your email</a><a href="Harbour.dc.html" class="lnk">Visit the Harbour</a></div></sc-if>
+<sc-if value="{{hbLoading}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">Checking the Harbour…</p></sc-if>
+<sc-if value="{{hbReady}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{hbMoored}}" hint-placeholder-val="{{ false }}"><p class="flash">{{hbStatus}}</p></sc-if>
+<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbName">Name on your card</label><input id="hbName" class="field" type="text" maxlength="60" value="{{hbName}}" onChange="{{hbTypeName}}" placeholder="Your name, or your Boat’s name"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbWorking">What you are working on</label><textarea id="hbWorking" class="field" rows="3" maxlength="400" value="{{hbWorking}}" onChange="{{hbTypeWorking}}" placeholder="A seed library for our valley, a podcast about rivers, a grief circle at my school…"></textarea></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbInvite">How others could join in (optional)</label><textarea id="hbInvite" class="field" rows="2" maxlength="400" value="{{hbInvite}}" onChange="{{hbTypeInvite}}" placeholder="Looking for a designer, fellow gardeners nearby, or anyone who loves rivers"></textarea></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbPlace">Where, roughly (optional)</label><input id="hbPlace" class="field" style="max-width: 420px" type="text" maxlength="80" value="{{hbPlace}}" onChange="{{hbTypePlace}}" placeholder="A town, a valley, a bioregion, or online"></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div class="alabel" id="hbThemesLabel">Themes (choose up to three)</div><div class="row" role="group" aria-labelledby="hbThemesLabel"><sc-for list="{{hbThemes}}" as="t" hint-placeholder-count="8"><button class="{{t.cls}}" aria-pressed="{{t.on}}" onClick="{{t.pick}}">{{t.label}}</button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbHylo">Your Hylo profile (optional)</label><input id="hbHylo" class="field" type="url" inputmode="url" maxlength="300" value="{{hbHylo}}" onChange="{{hbTypeHylo}}" placeholder="https://www.hylo.com/members/…">
+<p class="p" style="font-size: 15px; margin: 0">On Hylo, open your profile and copy the address from your browser’s address bar. On your Harbour card it becomes the Hylo icon, which opens your profile so people can reach you there.</p></div>
+<button class="{{hbAgreeCls}}" aria-pressed="{{hbAgreeOn}}" onClick="{{hbAgree}}" style="align-self: flex-start">I will moor with care, following the Harbour’s care agreements</button>
+<a href="Harbour.dc.html#care" class="lnk" style="margin-top: -6px">Read the care agreements</a>
+<sc-if value="{{hbMsg}}" hint-placeholder-val="{{ false }}"><p class="p" role="status" style="font-weight: 600">{{hbMsg}}</p></sc-if>
+<div class="row"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{hbSave}}">{{hbSaveLabel}}</button><sc-if value="{{hbMoored}}" hint-placeholder-val="{{ false }}"><button class="quiet" onClick="{{hbLeave}}">Leave the Harbour</button></sc-if><a href="Harbour.dc.html" class="lnk">Visit the Harbour</a></div>
 </sc-if>
 </section>
 
@@ -668,7 +672,7 @@ class Component extends DCLogic {
     return list === 'tending' ? '“' + it.title + '” is now among the practices you are tending.' : '“' + it.title + '” is now aboard.';
   }
   // ---- dates and turning points ----
-  day(iso) { try { return new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }); } catch (x) { return ''; } }
+  day(iso) { try { var d = new Date(iso); if (isNaN(d.getTime())) { return 'a day not long ago'; } return d.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }); } catch (x) { return ''; } }
   // ---- Moon: age in days since new Moon, and the shape of the lit part ----
   moonAge(ms) { var syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14) / 86400000, d = ms / 86400000; return { age: ((d - ref) % syn + syn) % syn, cycle: Math.floor((d - ref) / syn), syn: syn, ref: ref }; }
   phaseName(age) { return age < 1.4 || age > 28.1 ? 'a new Moon' : age < 6.4 ? 'a waxing crescent' : age < 8.4 ? 'at first quarter' : age < 13.8 ? 'waxing gibbous' : age < 15.8 ? 'full' : age < 21.1 ? 'waning gibbous' : age < 23.1 ? 'at last quarter' : 'a waning crescent'; }
