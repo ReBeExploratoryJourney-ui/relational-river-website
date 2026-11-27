@@ -281,7 +281,7 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname.startsWith('/api/hylo/')) {
-      try { return await hylo(request, url, ctx); } catch (e) { return json({ error: 'upstream' }, 502); }
+      try { return await hylo(request, url, ctx); } catch (e) { return json({ error: 'upstream', detail: String(e && e.message || e).slice(0, 300) }, 502); }
     }
     if (url.pathname.startsWith('/api/inat/')) {
       try { return await inat(request, url, ctx); } catch (e) { return json({ error: 'server' }, 500); }
