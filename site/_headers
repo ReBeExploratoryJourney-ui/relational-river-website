@@ -3,3 +3,5 @@
   Cache-Control: public, max-age=300
 /wyrd-bay/*
   X-Robots-Tag: noindex, nofollow, noarchive
+/scroll/*
+  X-Robots-Tag: noindex, nofollow, noarchive

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · a scroll for you</title>
+<meta name="description" content="You have been sent a scroll: an invitation to the Relational River, and clues to somewhere beyond its fog.">
+<meta property="og:title" content="Relational River · a scroll for you">
+<meta property="og:description" content="You have been sent a scroll: an invitation to the Relational River, and clues to somewhere beyond its fog.">
+<meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<meta name="theme-color" content="#0E2849">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+body{margin:0}
+.sroot{min-height:100vh;background:radial-gradient(ellipse at 50% 20%,#2A2560 0%,#15183F 45%,#0B1428 100%);font-family:Jost,sans-serif;color:#EFE6D2;display:flex;flex-direction:column}
+.sroot a{color:#EFE6D2}
+a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.shead{max-width:900px;width:100%;margin:0 auto;padding:18px 24px;box-sizing:border-box}
+.slogo{display:inline-flex;align-items:center;gap:10px;min-height:44px;text-decoration:none;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:22px}
+.smain{flex:1;max-width:760px;width:100%;margin:0 auto;padding:10px 20px 48px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:18px}
+.skick{margin:0;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:#E8C77A;text-align:center}
+.roller{width:calc(100% + 36px);max-width:720px;height:22px;border-radius:11px;background:linear-gradient(180deg,#8A5E3C 0%,#C79A6B 45%,#6E4A2E 100%);box-shadow:0 6px 14px rgba(0,0,0,.35);position:relative;z-index:2}
+.roller:before,.roller:after{content:"";position:absolute;top:-4px;width:16px;height:30px;border-radius:8px;background:linear-gradient(180deg,#5A3A22,#9C744C,#4A2E1A)}
+.roller:before{left:-10px}.roller:after{right:-10px}
+.rolled{position:relative;display:flex;flex-direction:column;align-items:center;width:min(560px,92vw);margin-top:24px}
+.rolledpaper{width:100%;height:90px;background:#EFE3C6 url(/assets/0aab009eb547b7652846ddf7be52a067.jpg);background-size:520px;background-blend-mode:multiply;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 10px 16px rgba(110,74,46,.35),inset 0 -10px 16px rgba(110,74,46,.35)}
+.rfrom{margin:0;color:#3A2E24;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:18px}
+.seal{position:absolute;left:50%;top:50%;transform:translate(-50%,-38%);width:92px;height:92px;border:none;background:transparent;padding:0;cursor:pointer;z-index:3;transition:transform .3s ease}
+.seal:hover{transform:translate(-50%,-38%) rotate(-6deg) scale(1.05)}
+.seal svg{display:block;width:100%;height:100%}
+.sealhint{margin:70px 0 0;font-style:italic;font-size:16px;color:#C9CCD6}
+.scroll{display:flex;flex-direction:column;align-items:center;width:100%}
+.paper{width:100%;box-sizing:border-box;background:#F3E8CE url(/assets/0aab009eb547b7652846ddf7be52a067.jpg);background-size:520px;background-blend-mode:multiply;color:#2F2B28;padding:40px 44px 36px;display:flex;flex-direction:column;gap:14px;overflow:hidden;animation:unroll 2.4s cubic-bezier(.3,.6,.2,1) both;box-shadow:inset 0 12px 18px -10px rgba(110,74,46,.5),inset 0 -12px 18px -10px rgba(110,74,46,.5)}
+@keyframes unroll{from{max-height:0;padding-top:0;padding-bottom:0;opacity:.6}to{max-height:3200px;opacity:1}}
+.paper .sbtn,.paper a{color:#2F2B28}
+.sh1{margin:0;text-align:center;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:40px;letter-spacing:-.02em}
+.sh1:focus{outline:none}
+.sfrom{margin:0;text-align:center;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px}
+.snote{margin:4px 0;padding:12px 18px;border-left:3px solid #B98B5E;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;white-space:pre-line}
+.sp{margin:0;font-size:17px;line-height:1.65}
+.sgo{display:flex;justify-content:center;margin:6px 0}
+.sbtn{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;background:#CFE1E4;border:1.5px solid #2F2B28;border-radius:14px 18px 12px 16px;padding:12px 24px;min-height:48px;display:inline-flex;align-items:center;text-decoration:none}
+.sorn{text-align:center;color:#8C6E4E;font-size:20px;letter-spacing:.3em}
+.clues{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
+.clues li{display:flex;gap:14px;align-items:flex-start;font-family:'Averia Serif Libre',Georgia,serif;font-size:18px;line-height:1.55;animation:cluein .9s ease both}
+@keyframes cluein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cno{flex:0 0 32px;height:32px;border-radius:46% 54% 50% 50%/55% 45% 55% 45%;background:#E8D9B5;border:1.5px solid #8C6E4E;display:inline-flex;align-items:center;justify-content:center;font-family:Jost,sans-serif;font-size:15px;font-weight:600}
+.crow{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+.cbtn{font-family:Jost,sans-serif;font-size:16px;font-weight:600;color:#2F2B28;background:#F5E3B0;border:1.5px solid #2F2B28;border-radius:14px 18px 12px 16px;padding:10px 18px;min-height:44px;cursor:pointer}
+.clink{font-family:Jost,sans-serif;font-size:15px;color:#2F2B28;background:none;border:none;text-decoration:underline;min-height:44px;cursor:pointer;padding:0}
+.swhisper{margin:6px 0 0;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:18px;line-height:1.55;background:rgba(122,46,62,.08);padding:12px 16px;border-radius:14px 18px 12px 16px}
+.swhisper span{font-style:normal;font-family:Jost,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#7A2E3E;margin-right:6px}
+.send{font-style:italic}
+.sfine{margin:10px 0 0;font-size:15px;font-style:italic;text-align:center;color:#5A4632}
+.sfoot{max-width:900px;width:100%;margin:0 auto;padding:20px 24px 32px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:14px;font-style:italic;color:#C9CCD6}
+.sfoot a{min-height:44px;display:inline-flex;align-items:center}
+@media (max-width: 600px){.paper{padding:30px 22px 28px}.sh1{font-size:32px}.roller{width:calc(100% + 16px)}}
+@media (prefers-reduced-motion: reduce){.paper,.clues li{animation:none}.seal{transition:none}}
+</style>
+<style>body{background:#0E2849}</style>
+</head>
+<body>
+<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>
+<template id="rr-template">
+
+<div class="sroot">
+<header class="shead"><a href="/flow" class="slogo"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 44px; height: 44px; display: block">Relational River</a></header>
+<main class="smain">
+<p class="skick">{{kicker}}</p>
+
+<sc-if value="{{sealed}}" hint-placeholder-val="{{ true }}">
+<div class="rolled">
+<div class="roller"></div>
+<div class="rolledpaper"><sc-if value="{{hasFrom}}" hint-placeholder-val="{{ false }}"><p class="rfrom">{{fromLine}}</p></sc-if></div>
+<div class="roller"></div>
+<button class="seal" onClick="{{openScroll}}" aria-label="Break the seal and unroll the scroll"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="42" cy="44" r="35" fill="#000000" opacity="0.28"></circle><path d="M40 5 C 52 4, 62 9, 69 17 C 77 26, 76 37, 75 46 C 74 57, 68 66, 58 72 C 48 77, 35 77, 25 72 C 14 66, 6 56, 5 44 C 4 31, 9 19, 19 12 C 25 7, 32 5, 40 5 Z" fill="#7A2E3E"></path><path d="M40 13 C 54 13, 66 24, 66 39 C 66 53, 55 66, 40 66 C 25 66, 14 54, 14 40 C 14 25, 26 13, 40 13 Z" fill="none" stroke="#5A1F2C" stroke-width="2"></path><path d="M40 22 C 52 22, 58 31, 57 40 C 56 49, 48 54, 40 53 C 33 52, 29 46, 30 40 C 31 35, 36 32, 41 33 C 45 34, 46 38, 44 41" fill="none" stroke="#E8C77A" stroke-width="3" stroke-linecap="round"></path><path d="M18 60 C 26 57, 32 63, 40 60 S 54 57, 62 60" fill="none" stroke="#E8C77A" stroke-width="2" stroke-linecap="round" opacity="0.7"></path></svg></button>
+<p class="sealhint">Touch the seal to open</p>
+</div>
+</sc-if>
+
+<sc-if value="{{opened}}" hint-placeholder-val="{{ false }}">
+<div class="scroll">
+<div class="roller"></div>
+<article class="paper" aria-labelledby="sh1">
+<h1 id="sh1" class="sh1" tabindex="-1">A scroll, for you</h1>
+<sc-if value="{{hasFrom}}" hint-placeholder-val="{{ false }}"><p class="sfrom">{{fromLine}}</p></sc-if>
+<sc-if value="{{hasNote}}" hint-placeholder-val="{{ false }}"><blockquote class="snote">{{note}}</blockquote></sc-if>
+<p class="sp">You are invited to the <b>Relational River</b>: a map of waters for remembering that we belong to the living world. Along it are small practices, circles, films and projects to wander, slowly, and often away from the screen, among the trees, rivers, birds and people you share your days with.</p>
+<div class="sgo"><a href="/flow" class="sbtn">Enter the River</a></div>
+<div class="sorn" aria-hidden="true">~ ✦ ~</div>
+<p class="sp">Somewhere past the River’s fog lies a cove called <b>Wyrd Bay</b>, where liminal agents and Wyrd Workers gather, and quest alone or together. It cannot be reached by address alone. If you would like to find it, the clues are below. Unfold them one at a time, or all at once. There is no hurry, and no wrong way to wander.</p>
+<ol class="clues" aria-live="polite"><sc-for list="{{clues}}" as="c" hint-placeholder-count="2"><li><span class="cno">{{c.no}}</span><span>{{c.text}}</span></li></sc-for></ol>
+<sc-if value="{{more}}" hint-placeholder-val="{{ true }}"><div class="crow"><button class="cbtn" onClick="{{unfold}}">{{unfoldLabel}}</button><button class="clink" onClick="{{showAll}}">Show all the clues</button></div></sc-if>
+<sc-if value="{{allShown}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{hasHint}}" hint-placeholder-val="{{ false }}"><p class="swhisper"><span>{{whisperLabel}}</span> {{hint}}</p></sc-if>
+<p class="sp send">That is all a scroll can tell you. The rest is yours to find, and the finding is the point.</p>
+</sc-if>
+<p class="sfine">Whatever you find, step outside sometimes. The River is only a map. The waters are out there.</p>
+</article>
+<div class="roller"></div>
+</div>
+</sc-if>
+</main>
+<footer class="sfoot"><a href="/flow">The Relational River</a><span>An open commons tended by the Institute of Relational Being.</span><a href="/privacy">Privacy</a></footer>
+</div>
+
+</template>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var data = {};
+    try {
+      var m = /[#&]s=([A-Za-z0-9_-]+)/.exec(window.location.hash || '');
+      if (m) { var b64 = m[1].replace(/-/g, '+').replace(/_/g, '/'); while (b64.length % 4) { b64 += '='; } data = JSON.parse(decodeURIComponent(escape(window.atob(b64)))) || {}; }
+    } catch (x) { data = {}; }
+    var str = function (v, n) { return typeof v === 'string' ? v.replace(/\s+$/, '').slice(0, n) : ''; };
+    this.state = { opened: false, shown: 0, from: str(data.f, 40), note: str(data.n, 300), hint: str(data.h, 200) };
+  }
+  renderVals() {
+    var self = this, s = this.state;
+    var CLUES = [
+      'Begin anywhere. The River has no wrong door, though the whole River at a glance is a good place to stand.',
+      'Drift where the water runs deep and quiet: where gifts are poured, where roots drink unseen, where the tides keep time, where water turns back on itself, and where ideas tumble.',
+      'Once you have drifted through three of those waters, something small begins to breathe at the edge of each. It is easy to miss. Touch it gently.',
+      'Each one gives a fragment. Gather all five, from all five waters. Read together, they make one saying.',
+      'Then look to the River’s far edge, where no name is written and something drifts. It will ask you a question.',
+      'Cleverness will not help you there. Answer as honestly as fog would.'
+    ];
+    var still = false; try { still = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (x) {}
+    return {
+      kicker: s.from ? 'A scroll from ' + s.from : 'A scroll has found you',
+      sealed: !s.opened, opened: s.opened,
+      hasFrom: !!s.from, fromLine: 'From ' + s.from,
+      hasNote: !!s.note, note: s.note,
+      openScroll: function () { self.setState({ opened: true }); setTimeout(function () { var h = document.getElementById('sh1'); if (h) { try { h.focus({ preventScroll: true }); } catch (x) {} } }, still ? 30 : 600); },
+      clues: CLUES.slice(0, s.shown).map(function (c, i) { return { no: String(i + 1), text: c }; }),
+      more: s.shown < CLUES.length, allShown: s.shown >= CLUES.length,
+      unfoldLabel: s.shown === 0 ? 'Unfold the first clue' : 'Unfold the next clue',
+      unfold: function () { self.setState({ shown: Math.min(CLUES.length, self.state.shown + 1) }); },
+      showAll: function () { self.setState({ shown: CLUES.length }); },
+      hasHint: !!s.hint, hint: s.hint, whisperLabel: s.from ? 'A whisper from ' + s.from + ':' : 'A whisper:'
+    };
+  }
+}
+</script>
+<script src="/js/boat-sync.js"></script>
+<script src="/js/boat-looks.js"></script>
+<script src="/js/wyrd.js"></script>
+<script src="/js/river-runtime.js"></script>
+</body>
+</html>

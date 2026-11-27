@@ -77,7 +77,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .steps li{margin-bottom:4px}
 .qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:start}
 .qcard{padding:34px 30px 28px;display:flex;flex-direction:column;gap:9px;color:#2F2B28}
-.wordcard,.testcard,.mform{padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.wordcard,.testcard,.mform,.scrollcard{padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
 .toggle{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:transparent;border:1.5px solid #2F2B28;border-radius:10px 14px 10px 12px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
 .aboard{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:rgba(251,247,239,0.55);border:1.5px dashed #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
 .aboard[aria-pressed="true"]{border-style:solid;background:#2F2B28;color:#FBF7EF}
@@ -97,7 +97,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
 .bayfoot{max-width:1160px;margin:0 auto;padding:24px 32px 40px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:14px;font-style:italic;color:#C9CCD6}
 .bayfoot a{min-height:44px;display:inline-flex;align-items:center}
-@media (max-width: 640px){.bayh1{font-size:46px}.bh2{font-size:28px}.wordcard,.testcard,.mform{padding:28px 24px}.baymain{padding:20px 20px 56px}}
+@media (max-width: 640px){.bayh1{font-size:46px}.bh2{font-size:28px}.wordcard,.testcard,.mform,.scrollcard{padding:28px 24px}.baymain{padding:20px 20px 56px}}
 /* the crossing into the Bay */
 .wy-entry{position:fixed;inset:0;z-index:200;overflow:hidden;background:#1A1D45}
 .we-sea{position:absolute;inset:0;background:linear-gradient(180deg,#14163A 0%,#1E2A55 46%,#1C3B4E 58%,#10263A 100%)}
@@ -203,7 +203,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 <p class="note">Nothing here knows the way. That is rather the point.</p>
 </div>
 
-<nav class="baynav" aria-label="In the Bay"><a href="#quests">Quests</a><a href="#flotsam">Flotsam</a><a href="#moorings">Moorings</a><a href="#lantern">The lantern test</a></nav>
+<nav class="baynav" aria-label="In the Bay"><a href="#quests">Quests</a><a href="#flotsam">Flotsam</a><a href="#moorings">Moorings</a><a href="#scrolls">Send a scroll</a><a href="#lantern">The lantern test</a></nav>
 
 <section class="torn tl wordcard" style="background: #D9D3EA">
 <div class="k">A word about a crowded word</div>
@@ -321,6 +321,30 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 </section>
 </section>
 
+<section id="scrolls" class="torn tr scrollcard" style="background: #EDE3CC">
+<div class="k">Scrolls</div>
+<h2 class="h2" style="font-size: 28px">Send a scroll</h2>
+<p class="p">Know someone who might love the River, and might one day find their way here? Seal a scroll for them. It invites them into the Relational River, then offers clues to the Bay, unfolding one at a time, without ever giving the way away.</p>
+<p class="p" style="font-size: 15px">Nothing you write is stored anywhere. It travels only inside the link you send.</p>
+<div class="fld"><label class="alabel" for="scFrom">From (optional)</label><input id="scFrom" class="field" type="text" maxlength="40" value="{{scFrom}}" onChange="{{scTypeFrom}}" placeholder="Your name, or how they know you"></div>
+<div class="fld"><label class="alabel" for="scNote">A few words for them (optional)</label><textarea id="scNote" class="field" rows="3" maxlength="300" value="{{scNote}}" onChange="{{scTypeNote}}" placeholder="I thought of you when I found this…"></textarea></div>
+<div class="fld"><label class="alabel" for="scHint">A whispered hint of your own (optional)</label><input id="scHint" class="field" type="text" maxlength="200" value="{{scHint}}" onChange="{{scTypeHint}}" placeholder="It appears after all the clues. Nudge, but leave the finding to them."></div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{scSeal}}">{{scSealLabel}}</button></div>
+<sc-if value="{{scReady}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 6px">
+<label class="alabel" for="scLink">Your sealed scroll</label>
+<input id="scLink" class="field" type="text" readonly value="{{scLink}}">
+<div style="display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center">
+<sc-if value="{{scCanShare}}" hint-placeholder-val="{{ false }}"><button class="chip on" onClick="{{scShare}}">Send the scroll</button></sc-if>
+<button class="chip" onClick="{{scCopy}}">{{scCopyLabel}}</button>
+<a href="{{scMail}}" class="lnk">Send by email</a>
+<a href="{{scLink}}" class="lnk" target="_blank" rel="noopener">See it as they will</a>
+</div>
+<p class="p" style="font-size: 15px; font-style: italic">Each scroll you seal is your own. Make as many as you like, for as many people as you like.</p>
+</div>
+</sc-if>
+</section>
+
 <p class="note" style="font-size: 17px">The way here stays open for you. Arriving was remembered only in this browser and inside your Boat. When you are ready, the mist will bring you back.</p>
 </main>
 
@@ -334,7 +358,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     var open = !!(window.RiverWyrd && window.RiverWyrd.arrived());
-    this.state = { open: open, scene: '', qOpen: {}, show: 'all', quest: '', list: null, problem: '', reporting: '', reasons: {}, reported: {},
+    this.state = { open: open, scene: '', sc: { from: '', note: '', hint: '', link: '', copied: false }, qOpen: {}, show: 'all', quest: '', list: null, problem: '', reporting: '', reasons: {}, reported: {},
       m: { loaded: false, loading: false, card: null, name: '', thr: '', openTo: 'either', quest: '', hylo: '', agree: false, busy: false, msg: '' } };
   }
   componentDidMount() {
@@ -551,6 +575,32 @@ class Component extends DCLogic {
       rb.wyrdLeave().then(function () { mSet({ busy: false, card: null, agree: false, msg: 'You have cast off. Your card is no longer visible to anyone.' }); return rb.wyrdList(); })
         .then(function (rows) { if (rows) { self.setState({ list: rows }); } }, function (e) { mSet({ busy: false, msg: e.message }); });
     };
+    var sc = s.sc, scSet = function (patch) { var n = {}; for (var k in self.state.sc) { n[k] = self.state.sc[k]; } for (var k2 in patch) { n[k2] = patch[k2]; } self.setState({ sc: n }); };
+    var scText = 'I found something on the Relational River and thought of you. Here is a scroll for you:';
+    out.scFrom = sc.from; out.scNote = sc.note; out.scHint = sc.hint;
+    out.scTypeFrom = function (e) { self.state.sc.from = e && e.target ? e.target.value : ''; };
+    out.scTypeNote = function (e) { self.state.sc.note = e && e.target ? e.target.value : ''; };
+    out.scTypeHint = function (e) { self.state.sc.hint = e && e.target ? e.target.value : ''; };
+    out.scSealLabel = sc.link ? 'Seal it again with your changes' : 'Seal the scroll';
+    out.scSeal = function () {
+      var c = self.state.sc, d = {};
+      var f = (c.from || '').trim().slice(0, 40), n = (c.note || '').trim().slice(0, 300), h = (c.hint || '').trim().slice(0, 200);
+      if (f) { d.f = f; } if (n) { d.n = n; } if (h) { d.h = h; }
+      var link = location.origin + '/scroll';
+      if (f || n || h) { var b64 = window.btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); link += '#s=' + b64; }
+      scSet({ link: link, copied: false });
+      setTimeout(function () { var el = document.getElementById('scLink'); if (el) { try { el.focus(); el.select(); } catch (x) {} } }, 60);
+    };
+    out.scReady = !!sc.link; out.scLink = sc.link;
+    out.scCanShare = !!(navigator && navigator.share);
+    out.scShare = function () { try { navigator.share({ title: 'A scroll for you', text: scText, url: self.state.sc.link }).catch(function () {}); } catch (x) {} };
+    out.scCopyLabel = sc.copied ? 'Copied' : 'Copy the link';
+    out.scCopy = function () {
+      var link = self.state.sc.link, done = function () { scSet({ copied: true }); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(link).then(done, function () { var el = document.getElementById('scLink'); if (el) { el.select(); } }); }
+      else { var el = document.getElementById('scLink'); if (el) { el.select(); try { document.execCommand('copy'); done(); } catch (x) {} } }
+    };
+    out.scMail = sc.link ? 'mailto:?subject=' + encodeURIComponent('A scroll for you') + '&body=' + encodeURIComponent(scText + '\n\n' + sc.link + '\n') : '#';
     return out;
   }
 }
