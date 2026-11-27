@@ -64,7 +64,7 @@
     { id: 'star', name: 'A guiding star', how: 'rises once five Beings, places or people shine in your constellation' },
     { id: 'ripples', name: 'A wake of ripples', how: 'trails behind once your Boat has visited seven waters of the River' },
     { id: 'garland', name: 'A green garland', how: 'woven after seven notes from time spent with the living world' },
-    { id: 'spiral', name: 'A small spiral', how: 'you will know where it came from', secret: true }
+    { id: 'spiral', name: 'A wyrd spiral', how: 'carried back from beyond the fog. Those who have travelled there will recognise it', secret: true }
   ];
 
   function keepsakesFor(b) {
@@ -79,21 +79,22 @@
     return KEEPSAKES.filter(function (k) { return has[k.id]; }).map(function (k) { return k.id; });
   }
 
-  function keepArt(k, a) {
+  function keepArt(k, a, all) {
     var m = a.m, bw = a.b, h = a.h, s = a.s;
+    if (k === 'crescent' && all && all.indexOf('spiral') >= 0) { s = [s[0] + 2, s[1] - 9]; }
     if (k === 'pennant') { return '<path d="M' + m[0] + ' ' + m[1] + ' l9 2.6 -9 2.6 z" fill="#E8C77A" stroke="' + INK + '" stroke-width="0.9" stroke-linejoin="round"/>'; }
     if (k === 'lantern') { return '<path d="M' + bw[0] + ' ' + bw[1] + ' l2 -6" stroke="' + INK + '" stroke-width="1"/><circle cx="' + (bw[0] + 2) + '" cy="' + (bw[1] - 7.5) + '" r="5" fill="#FFD98A" opacity="0.35"/><circle cx="' + (bw[0] + 2) + '" cy="' + (bw[1] - 7.5) + '" r="2.3" fill="#FFD98A" stroke="' + INK + '" stroke-width="0.8"/>'; }
     if (k === 'garland') { var g = ''; [-14, -7, 0, 7, 14].forEach(function (d, i) { g += '<ellipse cx="' + (h[0] + d) + '" cy="' + (h[1] - (i % 2)) + '" rx="2" ry="1.2" fill="' + (i % 2 ? '#8FB27A' : '#4F7A3F') + '"/>'; }); return '<path d="M' + (h[0] - 16) + ' ' + h[1] + ' C ' + (h[0] - 6) + ' ' + (h[1] + 2) + ', ' + (h[0] + 6) + ' ' + (h[1] + 2) + ', ' + (h[0] + 16) + ' ' + h[1] + '" fill="none" stroke="#4F7A3F" stroke-width="0.8"/>' + g; }
     if (k === 'crescent') { return '<path d="M' + s[0] + ' ' + (s[1] - 3.2) + ' a3.2 3.2 0 1 0 0 6.4 a2.4 2.4 0 1 1 0 -6.4 z" fill="#F5EEE1" stroke="' + INK + '" stroke-width="0.6"/>'; }
     if (k === 'star') { var x = m[0] - 7, y = m[1] - 1; return '<path d="M' + x + ' ' + (y - 3.5) + ' L' + (x + 1) + ' ' + (y - 1) + ' L' + (x + 3.5) + ' ' + y + ' L' + (x + 1) + ' ' + (y + 1) + ' L' + x + ' ' + (y + 3.5) + ' L' + (x - 1) + ' ' + (y + 1) + ' L' + (x - 3.5) + ' ' + y + ' L' + (x - 1) + ' ' + (y - 1) + ' Z" fill="#F5EEE1" stroke="#E8C77A" stroke-width="0.6"/>'; }
     if (k === 'ripples') { return '<path d="M-8 44 C -5 42.5, -2 45.5, 1 44" fill="none" stroke="#9FD3DC" stroke-width="1.4" stroke-linecap="round" opacity="0.8"/><path d="M-6 47 C -3 45.5, 0 48.5, 3 47" fill="none" stroke="#9FD3DC" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>'; }
-    if (k === 'spiral') { var cx = s[0] - 5, cy = s[1] + 5; return '<path d="M' + cx + ' ' + (cy - 2.6) + ' C ' + (cx + 2.6) + ' ' + (cy - 2.6) + ', ' + (cx + 3) + ' ' + (cy + 2) + ', ' + cx + ' ' + (cy + 2) + ' C ' + (cx - 1.8) + ' ' + (cy + 2) + ', ' + (cx - 1.8) + ' ' + (cy - 0.6) + ', ' + (cx - 0.2) + ' ' + (cy - 0.4) + '" fill="none" stroke="#E8C77A" stroke-width="0.9" stroke-linecap="round"/>'; }
+    if (k === 'spiral') { var gx = s[0] - 5.8, gy = s[1] - 6.2; return '<g transform="translate(' + gx + ' ' + gy + ') scale(0.36)"><circle cx="16" cy="17" r="14" fill="#B9A7E8" opacity="0.3"/><path d="M16 5 C 24 5, 28 11, 27 16 C 26 22, 20 25, 16 24 C 12 23, 10.5 19.5, 11.5 16.5 C 12.5 13.5, 15.5 12.5, 17.5 13.5 C 19.2 14.4, 19 16.4, 17.8 17.2" fill="none" stroke="#2F2B28" stroke-width="5.6" stroke-linecap="round"/><path d="M4 28 C 8 26, 12 30, 16 28 S 24 26, 28 28" fill="none" stroke="#2F2B28" stroke-width="4.6" stroke-linecap="round"/><path d="M16 5 C 24 5, 28 11, 27 16 C 26 22, 20 25, 16 24 C 12 23, 10.5 19.5, 11.5 16.5 C 12.5 13.5, 15.5 12.5, 17.5 13.5 C 19.2 14.4, 19 16.4, 17.8 17.2" fill="none" stroke="#E8C77A" stroke-width="3" stroke-linecap="round"/><path d="M4 28 C 8 26, 12 30, 16 28 S 24 26, 28 28" fill="none" stroke="#E8C77A" stroke-width="2.2" stroke-linecap="round"/></g>'; }
     return '';
   }
 
   function inner(id, keeps) {
     var l = BY[id] || BY.river, out = WATER + l.art;
-    (keeps || []).forEach(function (k) { out += keepArt(k, l.a); });
+    (keeps || []).forEach(function (k) { out += keepArt(k, l.a, keeps); });
     return out;
   }
   function svg(id, keeps, opts) {
