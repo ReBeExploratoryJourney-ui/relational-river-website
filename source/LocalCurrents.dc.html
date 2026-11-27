@@ -330,7 +330,7 @@ class Component extends DCLogic {
     if (pt) { this.fetchHylo(hkey, pt); }
     var hres = hkey ? this.state.hylo[hkey] : null;
     var hlist = hres && hres.groups ? hres.groups : [];
-    var hereName = ep ? this.state.epLabel : cur[0];
+    var hereName = ep ? this.state.epLabel : (r === 'la' ? 'the ' : '') + cur[0];
     var nextEv = (this.state.events || [])[0];
     var whenOf = function (e) { try { var d = new Date(e.start); return d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'long' }) + ', ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }) + (e.online ? ' (online)' : e.where ? ' · ' + e.where : ''); } catch (x) { return ''; } };
     return {
