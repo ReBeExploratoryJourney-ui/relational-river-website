@@ -69,7 +69,7 @@
   // Lists are joined by id; nothing either side added is lost.
   function merge(a, b) {
     var out = JSON.parse(JSON.stringify(a || {})), byId = function (list) { var m = {}; (list || []).forEach(function (x) { if (x && x.id) { m[x.id] = x; } }); return m; };
-    ['tending', 'stars', 'gathered', 'moons', 'wake', 'log'].forEach(function (k) {
+    ['tending', 'stars', 'gathered', 'moons', 'wake', 'log', 'offerings'].forEach(function (k) {
       var m = byId(out[k]);
       (b[k] || []).forEach(function (x) {
         if (!x || !x.id) { return; }

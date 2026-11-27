@@ -288,6 +288,16 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <sc-if value="{{repaintOpen}}" hint-placeholder-val="{{ false }}"><div class="lookgrid" role="group" aria-label="Repaint your Boat"><sc-for list="{{repaintLooks}}" as="o" hint-placeholder-count="13"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}"><img src="{{o.src}}" alt="">{{o.name}}</button></sc-for></div></sc-if>
 </section>
 
+<sc-if value="{{hasOfferings}}" hint-placeholder-val="{{ false }}">
+<section id="offerings" class="torn tr panel" style="background: #E6E2F2">
+<div class="k">Your offerings to the Well</div>
+<h2 class="h2 dark">Kept safely aboard</h2>
+<p class="p">The private keys to what you have poured into the Well. Open an offering to read it, or to withdraw it from the Well.</p>
+<ul class="list" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px"><sc-for list="{{offerings}}" as="o" hint-placeholder-count="1"><li style="display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: center"><span style="flex: 1 1 260px"><b>{{o.title}}</b> <span class="minor">· poured {{o.when}}</span></span><a href="{{o.href}}" class="lnk">Open your offering</a><button class="quiet" onClick="{{o.forget}}">Let go of this key</button></li></sc-for></ul>
+<p class="p" style="font-size: 15px">Letting go of a key only removes it from your Boat. The offering stays in the Well until you withdraw it.</p>
+</section>
+</sc-if>
+
 <section id="voyage" class="torn tr panel" style="background: #CFE1E4">
 <div class="k">Launch your Boat</div>
 <h2 class="h2 dark">Set sail on the River</h2>
@@ -597,6 +607,7 @@ class Component extends DCLogic {
       wake: arr(b.wake, 400).filter(function (x) { return x && typeof x.w === 'string'; }).map(function (x) { return { id: str(x.id, 60), w: str(x.w, 40), at: str(x.at, 10) }; }),
       wakeOff: !!b.wakeOff,
       look: str(b.look, 20),
+      offerings: arr(b.offerings, 40).filter(function (o) { return o && typeof o.key === 'string' && /^[0-9a-f-]+\.[0-9a-f]+$/.test(o.key); }).map(function (o) { return { id: str(o.id, 60), key: o.key.slice(0, 200), title: str(o.title, 140), at: str(o.at, 30) }; }),
       wyrd: b.wyrd && typeof b.wyrd === 'object' && b.wyrd.arrived ? { arrived: str(b.wyrd.arrived, 10) } : null,
       log: arr(b.log, 300).filter(function (x) { return x && typeof x.id === 'string'; }).map(function (x) { return { id: str(x.id, 120), t: str(x.t, 140), h: /^https?:\/\//i.test(x.h || '') ? str(x.h, 400) : '', k: str(x.k, 60), w: str(x.w, 40), at: str(x.at, 10), first: str(x.first, 10), n: Math.max(1, Math.min(9999, parseInt(x.n, 10) || 1)) }; })
     };
@@ -648,6 +659,7 @@ class Component extends DCLogic {
     var now = new Date().toISOString();
     if (pend.list === 'lunar') { b.lunar = { since: now, on: true }; return 'Your lunar journal is open, a little further down your Boat.'; }
     if (pend.list === 'began' && pend.item) { b.began.push({ at: now, feel: pend.item.feel || [], love: pend.item.love || [], way: pend.item.way || [] }); return 'Your answers from the Source are now in your Boat.'; }
+    if (pend.list === 'offerings' && pend.item && typeof pend.item.key === 'string') { b.offerings = (b.offerings || []).filter(function (o) { return o.id !== pend.item.id; }); b.offerings.push({ id: pend.item.id, key: pend.item.key, title: pend.item.title || 'Your offering to the Well', at: now }); return 'The key to your offering in the Well is kept in your Boat now.'; }
     var list = pend.list === 'tending' ? 'tending' : 'gathered', it = pend.item || {};
     if (!it.id) { return ''; }
     b[list] = b[list].filter(function (g) { return g.id !== it.id; });
@@ -724,7 +736,7 @@ class Component extends DCLogic {
     var lab = function (l) { return (l || []).map(function (k) { return LABEL[k] || k; }); };
     var KINDS = [['being', 'A Being', '#A9C79A'], ['place', 'A place', '#D9B48F'], ['water', 'A water', '#9FD3DC'], ['food', 'A food', '#E8C77A'], ['ancestor', 'An ancestor', '#B9A3D9'], ['people', 'A person or people', '#E8A598'], ['other', 'Something else', '#D8D2C8']];
     var KIND = {}; KINDS.forEach(function (k) { KIND[k[0]] = k; });
-    var out = { fromSource: !!(s.fromSource && b), backToSource: function () { try { sessionStorage.removeItem('rr.boat.from'); } catch (x) {} }, flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : s.pending.list === 'lunar' ? 'a lunar journal' : (s.pending.item && s.pending.item.title) || '') : '',
+    var out = { fromSource: !!(s.fromSource && b), backToSource: function () { try { sessionStorage.removeItem('rr.boat.from'); } catch (x) {} }, flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : s.pending.list === 'lunar' ? 'a lunar journal' : s.pending.list === 'offerings' ? 'the key to your offering in the Well' : (s.pending.item && s.pending.item.title) || '') : '',
       launchDevice: function () {
         var acct = !!(self.RB() && self.RB().signedIn());
         var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: (self.state.introName || '').trim().slice(0, 40), look: self.state.look || 'river', began: [], tending: [], stars: [], gathered: [], lunar: null, moons: [], wake: [], log: [], seen: { last: new Date().toISOString() } };
@@ -751,6 +763,10 @@ class Component extends DCLogic {
     out.introName = s.introName; out.typeIntroName = function (e) { self.state.introName = e && e.target ? e.target.value : ''; };
     out.introLooks = lookOpts(s.look, function (id) { self.setState({ look: id }); });
     if (b) {
+      var offs = (b.offerings || []).slice().reverse();
+      out.hasOfferings = offs.length > 0;
+      out.offerings = offs.map(function (o) { return { title: o.title || 'Your offering to the Well', when: self.day(o.at), href: '/well/#manage=' + o.key,
+        forget: function () { if (!window.confirm('Let go of this key? The offering stays in the Well, but you will need the link to open it again.')) { return; } var nb = self.boatRead() || b; nb.offerings = (nb.offerings || []).filter(function (x) { return x.id !== o.id; }); self.save(nb, 'That key is no longer in your Boat.'); } }; });
       var allK = LK ? LK.KEEPSAKES : [];
       var keeps = allK.filter(function (k) { return heroKeeps.indexOf(k.id) >= 0; });
       var next = allK.filter(function (k) { return !k.secret && heroKeeps.indexOf(k.id) < 0; })[0];

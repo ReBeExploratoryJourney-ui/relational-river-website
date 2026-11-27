@@ -212,9 +212,9 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </sc-if>
 <sc-if value="{{kept}}" hint-placeholder-val="{{ false }}">
 <p class="p" style="font-size: 17px" aria-live="polite">Thank you. Your offering is in the well, kept as privately as you chose.</p>
-<p class="p">This is your private link for reading or withdrawing your offering. Keep it somewhere safe: it is the only key, and the River can’t send it again.</p>
-<input class="field" readonly value="{{manageLink}}" aria-label="Your private link" onClick="{{selectAll}}">
-<a href="{{manageLink}}" class="lnk">Open your offering</a>
+<sc-if value="{{keyInBoat}}" hint-placeholder-val="{{ false }}"><p class="p">Your private key to this offering is kept safely in your Boat, so you can open or withdraw it from there whenever you like. There is nothing you need to save.</p><div style="display: flex; flex-wrap: wrap; gap: 6px 22px"><a href="Boat.dc.html#offerings" class="lnk">See it in your Boat</a><a href="{{manageLink}}" class="lnk">Open your offering</a></div></sc-if>
+<sc-if value="{{keyNoBoat}}" hint-placeholder-val="{{ false }}"><p class="p">This is your private key for reading or withdrawing your offering. The simplest way to keep it is in your Boat, where you can find it again any time.</p><div style="display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center"><button class="go tornbtn" style="background: #F5E3B0" onClick="{{keyToBoat}}">Keep it in your Boat</button><a href="{{manageLink}}" class="lnk">Open your offering</a></div><p class="minor" style="margin: 0">Or keep the link somewhere safe yourself. It is the only key, and the River can’t send it again.</p></sc-if>
+<details><summary class="minor" style="cursor: pointer; min-height: 44px; display: flex; align-items: center">Show the private link</summary><input class="field" readonly value="{{manageLink}}" aria-label="Your private link" onClick="{{selectAll}}"></details>
 </sc-if>
 <sc-if value="{{notConnected}}" hint-placeholder-val="{{ false }}">
 <p class="p" style="font-size: 17px" aria-live="polite">Thank you. The well isn’t open yet while the River is being tested, so nothing has been saved or sent. When it opens, your offering will be kept exactly as privately as you chose.</p>
@@ -390,6 +390,23 @@ class Component extends DCLogic {
     this.state = { mode: 'pour', w: { wit: true }, skills: '', exp: '', pass: '', need: '', where: '', time: 'month', reach: 'local', ex: { gift: true, swap: true }, vis: 'river', contact: '', hp: '', consent: false, status: 'idle', key: '', manage: '', mine: null, mineStatus: '',
       needKey: 'creek', own: '', ownWhere: 'anywhere', invited: false };
   }
+  offeringTitle() {
+    var st = this.state, first = (st.skills || st.exp || st.pass || st.need || '').trim().replace(/\s+/g, ' ');
+    return first ? (first.length > 70 ? first.slice(0, 68) + '…' : first) : 'Your offering to the Well';
+  }
+  // Keep the private key to an offering inside your Boat, so there is nothing to save or remember.
+  stowKey(key) {
+    var b = null; try { b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); } catch (x) {}
+    if (!b || b.v !== 1) { return false; }
+    b.offerings = Array.isArray(b.offerings) ? b.offerings : [];
+    var id = 'well:' + String(key).split('.')[0].slice(0, 40);
+    b.offerings = b.offerings.filter(function (o) { return o && o.id !== id; });
+    b.offerings.push({ id: id, key: key, title: this.offeringTitle(), at: new Date().toISOString() });
+    b.dirty = true;
+    try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) { return false; }
+    if (window.RiverBoat) { window.RiverBoat.touched(); }
+    return true;
+  }
   componentDidMount() {
     var self = this, h = '';
     try { h = (location.hash || '').replace(/^#/, ''); } catch (e) {}
@@ -450,6 +467,13 @@ class Component extends DCLogic {
     var origin = (typeof location !== 'undefined' && location.origin && location.origin.indexOf('http') === 0) ? location.origin : 'https://relationalriver.org';
     v.manageLink = s.key ? origin + '/well/#manage=' + s.key : '';
     v.selectAll = function (e) { try { e.target.select(); } catch (x) {} };
+    v.keyInBoat = v.kept && !!s.keyInBoat; v.keyNoBoat = v.kept && !s.keyInBoat;
+    v.keyToBoat = function () {
+      var key = self.state.key; if (!key) { return; }
+      var item = { id: 'well:' + String(key).split('.')[0].slice(0, 40), key: key, title: self.offeringTitle() };
+      try { sessionStorage.setItem('rr.boat.pending', JSON.stringify({ list: 'offerings', item: item })); } catch (x) {}
+      window.location.href = 'Boat.dc.html';
+    };
     v.pour = function () {
       var st = self.state;
       if (st.status === 'sending') { return; }
@@ -464,7 +488,7 @@ class Component extends DCLogic {
         fetch('/api/well/offering', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
           .then(function (r) { return r.json().then(function (d) { return { code: r.status, d: d }; }, function () { return { code: r.status, d: {} }; }); })
           .then(function (res) {
-            if (res.d && res.d.key) { self.setState({ status: 'kept', key: res.d.key }); }
+            if (res.d && res.d.key) { var inBoat = self.stowKey(res.d.key); self.setState({ status: 'kept', key: res.d.key, keyInBoat: inBoat }); }
             else if (res.code === 503 || res.code === 404 || res.code === 405) { self.setState({ status: 'offline' }); }
             else if (res.d && res.d.error === 'contact') { self.setState({ status: 'contact' }); }
             else if (res.d && res.d.error === 'empty') { self.setState({ status: 'empty' }); }
