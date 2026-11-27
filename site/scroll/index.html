@@ -22,16 +22,18 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .slogo{display:inline-flex;align-items:center;gap:10px;min-height:44px;text-decoration:none;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:22px}
 .smain{flex:1;max-width:760px;width:100%;margin:0 auto;padding:10px 20px 48px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:18px}
 .skick{margin:0;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:#E8C77A;text-align:center}
-.roller{width:calc(100% + 36px);max-width:720px;height:22px;border-radius:11px;background:linear-gradient(180deg,#8A5E3C 0%,#C79A6B 45%,#6E4A2E 100%);box-shadow:0 6px 14px rgba(0,0,0,.35);position:relative;z-index:2}
-.roller:before,.roller:after{content:"";position:absolute;top:-4px;width:16px;height:30px;border-radius:8px;background:linear-gradient(180deg,#5A3A22,#9C744C,#4A2E1A)}
-.roller:before{left:-10px}.roller:after{right:-10px}
-.rolled{position:relative;display:flex;flex-direction:column;align-items:center;width:min(560px,92vw);margin-top:24px}
-.rolledpaper{width:100%;height:90px;background:#EFE3C6 url(/assets/0aab009eb547b7652846ddf7be52a067.jpg);background-size:520px;background-blend-mode:multiply;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 10px 16px rgba(110,74,46,.35),inset 0 -10px 16px rgba(110,74,46,.35)}
-.rfrom{margin:0;color:#3A2E24;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:18px}
-.seal{position:absolute;left:50%;top:50%;transform:translate(-50%,-38%);width:92px;height:92px;border:none;background:transparent;padding:0;cursor:pointer;z-index:3;transition:transform .3s ease}
-.seal:hover{transform:translate(-50%,-38%) rotate(-6deg) scale(1.05)}
+.roller{width:calc(100% + 40px);max-width:740px;height:28px;border-radius:9px/14px;position:relative;z-index:2;background:linear-gradient(180deg,rgba(40,20,6,.55) 0%,rgba(255,226,180,.22) 30%,rgba(255,236,200,.28) 42%,rgba(40,20,6,.08) 62%,rgba(40,20,6,.6) 100%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20240%2028%22%20preserveAspectRatio%3D%22none%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%234A2A12%22%20stroke-width%3D%220.8%22%3E%3Cpath%20stroke-opacity%3D%220.32%22%20d%3D%22M0%207%20C%2040%205%2C%2080%209%2C%20120%207%20S%20200%205%2C%20240%207%22/%3E%3Cpath%20stroke-opacity%3D%220.22%22%20d%3D%22M0%2011%20C%2030%2012.5%2C%2070%209.5%2C%20120%2011.5%20S%20190%2013%2C%20240%2011%22/%3E%3Cpath%20stroke-opacity%3D%220.3%22%20d%3D%22M0%2015.5%20C%2050%2014.5%2C%2090%2017.5%2C%20140%2015.5%20S%20210%2014.5%2C%20240%2015.5%22/%3E%3Cpath%20stroke-opacity%3D%220.2%22%20d%3D%22M0%2019%20C%2040%2021%2C%20100%2018%2C%20150%2020%20S%20220%2019%2C%20240%2019%22/%3E%3Cpath%20stroke-opacity%3D%220.28%22%20d%3D%22M0%2023%20C%2060%2022%2C%20110%2024.5%2C%20170%2023%20S%20225%2022%2C%20240%2023%22/%3E%3Cpath%20stroke-opacity%3D%220.38%22%20d%3D%22M150%2013%20C%20158%209%2C%20176%209%2C%20184%2013%20C%20176%2017%2C%20158%2017%2C%20150%2013%20Z%22/%3E%3C/g%3E%3Cellipse%20cx%3D%22167%22%20cy%3D%2213%22%20rx%3D%224.5%22%20ry%3D%221.6%22%20fill%3D%22%234A2A12%22%20fill-opacity%3D%220.3%22/%3E%3C/svg%3E") 0 0/260px 100% repeat-x,linear-gradient(90deg,#A8703F 0%,#B98250 22%,#A46B3B 48%,#BE8A57 74%,#A26A3A 100%);box-shadow:0 7px 14px rgba(0,0,0,.38)}
+.roller:before,.roller:after{content:"";position:absolute;top:50%;width:24px;height:38px;margin-top:-19px;border-radius:46% 54% 50% 50%/50% 50% 50% 50%;background:radial-gradient(ellipse at 38% 32%,#E7B886 0%,#B57D4A 38%,#7A4B26 78%,#4E2E15 100%);box-shadow:0 4px 8px rgba(0,0,0,.4)}
+.roller:before{left:-18px}.roller:after{right:-18px}
+.rolled{position:relative;display:flex;flex-direction:column;align-items:center;width:min(560px,86vw);margin-top:40px}
+.rolledscroll{position:relative;width:100%;display:flex;flex-direction:column;align-items:center}
+.rolledpaper{position:relative;width:100%;height:74px;background:#EFE3C6 url(/assets/0aab009eb547b7652846ddf7be52a067.jpg);background-size:520px;background-blend-mode:multiply;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 10px 16px rgba(110,74,46,.35),inset 0 -10px 16px rgba(110,74,46,.35)}
+.rto{position:absolute;top:50%;right:calc(50% + 88px);transform:translateY(-50%);max-width:calc(50% - 104px);margin:0;color:#3A2E24;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:19px;line-height:1.25;text-align:right}
+.rto b{display:block;font-style:normal;font-family:Jost,sans-serif;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7A5A3E}
+.seal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150px;height:150px;border:none;background:transparent;padding:0;cursor:pointer;z-index:3;transition:transform .3s ease}
+.seal:hover{transform:translate(-50%,-50%) rotate(-6deg) scale(1.04)}
 .seal svg{display:block;width:100%;height:100%}
-.sealhint{margin:70px 0 0;font-style:italic;font-size:16px;color:#C9CCD6}
+.sealhint{margin:28px 0 0;font-style:italic;font-size:16px;color:#C9CCD6}
 .scroll{display:flex;flex-direction:column;align-items:center;width:100%}
 .paper{width:100%;box-sizing:border-box;background:#F3E8CE url(/assets/0aab009eb547b7652846ddf7be52a067.jpg);background-size:520px;background-blend-mode:multiply;color:#2F2B28;padding:40px 44px 36px;display:flex;flex-direction:column;gap:14px;overflow:hidden;animation:unroll 2.4s cubic-bezier(.3,.6,.2,1) both;box-shadow:inset 0 12px 18px -10px rgba(110,74,46,.5),inset 0 -12px 18px -10px rgba(110,74,46,.5)}
 @keyframes unroll{from{max-height:0;padding-top:0;padding-bottom:0;opacity:.6}to{max-height:3200px;opacity:1}}
@@ -57,7 +59,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .sfine{margin:10px 0 0;font-size:15px;font-style:italic;text-align:center;color:#5A4632}
 .sfoot{max-width:900px;width:100%;margin:0 auto;padding:20px 24px 32px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:14px;font-style:italic;color:#C9CCD6}
 .sfoot a{min-height:44px;display:inline-flex;align-items:center}
-@media (max-width: 600px){.paper{padding:30px 22px 28px}.sh1{font-size:32px}.roller{width:calc(100% + 16px)}}
+@media (max-width: 600px){.seal{width:128px;height:128px}.rolledpaper{height:62px}.rto{right:calc(50% + 72px);max-width:calc(50% - 84px);font-size:16px}.paper{padding:30px 22px 28px}.sh1{font-size:32px}.roller{width:calc(100% + 16px)}}
 @media (prefers-reduced-motion: reduce){.paper,.clues li{animation:none}.seal{transition:none}}
 </style>
 <style>body{background:#0E2849}</style>
@@ -73,10 +75,12 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 
 <sc-if value="{{sealed}}" hint-placeholder-val="{{ true }}">
 <div class="rolled">
+<div class="rolledscroll">
 <div class="roller"></div>
-<div class="rolledpaper"><sc-if value="{{hasFrom}}" hint-placeholder-val="{{ false }}"><p class="rfrom">{{fromLine}}</p></sc-if></div>
+<div class="rolledpaper"><p class="rto"><b>For</b>{{toName}}</p></div>
 <div class="roller"></div>
 <button class="seal" onClick="{{openScroll}}" aria-label="Break the seal and unroll the scroll"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="42" cy="44" r="35" fill="#000000" opacity="0.28"></circle><path d="M40 5 C 52 4, 62 9, 69 17 C 77 26, 76 37, 75 46 C 74 57, 68 66, 58 72 C 48 77, 35 77, 25 72 C 14 66, 6 56, 5 44 C 4 31, 9 19, 19 12 C 25 7, 32 5, 40 5 Z" fill="#7A2E3E"></path><path d="M40 13 C 54 13, 66 24, 66 39 C 66 53, 55 66, 40 66 C 25 66, 14 54, 14 40 C 14 25, 26 13, 40 13 Z" fill="none" stroke="#5A1F2C" stroke-width="2"></path><path d="M40 22 C 52 22, 58 31, 57 40 C 56 49, 48 54, 40 53 C 33 52, 29 46, 30 40 C 31 35, 36 32, 41 33 C 45 34, 46 38, 44 41" fill="none" stroke="#E8C77A" stroke-width="3" stroke-linecap="round"></path><path d="M18 60 C 26 57, 32 63, 40 60 S 54 57, 62 60" fill="none" stroke="#E8C77A" stroke-width="2" stroke-linecap="round" opacity="0.7"></path></svg></button>
+</div>
 <p class="sealhint">Touch the seal to open</p>
 </div>
 </sc-if>
@@ -85,7 +89,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="scroll">
 <div class="roller"></div>
 <article class="paper" aria-labelledby="sh1">
-<h1 id="sh1" class="sh1" tabindex="-1">A scroll, for you</h1>
+<h1 id="sh1" class="sh1" tabindex="-1">{{openTitle}}</h1>
 <sc-if value="{{hasFrom}}" hint-placeholder-val="{{ false }}"><p class="sfrom">{{fromLine}}</p></sc-if>
 <sc-if value="{{hasNote}}" hint-placeholder-val="{{ false }}"><blockquote class="snote">{{note}}</blockquote></sc-if>
 <p class="sp">You are invited to the <b>Relational River</b>: a map of waters for remembering that we belong to the living world. Along it are small practices, circles, films and projects to wander, slowly, and often away from the screen, among the trees, rivers, birds and people you share your days with.</p>
@@ -118,7 +122,7 @@ class Component extends DCLogic {
       if (m) { var b64 = m[1].replace(/-/g, '+').replace(/_/g, '/'); while (b64.length % 4) { b64 += '='; } data = JSON.parse(decodeURIComponent(escape(window.atob(b64)))) || {}; }
     } catch (x) { data = {}; }
     var str = function (v, n) { return typeof v === 'string' ? v.replace(/\s+$/, '').slice(0, n) : ''; };
-    this.state = { opened: false, shown: 0, from: str(data.f, 40), note: str(data.n, 300), hint: str(data.h, 200) };
+    this.state = { opened: false, shown: 0, to: str(data.t, 40), from: str(data.f, 40), note: str(data.n, 300), hint: str(data.h, 200) };
   }
   renderVals() {
     var self = this, s = this.state;
@@ -133,7 +137,7 @@ class Component extends DCLogic {
     var still = false; try { still = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (x) {}
     return {
       kicker: s.from ? 'A scroll from ' + s.from : 'A scroll has found you',
-      sealed: !s.opened, opened: s.opened,
+      sealed: !s.opened, opened: s.opened, toName: s.to || 'you', openTitle: 'A scroll for ' + (s.to || 'you'),
       hasFrom: !!s.from, fromLine: 'From ' + s.from,
       hasNote: !!s.note, note: s.note,
       openScroll: function () { self.setState({ opened: true }); setTimeout(function () { var h = document.getElementById('sh1'); if (h) { try { h.focus({ preventScroll: true }); } catch (x) {} } }, still ? 30 : 600); },

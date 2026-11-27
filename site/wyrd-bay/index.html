@@ -333,6 +333,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 <h2 class="h2" style="font-size: 28px">Send a scroll</h2>
 <p class="p">Know someone who might love the River, and might one day find their way here? Seal a scroll for them. It invites them into the Relational River, then offers clues to the Bay, unfolding one at a time, without ever giving the way away.</p>
 <p class="p" style="font-size: 15px">Nothing you write is stored anywhere. It travels only inside the link you send.</p>
+<div class="fld"><label class="alabel" for="scTo">For (optional)</label><input id="scTo" class="field" type="text" maxlength="40" value="{{scTo}}" onChange="{{scTypeTo}}" placeholder="Their name, written beside the seal"></div>
 <div class="fld"><label class="alabel" for="scFrom">From (optional)</label><input id="scFrom" class="field" type="text" maxlength="40" value="{{scFrom}}" onChange="{{scTypeFrom}}" placeholder="Your name, or how they know you"></div>
 <div class="fld"><label class="alabel" for="scNote">A few words for them (optional)</label><textarea id="scNote" class="field" rows="3" maxlength="300" value="{{scNote}}" onChange="{{scTypeNote}}" placeholder="I thought of you when I found this…"></textarea></div>
 <div class="fld"><label class="alabel" for="scHint">A whispered hint of your own (optional)</label><input id="scHint" class="field" type="text" maxlength="200" value="{{scHint}}" onChange="{{scTypeHint}}" placeholder="It appears after all the clues. Nudge, but leave the finding to them."></div>
@@ -365,7 +366,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     var open = !!(window.RiverWyrd && window.RiverWyrd.arrived());
-    this.state = { open: open, scene: '', sc: { from: '', note: '', hint: '', link: '', copied: false }, qOpen: {}, show: 'all', quest: '', list: null, problem: '', reporting: '', reasons: {}, reported: {},
+    this.state = { open: open, scene: '', sc: { to: '', from: '', note: '', hint: '', link: '', copied: false }, qOpen: {}, show: 'all', quest: '', list: null, problem: '', reporting: '', reasons: {}, reported: {},
       m: { loaded: false, loading: false, card: null, name: '', thr: '', openTo: 'either', quest: '', hylo: '', agree: false, busy: false, msg: '' } };
   }
   componentDidMount() {
@@ -584,17 +585,18 @@ class Component extends DCLogic {
     };
     var sc = s.sc, scSet = function (patch) { var n = {}; for (var k in self.state.sc) { n[k] = self.state.sc[k]; } for (var k2 in patch) { n[k2] = patch[k2]; } self.setState({ sc: n }); };
     var scText = 'I found something on the Relational River and thought of you. Here is a scroll for you:';
-    out.scFrom = sc.from; out.scNote = sc.note; out.scHint = sc.hint;
+    out.scTo = sc.to; out.scFrom = sc.from; out.scNote = sc.note; out.scHint = sc.hint;
+    out.scTypeTo = function (e) { self.state.sc.to = e && e.target ? e.target.value : ''; };
     out.scTypeFrom = function (e) { self.state.sc.from = e && e.target ? e.target.value : ''; };
     out.scTypeNote = function (e) { self.state.sc.note = e && e.target ? e.target.value : ''; };
     out.scTypeHint = function (e) { self.state.sc.hint = e && e.target ? e.target.value : ''; };
     out.scSealLabel = sc.link ? 'Seal it again with your changes' : 'Seal the scroll';
     out.scSeal = function () {
       var c = self.state.sc, d = {};
-      var f = (c.from || '').trim().slice(0, 40), n = (c.note || '').trim().slice(0, 300), h = (c.hint || '').trim().slice(0, 200);
-      if (f) { d.f = f; } if (n) { d.n = n; } if (h) { d.h = h; }
+      var to = (c.to || '').trim().slice(0, 40), f = (c.from || '').trim().slice(0, 40), n = (c.note || '').trim().slice(0, 300), h = (c.hint || '').trim().slice(0, 200);
+      if (to) { d.t = to; } if (f) { d.f = f; } if (n) { d.n = n; } if (h) { d.h = h; }
       var link = location.origin + '/scroll';
-      if (f || n || h) { var b64 = window.btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); link += '#s=' + b64; }
+      if (to || f || n || h) { var b64 = window.btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); link += '#s=' + b64; }
       scSet({ link: link, copied: false });
       setTimeout(function () { var el = document.getElementById('scLink'); if (el) { try { el.focus(); el.select(); } catch (x) {} } }, 60);
     };
