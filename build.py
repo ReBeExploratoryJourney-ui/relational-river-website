@@ -108,6 +108,7 @@ def convert(name, text):
         + '<script src="/js/boat-sync.js"></script>\n'
         + '<script src="/js/boat-looks.js"></script>\n'
         + '<script src="/js/wyrd.js"></script>\n'
+        + '<script src="/js/companion.js"></script>\n'
         + '<script src="/js/river-runtime.js"></script>\n'
         + '</body>\n</html>\n'
     )

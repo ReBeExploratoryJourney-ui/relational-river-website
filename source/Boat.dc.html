@@ -190,7 +190,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <section class="torn tl panel" style="background: #FBF7EF">
 <div class="looksel"><img class="lookbig" src="{{introArt}}" alt="{{introAlt}}" width="300" height="215"><div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 8px"><h3 class="h3">{{introLookName}}</h3><p class="p">{{introLookLine}}</p><label class="alabel" for="introName" style="margin-top: 8px">Give your Boat a name (optional)</label><input id="introName" class="field" type="text" maxlength="40" value="{{introName}}" onChange="{{typeIntroName}}" placeholder="The Heron, Little Wonder, the SS Not Yet…"></div></div>
 <div class="lookgrid" role="group" aria-label="Choose your Boat’s look"><sc-for list="{{introLooks}}" as="o" hint-placeholder-count="13"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}"><img src="{{o.src}}" alt="">{{o.name}}</button></sc-for></div>
-<div class="row"><button class="go tornbtn" style="background: #C8D9B9" onClick="{{toKeep}}">This is my Boat</button><button class="quiet" onClick="{{toMeet}}">Back</button></div>
+<div class="row"><button class="go tornbtn" style="background: #C8D9B9" onClick="{{toKeep}}">Choose this Boat</button><button class="quiet" onClick="{{toMeet}}">Back</button></div>
 </section>
 </div>
 </sc-if>
