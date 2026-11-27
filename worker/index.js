@@ -156,7 +156,7 @@ async function inat(request, url, ctx) {
       // Prefer standard places (countries, regions, counties, towns) over people's own gardens and hotspots.
       const all = d.results || [];
       const standard = all.filter((p) => p.admin_level !== null && p.admin_level !== undefined);
-      const results = (standard.length ? standard : all).slice(0, 6).map((p) => ({ id: p.id, name: p.display_name || p.name }));
+      const results = (standard.length ? standard : all).slice(0, 6).map((p) => ({ id: p.id, name: p.display_name || p.name, loc: p.location || '' }));
       return new Response(JSON.stringify({ results }), {
         headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=604800' },
       });
@@ -179,6 +179,93 @@ async function inat(request, url, ctx) {
   return json({ error: 'not_found' }, 404);
 }
 
+// Hylo: public groups and public events, read from Hylo's public GraphQL API by the worker
+// (never from visitors' browsers), cached for an hour, and trimmed to what the River shows.
+// Only what groups have chosen to make public is ever returned. Everything links back to Hylo.
+const HYLO_API = 'https://hylo.com/noo/graphql';
+const HYLO_EVENT_GROUPS = ['institute-of-relational-being'];
+
+async function hyloQuery(query, variables) {
+  const r = await fetch(HYLO_API, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', accept: 'application/json', 'user-agent': 'RelationalRiver/1.0 (relationalriver.org)' },
+    body: JSON.stringify({ query, variables }),
+  });
+  if (!r.ok) throw new Error('upstream ' + r.status);
+  const d = await r.json();
+  if (d.errors && !d.data) throw new Error('graphql ' + JSON.stringify(d.errors).slice(0, 200));
+  return d.data || {};
+}
+
+function km(a, b) {
+  const R = 6371, toR = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * toR, dLng = (b.lng - a.lng) * toR;
+  const x = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * toR) * Math.cos(b.lat * toR) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(x));
+}
+
+function plain(text, n) {
+  return String(text || '').replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim().slice(0, n);
+}
+
+async function hyloGroups(url) {
+  const lat = Math.round(parseFloat(url.searchParams.get('lat')) * 100) / 100;
+  const lng = Math.round(parseFloat(url.searchParams.get('lng')) * 100) / 100;
+  const radius = Math.min(150, Math.max(10, parseFloat(url.searchParams.get('km')) || 60));
+  if (!isFinite(lat) || !isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) return json({ error: 'bad_request' }, 400);
+  const dLat = radius / 111, dLng = radius / (111 * Math.max(0.2, Math.cos(lat * Math.PI / 180)));
+  const box = [{ lat: lat - dLat, lng: lng - dLng }, { lat: lat + dLat, lng: lng + dLng }];
+  const fields = 'items { id name slug description purpose location avatarUrl memberCount locationObject { center { lat lng } city region country } }';
+  const q = 'query ($near: PointInput, $box: [PointInput]) { groups(nearCoord: $near, boundingBox: $box, sortBy: "nearest", allowedInPublic: true, first: 24) { ' + fields + ' } }';
+  let data;
+  try { data = await hyloQuery(q, { near: { lat, lng }, box }); }
+  catch (e) {
+    // If the public listing filter isn't available, fall back to public groups only.
+    data = await hyloQuery(q.replace(' allowedInPublic: true,', ''), { near: { lat, lng }, box });
+  }
+  const here = { lat, lng };
+  const groups = ((data.groups && data.groups.items) || []).map((g) => {
+    const c = g.locationObject && g.locationObject.center;
+    const at = c && isFinite(parseFloat(c.lat)) ? { lat: parseFloat(c.lat), lng: parseFloat(c.lng) } : null;
+    return {
+      name: plain(g.name, 90), slug: g.slug,
+      about: plain(g.purpose || g.description, 220),
+      where: plain(g.location || [g.locationObject && g.locationObject.city, g.locationObject && g.locationObject.region].filter(Boolean).join(', '), 80),
+      members: g.memberCount || 0,
+      avatar: /^https:\/\//.test(g.avatarUrl || '') ? g.avatarUrl : '',
+      km: at ? Math.round(km(here, at)) : null,
+      url: 'https://www.hylo.com/groups/' + encodeURIComponent(g.slug),
+    };
+  }).filter((g) => g.slug && g.km !== null && g.km <= radius).slice(0, 12);
+  return new Response(JSON.stringify({ groups, radius, source: 'Hylo public groups' }), {
+    headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=3600' },
+  });
+}
+
+async function hyloEvents(url) {
+  const slug = url.searchParams.get('group') || HYLO_EVENT_GROUPS[0];
+  if (!HYLO_EVENT_GROUPS.includes(slug)) return json({ error: 'bad_request' }, 400);
+  const q = 'query ($slugs: [String], $after: Date) { posts(groupSlugs: $slugs, types: ["event"], afterTime: $after, sortBy: "start_time", order: "ASC", first: 12) { items { id title details startTime endTime timezone location meetingLink isPublic } } }';
+  const data = await hyloQuery(q, { slugs: [slug], after: new Date().toISOString() });
+  const now = Date.now();
+  const events = ((data.posts && data.posts.items) || []).filter((p) => p.isPublic !== false).map((p) => ({
+    title: plain(p.title, 140), about: plain(p.details, 260),
+    start: p.startTime || null, end: p.endTime || null, tz: p.timezone || '',
+    where: plain(p.location, 100), online: !!p.meetingLink,
+    url: 'https://www.hylo.com/post/' + encodeURIComponent(p.id),
+  })).filter((e) => e.start && Date.parse(e.end || e.start) >= now).slice(0, 8);
+  return new Response(JSON.stringify({ events, group: slug, groupUrl: 'https://www.hylo.com/groups/' + slug, source: 'Hylo public events' }), {
+    headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=3600' },
+  });
+}
+
+async function hylo(request, url, ctx) {
+  if (request.method !== 'GET') return json({ error: 'not_found' }, 404);
+  if (url.pathname === '/api/hylo/groups') return cached(request, ctx, () => hyloGroups(url));
+  if (url.pathname === '/api/hylo/events') return cached(request, ctx, () => hyloEvents(url));
+  return json({ error: 'not_found' }, 404);
+}
+
 // Offerings are kept no longer than three years.
 async function tidy(env) {
   if (!env.WELL_DB) return;
@@ -193,6 +280,9 @@ export default {
   },
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (url.pathname.startsWith('/api/hylo/')) {
+      try { return await hylo(request, url, ctx); } catch (e) { return json({ error: 'upstream' }, 502); }
+    }
     if (url.pathname.startsWith('/api/inat/')) {
       try { return await inat(request, url, ctx); } catch (e) { return json({ error: 'server' }, 500); }
     }
