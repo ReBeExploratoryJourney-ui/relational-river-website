@@ -123,7 +123,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </sc-if>
 <sc-if value="{{it.hasCredit}}" hint-placeholder-val="{{ false }}"><div class="minor">{{it.credit}}</div></sc-if>
 <sc-if value="{{it.hasLink}}" hint-placeholder-val="{{ false }}"><a href="{{it.href}}" class="lnk">{{it.cta}}</a></sc-if>
-<button class="aboard" aria-pressed="{{it.aboardOn}}" onClick="{{it.aboard}}">{{it.aboardLabel}}</button>
+<sc-if value="{{it.aboardHint}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; font-style: italic; line-height: 1.45">{{it.aboardHint}}</p></sc-if><button class="aboard" aria-pressed="{{it.aboardOn}}" onClick="{{it.aboard}}">{{it.aboardLabel}}</button>
 </article>
 </sc-for>
 </div>
@@ -175,7 +175,7 @@ class Component extends DCLogic {
   }
   aboardFor(list, item) {
     var self = this, on = this.boatHas(list, item.id), tend = list === 'tending';
-    return { aboardOn: on ? 'true' : 'false', aboardLabel: on ? (tend ? 'Tending in your Boat' : 'Aboard your Boat') : (tend ? 'Tend this in your Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
+    return { aboardOn: on ? 'true' : 'false', aboardHint: tend && !on ? 'Once you have tried this, you can stow it in your Boat and keep tending it there.' : '', aboardLabel: on ? (tend ? 'Stowed in your Boat' : 'Aboard your Boat') : (tend ? 'Stow this in your Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
   }
   constructor(props) { super(props); this.state = { time: 'any', where: 'any', open: {} }; }
 

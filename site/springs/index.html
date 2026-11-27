@@ -121,7 +121,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <div class="minor">{{s.when}} · {{s.where}} · in {{s.lang}}</div>
 <div class="minor"><b>{{s.cost}}</b><sc-if value="{{s.noticed}}" hint-placeholder-val="{{ false }}"> · Noticed by the River</sc-if></div>
 <a href="{{s.href}}" class="lnk">{{s.cta}}</a>
-<button class="aboard" aria-pressed="{{s.aboardOn}}" onClick="{{s.aboard}}">{{s.aboardLabel}}</button>
+<sc-if value="{{s.aboardHint}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; font-style: italic; line-height: 1.45">{{s.aboardHint}}</p></sc-if><button class="aboard" aria-pressed="{{s.aboardOn}}" onClick="{{s.aboard}}">{{s.aboardLabel}}</button>
 </article>
 </sc-for>
 </div>
@@ -179,7 +179,7 @@ class Component extends DCLogic {
   }
   aboardFor(list, item) {
     var self = this, on = this.boatHas(list, item.id), tend = list === 'tending';
-    return { aboardOn: on ? 'true' : 'false', aboardLabel: on ? (tend ? 'Tending in your Boat' : 'Aboard your Boat') : (tend ? 'Tend this in your Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
+    return { aboardOn: on ? 'true' : 'false', aboardHint: tend && !on ? 'Once you have tried this, you can stow it in your Boat and keep tending it there.' : '', aboardLabel: on ? (tend ? 'Stowed in your Boat' : 'Aboard your Boat') : (tend ? 'Stow this in your Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
   }
   constructor(props) { super(props); this.state = { fmt: 'all', cost: 'all' }; }
   componentDidMount() { var self = this; try { fetch('/data/springs.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.springs) { self.setState({ data: d.springs }); } self.showLinked(); }).catch(function () { self.showLinked(); }); } catch (e) {} }

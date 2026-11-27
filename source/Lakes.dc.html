@@ -106,7 +106,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <sc-if value="{{l.idLink}}" hint-placeholder-val="{{ false }}"><a href="https://onrelationalbeing.substack.com/p/relational-identity-ecological-intersectionality" class="minor" style="min-height: 44px; display: inline-flex; align-items: center">What is Relational ID? Read the exploration on IRB’s Substack</a></sc-if>
 <div class="minor">{{l.notes}}</div>
 <a href="{{l.href}}" class="lnk">{{l.cta}}</a>
-<button class="aboard" aria-pressed="{{l.aboardOn}}" onClick="{{l.aboard}}">{{l.aboardLabel}}</button>
+<sc-if value="{{l.aboardHint}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; font-style: italic; line-height: 1.45">{{l.aboardHint}}</p></sc-if><button class="aboard" aria-pressed="{{l.aboardOn}}" onClick="{{l.aboard}}">{{l.aboardLabel}}</button>
 </article>
 </sc-for>
 </div>
@@ -170,7 +170,7 @@ class Component extends DCLogic {
   }
   aboardFor(list, item) {
     var self = this, on = this.boatHas(list, item.id), tend = list === 'tending';
-    return { aboardOn: on ? 'true' : 'false', aboardLabel: on ? (tend ? 'Tending in your Boat' : 'Aboard your Boat') : (tend ? 'Tend this in your Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
+    return { aboardOn: on ? 'true' : 'false', aboardHint: tend && !on ? 'Once you have tried this, you can stow it in your Boat and keep tending it there.' : '', aboardLabel: on ? (tend ? 'Stowed in your Boat' : 'Aboard your Boat') : (tend ? 'Stow this in your Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
   }
   constructor(props) { super(props); this.state = { fmt: 'all' }; }
 
