@@ -42,6 +42,7 @@ PAGES = {
     'Privacy': ('privacy.html', '/privacy', 'How the Relational River cares for your information: what is kept, why, for how long, and your rights under GDPR.'),
     'Well': ('well.html', '/well', 'The Well of Wonder, Wit, Wisdom and Wealth: pour in what you can offer, and draw on others to bring projects to life.'),
     'LunarPage': ('lunar-journal.html', '/lunar-journal', 'A lunar journal page to print: twenty-nine nights with Moon, with a space to sketch each night.'),
+    'WyrdBay': ('wyrd-bay.html', '/wyrd-bay', 'A quiet cove beyond the fog.'),
     'Moon': ('moon.html', '/moon', 'Moon moves the waters, and we are water too: tides, turning points and Making with Moon.'),
 }
 
@@ -104,6 +105,7 @@ def convert(name, text):
         + '<template id="rr-template">' + body + '</template>\n'
         + script_html + '\n'
         + '<script src="/js/boat-sync.js"></script>\n'
+        + '<script src="/js/wyrd.js"></script>\n'
         + '<script src="/js/river-runtime.js"></script>\n'
         + '</body>\n</html>\n'
     )
@@ -121,6 +123,8 @@ def convert(name, text):
 HEADERS = '''/murmurations/*
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=300
+/wyrd-bay/*
+  X-Robots-Tag: noindex, nofollow, noarchive
 '''
 
 

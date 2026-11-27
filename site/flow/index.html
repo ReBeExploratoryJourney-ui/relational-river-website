@@ -54,6 +54,12 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 @keyframes breathe{0%,100%{r:9}50%{r:12}}
 .node{position:absolute;transform:translate(-50%,-50%);font-family:Jost,sans-serif;font-size:15px;font-weight:500;color:#2F2B28;background:#F5EEE1;border:none;border-radius:18px 22px 16px 24px;padding:8px 14px;min-height:44px;cursor:pointer;white-space:nowrap;transition:transform .2s,background .2s}
 .node:hover{transform:translate(-50%,-50%) rotate(-2deg) scale(1.05)}
+.wymist{position:absolute;transform:translate(-50%,-50%);width:120px;height:70px;padding:0;border:none;background:transparent;cursor:default;opacity:.75;transition:opacity 1.2s ease}
+.wymist:hover,.wymist:focus-visible{opacity:1}
+.wymist svg{display:block;width:100%;height:100%;overflow:visible}
+@keyframes wydrift{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+@keyframes wydrift2{0%,100%{transform:translateX(0)}50%{transform:translateX(-6px)}}
+.wym1{animation:wydrift 11s ease-in-out infinite}.wym2{animation:wydrift2 14s ease-in-out infinite}.wym3{animation:wydrift 17s ease-in-out infinite}
 .node.on{background:#9FD3DC;font-weight:600}
 .pill{font-family:Jost,sans-serif;font-size:15px;color:#EDEDED;background:transparent;border:1.5px solid #DCDCDC;border-radius:7px;padding:10px 18px;min-height:44px;cursor:pointer}
 .pill:hover{background:rgba(220,220,220,0.12)}
@@ -276,6 +282,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <sc-for list="{{nodes}}" as="n" hint-placeholder-count="15">
 <button class="{{n.cls}}" style="left: {{n.x}}; top: {{n.y}}" aria-pressed="{{n.on}}" onClick="{{n.pick}}">{{n.name}}</button>
 </sc-for>
+<button class="wymist" style="left: 91%; top: 84%" aria-label="Mist" onClick="{{mistClick}}"><svg viewBox="0 0 120 70" aria-hidden="true"><defs><radialGradient id="wyMistG" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#E6EEF5" stop-opacity="0.5"></stop><stop offset="0.6" stop-color="#C9D8E6" stop-opacity="0.18"></stop><stop offset="1" stop-color="#C9D8E6" stop-opacity="0"></stop></radialGradient></defs><ellipse class="wym1" cx="52" cy="38" rx="50" ry="22" fill="url(#wyMistG)"></ellipse><ellipse class="wym2" cx="72" cy="30" rx="40" ry="18" fill="url(#wyMistG)"></ellipse><ellipse class="wym3" cx="40" cy="44" rx="34" ry="14" fill="url(#wyMistG)"></ellipse></svg></button>
 </div>
 </div>
 
@@ -1092,6 +1099,7 @@ class Component extends DCLogic {
       hasSprings: springTop.length > 0, springTop: springTop,
       guideCls: gv.guideCls, logoCls: gv.logoCls, birdCls: gv.birdCls, peelCls: gv.peelCls, heroCls: gv.heroCls, cosmosCls: gv.cosmosCls, guideLabel: gv.guideLabel, startGuide: gv.startGuide, guidingOn: this.state.guiding ? 'true' : 'false',
       moonLit: moon.d,
+      mistClick: function () { if (window.RiverWyrd) { window.RiverWyrd.atMist(); } },
       nodes: N.map(function (n, k) { var on = k === i; return { name: n.k, x: n.x + '%', y: n.y + '%', on: on ? 'true' : 'false', cls: on ? 'node on' : 'node', pick: function () { go(k); self.showCard(); } }; }),
       hasIdLink: /Relational ID/.test((cur.eg || '') + ' ' + cur.text), hasInvite: !!cur.invite, invite: cur.invite || '', inviteCta: cur.inviteCta || '',
       step: (i + 1) + ' of ' + count, name: cur.k, line: cur.line, text: cur.text, eg: cur.eg, href: cur.href, cta: cur.cta, hasHref2: !!cur.href2, href2: cur.href2 || '', cta2: cur.cta2 || '', hasPrompt: !!cur.prompt, prompt: cur.prompt || '', promptOpen: this.state.promptFor === i, promptExpanded: this.state.promptFor === i ? 'true' : 'false', promptLabel: this.state.promptFor === i ? 'Fold it away' : 'Try something now', togglePrompt: function () { self.stopTour(); self.setState({ tour: false, promptFor: self.state.promptFor === i ? -1 : i }); },
@@ -1107,6 +1115,7 @@ class Component extends DCLogic {
 }
 </script>
 <script src="/js/boat-sync.js"></script>
+<script src="/js/wyrd.js"></script>
 <script src="/js/river-runtime.js"></script>
 </body>
 </html>

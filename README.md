@@ -48,6 +48,10 @@ Every push to `main` goes live automatically.
 
 While the River is being tested, every page asks search engines not to list it (`noindex`). Remove that line from `build.py` before public launch.
 
+### A veiled place
+
+One place on the River is left out of this table, the menus, search engines and the open data feeds on purpose. Its way opens through wandering and curiosity (see `js/wyrd.js` and `source/WyrdBay.dc.html` if you tend the code). It is a veil rather than a lock, so please keep its `noindex, nofollow` and leave it out of the menus when launching the rest of the River.
+
 ## The Well: keeping offerings
 
 `worker/index.js` serves the site and answers `/api/well/...`. Offerings are kept in a

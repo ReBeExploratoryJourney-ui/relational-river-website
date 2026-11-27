@@ -1,3 +1,5 @@
 /murmurations/*
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=300
+/wyrd-bay/*
+  X-Robots-Tag: noindex, nofollow, noarchive

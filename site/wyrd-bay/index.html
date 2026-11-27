@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Relational River · Wyrd Bay</title>
+<meta name="description" content="A quiet cove beyond the fog.">
+<meta property="og:title" content="Relational River · Wyrd Bay">
+<meta property="og:description" content="A quiet cove beyond the fog.">
+<meta property="og:image" content="https://relationalriver.org/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<link rel="icon" href="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png">
+<meta name="theme-color" content="#0E2849">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+body{margin:0}
+.bayroot{background:linear-gradient(180deg,#07061A 0%,#15183F 30%,#132A44 70%,#0C1A2E 100%);font-family:Jost,sans-serif;color:#EFE6D2;min-height:100vh}
+.bayroot a{color:#EFE6D2}
+.bayroot a:hover{color:#FFFFFF}
+.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.fogpage{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;box-sizing:border-box;gap:14px}
+.fogsvg{width:min(520px,90vw);height:auto}
+.fogh{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:400;font-size:36px}
+.fogp{margin:0;max-width:520px;font-size:18px;line-height:1.6}
+.foglink{min-height:44px;display:inline-flex;align-items:center;font-style:italic}
+.bayhead{max-width:1160px;margin:0 auto;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.baylogo{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-style:italic;text-decoration:none}
+.vmine{font-weight:600;font-size:16px;padding:9px 16px;min-height:44px;display:inline-flex;align-items:center;border:1.5px solid #9FD3DC;border-radius:8px;text-decoration:none}
+.scenewrap{width:100%;max-height:62vh;overflow:hidden}
+.bayscene{display:block;width:100%;height:auto;max-height:62vh;min-height:300px}
+.ring{transform-box:fill-box;transform-origin:center}
+.r1{animation:wyspin 160s linear infinite}
+.r2{animation:wyspin 110s linear infinite reverse}
+.r3{animation:wyspin 70s linear infinite}
+@keyframes wyspin{to{transform:rotate(360deg)}}
+.core{transform-box:fill-box;transform-origin:center;animation:wypulse 9s ease-in-out infinite}
+@keyframes wypulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.tw{animation:wytw 5s ease-in-out infinite}.t2{animation-delay:-1.7s}.t3{animation-delay:-3.3s}
+@keyframes wytw{0%,100%{opacity:.35}50%{opacity:1}}
+.glim{animation:wyglim 6s ease-in-out infinite;opacity:.2}.g2{animation-delay:-2s}.g3{animation-delay:-4s}
+@keyframes wyglim{0%,100%{opacity:.12}45%{opacity:.85}}
+.lant{animation:wybob 7s ease-in-out infinite}.l2{animation-delay:-2.4s}.l3{animation-delay:-4.6s}
+@keyframes wybob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.refl{animation:wyrefl 9s ease-in-out infinite}
+@keyframes wyrefl{0%,100%{opacity:.7}50%{opacity:1}}
+.weave{transform-box:fill-box;transform-origin:center}
+.bayscene.pre .weave{opacity:0;transform:scale(.55)}
+.bayscene.bloom .weave{animation:wybloom 2.8s cubic-bezier(.2,.7,.2,1) both}
+@keyframes wybloom{0%{opacity:0;transform:scale(.55) rotate(-25deg)}60%{opacity:1}100%{opacity:1;transform:scale(1) rotate(0)}}
+.baymain{max-width:1160px;margin:0 auto;padding:28px 32px 64px;display:flex;flex-direction:column;gap:40px}
+.kick{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#E8C77A}
+.bayh1{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:64px;letter-spacing:-.03em;line-height:1}
+.bayh1:focus{outline:none}
+.lede{margin:0;font-size:19px;line-height:1.6;max-width:780px}
+.note{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:21px;line-height:1.5;color:#E8C77A;max-width:780px}
+.baynav{display:flex;flex-wrap:wrap;gap:6px 22px}
+.baynav a{min-height:44px;display:inline-flex;align-items:center;font-size:16px;text-underline-offset:6px;text-decoration-color:#9FD3DC}
+.bh2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:36px;letter-spacing:-.02em}
+.gold{color:#E8C77A}
+.k{font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.h2{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:30px;letter-spacing:-.02em}
+.h3{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:21px}
+.p{margin:0;font-size:16px;line-height:1.55}
+.minor{font-size:14px;font-style:italic}
+.lnk{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.links{display:flex;flex-wrap:wrap;gap:0 18px}
+.steps{margin:4px 0 0;padding-left:22px;font-size:16px;line-height:1.6}
+.steps li{margin-bottom:4px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:start}
+.qcard{padding:34px 30px 28px;display:flex;flex-direction:column;gap:9px;color:#2F2B28}
+.wordcard,.testcard,.mform{padding:32px 40px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.toggle{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:transparent;border:1.5px solid #2F2B28;border-radius:10px 14px 10px 12px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
+.aboard{font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:rgba(251,247,239,0.55);border:1.5px dashed #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 14px;min-height:44px;cursor:pointer;align-self:flex-start}
+.aboard[aria-pressed="true"]{border-style:solid;background:#2F2B28;color:#FBF7EF}
+.seek{font-family:Jost,sans-serif;font-size:15px;background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;min-height:44px;padding:0;align-self:flex-start}
+.chip{font-family:Jost,sans-serif;font-size:15px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:8px 14px;min-height:44px;cursor:pointer}
+.chip.on{background:#E6E2F2;border-color:#2F2B28;font-weight:600}
+.dchip{font-family:Jost,sans-serif;font-size:15px;color:#EFE6D2;background:transparent;border:1.5px solid rgba(239,230,210,.55);border-radius:18px 22px 16px 24px;padding:8px 14px;min-height:44px;cursor:pointer}
+.dchip.on{background:#E8C77A;color:#14163A;border-color:#E8C77A;font-weight:600}
+.field{font-family:Jost,sans-serif;font-size:16px;line-height:1.5;padding:12px 14px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 12px 18px;background:#FFFFFF;color:#2F2B28}
+.fld{display:flex;flex-direction:column;gap:6px}
+.alabel{font-size:15px;font-weight:600}
+.go{font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:18px;color:#2F2B28;background:#CFE1E4;border:none;padding:14px 26px;min-height:50px;cursor:pointer}
+.hfoot{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;margin-top:4px}
+.hylo{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600;color:#2F2B28}
+.hylo img{width:30px;height:34px;display:block}
+.hreport{font-family:Jost,sans-serif;font-size:14px;background:none;border:none;color:#5A524B;text-decoration:underline;cursor:pointer;min-height:44px;padding:0}
+.tl{transform:rotate(-0.8deg)}.tr{transform:rotate(0.7deg)}
+.bayfoot{max-width:1160px;margin:0 auto;padding:24px 32px 40px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:14px;font-style:italic;color:#C9CCD6}
+.bayfoot a{min-height:44px;display:inline-flex;align-items:center}
+@media (max-width: 640px){.bayh1{font-size:46px}.bh2{font-size:28px}.wordcard,.testcard,.mform{padding:28px 24px}.baymain{padding:20px 20px 56px}}
+/* the crossing into the Bay */
+.wy-entry{position:fixed;inset:0;z-index:200;overflow:hidden;background:#1A1D45}
+.we-sea{position:absolute;inset:0;background:linear-gradient(180deg,#14163A 0%,#1E2A55 46%,#1C3B4E 58%,#10263A 100%)}
+.we-lines{position:absolute;left:0;top:0;width:100%;height:100%}
+.we-boat{position:absolute;left:0;top:0;width:150px;height:112px;margin:-56px 0 0 -75px;will-change:transform,opacity}
+.we-boat svg{display:block;width:100%;height:100%}
+.we-fog{position:absolute;left:-30%;top:-20%;width:160%;height:140%;pointer-events:none;will-change:transform}
+.we-fog.f1{background:radial-gradient(ellipse 30% 22% at 30% 45%,rgba(222,231,240,.55),rgba(222,231,240,0) 70%),radial-gradient(ellipse 26% 18% at 64% 62%,rgba(205,218,232,.5),rgba(205,218,232,0) 70%)}
+.we-fog.f2{background:radial-gradient(ellipse 34% 20% at 48% 70%,rgba(232,238,245,.5),rgba(232,238,245,0) 70%),radial-gradient(ellipse 22% 16% at 80% 40%,rgba(214,225,236,.45),rgba(214,225,236,0) 70%)}
+.we-fog.f3{background:radial-gradient(ellipse 28% 24% at 18% 72%,rgba(226,234,242,.5),rgba(226,234,242,0) 70%),radial-gradient(ellipse 30% 20% at 56% 32%,rgba(210,222,234,.42),rgba(210,222,234,0) 70%)}
+.we-thick{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,#E3EAF1 0%,#C9D4DF 60%,#B3C0CD 100%);opacity:0}
+.we-word{position:absolute;left:0;right:0;top:46%;margin:0;text-align:center;font-family:'Averia Serif Libre',Georgia,serif;font-style:italic;font-size:28px;color:#14163A;opacity:0;padding:0 24px}
+.we-skip{position:absolute;right:20px;bottom:20px;font-family:Jost,sans-serif;font-size:15px;min-height:44px;padding:8px 16px;background:rgba(20,22,58,.55);color:#EFE6D2;border:1px solid rgba(239,230,210,.5);border-radius:12px 16px 10px 14px;cursor:pointer}
+@media (prefers-reduced-motion: reduce){.ring,.core,.tw,.glim,.lant,.refl{animation:none!important}.bayscene.pre .weave{opacity:1;transform:none}.bayscene.bloom .weave{animation:none}}
+.torn{-webkit-mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);mask-image:url(/assets/621b5e5167095299f6f29e7b96675bac.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply}
+.torn.tall{-webkit-mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);mask-image:url(/assets/9949bcc23a8bf2593838a70af72f248c.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.tornbtn{-webkit-mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);mask-image:url(/assets/232fefe1f5d15d4abbe5b6dde9a575e8.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background-image:url(/assets/0aab009eb547b7652846ddf7be52a067.jpg)!important;background-size:520px!important;background-blend-mode:multiply;color:#2F2B28}
+.torn{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,center!important;mask-position:top center,bottom center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+@media (max-width: 700px){
+.torn{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,calc(100% - 3px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,center!important;mask-position:top center,bottom center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+}
+/* Torn edges of a fixed, shallow depth on every side, so text is never covered. */
+.torn,.torn.tall{-webkit-mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;mask-image:url(/assets/09ceeae36cf3c1b66d92f6027bd916aa.png),url(/assets/19506af6ec26f2d77dc8f8be13783a4e.png),url(/assets/c670d821c61bd5632427dd25511aefc5.png),url(/assets/c6f17e04b860c11da92369e1279f3e80.png),linear-gradient(#000,#000)!important;-webkit-mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;mask-size:100% 30px,100% 30px,18px calc(100% - 40px),18px calc(100% - 40px),calc(100% - 30px) calc(100% - 56px)!important;-webkit-mask-position:top center,bottom center,left center,right center,center!important;mask-position:top center,bottom center,left center,right center,center!important;-webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important}
+</style>
+<style>body{background:#0E2849}</style>
+</head>
+<body>
+<noscript><p style="color:#EDEDED;font-family:sans-serif;padding:24px">The Relational River needs JavaScript turned on to flow.</p></noscript>
+<template id="rr-template">
+
+<div class="bayroot">
+<sc-if value="{{veiled}}" hint-placeholder-val="{{ false }}">
+<main class="fogpage">
+<svg class="fogsvg" viewBox="0 0 400 200" aria-hidden="true"><defs><radialGradient id="fogG" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#DCE4EC" stop-opacity="0.55"></stop><stop offset="1" stop-color="#DCE4EC" stop-opacity="0"></stop></radialGradient></defs><ellipse cx="160" cy="110" rx="160" ry="60" fill="url(#fogG)"></ellipse><ellipse cx="250" cy="90" rx="140" ry="50" fill="url(#fogG)"></ellipse></svg>
+<h1 class="fogh">The fog is thick here</h1>
+<p class="fogp">This water doesn’t open to those who arrive by address alone. Wander the River’s deeper waters, and keep an eye out for what is easy to miss.</p>
+<a href="/flow" class="foglink">Back to the River</a>
+</main>
+</sc-if>
+
+<sc-if value="{{open}}" hint-placeholder-val="{{ true }}">
+<header class="bayhead">
+<a href="/flow" class="baylogo"><img src="/assets/e8c0fc7b44ab44f6fd08f8a17c9a0149.png" alt="" style="width: 40px; height: 40px; display: block">Back to the River</a>
+<a href="/boat" class="vmine">Your Boat</a>
+</header>
+
+<div class="scenewrap">
+<svg class="bayscene {{sceneCls}}" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Wyrd Bay at night: a cove between dark headlands, a great slow weave of light turning in the sky, lanterns and glimmers on the water, and your Boat moored near the shore.">
+<defs>
+<linearGradient id="bsSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#07061A"></stop><stop offset="0.55" stop-color="#15183F"></stop><stop offset="1" stop-color="#22305A"></stop></linearGradient>
+<linearGradient id="bsSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A2E52"></stop><stop offset="1" stop-color="#0A1428"></stop></linearGradient>
+<radialGradient id="bsCore" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFF4D8" stop-opacity="0.95"></stop><stop offset="0.35" stop-color="#E8C77A" stop-opacity="0.45"></stop><stop offset="1" stop-color="#B9A7E8" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="bsGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#B9A7E8" stop-opacity="0.32"></stop><stop offset="1" stop-color="#B9A7E8" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="bsLamp" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFD98A" stop-opacity="0.9"></stop><stop offset="1" stop-color="#FFD98A" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="bsRefl" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#E8C77A" stop-opacity="0.35"></stop><stop offset="1" stop-color="#E8C77A" stop-opacity="0"></stop></radialGradient>
+</defs>
+<rect x="0" y="0" width="1200" height="520" fill="url(#bsSky)"></rect>
+<g fill="#EFE6D2"><circle class="tw" cx="80" cy="60" r="1.4"></circle><circle class="tw t2" cx="210" cy="140" r="1.1"></circle><circle class="tw t3" cx="330" cy="40" r="1.6"></circle><circle class="tw" cx="1010" cy="70" r="1.5"></circle><circle class="tw t2" cx="1120" cy="160" r="1.2"></circle><circle class="tw t3" cx="900" cy="30" r="1.1"></circle><circle class="tw" cx="760" cy="110" r="1"></circle><circle class="tw t2" cx="440" cy="120" r="1"></circle><circle class="tw t3" cx="150" cy="250" r="1.2"></circle><circle class="tw" cx="1060" cy="250" r="1.3"></circle></g>
+<g class="weave">
+<ellipse cx="600" cy="205" rx="260" ry="230" fill="url(#bsGlow)"></ellipse>
+<g class="ring r1"><path d="M600 47 C 690 49, 762 112, 760 206 C 758 296, 690 364, 598 362 C 506 360, 441 292, 442 204 C 443 116, 512 45, 600 47 Z" fill="none" stroke="#E8C77A" stroke-opacity="0.55" stroke-width="1.4" stroke-dasharray="2 9" stroke-linecap="round"></path><g fill="#E8C77A" fill-opacity="0.8"><path d="M600 41 l4 6 -4 6 -4 -6z"></path><path d="M760 200 l6 4 -6 4 -6 -4z"></path><path d="M600 356 l4 6 -4 6 -4 -6z"></path><path d="M436 200 l6 4 -6 4 -6 -4z"></path><circle cx="713" cy="92" r="2.4"></circle><circle cx="711" cy="318" r="2.4"></circle><circle cx="488" cy="318" r="2.4"></circle><circle cx="487" cy="92" r="2.4"></circle></g></g>
+<g class="ring r2"><path d="M600 98 C 662 100, 708 146, 706 206 C 704 266, 660 310, 600 309 C 539 308, 494 264, 495 204 C 496 145, 540 96, 600 98 Z" fill="none" stroke="#9FD3DC" stroke-opacity="0.55" stroke-width="1.2" stroke-dasharray="1 6" stroke-linecap="round"></path><g fill="#9FD3DC"><circle cx="600" cy="98" r="3"></circle><circle cx="706" cy="206" r="2"></circle><circle cx="600" cy="309" r="3"></circle><circle cx="495" cy="204" r="2"></circle></g></g>
+<g class="ring r3"><path d="M600 140 C 638 141, 666 168, 665 206 C 664 242, 636 270, 600 269 C 563 268, 536 242, 537 205 C 538 169, 563 139, 600 140 Z" fill="none" stroke="#B9A7E8" stroke-opacity="0.7" stroke-width="1.6"></path><path d="M600 150 C 632 152, 652 178, 650 206 C 648 236, 622 256, 598 254 C 574 252, 556 232, 558 208 C 560 186, 580 172, 598 174 C 614 176, 622 190, 620 204 C 618 216, 606 222, 598 218" fill="none" stroke="#EFE6D2" stroke-opacity="0.55" stroke-width="1.3" stroke-linecap="round"></path></g>
+<circle class="core" cx="600" cy="205" r="46" fill="url(#bsCore)"></circle>
+</g>
+<path d="M0 330 C 80 300, 150 300, 210 318 C 260 334, 300 340, 340 352 L 360 372 L 0 372 Z" fill="#0B0E24"></path>
+<path d="M1200 318 C 1120 292, 1050 296, 990 314 C 940 330, 890 342, 850 356 L 830 372 L 1200 372 Z" fill="#0B0E24"></path>
+<path d="M60 318 l6 -18 6 18 M100 312 l7 -22 7 22 M1110 306 l6 -20 6 20 M1150 300 l7 -24 7 24" fill="#0B0E24" stroke="#0B0E24" stroke-width="2"></path>
+<rect x="0" y="370" width="1200" height="150" fill="url(#bsSea)"></rect>
+<ellipse class="refl" cx="600" cy="410" rx="120" ry="34" fill="url(#bsRefl)"></ellipse>
+<g fill="none" stroke-linecap="round">
+<path class="glim" d="M380 400 q30 -6 60 0" stroke="#9FD3DC" stroke-width="1.6"></path>
+<path class="glim g2" d="M700 430 q36 -7 72 0" stroke="#9FD3DC" stroke-width="1.6"></path>
+<path class="glim g3" d="M240 450 q24 -5 48 0" stroke="#B9A7E8" stroke-width="1.4"></path>
+<path class="glim" d="M880 470 q28 -6 56 0" stroke="#B9A7E8" stroke-width="1.4"></path>
+<path class="glim g2" d="M520 470 q40 -8 80 0" stroke="#9FD3DC" stroke-width="1.6"></path>
+<path class="glim g3" d="M120 404 q22 -5 44 0" stroke="#9FD3DC" stroke-width="1.2"></path>
+<path class="glim" d="M1030 410 q26 -5 52 0" stroke="#9FD3DC" stroke-width="1.2"></path>
+<path d="M0 384 C 200 376, 400 392, 600 384 S 1000 376, 1200 386" stroke="#9FD3DC" stroke-opacity="0.25" stroke-width="1"></path>
+</g>
+<g class="lant"><circle cx="330" cy="396" r="16" fill="url(#bsLamp)"></circle><circle cx="330" cy="396" r="3" fill="#FFE2A0"></circle></g>
+<g class="lant l2"><circle cx="820" cy="420" r="18" fill="url(#bsLamp)"></circle><circle cx="820" cy="420" r="3.2" fill="#FFE2A0"></circle></g>
+<g class="lant l3"><circle cx="470" cy="440" r="13" fill="url(#bsLamp)"></circle><circle cx="470" cy="440" r="2.6" fill="#FFE2A0"></circle></g>
+<g class="lant"><circle cx="1000" cy="392" r="12" fill="url(#bsLamp)"></circle><circle cx="1000" cy="392" r="2.4" fill="#FFE2A0"></circle></g>
+<g class="moored" transform="translate(905 404) scale(1.15)"><path d="M2 41 C 12 37, 20 45, 32 41 S 52 37, 62 41" fill="none" stroke="#9FD3DC" stroke-width="2" stroke-linecap="round"></path><path d="M6 30 C 13 40, 49 41, 58 29 Z" fill="#F5EEE1" stroke="#2F2B28" stroke-width="2" stroke-linejoin="round"></path><path d="M33 5 L33 30" stroke="#2F2B28" stroke-width="2" stroke-linecap="round"></path><path d="M35 8 C 46 15, 51 23, 53 28 L35 28 Z" fill="#E8C77A" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"></path><path d="M31 12 C 24 17, 20 23, 17 28 L31 28 Z" fill="#CFE1E4" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"></path></g>
+</svg>
+</div>
+
+<main class="baymain">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div class="kick">You found the way</div>
+<h1 class="bayh1" tabindex="-1">Wyrd Bay</h1>
+<p class="lede">Wyrd is an old word. In Old English it named the turning of what comes to be: a weave of becoming that no one holds alone. This bay is for those who work with and within that becoming. Liminal agents, Wyrd Workers and anyone who quests are welcome here.</p>
+<p class="lede">Come to cultivate connections, take up a quest with others, or sit alone by the water. Both are welcome, and you can change your mind as the tide does.</p>
+<p class="note">Nothing here knows the way. That is rather the point.</p>
+</div>
+
+<nav class="baynav" aria-label="In the Bay"><a href="#quests">Quests</a><a href="#flotsam">Flotsam</a><a href="#moorings">Moorings</a><a href="#lantern">The lantern test</a></nav>
+
+<section class="torn tl wordcard" style="background: #D9D3EA">
+<div class="k">A word about a crowded word</div>
+<p class="p">“Liminal” has been carried into many rooms lately. In the Bay we try to use it with care, remembering where it came from: the <i>limen</i>, the threshold, in the rites of passage that Arnold van Gennep described, and the betwixt-and-between time that Victor Turner explored. A threshold is not a brand. It is where you are not yet who you will be.</p>
+</section>
+
+<section id="quests" style="display: flex; flex-direction: column; gap: 18px">
+<div class="k gold">Quests</div>
+<h2 class="bh2">Take up a quest</h2>
+<p class="lede">Small invitations, taken alone or with others. None of them has a right answer. Stow one in your Boat to keep tending it, and look to the Moorings if you would like companions.</p>
+<div class="qgrid">
+<sc-for list="{{quests}}" as="q" hint-placeholder-count="8">
+<article class="torn {{q.tilt}} qcard" style="background: {{q.bg}}">
+<div class="k">{{q.mode}}</div>
+<h3 class="h3">{{q.title}}</h3>
+<p class="p">{{q.text}}</p>
+<button class="toggle" aria-expanded="{{q.openAttr}}" onClick="{{q.toggle}}">{{q.toggleLabel}}</button>
+<sc-if value="{{q.open}}" hint-placeholder-val="{{ false }}"><ol class="steps"><sc-for list="{{q.steps}}" as="st" hint-placeholder-count="3"><li>{{st}}</li></sc-for></ol></sc-if>
+<sc-if value="{{q.hasSeekers}}" hint-placeholder-val="{{ false }}"><button class="seek" onClick="{{q.seeSeekers}}">{{q.seekLabel}}</button></sc-if>
+<sc-if value="{{q.hasHint}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; font-style: italic; line-height: 1.45">{{q.aboardHint}}</p></sc-if><button class="aboard" aria-pressed="{{q.aboardOn}}" onClick="{{q.aboard}}">{{q.aboardLabel}}</button>
+</article>
+</sc-for>
+</div>
+</section>
+
+<section id="flotsam" style="display: flex; flex-direction: column; gap: 18px">
+<div class="k gold">Flotsam</div>
+<h2 class="bh2">What the tide brought in</h2>
+<p class="lede">Washed up on this shore: makers and works that help people meet mystery with curiosity rather than control. Each links to its makers. The Bay adds slowly, and only what passes the lantern test below.</p>
+<div class="qgrid">
+<sc-for list="{{flotsam}}" as="f" hint-placeholder-count="10">
+<article class="torn {{f.tilt}} qcard" style="background: {{f.bg}}">
+<div class="k">{{f.kind}}</div>
+<h3 class="h3">{{f.title}}</h3>
+<div class="minor">{{f.by}}</div>
+<p class="p">{{f.text}}</p>
+<div class="links"><sc-for list="{{f.links}}" as="l" hint-placeholder-count="2"><a href="{{l.href}}" class="lnk" target="_blank" rel="noopener">{{l.label}}</a></sc-for></div>
+<button class="aboard" aria-pressed="{{f.aboardOn}}" onClick="{{f.aboard}}">{{f.aboardLabel}}</button>
+</article>
+</sc-for>
+</div>
+</section>
+
+<section id="lantern" class="torn tr testcard" style="background: #F5E3B0">
+<div class="k">The lantern test</div>
+<h2 class="h2" style="font-size: 28px">Enchantment, or glamour?</h2>
+<p class="p">Patrick Curry suggests that the counterfeit of enchantment is glamour: wonder that has been manufactured to sell something or to steer us. Before anything washes up in the Bay, we hold a lantern to it and ask:</p>
+<ul class="steps">
+<li>Does it come from real depth of practice or lineage, rather than borrowing the word “liminal”?</li>
+<li>Does it keep the mystery open, rather than selling certainty or a shortcut?</li>
+<li>Is it entangled, weaving humans into the rest of nature and the cosmos?</li>
+<li>Does it honour the keepers of the knowledge it draws on, and leave ceremony with those it belongs to?</li>
+<li>Does it leave you more curious and more kind?</li>
+</ul>
+<p class="p">Know of something that would pass? Bring it to the Institute of Relational Being’s group on <a href="https://www.hylo.com/groups/institute-of-relational-being" target="_blank" rel="noopener">Hylo</a>, and say it came from the Bay.</p>
+</section>
+
+<section id="moorings" style="display: flex; flex-direction: column; gap: 18px">
+<div class="k gold">Moorings</div>
+<h2 class="bh2">Wyrd Workers moored here</h2>
+<p class="lede">Those who choose to be findable leave a card at the moorings: what they are tending at the threshold, and whether they are questing alone, looking for companions, or open to either.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px" role="group" aria-label="Show moorings"><sc-for list="{{mFilters}}" as="m" hint-placeholder-count="4"><button class="{{m.cls}}" aria-pressed="{{m.on}}" onClick="{{m.pick}}">{{m.label}}</button></sc-for></div>
+<sc-if value="{{mQuestNote}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">{{mQuestNote}} <button class="seek" onClick="{{mClearQuest}}">Show all moorings</button></p></sc-if>
+<sc-if value="{{mLoading}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">Looking along the moorings…</p></sc-if>
+<sc-if value="{{mProblem}}" hint-placeholder-val="{{ false }}"><p class="p">{{mProblem}}</p></sc-if>
+<sc-if value="{{mEmpty}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">{{mEmptyText}}</p></sc-if>
+<div class="qgrid">
+<sc-for list="{{moorings}}" as="h" hint-placeholder-count="2">
+<article class="torn {{h.tilt}} qcard" style="background: {{h.bg}}">
+<div class="k">{{h.openTo}}</div>
+<h3 class="h3">{{h.name}}</h3>
+<p class="p">{{h.threshold}}</p>
+<sc-if value="{{h.hasQuest}}" hint-placeholder-val="{{ false }}"><div class="minor">Quest: {{h.quest}}</div></sc-if>
+<div class="hfoot">
+<sc-if value="{{h.hasHylo}}" hint-placeholder-val="{{ false }}"><a class="hylo" href="{{h.hylo}}" target="_blank" rel="noopener" aria-label="{{h.hyloLabel}}"><img src="/assets/hylo-merkaba.svg" alt="">Hylo</a></sc-if>
+<button class="hreport" onClick="{{h.report}}">{{h.reportLabel}}</button>
+</div>
+<sc-if value="{{h.reporting}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="{{h.rid}}" style="font-size: 14px; font-weight: 600">What concerns you? (optional)</label>
+<textarea id="{{h.rid}}" class="field" rows="2" maxlength="500" onChange="{{h.typeReason}}"></textarea>
+<div style="display: flex; flex-wrap: wrap; gap: 12px"><button class="chip on" onClick="{{h.send}}">Send to the stewards</button><button class="hreport" onClick="{{h.cancel}}">Never mind</button></div>
+</div>
+</sc-if>
+<sc-if value="{{h.reported}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; font-style: italic">Thank you. The Bay’s stewards will take a look.</p></sc-if>
+</article>
+</sc-for>
+</div>
+
+<section class="torn tl mform" style="background: #EDE3CC">
+<h3 class="h2" style="font-size: 26px">{{mFormTitle}}</h3>
+<sc-if value="{{mNoBoat}}" hint-placeholder-val="{{ false }}"><p class="p">To moor here, first build your Boat and keep it with an IRB account, so your card is always yours to change or take down.</p><a href="/boat" class="lnk">Go to your Boat</a></sc-if>
+<sc-if value="{{mNeedsAccount}}" hint-placeholder-val="{{ false }}"><p class="p">To moor here, keep your Boat with your IRB account first, so your card is always yours to change or take down.</p><a href="/boat#keeping" class="lnk">Keep your Boat with an account</a></sc-if>
+<sc-if value="{{mReady}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<sc-if value="{{mMoored}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">{{mStatus}}</p></sc-if>
+<div class="fld"><label class="alabel" for="wyName">Name on your card</label><input id="wyName" class="field" type="text" maxlength="60" value="{{mName}}" onChange="{{mTypeName}}"></div>
+<div class="fld"><label class="alabel" for="wyThr">What you are tending at the threshold</label><textarea id="wyThr" class="field" rows="3" maxlength="400" value="{{mThr}}" onChange="{{mTypeThr}}" placeholder="A question you are living, a change you sense coming, a strange thread you are following"></textarea></div>
+<div class="fld"><div class="alabel" id="wyOpenL">How you are questing</div><div style="display: flex; flex-wrap: wrap; gap: 10px" role="group" aria-labelledby="wyOpenL"><sc-for list="{{mOpenChips}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for></div></div>
+<div class="fld"><div class="alabel" id="wyQuestL">A quest you would welcome company on (optional)</div><div style="display: flex; flex-wrap: wrap; gap: 10px" role="group" aria-labelledby="wyQuestL"><sc-for list="{{mQuestChips}}" as="c" hint-placeholder-count="8"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for></div></div>
+<div class="fld"><label class="alabel" for="wyHylo">Your Hylo profile (optional)</label><input id="wyHylo" class="field" type="url" inputmode="url" maxlength="300" value="{{mHylo}}" onChange="{{mTypeHylo}}" placeholder="https://www.hylo.com/members/…"></div>
+<button class="{{mAgreeCls}}" aria-pressed="{{mAgreeOn}}" onClick="{{mAgree}}" style="align-self: flex-start">I will moor with care, following the Bay’s agreements below</button>
+<sc-if value="{{mMsg}}" hint-placeholder-val="{{ false }}"><p class="p" role="status">{{mMsg}}</p></sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center"><button class="go tornbtn" style="background: #F5EEE1" onClick="{{mSave}}">{{mSaveLabel}}</button><sc-if value="{{mMoored}}" hint-placeholder-val="{{ false }}"><button class="hreport" onClick="{{mLeave}}">Cast off</button></sc-if></div>
+</div>
+</sc-if>
+<ul class="steps" style="font-size: 15px; margin-top: 8px">
+<li>Be kind, honest and playful, and share only your own words.</li>
+<li>The Bay is for questing and connecting, not for selling, recruiting or certainty-peddling.</li>
+<li>Leave ceremonies and teachings with their keepers. Share them only with consent.</li>
+<li>Respect a quiet “no, thank you”. Mystery includes other people’s boundaries.</li>
+<li>Stewards from the Institute of Relational Being look in regularly. If three people raise a concern about a card within a week, it rests out of view until a steward has looked.</li>
+<li>You can change your card or cast off at any time, and casting off takes effect straight away.</li>
+</ul>
+</section>
+</section>
+
+<p class="note" style="font-size: 17px">The way here stays open for you. Arriving was remembered only in this browser and inside your Boat. When you are ready, the mist will bring you back.</p>
+</main>
+
+<footer class="bayfoot"><a href="/flow">Back to the River, quietly</a><span>Tended by the Institute of Relational Being. Every source links to its makers.</span><a href="/privacy">Privacy</a></footer>
+</sc-if>
+</div>
+
+</template>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var open = !!(window.RiverWyrd && window.RiverWyrd.arrived());
+    this.state = { open: open, scene: '', qOpen: {}, show: 'all', quest: '', list: null, problem: '', reporting: '', reasons: {}, reported: {},
+      m: { loaded: false, loading: false, card: null, name: '', thr: '', openTo: 'either', quest: '', hylo: '', agree: false, busy: false, msg: '' } };
+  }
+  componentDidMount() {
+    var self = this, rb = window.RiverBoat;
+    if (!this.state.open) { return; }
+    var through = false; try { through = sessionStorage.getItem('rr.wyrd.through') === '1' || sessionStorage.getItem('rr.wyrd.seen') !== '1'; sessionStorage.removeItem('rr.wyrd.through'); sessionStorage.setItem('rr.wyrd.seen', '1'); } catch (x) {}
+    if (through) { this.setState({ scene: 'pre' }); setTimeout(function () { self.crossing(); }, 30); }
+    if (rb && rb.wyrdList) { rb.wyrdList().then(function (rows) { self.setState({ list: Array.isArray(rows) ? rows : [] }); }, function (e) { self.setState({ list: [], problem: e.message }); }); }
+    else { this.setState({ list: [] }); }
+    if (location.hash) { setTimeout(function () { var t = document.getElementById(location.hash.slice(1)); if (t && !through) { t.scrollIntoView(); } }, 400); }
+  }
+
+  // ---- the crossing: your Boat sails into the mist, the fog takes it, and the Bay is revealed ----
+  crossing() {
+    var self = this, still = !!(window.RiverWyrd && window.RiverWyrd.still());
+    try { window.scrollTo(0, 0); } catch (x) {}
+    var ov = document.createElement('div');
+    ov.className = 'wy-entry'; ov.setAttribute('aria-hidden', 'true');
+    ov.innerHTML = '<div class="we-sea"></div>' +
+      '<svg class="we-lines" viewBox="0 0 1200 800" preserveAspectRatio="none"><g fill="none" stroke="#9FD3DC" stroke-linecap="round"><path d="M0 520 C 200 505, 400 535, 600 520 S 1000 505, 1200 522" stroke-opacity="0.35" stroke-width="1.4"></path><path d="M0 600 C 220 585, 420 615, 640 600 S 1000 585, 1200 602" stroke-opacity="0.28" stroke-width="1.2"></path><path d="M0 690 C 180 676, 380 704, 600 690 S 980 676, 1200 692" stroke-opacity="0.22" stroke-width="1.2"></path></g></svg>' +
+      '<div class="we-boat"><svg viewBox="0 0 64 48"><path d="M2 41 C 12 37, 20 45, 32 41 S 52 37, 62 41" fill="none" stroke="#9FD3DC" stroke-width="2" stroke-linecap="round"/><path d="M6 30 C 13 40, 49 41, 58 29 Z" fill="#F5EEE1" stroke="#2F2B28" stroke-width="2" stroke-linejoin="round"/><path d="M33 5 L33 30" stroke="#2F2B28" stroke-width="2" stroke-linecap="round"/><path d="M35 8 C 46 15, 51 23, 53 28 L35 28 Z" fill="#E8C77A" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/><path d="M31 12 C 24 17, 20 23, 17 28 L31 28 Z" fill="#CFE1E4" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/></svg></div>' +
+      '<div class="we-fog f1"></div><div class="we-fog f2"></div><div class="we-fog f3"></div><div class="we-thick"></div>' +
+      '<p class="we-word">Not knowing, you go on.</p>';
+    var skip = document.createElement('button');
+    skip.className = 'we-skip'; skip.type = 'button'; skip.textContent = 'Skip the fog';
+    document.body.appendChild(ov); ov.appendChild(skip);
+    var prevOverflow = document.body.style.overflow; document.body.style.overflow = 'hidden';
+    var boat = ov.querySelector('.we-boat'), thick = ov.querySelector('.we-thick'), word = ov.querySelector('.we-word');
+    var fogs = ov.querySelectorAll('.we-fog');
+    var done = false, start = null;
+    var ease = function (u) { u = Math.max(0, Math.min(1, u)); return u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; };
+    var span = function (t, a, b) { return Math.max(0, Math.min(1, (t - a) / (b - a))); };
+    var mask = function (r) { var v = r <= 0 ? 'none' : 'radial-gradient(circle at 50% 38%, transparent ' + r + '%, #000 ' + (r + 22) + '%)'; ov.style.webkitMaskImage = v; ov.style.maskImage = v; };
+    var finish = function () {
+      if (done) { return; } done = true;
+      ov.remove(); document.body.style.overflow = prevOverflow; document.removeEventListener('keydown', onKey);
+      self.setState({ scene: still ? '' : 'bloom' });
+      setTimeout(function () { var h = document.querySelector('.bayh1'); if (h) { try { h.focus({ preventScroll: true }); } catch (x) {} } }, 60);
+    };
+    var onKey = function (e) { if (e.key === 'Escape') { finish(); } };
+    document.addEventListener('keydown', onKey);
+    skip.addEventListener('click', finish);
+    try { skip.focus(); } catch (x) {}
+    var W = function () { return window.innerWidth; }, H = function () { return window.innerHeight; };
+    if (still) {
+      // A calm, still crossing: the Boat rests in the mist, then the mist clears.
+      boat.style.transform = 'translate(' + (W() * 0.45) + 'px,' + (H() * 0.6) + 'px)';
+      thick.style.opacity = '0.55'; word.style.opacity = '1';
+      var stillStep = function (ts) {
+        if (done) { return; } if (start === null) { start = ts; }
+        var t = (ts - start) / 1000;
+        if (t > 2.2) { ov.style.opacity = String(1 - span(t, 2.2, 3.4)); }
+        if (t >= 3.4) { finish(); return; }
+        requestAnimationFrame(stillStep);
+      };
+      requestAnimationFrame(stillStep);
+      return;
+    }
+    var bloomed = false;
+    var step = function (ts) {
+      if (done) { return; } if (start === null) { start = ts; }
+      var t = (ts - start) / 1000;
+      var u = ease(span(t, 0.2, 4.6));
+      var x = W() * (0.06 + 0.42 * u), y = H() * (0.76 - 0.16 * u) + Math.sin(t * 2.1) * 4;
+      var sc = 1 - 0.38 * u, rot = Math.sin(t * 1.6) * 2.5;
+      boat.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + sc + ') rotate(' + rot + 'deg)';
+      boat.style.opacity = String(1 - span(t, 2.6, 4.4));
+      fogs[0].style.transform = 'translateX(' + (-t * 14) + 'px)';
+      fogs[1].style.transform = 'translateX(' + (t * 18) + 'px)';
+      fogs[2].style.transform = 'translate(' + (-t * 9) + 'px,' + (-t * 4) + 'px)';
+      thick.style.opacity = String(Math.pow(span(t, 1.2, 4.7), 1.6));
+      word.style.opacity = String(span(t, 4.4, 5.0) * (1 - span(t, 5.7, 6.2)));
+      if (t >= 6.0) {
+        var r = 160 * ease(span(t, 6.0, 8.6));
+        mask(r);
+        if (!bloomed) { bloomed = true; self.setState({ scene: 'bloom' }); }
+      }
+      if (t >= 8.8) { finish(); return; }
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  // ---- Your Boat (kept on this device, and with an account if you chose that) ----
+  boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? b : null; } catch (x) { return null; } }
+  boatHas(list, id) { var b = this.boatRead(); return !!(b && Array.isArray(b[list]) && b[list].some(function (g) { return g && g.id === id; })); }
+  boatToggle(list, item) {
+    var b = this.boatRead();
+    if (!b) { try { sessionStorage.setItem('rr.boat.pending', JSON.stringify({ list: list, item: item })); } catch (x) {} window.location.href = '/boat'; return; }
+    if (!Array.isArray(b[list])) { b[list] = []; }
+    var had = b[list].some(function (g) { return g && g.id === item.id; });
+    if (had && list === 'tending') { window.location.href = '/boat#tending'; return; }
+    b[list] = b[list].filter(function (g) { return !g || g.id !== item.id; });
+    if (!had) { var now = new Date().toISOString(), it = {}; for (var k in item) { it[k] = item[k]; } it.at = now; if (list === 'tending') { it.since = now; it.notes = []; } b[list].push(it); }
+    b.dirty = true;
+    try { localStorage.setItem('rr.boat.v1', JSON.stringify(b)); } catch (x) {}
+    if (window.RiverBoat) { window.RiverBoat.touched(); }
+    this.setState({ boatTick: (this.state.boatTick || 0) + 1 });
+  }
+  aboardFor(list, item) {
+    var self = this, on = this.boatHas(list, item.id), tend = list === 'tending';
+    return { aboardOn: on ? 'true' : 'false', aboardHint: tend && !on ? 'Once you have begun this quest, you can stow it in your Boat and keep tending it there.' : '', aboardLabel: on ? (tend ? 'Stowed in your Boat' : 'Aboard your Boat') : (tend ? 'Stow this quest in your Boat' : 'Bring aboard'), aboard: function () { self.boatToggle(list, item); } };
+  }
+
+  renderVals() {
+    var self = this, s = this.state;
+    if (!s.open) { return { veiled: true, open: false }; }
+    var MODE = { alone: 'Alone', together: 'Together', either: 'Alone or together' };
+    var Q = [
+      { id: 'anomaly', mode: 'alone', title: 'Follow an anomaly', text: 'Notice something that does not fit: in your work, a place you know well, a conversation that went strangely. Resist fixing it. Follow it instead.', steps: ['Name the anomaly in a sentence, without explaining it.', 'For a week, notice when and where it shows up again, and what it seems to interrupt.', 'At the week’s end, ask what pattern it revealed by not fitting.'] },
+      { id: 'threshold-dusk', mode: 'alone', title: 'Walk a threshold at dusk', text: 'Choose a boundary place: a shoreline, the edge of a wood, a bridge, a doorway between seasons. Arrive just before dusk and stay until the light has changed.', steps: ['Go without headphones, and leave your phone in a pocket.', 'Stand where one thing becomes another, and notice what you notice.', 'As the light turns, notice what turns in you. Write a line or two before you leave.'] },
+      { id: 'name-becoming', mode: 'either', title: 'Name what is becoming', text: 'Something not yet formed may be trying to emerge around you. Give it a working name, hold it lightly, and see who else recognises it.', steps: ['Describe what you sense, as if to a friend, without deciding what it is.', 'Give it a playful working name, one you are willing to change.', 'Say the name to two or three people, and listen to what it calls up in them.'] },
+      { id: 'council-unknowing', mode: 'together', title: 'A council of unknowing', text: 'Gather three to five people. Each brings a question they cannot answer. For an hour, nobody offers solutions: you may only ask further questions.', steps: ['Sit in a circle and begin with a minute of quiet.', 'One at a time, offer your question, and let the others respond only with questions.', 'Close by each naming one thing that shifted, however small.'] },
+      { id: 'oblique-steps', mode: 'together', title: 'Oblique steps', text: 'With a companion, choose a situation that feels stuck. Rather than forcing it, each of you takes one small sideways action a week, tending the conditions instead of the outcome.', steps: ['Describe the stuckness to each other in plain words.', 'Each week, try one small action that changes the conditions: who meets, where, in what order, with what question.', 'Compare notes. What moved, even slightly, and from where?'] },
+      { id: 'system-weather', mode: 'either', title: 'Read the weather of a system', text: 'Spend a day noticing a team, family or neighbourhood the way you would notice weather: pressure, warmth, where things gather, where they will not go.', steps: ['Choose the system, and a day to watch it with soft attention.', 'Sketch its weather: fronts, still pockets, sudden squalls.', 'Ask what the weather might be asking for, without rushing to change it.'] },
+      { id: 'wyrd-log', mode: 'alone', title: 'Keep a wyrd log for one moon', text: 'From one new moon to the next, note synchronicities, odd timings and small surprises, without explaining them away.', steps: ['Begin on a new moon. You can find the next one on the Moon page.', 'Each day, note anything uncanny, strangely timed or quietly delightful.', 'At the next new moon, read it all back and see what the month was weaving.'] },
+      { id: 'story-being', mode: 'alone', title: 'Trade a story with a Being', text: 'Tell a tree, river, boulder or bird a story you are living. Then stay long enough to receive one back, in whatever form it comes.', steps: ['Go to a Being you already feel some kinship with.', 'Tell them, aloud or silently, what you are in the middle of.', 'Sit and listen with your whole body. Note what you receive, even if it is only a feeling or a change in the wind.'] }
+    ];
+    var QTITLE = {}; Q.forEach(function (q) { QTITLE[q.id] = q.title; });
+    var list = s.list || [];
+    var seekers = {}; list.forEach(function (h) { if (h.quest && h.open_to !== 'alone') { seekers[h.quest] = (seekers[h.quest] || 0) + 1; } });
+    var BGQ = ['#D9D3EA', '#CFE1E4', '#EDE3CC', '#DCE6D2', '#F2D3BC', '#E6E2F2'];
+    var quests = Q.map(function (q, i) {
+      var open = !!s.qOpen[q.id], ab = self.aboardFor('tending', { id: 'wyrd:' + q.id, title: q.title, kind: 'Quest · Wyrd Bay', href: '/wyrd-bay#quests', cta: 'Return to the quest' });
+      var n = seekers[q.id] || 0;
+      return { tilt: i % 2 ? 'tr' : 'tl', bg: BGQ[i % BGQ.length], mode: MODE[q.mode], title: q.title, text: q.text, steps: q.steps, open: open, openAttr: open ? 'true' : 'false', toggleLabel: open ? 'Fold the quest away' : 'The quest',
+        toggle: function () { var o = {}; for (var k in self.state.qOpen) { o[k] = self.state.qOpen[k]; } o[q.id] = !open; self.setState({ qOpen: o }); },
+        hasSeekers: n > 0, seekLabel: n === 1 ? 'One Wyrd Worker seeks companions for this' : n + ' Wyrd Workers seek companions for this',
+        seeSeekers: function () { self.setState({ quest: q.id, show: 'all' }); setTimeout(function () { var t = document.getElementById('moorings'); if (t) { t.scrollIntoView({ behavior: window.RiverWyrd && window.RiverWyrd.still() ? 'auto' : 'smooth' }); } }, 50); },
+        hasHint: !!ab.aboardHint, aboardHint: ab.aboardHint, aboardOn: ab.aboardOn, aboardLabel: ab.aboardLabel, aboard: ab.aboard };
+    });
+    var F = [
+      { id: 'foxwizard', kind: 'Podcast · museletter · programmes', title: 'Wyrd Work with Dr Fox', by: 'Dr Jason Fox', text: 'Jason describes wyrd work as carefully cultivating, and sometimes disturbing, the conditions of an entangled system so that emergence can quicken. His podcast and museletter offer wit, wisdom and wiles for liminal agents and all who quest, with a playful, mythic voice and real depth. The first lantern on this shore.', links: [['The podcast', 'https://www.foxwizard.com/podcast/'], ['The museletter', 'https://www.foxwizard.com/museletter/'], ['foxwizard.com', 'https://www.foxwizard.com/']] },
+      { id: 'way-of-wyrd', kind: 'Book · 1983, reissued 2013', title: 'The Way of Wyrd', by: 'Brian Bates', text: 'A novel built on years of research into Anglo-Saxon magical and medical manuscripts, in which a young scribe is apprenticed to a sorcerer and learns to see the world as a web of wyrd. Read it as story rather than history, as some readers question how much of the initiation can be evidenced. For many, it is where this old word first opened.', links: [['About the book', 'https://penguinrandomhouse.ca/books/604501/the-way-of-wyrd-by-brian-bates']] },
+      { id: 'limen', kind: 'Roots of a word', title: 'Rites of passage and the threshold', by: 'Arnold van Gennep (1909) and Victor Turner (1969)', text: 'Liminal comes from limen, the threshold. Van Gennep described rites of passage as separation, a threshold time and return. Turner explored that betwixt-and-between state, and the deep companionship it can bring, in The Ritual Process. Returning to the roots is a good guard against the word’s overuse.', links: [['Liminality, an overview', 'https://en.wikipedia.org/wiki/Liminality']] },
+      { id: 'emergence-network', kind: 'Network · courses · writing', title: 'The Emergence Network', by: 'Báyò Akómoláfé and collaborators', text: 'Báyò, a Yoruba poet and philosopher, speaks of postactivism: what becomes possible when things no longer fit and the usual solutions fall short. He invites slowing down in urgent times, and a “politics of surprise”. The Emergence Network convenes courses and gatherings, including We Will Dance with Mountains.', links: [['The Emergence Network', 'https://www.emergencenetwork.org'], ['Báyò Akómoláfé', 'https://www.bayoakomolafe.net']] },
+      { id: 'aphanipoiesis', kind: 'Essay · open access', title: 'Aphanipoiesis', by: 'Nora Bateson', text: 'Nora coined this word for the way life coalesces toward vitality unseen, long before anything gets called emergence. A gentle companion to wyrd work: much of what matters happens out of view, between contexts. Her book Combining continues the thread.', links: [['Read the essay', 'https://journals.isss.org/index.php/jisss/article/view/3887']] },
+      { id: 'weird-studies', kind: 'Podcast · courses', title: 'Weird Studies', by: 'Phil Ford and J. F. Martel', text: 'A musicologist and a writer and filmmaker in long, rigorous, playful conversation about art and ideas that resist settled explanation, from synchronicity to cinema to tarot. They treat the weird as something to dwell with rather than explain away. Their Weirdosphere hosts courses.', links: [['Listen', 'https://podcasts.apple.com/us/podcast/weird-studies/id1343819177']] },
+      { id: 'trickster', kind: 'Book · 1998', title: 'Trickster Makes This World', by: 'Lewis Hyde', text: 'Hyde follows trickster figures across many cultures as spirits of thresholds and crossroads, who keep cultures supple by crossing the lines they draw. Essential reading for anyone who works between worlds, and for thinking about the ethics of mischief.', links: [['Lewis Hyde', 'https://lewishyde.com']] },
+      { id: 'enchantment', kind: 'Books · 2019 and 2023', title: 'Enchantment: Wonder in Modern Life', by: 'Patrick Curry', text: 'Curry describes enchantment as an experience of wonder, and its counterfeit as glamour: wonder manufactured to sell or to steer. The Bay uses his distinction as its lantern test. Art and Enchantment continues the inquiry.', links: [['Patrick Curry', 'https://www.patrickcurry.co.uk']] },
+      { id: 'emerald', kind: 'Podcast', title: 'The Emerald', by: 'Josh Schrei', text: 'Myth, initiation and the animate world, explored with depth and humour. Josh draws on many traditions to ask what modern life lost when it stopped listening to the imaginative, poetic heart of experience, and what it might mean to remember it.', links: [['Listen', 'https://podcasts.apple.com/us/podcast/the-emerald/id1465445746']] },
+      { id: 'school-of-myth', kind: 'Mythtelling · school', title: 'Westcountry School of Myth', by: 'Dr Martin Shaw', text: 'A mythteller and long-time wilderness rites-of-passage guide, Martin tells old stories as living beings that still have something to say to us. His school has recently begun a Christian mythopoetics programme, and he notes that most of his team are not Christian and all are welcome.', links: [['Martin Shaw’s writing', 'https://martinshaw.substack.com']] }
+    ];
+    var BGF = ['#EDE3CC', '#CFE1E4', '#D9D3EA', '#DCE6D2', '#F2D3BC'];
+    var flotsam = F.map(function (f, i) {
+      var ab = self.aboardFor('gathered', { id: 'wyrd-src:' + f.id, title: f.title, kind: 'Flotsam · Wyrd Bay', by: f.by, href: f.links[0][1] });
+      return { tilt: i % 2 ? 'tl' : 'tr', bg: BGF[i % BGF.length], kind: f.kind, title: f.title, by: f.by, text: f.text, links: f.links.map(function (l) { return { label: l[0], href: l[1] }; }), aboardOn: ab.aboardOn, aboardLabel: ab.aboardLabel, aboard: ab.aboard };
+    });
+
+    // ---- moorings ----
+    var OPEN = { alone: 'Questing alone', companions: 'Seeking companions', either: 'Alone or with others' };
+    var shown = list.filter(function (h) { return (s.show === 'all' || h.open_to === s.show || (s.show === 'companions' && h.open_to === 'either')) && (!s.quest || h.quest === s.quest); });
+    var okHylo = function (u) { return typeof u === 'string' && /^https:\/\/(www\.)?hylo\.com\//.test(u) ? u : ''; };
+    var BGM = ['#E6E2F2', '#CFE1E4', '#EDE3CC', '#DCE6D2'];
+    var out = {
+      veiled: false, open: true, sceneCls: s.scene, quests: quests, flotsam: flotsam,
+      mFilters: [['all', 'All moorings'], ['companions', 'Seeking companions'], ['alone', 'Questing alone']].map(function (f) { var on = s.show === f[0]; return { label: f[1], on: on ? 'true' : 'false', cls: on ? 'dchip on' : 'dchip', pick: function () { self.setState({ show: f[0] }); } }; }),
+      mQuestNote: s.quest ? 'Showing those who would welcome company on “' + (QTITLE[s.quest] || s.quest) + '”.' : '', mClearQuest: function () { self.setState({ quest: '' }); },
+      mLoading: s.list === null, mProblem: s.problem, mEmpty: s.list !== null && !s.problem && shown.length === 0,
+      mEmptyText: list.length ? 'No moorings match that just now.' : 'The moorings are quiet for now. Perhaps you will be the first lantern here.',
+      moorings: shown.map(function (h, i) {
+        var id = h.owner_id, hylo = okHylo(h.hylo_url), rep = s.reporting === id;
+        return { tilt: i % 2 ? 'tr' : 'tl', bg: BGM[i % BGM.length], name: h.display_name, threshold: h.threshold, openTo: OPEN[h.open_to] || OPEN.either, quest: QTITLE[h.quest] || '', hasQuest: !!QTITLE[h.quest],
+          hylo: hylo, hasHylo: !!hylo, hyloLabel: 'Open ' + h.display_name + '’s profile on Hylo (opens in a new tab)',
+          reportLabel: s.reported[id] ? 'Concern sent' : 'Raise a concern', reporting: rep && !s.reported[id], reported: !!s.reported[id], rid: 'wr' + i,
+          report: function () { if (self.state.reported[id]) { return; } self.setState({ reporting: rep ? '' : id }); },
+          typeReason: function (e) { self.state.reasons[id] = e && e.target ? e.target.value : ''; },
+          cancel: function () { self.setState({ reporting: '' }); },
+          send: function () { window.RiverBoat.wyrdReport(id, self.state.reasons[id] || '').then(function () { var r = {}; for (var k in self.state.reported) { r[k] = 1; } r[id] = 1; self.setState({ reported: r, reporting: '' }); }, function (e) { self.setState({ problem: e.message }); }); } };
+      })
+    };
+    var rb = window.RiverBoat, b = this.boatRead(), acct = !!(rb && rb.signedIn());
+    var m = s.m, mSet = function (patch) { var n = {}; for (var k in self.state.m) { n[k] = self.state.m[k]; } for (var k2 in patch) { n[k2] = patch[k2]; } self.setState({ m: n }); };
+    if (acct && b && !m.loaded && !m.loading && rb.wyrdMine) {
+      m.loading = true;
+      setTimeout(function () { rb.wyrdMine().then(function (c) { mSet({ loaded: true, loading: false, card: c, name: c ? c.display_name : (b.name || ''), thr: c ? c.threshold : '', openTo: c ? c.open_to : 'either', quest: c ? (c.quest || '') : '', hylo: c ? (c.hylo_url || '') : '', agree: !!c }); }, function (e) { mSet({ loaded: true, loading: false, msg: e.message }); }); }, 0);
+    }
+    out.mFormTitle = m.card ? 'Your mooring' : 'Moor here';
+    out.mNoBoat = !b; out.mNeedsAccount = !!b && !acct; out.mReady = acct && !!b && m.loaded;
+    out.mMoored = !!m.card;
+    out.mStatus = m.card && m.card.hidden ? 'Your card is resting out of view while a steward looks at it. You can still change it or cast off.' : 'You are moored in the Bay, where other Wyrd Workers can find you.';
+    out.mName = m.name; out.mThr = m.thr; out.mHylo = m.hylo; out.mMsg = m.msg;
+    out.mTypeName = function (e) { self.state.m.name = e && e.target ? e.target.value : ''; };
+    out.mTypeThr = function (e) { self.state.m.thr = e && e.target ? e.target.value : ''; };
+    out.mTypeHylo = function (e) { self.state.m.hylo = e && e.target ? e.target.value : ''; };
+    out.mOpenChips = [['alone', 'Questing alone'], ['companions', 'Seeking companions'], ['either', 'Open to either']].map(function (c) { var on = m.openTo === c[0]; return { label: c[1], on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { mSet({ openTo: c[0] }); } }; });
+    out.mQuestChips = Q.map(function (q) { var on = m.quest === q.id; return { label: q.title, on: on ? 'true' : 'false', cls: on ? 'chip on' : 'chip', pick: function () { mSet({ quest: on ? '' : q.id }); } }; });
+    out.mAgreeOn = m.agree ? 'true' : 'false'; out.mAgreeCls = m.agree ? 'chip on' : 'chip';
+    out.mAgree = function () { mSet({ agree: !self.state.m.agree }); };
+    out.mSaveLabel = m.busy ? 'Mooring…' : (m.card ? 'Update your mooring' : 'Moor in the Bay');
+    out.mSave = function () {
+      var h = self.state.m; if (h.busy) { return; }
+      var name = (h.name || '').trim(), thr = (h.thr || '').trim(), hylo = (h.hylo || '').trim();
+      if (hylo && !/^https?:\/\//i.test(hylo)) { hylo = 'https://' + hylo; }
+      hylo = hylo.replace(/^http:\/\//i, 'https://');
+      if (!name) { mSet({ msg: 'Please add a name for your card.' }); return; }
+      if (!thr) { mSet({ msg: 'Please share a line about what you are tending at the threshold.' }); return; }
+      if (hylo && !/^https:\/\/(www\.)?hylo\.com\/[A-Za-z0-9\/_.~%=&?#-]+$/.test(hylo)) { mSet({ msg: 'That Hylo address doesn’t look quite right. It should start with https://www.hylo.com/' }); return; }
+      if (!h.agree) { mSet({ msg: 'Please read and agree to the Bay’s agreements first.' }); return; }
+      mSet({ busy: true, msg: '' });
+      var was = !!h.card;
+      rb.wyrdSave({ display_name: name.slice(0, 60), threshold: thr.slice(0, 400), open_to: h.openTo, quest: h.quest || null, hylo_url: hylo || null })
+        .then(function () { return rb.wyrdMine(); })
+        .then(function (c) { mSet({ busy: false, card: c, hylo: hylo, msg: was ? 'Your mooring is updated.' : 'You are moored in the Bay. Other Wyrd Workers can find you now.' }); return rb.wyrdList(); })
+        .then(function (rows) { if (rows) { self.setState({ list: rows }); } }, function (e) { mSet({ busy: false, msg: e.message }); });
+    };
+    out.mLeave = function () {
+      if (self.state.m.busy) { return; }
+      mSet({ busy: true, msg: '' });
+      rb.wyrdLeave().then(function () { mSet({ busy: false, card: null, agree: false, msg: 'You have cast off. Your card is no longer visible to anyone.' }); return rb.wyrdList(); })
+        .then(function (rows) { if (rows) { self.setState({ list: rows }); } }, function (e) { mSet({ busy: false, msg: e.message }); });
+    };
+    return out;
+  }
+}
+</script>
+<script src="/js/boat-sync.js"></script>
+<script src="/js/wyrd.js"></script>
+<script src="/js/river-runtime.js"></script>
+</body>
+</html>

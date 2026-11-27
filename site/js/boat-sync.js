@@ -85,6 +85,7 @@
     var seenB = {}; out.began = (out.began || []).concat(b.began || []).filter(function (x) { if (!x || seenB[x.at]) { return false; } seenB[x.at] = 1; return true; }).sort(function (p, q) { return p.at < q.at ? -1 : 1; });
     out.name = b.name || out.name || '';
     if (b.lunar !== undefined) { out.lunar = b.lunar; }
+    if (b.wyrd && !out.wyrd) { out.wyrd = b.wyrd; }
     out.launched = [out.launched, b.launched].filter(Boolean).sort()[0] || new Date().toISOString();
     out.v = 1;
     return out;
@@ -137,6 +138,7 @@
     sinkRemote: function () {
       return token().then(function (s) {
         return call('/rest/v1/harbour_boats?owner_id=eq.' + s.user_id, { method: 'DELETE', token: s.access_token }).catch(function () {})
+          .then(function () { return call('/rest/v1/wyrd_moorings?owner_id=eq.' + s.user_id, { method: 'DELETE', token: s.access_token }).catch(function () {}); })
           .then(function () { return call('/rest/v1/river_boats?owner_id=eq.' + s.user_id, { method: 'DELETE', token: s.access_token }); });
       });
     },
@@ -162,6 +164,27 @@
     },
     harbourReport: function (ownerId, reason) {
       return call('/rest/v1/harbour_reports', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: { owner_id: ownerId, reason: String(reason || '').slice(0, 500) || null } });
+    },
+    // ---- Wyrd Bay moorings: Wyrd Workers who choose to be findable inside the Bay ----
+    WYRD_COLS: 'owner_id,display_name,threshold,open_to,quest,hylo_url,updated_at',
+    wyrdMine: function () {
+      return token().then(function (s) { return call('/rest/v1/wyrd_moorings?select=' + RB.WYRD_COLS + ',hidden&owner_id=eq.' + s.user_id, { token: s.access_token }); })
+        .then(function (rows) { return rows && rows[0] ? rows[0] : null; });
+    },
+    wyrdSave: function (card) {
+      return token().then(function (s) {
+        var body = { owner_id: s.user_id, display_name: card.display_name, threshold: card.threshold, open_to: card.open_to || 'either', quest: card.quest || null, hylo_url: card.hylo_url || null };
+        return call('/rest/v1/wyrd_moorings?on_conflict=owner_id', { method: 'POST', token: s.access_token, headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: body });
+      });
+    },
+    wyrdLeave: function () {
+      return token().then(function (s) { return call('/rest/v1/wyrd_moorings?owner_id=eq.' + s.user_id, { method: 'DELETE', token: s.access_token }); });
+    },
+    wyrdList: function () {
+      return call('/rest/v1/wyrd_moorings?select=' + RB.WYRD_COLS + '&order=updated_at.desc&limit=300');
+    },
+    wyrdReport: function (ownerId, reason) {
+      return call('/rest/v1/wyrd_reports', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: { owner_id: ownerId, reason: String(reason || '').slice(0, 500) || null } });
     },
     signOut: function () {
       var s = load(SKEY);
