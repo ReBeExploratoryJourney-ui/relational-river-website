@@ -795,7 +795,7 @@ class Component extends DCLogic {
       out.lookTitle = b.name ? b.name + ', ' + (heroL.id === 'river' ? 'a River sloop' : 'a ' + heroL.name.toLowerCase()) : 'Your ' + (heroL.id === 'river' ? 'River sloop' : heroL.name.toLowerCase());
       out.repaintOpen = !!s.repaint; out.repaintAttr = s.repaint ? 'true' : 'false'; out.repaintLabel = s.repaint ? 'Done repainting' : 'Repaint your Boat';
       out.repaintToggle = function () { self.setState({ repaint: !self.state.repaint }); };
-      out.repaintLooks = lookOpts(heroLook, function (id) { var nb = self.boatRead() || b; nb.look = id; self.save(nb, 'Your Boat is now a ' + (LK ? LK.byId(id).name.replace('The River’s own', 'River sloop') : 'new Boat') + '.'); var hc = self.state.hb && self.state.hb.card; if (hc && rb && rb.harbourSave) { rb.harbourSave({ display_name: hc.display_name, working_on: hc.working_on, invitation: hc.invitation, place: hc.place, themes: hc.themes || [], hylo_url: hc.hylo_url, look: id }).catch(function () {}); } });
+      out.repaintLooks = lookOpts(heroLook, function (id) { var nb = self.boatRead() || b; nb.look = id; self.save(nb, 'Your Boat is now a ' + (LK ? LK.byId(id).name.replace('The River’s own', 'River sloop') : 'new Boat') + '.'); var hc = self.state.hb && self.state.hb.card; if (hc && rb && rb.harbourRefresh) { rb.harbourRefresh(hc, nb).then(function (did) { if (did) { hc.look = id; } }).catch(function () {}); } });
     }
     var rb = this.RB(), au = s.auth, setAuth = function (patch) { var a = {}; for (var k in self.state.auth) { a[k] = self.state.auth[k]; } for (var k2 in patch) { a[k2] = patch[k2]; } self.setState({ auth: a }); };
     var signed = !!(rb && rb.signedIn());
@@ -1054,6 +1054,7 @@ class Component extends DCLogic {
       hb.loading = true;
       setTimeout(function () {
         rb.harbourMine().then(function (c) {
+          if (c && rb.harbourRefresh) { rb.harbourRefresh(c, self.boatRead() || b).catch(function () {}); }
           hbSet({ loaded: true, loading: false, card: c, name: c ? c.display_name : (b.name || ''), working: c ? c.working_on : '', invite: c ? (c.invitation || '') : '', place: c ? (c.place || '') : '', themes: c ? (c.themes || []) : [], hylo: c ? (c.hylo_url || '') : '', agree: !!c });
         }, function (e) { hbSet({ loaded: true, loading: false, msg: e.message }); });
       }, 0);
@@ -1083,7 +1084,7 @@ class Component extends DCLogic {
       if (!h.agree) { hbSet({ msg: 'Please read and agree to the Harbour’s care agreements first.' }); return; }
       hbSet({ busy: true, msg: '' });
       var was = !!h.card;
-      rb.harbourSave({ display_name: name.slice(0, 60), working_on: working.slice(0, 400), invitation: (h.invite || '').trim().slice(0, 400), place: (h.place || '').trim().slice(0, 80), themes: h.themes, hylo_url: hylo || null, look: (self.boatRead() || b).look || 'river' })
+      rb.harbourSave({ display_name: name.slice(0, 60), working_on: working.slice(0, 400), invitation: (h.invite || '').trim().slice(0, 400), place: (h.place || '').trim().slice(0, 80), themes: h.themes, hylo_url: hylo || null, look: (self.boatRead() || b).look || 'river', keeps: LK ? LK.keepsakesFor(self.boatRead() || b) : [] })
         .then(function () { return rb.harbourMine(); })
         .then(function (c) { hbSet({ busy: false, card: c, hylo: hylo, msg: was ? 'Your Harbour card is updated.' : 'Your Boat is moored in the Harbour. Others can find it there now.' }); },
           function (e) { hbSet({ busy: false, msg: e.message }); });

@@ -260,7 +260,7 @@ class Component extends DCLogic {
           var id = h.owner_id, hylo = okHylo(h.hylo_url), rep = s.reporting === id, open = s.open === id;
           return {
             cls: 'berth' + (open ? ' open' : ''), filled: true, empty: false, openAttr: open ? 'true' : 'false',
-            art: LK ? LK.uri(LK.byId(h.look).id || 'river', []) : '', label: h.display_name + '’s Boat. Show their card',
+            art: LK ? LK.uri(LK.byId(h.look).id || 'river', (h.keeps || []).filter(function (k) { return /^(pennant|lantern|garland|crescent|star|ripples|spiral)$/.test(k); })) : '', label: h.display_name + '’s Boat. Show their card',
             toggle: function () { self.setState({ open: self.state.open === id ? '' : id }); },
             close: function () { self.setState({ open: '' }); },
             tilt: i % 2 ? 'tr' : 'tl', bg: BG[i % BG.length], name: h.display_name, place: h.place || '', hasPlace: !!h.place,

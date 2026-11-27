@@ -146,7 +146,7 @@
     },
     // ---- The Harbour: Boats their owners have opened to others ----
     // Only what the owner writes on their Harbour card is public; nothing from the private Boat is shared.
-    HARBOUR_COLS: 'owner_id,display_name,working_on,invitation,place,themes,hylo_url,look,updated_at',
+    HARBOUR_COLS: 'owner_id,display_name,working_on,invitation,place,themes,hylo_url,look,keeps,updated_at',
     harbourMine: function () {
       return token().then(function (s) { return call('/rest/v1/harbour_boats?select=' + RB.HARBOUR_COLS + ',hidden&owner_id=eq.' + s.user_id, { token: s.access_token }); })
         .then(function (rows) { return rows && rows[0] ? rows[0] : null; });
@@ -154,9 +154,17 @@
     harbourSave: function (card) {
       return token().then(function (s) {
         var body = { owner_id: s.user_id, display_name: card.display_name, working_on: card.working_on, invitation: card.invitation || null,
-          place: card.place || null, themes: card.themes || [], hylo_url: card.hylo_url || null, look: card.look || null };
+          place: card.place || null, themes: card.themes || [], hylo_url: card.hylo_url || null, look: card.look || null, keeps: card.keeps || [] };
         return call('/rest/v1/harbour_boats?on_conflict=owner_id', { method: 'POST', token: s.access_token, headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: body });
       });
+    },
+    // Keep a moored card's look and keepsakes in step with the Boat itself.
+    harbourRefresh: function (card, boat) {
+      var L = window.RiverBoatLooks; if (!card || !boat || !L) { return Promise.resolve(false); }
+      var look = L.lookOf(boat), keeps = L.keepsakesFor(boat);
+      var same = card.look === look && (card.keeps || []).slice().sort().join() === keeps.slice().sort().join();
+      if (same) { return Promise.resolve(false); }
+      return RB.harbourSave({ display_name: card.display_name, working_on: card.working_on, invitation: card.invitation, place: card.place, themes: card.themes || [], hylo_url: card.hylo_url, look: look, keeps: keeps }).then(function () { return true; });
     },
     harbourLeave: function () {
       return token().then(function (s) { return call('/rest/v1/harbour_boats?owner_id=eq.' + s.user_id, { method: 'DELETE', token: s.access_token }); });
