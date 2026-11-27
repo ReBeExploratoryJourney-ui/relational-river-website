@@ -13,6 +13,48 @@
 <meta name="theme-color" content="#0E2849">
 <link href="/fonts/fonts.css" rel="stylesheet">
 <style>
+.hcard{padding:28px 28px 22px;display:flex;flex-direction:column;gap:10px;color:#2F2B28}
+.hname{margin:0;font-family:'Averia Serif Libre',Georgia,serif;font-weight:800;font-size:22px;line-height:1.15}
+.hplace{font-size:14px;font-style:italic}
+.htags{display:flex;flex-wrap:wrap;gap:6px}
+.htag{font-size:13px;letter-spacing:.04em;background:rgba(47,43,40,.08);padding:4px 10px;border-radius:12px 14px 10px 16px}
+.hfoot{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;margin-top:4px}
+.hylo{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600;color:#2F2B28}
+.hylo img{width:30px;height:34px;display:block}
+.hreport{font-family:Jost,sans-serif;font-size:14px;background:none;border:none;color:#5A524B;text-decoration:underline;cursor:pointer;min-height:44px;padding:0}
+.hfield{font-family:Jost,sans-serif;font-size:15px;padding:10px 12px;box-sizing:border-box;width:100%;border:1.5px solid #8C8178;border-radius:12px 16px 10px 14px;background:#FFFDF8;color:#2F2B28}
+.fchip{font-family:Jost,sans-serif;font-size:15px;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:18px 22px 16px 24px;padding:8px 14px;min-height:44px;cursor:pointer}
+.fchip.on{background:#F5E3B0;border-color:#2F2B28;font-weight:600}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.harbour{position:relative;border-radius:20px 26px 18px 24px;overflow:visible;background:linear-gradient(180deg,#14284A 0%,#1A3E5C 40%,#173550 100%);padding:0 0 30px;box-shadow:inset 0 0 60px rgba(0,0,0,.35)}
+.harbour:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(159,211,220,0) 0 34px,rgba(159,211,220,.10) 34px 35px,rgba(159,211,220,0) 35px 70px)}
+.berths{position:relative;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));row-gap:26px}
+.berth{position:relative;display:flex;flex-direction:column;align-items:center;padding-bottom:6px}
+.pier{width:100%;height:30px;background:linear-gradient(180deg,rgba(255,236,200,.25) 0%,rgba(0,0,0,0) 40%,rgba(40,20,6,.45) 100%),repeating-linear-gradient(90deg,#8E6440 0 26px,#7A5434 26px 28px,#9C7048 28px 54px,#7A5434 54px 56px);box-shadow:0 8px 12px rgba(0,0,0,.35)}
+.post{width:16px;height:30px;margin-top:-14px;border-radius:7px 7px 4px 4px;background:radial-gradient(ellipse at 40% 25%,#C79A6B,#7A4B26 70%);box-shadow:0 3px 5px rgba(0,0,0,.4);position:relative;z-index:1}
+.rope{display:block;width:100px;height:44px;margin-top:-4px;overflow:visible}
+.hboat{margin-top:-16px;background:none;border:none;padding:4px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;border-radius:16px;color:#EFE6D2}
+.hboat:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3px}
+.hboat .art{width:120px;height:86px;display:block;border-radius:50%;background:radial-gradient(ellipse at 50% 58%,rgba(239,230,210,.24),rgba(239,230,210,0) 70%)}
+.hboat .art svg{width:100%;height:100%;overflow:visible;animation:hbob 4.6s ease-in-out infinite}
+.berth:nth-child(2n) .hboat .art svg{animation-delay:-1.6s}.berth:nth-child(3n) .hboat .art svg{animation-delay:-3.1s}
+@keyframes hbob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(-1.4deg)}}
+.hname2{max-width:156px;font-family:'Averia Serif Libre',Georgia,serif;font-weight:700;font-size:15px;line-height:1.2;text-align:center;color:#2F2B28;background:#F5EEE1;padding:5px 10px;border-radius:10px 14px 8px 12px;box-shadow:0 3px 8px rgba(0,0,0,.3)}
+.hboat:hover .hname2,.berth.open .hname2{background:#F5E3B0}
+.empty .ghost{width:120px;height:70px;display:flex;align-items:flex-end;justify-content:center;font-size:13px;font-style:italic;color:#9FB6C8;text-align:center;padding-bottom:6px}
+.hpop{display:none;position:absolute;top:calc(100% - 4px);left:50%;transform:translateX(-50%);width:min(340px,86vw);z-index:20}
+.berth:hover .hpop,.berth:focus-within .hpop,.berth.open .hpop{display:block}
+.berth:first-child .hpop{left:0;transform:none}
+.hpop .hcard{box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.hclose{display:none}
+@media (max-width: 640px){
+.berths{grid-template-columns:repeat(2,1fr)}
+.hpop{position:fixed;left:10px!important;right:10px;bottom:10px;top:auto;transform:none!important;width:auto;max-height:70vh;overflow:auto;z-index:70}
+.berth:hover .hpop{display:none}.berth.open .hpop{display:block}
+.hclose{display:inline-flex;align-self:flex-end;font-family:Jost,sans-serif;font-size:14px;background:none;border:none;text-decoration:underline;min-height:44px;cursor:pointer;color:#2F2B28}
+.hboat .art{width:104px;height:74px}
+}
+@media (prefers-reduced-motion: reduce){.hboat .art svg{animation:none}}
 body{margin:0}
 a{color:#EDEDED}a:hover{color:#FFFFFF}
 .torn{color:#2F2B28}.torn a{color:#2F2B28}.torn a:hover{color:#3E3270}
@@ -122,9 +164,18 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <a href="/boat#harbour" class="lnk">Moor your Boat</a>
 </section>
 </sc-if>
-<div class="hgrid">
-<sc-for list="{{boats}}" as="h" hint-placeholder-count="3">
+<div class="harbour" role="group" aria-label="The Harbour: Boats moored at the piers">
+<div class="berths">
+<sc-for list="{{berths}}" as="h" hint-placeholder-count="4">
+<div class="{{h.cls}}">
+<div class="pier" aria-hidden="true"></div>
+<div class="post" aria-hidden="true"></div>
+<sc-if value="{{h.filled}}" hint-placeholder-val="{{ true }}">
+<svg class="rope" viewBox="0 0 100 44" aria-hidden="true"><path d="M50 0 C 46 18, 58 26, 64 42" fill="none" stroke="#D8C39A" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 2"></path></svg>
+<button class="hboat" aria-expanded="{{h.openAttr}}" aria-label="{{h.label}}" onClick="{{h.toggle}}"><span class="art"><img src="{{h.art}}" alt="" style="width: 100%; height: 100%; display: block"></span><span class="hname2">{{h.name}}</span></button>
+<div class="hpop">
 <article class="torn {{h.tilt}} hcard" style="background: {{h.bg}}">
+<button class="hclose" onClick="{{h.close}}">Close</button>
 <h3 class="hname">{{h.name}}</h3>
 <sc-if value="{{h.hasPlace}}" hint-placeholder-val="{{ false }}"><div class="hplace">{{h.place}}</div></sc-if>
 <p class="p" style="margin: 0; font-size: 16px; line-height: 1.5">{{h.working}}</p>
@@ -143,8 +194,14 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </sc-if>
 <sc-if value="{{h.reported}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; font-style: italic">Thank you. The Harbour’s stewards will take a look.</p></sc-if>
 </article>
+</div>
+</sc-if>
+<sc-if value="{{h.empty}}" hint-placeholder-val="{{ false }}"><div class="ghost">{{h.ghost}}</div></sc-if>
+</div>
 </sc-for>
 </div>
+</div>
+<p style="margin: 0; font-size: 15px; font-style: italic">Hover over a Boat, or tap it on a phone, to read its card.</p>
 
 <section class="torn tr" style="background: #F5E3B0; padding: 34px 42px; display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; color: #2F2B28">
 <div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 8px">
@@ -175,7 +232,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </template>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1600}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { boats: null, problem: '', theme: 'all', reporting: '', reasons: {}, reported: {} }; }
+  constructor(props) { super(props); this.state = { boats: null, problem: '', theme: 'all', reporting: '', reasons: {}, reported: {}, open: '' }; }
   componentDidMount() {
     var self = this, rb = window.RiverBoat;
     if (!rb || !rb.harbourList) { this.setState({ boats: [], problem: 'The Harbour could not be reached just now. Please try again in a little while.' }); return; }
@@ -196,23 +253,34 @@ class Component extends DCLogic {
       emptyTitle: all.length ? 'No Boats with that theme yet' : 'The Harbour is quiet for now',
       emptyText: all.length ? 'Try another theme, or moor your own Boat with this one.' : 'Be one of the first to moor your Boat here, and invite others into what you are working on.',
       filters: [['all', 'All Boats']].concat(THEMES).map(function (t) { var on = s.theme === t[0]; return { label: t[1], on: on ? 'true' : 'false', cls: on ? 'fchip on' : 'fchip', pick: function () { self.setState({ theme: t[0] }); } }; }),
-      boats: shown.map(function (h, i) {
-        var id = h.owner_id, hylo = okHylo(h.hylo_url), rep = s.reporting === id;
-        return {
-          tilt: i % 2 ? 'tr' : 'tl', bg: BG[i % BG.length], name: h.display_name, place: h.place || '', hasPlace: !!h.place,
-          working: h.working_on, invite: h.invitation || '', hasInvite: !!h.invitation,
-          tags: (h.themes || []).filter(function (k) { return LABEL[k]; }).map(function (k) { return { label: LABEL[k] }; }), hasTags: (h.themes || []).some(function (k) { return LABEL[k]; }),
-          hylo: hylo, hasHylo: !!hylo, hyloLabel: 'Open ' + h.display_name + '’s profile on Hylo (opens in a new tab)',
-          reportLabel: s.reported[id] ? 'Concern sent' : 'Raise a concern', reporting: rep && !s.reported[id], reported: !!s.reported[id], rid: 'r' + i,
-          report: function () { if (self.state.reported[id]) { return; } self.setState({ reporting: rep ? '' : id }); },
-          typeReason: function (e) { self.state.reasons[id] = e && e.target ? e.target.value : ''; },
-          cancel: function () { self.setState({ reporting: '' }); },
-          send: function () {
-            window.RiverBoat.harbourReport(id, self.state.reasons[id] || '').then(function () { var r = {}; for (var k in self.state.reported) { r[k] = 1; } r[id] = 1; self.setState({ reported: r, reporting: '' }); },
-              function (e) { self.setState({ problem: e.message }); });
-          }
-        };
-      })
+      berths: (function () {
+        var LK = window.RiverBoatLooks;
+        var filled = shown.map(function (h, i) {
+          var id = h.owner_id, hylo = okHylo(h.hylo_url), rep = s.reporting === id, open = s.open === id;
+          return {
+            cls: 'berth' + (open ? ' open' : ''), filled: true, empty: false, openAttr: open ? 'true' : 'false',
+            art: LK ? LK.uri(LK.byId(h.look).id || 'river', []) : '', label: h.display_name + '’s Boat. Show their card',
+            toggle: function () { self.setState({ open: self.state.open === id ? '' : id }); },
+            close: function () { self.setState({ open: '' }); },
+            tilt: i % 2 ? 'tr' : 'tl', bg: BG[i % BG.length], name: h.display_name, place: h.place || '', hasPlace: !!h.place,
+            working: h.working_on, invite: h.invitation || '', hasInvite: !!h.invitation,
+            tags: (h.themes || []).filter(function (k) { return LABEL[k]; }).map(function (k) { return { label: LABEL[k] }; }), hasTags: (h.themes || []).some(function (k) { return LABEL[k]; }),
+            hylo: hylo, hasHylo: !!hylo, hyloLabel: 'Open ' + h.display_name + '’s profile on Hylo (opens in a new tab)',
+            reportLabel: s.reported[id] ? 'Concern sent' : 'Raise a concern', reporting: rep && !s.reported[id], reported: !!s.reported[id], rid: 'r' + i,
+            report: function () { if (self.state.reported[id]) { return; } self.setState({ reporting: rep ? '' : id, open: id }); },
+            typeReason: function (e) { self.state.reasons[id] = e && e.target ? e.target.value : ''; },
+            cancel: function () { self.setState({ reporting: '' }); },
+            send: function () {
+              window.RiverBoat.harbourReport(id, self.state.reasons[id] || '').then(function () { var r = {}; for (var k in self.state.reported) { r[k] = 1; } r[id] = 1; self.setState({ reported: r, reporting: '' }); },
+                function (e) { self.setState({ problem: e.message }); });
+            }
+          };
+        });
+        var total = Math.max(4, filled.length + 2 - (filled.length % 2));
+        var n0 = filled.length;
+        for (var k = n0; k < total; k++) { filled.push({ cls: 'berth empty', filled: false, empty: true, ghost: k === n0 ? 'A berth, waiting for you' : '' }); }
+        return filled;
+      })()
     };
   }
 }

@@ -501,6 +501,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <sc-if value="{{hbLoading}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">Checking the Harbour…</p></sc-if>
 <sc-if value="{{hbReady}}" hint-placeholder-val="{{ false }}">
 <sc-if value="{{hbMoored}}" hint-placeholder-val="{{ false }}"><p class="flash">{{hbStatus}}</p></sc-if>
+<p class="p" style="font-size: 15px; font-style: italic">Your Boat appears in the Harbour in the look you have chosen, with its name beneath it.</p>
 <div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbName">Name on your card</label><input id="hbName" class="field" type="text" maxlength="60" value="{{hbName}}" onChange="{{hbTypeName}}" placeholder="Your name, or your Boat’s name"></div>
 <div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbWorking">What you are working on</label><textarea id="hbWorking" class="field" rows="3" maxlength="400" value="{{hbWorking}}" onChange="{{hbTypeWorking}}" placeholder="A seed library for our valley, a podcast about rivers, a grief circle at my school…"></textarea></div>
 <div style="display: flex; flex-direction: column; gap: 6px"><label class="alabel" for="hbInvite">How others could join in (optional)</label><textarea id="hbInvite" class="field" rows="2" maxlength="400" value="{{hbInvite}}" onChange="{{hbTypeInvite}}" placeholder="Looking for a designer, fellow gardeners nearby, or anyone who loves rivers"></textarea></div>
@@ -787,7 +788,7 @@ class Component extends DCLogic {
       out.lookTitle = b.name ? b.name + ', ' + (heroL.id === 'river' ? 'a River sloop' : 'a ' + heroL.name.toLowerCase()) : 'Your ' + (heroL.id === 'river' ? 'River sloop' : heroL.name.toLowerCase());
       out.repaintOpen = !!s.repaint; out.repaintAttr = s.repaint ? 'true' : 'false'; out.repaintLabel = s.repaint ? 'Done repainting' : 'Repaint your Boat';
       out.repaintToggle = function () { self.setState({ repaint: !self.state.repaint }); };
-      out.repaintLooks = lookOpts(heroLook, function (id) { var nb = self.boatRead() || b; nb.look = id; self.save(nb, 'Your Boat is now a ' + (LK ? LK.byId(id).name.replace('The River’s own', 'River sloop') : 'new Boat') + '.'); });
+      out.repaintLooks = lookOpts(heroLook, function (id) { var nb = self.boatRead() || b; nb.look = id; self.save(nb, 'Your Boat is now a ' + (LK ? LK.byId(id).name.replace('The River’s own', 'River sloop') : 'new Boat') + '.'); var hc = self.state.hb && self.state.hb.card; if (hc && rb && rb.harbourSave) { rb.harbourSave({ display_name: hc.display_name, working_on: hc.working_on, invitation: hc.invitation, place: hc.place, themes: hc.themes || [], hylo_url: hc.hylo_url, look: id }).catch(function () {}); } });
     }
     var rb = this.RB(), au = s.auth, setAuth = function (patch) { var a = {}; for (var k in self.state.auth) { a[k] = self.state.auth[k]; } for (var k2 in patch) { a[k2] = patch[k2]; } self.setState({ auth: a }); };
     var signed = !!(rb && rb.signedIn());
@@ -1075,7 +1076,7 @@ class Component extends DCLogic {
       if (!h.agree) { hbSet({ msg: 'Please read and agree to the Harbour’s care agreements first.' }); return; }
       hbSet({ busy: true, msg: '' });
       var was = !!h.card;
-      rb.harbourSave({ display_name: name.slice(0, 60), working_on: working.slice(0, 400), invitation: (h.invite || '').trim().slice(0, 400), place: (h.place || '').trim().slice(0, 80), themes: h.themes, hylo_url: hylo || null })
+      rb.harbourSave({ display_name: name.slice(0, 60), working_on: working.slice(0, 400), invitation: (h.invite || '').trim().slice(0, 400), place: (h.place || '').trim().slice(0, 80), themes: h.themes, hylo_url: hylo || null, look: (self.boatRead() || b).look || 'river' })
         .then(function () { return rb.harbourMine(); })
         .then(function (c) { hbSet({ busy: false, card: c, hylo: hylo, msg: was ? 'Your Harbour card is updated.' : 'Your Boat is moored in the Harbour. Others can find it there now.' }); },
           function (e) { hbSet({ busy: false, msg: e.message }); });
