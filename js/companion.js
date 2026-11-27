@@ -92,6 +92,8 @@
     menu = document.createElement('div'); menu.className = 'rc-menu'; menu.hidden = true; menu.setAttribute('role', 'region'); menu.setAttribute('aria-label', 'Your Boat');
     btn = document.createElement('button'); btn.type = 'button'; btn.className = 'rc-boat'; btn.setAttribute('aria-expanded', 'false');
     root.appendChild(menu); root.appendChild(btn); document.body.appendChild(root);
+    // Leave room at the foot of the page, so nothing ends up hidden beneath your Boat.
+    var pad = parseInt(window.getComputedStyle(document.body).paddingBottom, 10) || 0; if (pad < 84) { document.body.style.paddingBottom = '84px'; }
     btn.addEventListener('click', toggle);
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && open) { close(); try { btn.focus(); } catch (x) {} } });
     document.addEventListener('click', function (e) { if (open && !root.contains(e.target)) { close(); } });
