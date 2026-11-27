@@ -85,6 +85,19 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .sbtn{line-height:1.2;box-sizing:border-box;font-family:Jost,sans-serif;font-size:15px;font-weight:600;color:#2F2B28;background:#FBF7EF;border:1.5px solid #2F2B28;border-radius:14px 18px 12px 16px;padding:8px 16px;min-height:44px;cursor:pointer;display:inline-flex;align-items:center}
 .sbtn:hover{background:#EFE6D6}
+.intro{display:flex;flex-direction:column;gap:18px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.tile{font-family:Jost,sans-serif;text-align:left;color:#2F2B28;border:none;padding:24px 22px;min-height:140px;cursor:pointer;display:flex;flex-direction:column;gap:8px;justify-content:flex-start}
+.tile b{font-family:'Averia Serif Libre',Georgia,serif;font-size:21px;font-weight:800}
+.tile span{font-size:16px;line-height:1.5}
+.tile i{font-size:14px;opacity:.75}
+.looksel{display:flex;flex-wrap:wrap;gap:26px;align-items:center}
+.lookbig{width:300px;max-width:100%;height:auto;flex:0 1 300px;background:radial-gradient(ellipse at 50% 60%,rgba(159,211,220,.18),rgba(159,211,220,0) 70%);border-radius:40% 46% 38% 44%}
+.lookgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:12px}
+.lookopt{font-family:Jost,sans-serif;font-size:13px;line-height:1.25;color:#2F2B28;background:#FBF7EF;border:1.5px solid #8C8178;border-radius:16px 20px 14px 22px;padding:8px 6px 10px;min-height:44px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px}
+.lookopt img{width:84px;height:60px;display:block}
+.lookopt.on{background:#F5E3B0;border-color:#2F2B28;font-weight:600;box-shadow:0 0 0 2px #2F2B28 inset}
+.keeps{margin:0;padding-left:20px;font-size:16px;line-height:1.6}
 .quiet{font-family:Jost,sans-serif;font-size:15px;color:#2F2B28;background:transparent;border:none;text-decoration:underline;text-underline-offset:4px;min-height:44px;padding:0 6px;cursor:pointer}
 .danger{color:#8A2E1F}
 .sbtn.danger{border-color:#8A2E1F}
@@ -150,15 +163,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <h1 class="h1">Your Boat</h1>
 <p class="lede">Your own vessel on the River. It carries what you gather as you go: where you began, the practices you are tending, and the Beings and people in your “we”. Come back whenever you like. It fills in slowly, the way relationships do.</p>
 </div>
-<svg class="boatart" viewBox="0 0 300 190" role="img" aria-label="A small wooden boat resting on the River, with a sail and a lantern">
-<path d="M8 150 C 60 140, 100 160, 150 150 S 250 140, 292 152" fill="none" stroke="#9FD3DC" stroke-width="2.5" stroke-linecap="round"></path>
-<path d="M30 172 C 80 164, 120 178, 170 170 S 250 164, 280 174" fill="none" stroke="#4F7A84" stroke-width="2" stroke-linecap="round"></path>
-<path d="M62 128 C 96 150, 196 152, 236 126 L 222 146 C 190 162, 112 162, 78 147 Z" fill="#C79A6B" stroke="#F5EEE1" stroke-width="2" stroke-linejoin="round"></path>
-<path d="M150 128 L 150 36" stroke="#F5EEE1" stroke-width="3" stroke-linecap="round"></path>
-<path d="M154 42 C 186 64, 204 96, 206 120 L 154 120 Z" fill="#F5EEE1" opacity="0.92"></path>
-<path d="M146 54 C 124 72, 112 98, 110 120 L 146 120 Z" fill="#CFE1E4" opacity="0.85"></path>
-<circle cx="226" cy="112" r="5" fill="#F2D27A"></circle><circle cx="226" cy="112" r="12" fill="#F2D27A" opacity="0.18"></circle>
-</svg>
+<img class="boatart" src="{{heroArt}}" alt="{{heroAlt}}" width="300" height="215">
 </section>
 
 <sc-if value="{{flash}}" hint-placeholder-val="{{ false }}"><p class="flash" role="status">{{flash}}</p></sc-if>
@@ -167,9 +172,33 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <sc-if value="{{noBoat}}" hint-placeholder-val="{{ true }}">
 <section style="display: flex; flex-direction: column; gap: 20px">
 <sc-if value="{{pending}}" hint-placeholder-val="{{ false }}"><p class="flash">Ready to bring aboard: <b>{{pendingTitle}}</b>. First, choose how your Boat is kept.</p></sc-if>
+<sc-if value="{{introMeet}}" hint-placeholder-val="{{ true }}">
+<div class="intro">
+<div class="kick">Before you build</div>
+<h2 class="h2">What your Boat can be</h2>
+<p class="p light">A Boat is your own small vessel on the River. Touch each card to see what it can carry and become.</p>
+<div class="tiles"><sc-for list="{{tiles}}" as="t" hint-placeholder-count="4"><button class="torn {{t.tilt}} tile" style="background: {{t.bg}}" aria-expanded="{{t.openAttr}}" onClick="{{t.flip}}"><b>{{t.title}}</b><sc-if value="{{t.open}}" hint-placeholder-val="{{ false }}"><span>{{t.text}}</span></sc-if><sc-if value="{{t.closed}}" hint-placeholder-val="{{ true }}"><i>Touch to see</i></sc-if></button></sc-for></div>
+<p class="p light">Your Boat is never required, never scored and never sold. It grows as you do, and mostly out there, away from the screen, among the Beings you share your days with.</p>
+<div class="row"><button class="go tornbtn" style="background: #F5E3B0" onClick="{{toLook}}">Choose your Boat</button><button class="quiet" style="color: #EDEDED" onClick="{{toKeep}}">Already have a Boat? Bring it aboard</button></div>
+</div>
+</sc-if>
+<sc-if value="{{introLook}}" hint-placeholder-val="{{ false }}">
+<div class="intro">
+<div class="kick">Choose your Boat</div>
+<h2 class="h2">Which Boat feels like yours?</h2>
+<p class="p light">Thirteen Boats, each with its own way on the water. Choose the one that calls to you today. You can repaint it whenever you like.</p>
+<section class="torn tl panel" style="background: #FBF7EF">
+<div class="looksel"><img class="lookbig" src="{{introArt}}" alt="{{introAlt}}" width="300" height="215"><div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 8px"><h3 class="h3">{{introLookName}}</h3><p class="p">{{introLookLine}}</p><label class="alabel" for="introName" style="margin-top: 8px">Give your Boat a name (optional)</label><input id="introName" class="field" type="text" maxlength="40" value="{{introName}}" onChange="{{typeIntroName}}" placeholder="The Heron, Little Wonder, the SS Not Yet…"></div></div>
+<div class="lookgrid" role="group" aria-label="Choose your Boat’s look"><sc-for list="{{introLooks}}" as="o" hint-placeholder-count="13"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}"><img src="{{o.src}}" alt="">{{o.name}}</button></sc-for></div>
+<div class="row"><button class="go tornbtn" style="background: #C8D9B9" onClick="{{toKeep}}">This is my Boat</button><button class="quiet" onClick="{{toMeet}}">Back</button></div>
+</section>
+</div>
+</sc-if>
+<sc-if value="{{introKeep}}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; flex-direction: column; gap: 8px">
 <h2 class="h2">Build your Boat</h2>
 <p class="p light">Choose how your Boat is kept. There is no wrong choice, and you can change your mind later.</p>
+<div class="row"><button class="quiet" style="color: #EDEDED" onClick="{{toLook}}">Back to choosing your Boat</button></div>
 </div>
 <div class="choices">
 <article class="torn tr choice" style="background: #CFE1E4; grid-column: 1 / -1">
@@ -225,6 +254,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </div>
 <p class="p light fine">Either way, nothing is scored, nothing is sold, and you can sink your Boat (delete everything in it) at any time. <a href="Privacy.dc.html#boat">How your information is cared for</a></p>
 <p class="p light fine"><a href="Welcome.dc.html">Not now, I’ll wander the River</a></p>
+</sc-if>
 </section>
 </sc-if>
 
@@ -243,6 +273,19 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 <p class="p">{{bendText}}</p>
 <a href="{{bendHref}}" class="lnk">{{bendCta}}</a>
 </article>
+</section>
+
+<section id="look" class="torn tl panel" style="background: #FBF7EF">
+<div class="k">Your Boat and its keepsakes</div>
+<h2 class="h2 dark">{{lookTitle}}</h2>
+<div class="looksel"><img class="lookbig" src="{{heroArt}}" alt="{{heroAlt}}" width="300" height="215"><div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px">
+<sc-if value="{{hasKeeps}}" hint-placeholder-val="{{ false }}"><p class="p"><b>Aboard so far:</b></p><ul class="keeps"><sc-for list="{{keeps}}" as="k" hint-placeholder-count="2"><li>{{k.name}}, {{k.how}}.</li></sc-for></ul></sc-if>
+<sc-if value="{{noKeeps}}" hint-placeholder-val="{{ true }}"><p class="p">No keepsakes aboard yet. They arrive on their own, in time.</p></sc-if>
+<sc-if value="{{hasNextKeep}}" hint-placeholder-val="{{ false }}"><p class="p" style="font-style: italic">Perhaps next: {{nextKeep}}.</p></sc-if>
+<p class="p" style="font-size: 15px">Most keepsakes come from life away from the screen. Try a practice outside, with a tree, a river or the sky, then come back and write a note about it on the practice you are tending.</p>
+</div></div>
+<div class="row"><button class="sbtn" aria-expanded="{{repaintAttr}}" onClick="{{repaintToggle}}">{{repaintLabel}}</button></div>
+<sc-if value="{{repaintOpen}}" hint-placeholder-val="{{ false }}"><div class="lookgrid" role="group" aria-label="Repaint your Boat"><sc-for list="{{repaintLooks}}" as="o" hint-placeholder-count="13"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}"><img src="{{o.src}}" alt="">{{o.name}}</button></sc-for></div></sc-if>
 </section>
 
 <section id="voyage" class="torn tr panel" style="background: #CFE1E4">
@@ -532,7 +575,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { logQuery: '', logAll: false, hb: { loaded: false, loading: false, card: null, name: '', working: '', invite: '', place: '', themes: [], hylo: '', agree: false, busy: false, msg: '' }, fromSource: (function () { try { return sessionStorage.getItem('rr.boat.from') === 'source'; } catch (x) { return false; } })(), boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' }, lnSky: null, lnWord: null, lnNote: null, remindTime: '20:30', remindSpan: 'cycle' };
+    this.state = { intro: 'meet', tilesOpen: {}, look: 'river', introName: '', repaint: false, logQuery: '', logAll: false, hb: { loaded: false, loading: false, card: null, name: '', working: '', invite: '', place: '', themes: [], hylo: '', agree: false, busy: false, msg: '' }, fromSource: (function () { try { return sessionStorage.getItem('rr.boat.from') === 'source'; } catch (x) { return false; } })(), boat: null, pending: null, flash: '', drafts: {}, starName: '', starKind: 'being', boatName: '', sinking: false, deleting: false, prev: null, syncAt: null, auth: { stage: 'start', email: '', code: '', busy: false, msg: '' }, lnSky: null, lnWord: null, lnNote: null, remindTime: '20:30', remindSpan: 'cycle' };
   }
   // ---- keeping the Boat (on this device only) ----
   boatRead() { try { var b = JSON.parse(localStorage.getItem('rr.boat.v1') || 'null'); return b && b.v === 1 ? this.boatClean(b) : null; } catch (x) { return null; } }
@@ -553,6 +596,7 @@ class Component extends DCLogic {
       seen: { last: str(b.seen && b.seen.last, 30) },
       wake: arr(b.wake, 400).filter(function (x) { return x && typeof x.w === 'string'; }).map(function (x) { return { id: str(x.id, 60), w: str(x.w, 40), at: str(x.at, 10) }; }),
       wakeOff: !!b.wakeOff,
+      look: str(b.look, 20),
       wyrd: b.wyrd && typeof b.wyrd === 'object' && b.wyrd.arrived ? { arrived: str(b.wyrd.arrived, 10) } : null,
       log: arr(b.log, 300).filter(function (x) { return x && typeof x.id === 'string'; }).map(function (x) { return { id: str(x.id, 120), t: str(x.t, 140), h: /^https?:\/\//i.test(x.h || '') ? str(x.h, 400) : '', k: str(x.k, 60), w: str(x.w, 40), at: str(x.at, 10), first: str(x.first, 10), n: Math.max(1, Math.min(9999, parseInt(x.n, 10) || 1)) }; })
     };
@@ -683,13 +727,40 @@ class Component extends DCLogic {
     var out = { fromSource: !!(s.fromSource && b), backToSource: function () { try { sessionStorage.removeItem('rr.boat.from'); } catch (x) {} }, flash: s.flash, noBoat: !b, hasBoat: !!b, pending: !!s.pending, pendingTitle: s.pending ? (s.pending.list === 'began' ? 'your answers from the Source' : s.pending.list === 'lunar' ? 'a lunar journal' : (s.pending.item && s.pending.item.title) || '') : '',
       launchDevice: function () {
         var acct = !!(self.RB() && self.RB().signedIn());
-        var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: '', began: [], tending: [], stars: [], gathered: [], lunar: null, moons: [], wake: [], log: [], seen: { last: new Date().toISOString() } };
-        var msg = acct ? 'Your Boat is built, kept with your IRB account.' : 'Your Boat is built, here on this device.';
+        var nb = { v: 1, kind: acct ? 'account' : 'device', launched: new Date().toISOString(), name: (self.state.introName || '').trim().slice(0, 40), look: self.state.look || 'river', began: [], tending: [], stars: [], gathered: [], lunar: null, moons: [], wake: [], log: [], seen: { last: new Date().toISOString() } };
+        var msg = (acct ? 'Your Boat is built, kept with your IRB account.' : 'Your Boat is built, here on this device.') + ' Before you sail on, perhaps step outside and greet one Being nearby. Your Boat will notice when you come back with a note.';
         if (s.pending) { var m2 = self.addPending(nb, s.pending); if (m2) { msg += ' ' + m2; } try { sessionStorage.removeItem('rr.boat.pending'); } catch (x) {} }
         self.setState({ pending: null }); self.save(nb, msg);
         try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {}
       }
     };
+    var LK = window.RiverBoatLooks || null;
+    var lookOpts = function (cur, pick) { return LK ? LK.LOOKS.map(function (l) { var on = cur === l.id; return { name: l.name, src: LK.uri(l.id, []), on: on ? 'true' : 'false', cls: on ? 'lookopt on' : 'lookopt', pick: function () { pick(l.id); } }; }) : []; };
+    var heroLook = b ? (LK ? LK.lookOf(b) : 'river') : (s.intro === 'meet' ? 'river' : s.look);
+    var heroKeeps = b && LK ? LK.keepsakesFor(b) : [];
+    var heroL = LK ? LK.byId(heroLook) : { name: 'Boat', line: '' };
+    out.heroArt = LK ? LK.uri(heroLook, heroKeeps) : '';
+    out.heroAlt = (b && b.name ? b.name + ', a ' : 'A ') + (heroL.id === 'river' || !heroL.id ? 'River sloop' : heroL.name.toLowerCase()) + ', resting on the River' + (heroKeeps.length ? ', with ' + heroKeeps.length + (heroKeeps.length === 1 ? ' keepsake' : ' keepsakes') + ' aboard' : '');
+    out.introMeet = !b && s.intro === 'meet'; out.introLook = !b && s.intro === 'look'; out.introKeep = !b && s.intro === 'keep';
+    var goStep = function (st) { self.setState({ intro: st }); setTimeout(function () { var h = document.querySelector('main .h2'); if (h && h.scrollIntoView) { h.scrollIntoView({ block: 'center' }); } }, 40); };
+    out.toMeet = function () { goStep('meet'); }; out.toLook = function () { goStep('look'); }; out.toKeep = function () { goStep('keep'); };
+    var TILES = [['A vessel', 'It carries where you began, the practices you are tending, and the Beings, places and people in your “we”.', '#CFE1E4'], ['A wake', 'It remembers the waters you visit, so one day you can set sail with Raven and see your journey whole.', '#E6E2F2'], ['A keepsake box', 'Small keepsakes appear aboard on their own, mostly when you come back from time with the living world and write a note about it.', '#F5E3B0'], ['A way to meet others', 'If you wish, you can moor it in the Harbour, where people tending kindred things can find you.', '#DCE6D2']];
+    out.tiles = TILES.map(function (tl, i) { var open = !!s.tilesOpen[i]; return { title: tl[0], text: tl[1], bg: tl[2], tilt: i % 2 ? 'tr' : 'tl', open: open, closed: !open, openAttr: open ? 'true' : 'false', flip: function () { var o = {}; for (var k in self.state.tilesOpen) { o[k] = self.state.tilesOpen[k]; } o[i] = !open; self.setState({ tilesOpen: o }); } }; });
+    var il = LK ? LK.byId(s.look) : { name: '', line: '' };
+    out.introArt = LK ? LK.uri(s.look, []) : ''; out.introAlt = 'Your chosen Boat: ' + il.name; out.introLookName = il.name; out.introLookLine = il.line;
+    out.introName = s.introName; out.typeIntroName = function (e) { self.state.introName = e && e.target ? e.target.value : ''; };
+    out.introLooks = lookOpts(s.look, function (id) { self.setState({ look: id }); });
+    if (b) {
+      var allK = LK ? LK.KEEPSAKES : [];
+      var keeps = allK.filter(function (k) { return heroKeeps.indexOf(k.id) >= 0; });
+      var next = allK.filter(function (k) { return !k.secret && heroKeeps.indexOf(k.id) < 0; })[0];
+      out.keeps = keeps.map(function (k) { return { name: k.name, how: k.how }; }); out.hasKeeps = keeps.length > 0; out.noKeeps = keeps.length === 0;
+      out.hasNextKeep = !!next; out.nextKeep = next ? next.name.toLowerCase() + ', ' + next.how : '';
+      out.lookTitle = b.name ? b.name + ', ' + (heroL.id === 'river' ? 'a River sloop' : 'a ' + heroL.name.toLowerCase()) : 'Your ' + (heroL.id === 'river' ? 'River sloop' : heroL.name.toLowerCase());
+      out.repaintOpen = !!s.repaint; out.repaintAttr = s.repaint ? 'true' : 'false'; out.repaintLabel = s.repaint ? 'Done repainting' : 'Repaint your Boat';
+      out.repaintToggle = function () { self.setState({ repaint: !self.state.repaint }); };
+      out.repaintLooks = lookOpts(heroLook, function (id) { var nb = self.boatRead() || b; nb.look = id; self.save(nb, 'Your Boat is now a ' + (LK ? LK.byId(id).name.replace('The River’s own', 'River sloop') : 'new Boat') + '.'); });
+    }
     var rb = this.RB(), au = s.auth, setAuth = function (patch) { var a = {}; for (var k in self.state.auth) { a[k] = self.state.auth[k]; } for (var k2 in patch) { a[k2] = patch[k2]; } self.setState({ auth: a }); };
     var signed = !!(rb && rb.signedIn());
     out.canEmail = !!rb && !signed; out.noEmail = !rb; out.signedNoBoat = signed && !b; out.signedEmail = signed ? rb.email() : '';

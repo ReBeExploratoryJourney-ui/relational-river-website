@@ -84,6 +84,7 @@
     });
     var seenB = {}; out.began = (out.began || []).concat(b.began || []).filter(function (x) { if (!x || seenB[x.at]) { return false; } seenB[x.at] = 1; return true; }).sort(function (p, q) { return p.at < q.at ? -1 : 1; });
     out.name = b.name || out.name || '';
+    out.look = b.look || out.look || '';
     if (b.lunar !== undefined) { out.lunar = b.lunar; }
     if (b.wyrd && !out.wyrd) { out.wyrd = b.wyrd; }
     out.launched = [out.launched, b.launched].filter(Boolean).sort()[0] || new Date().toISOString();

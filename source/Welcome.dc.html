@@ -516,7 +516,8 @@ class Component extends DCLogic {
     var el = e.layer.querySelector('.vboat');
     if (!el) {
       el = document.createElement('div'); el.className = 'vboat'; el.setAttribute('aria-hidden', 'true');
-      el.innerHTML = '<svg viewBox="0 0 64 48"><path d="M2 41 C 12 37, 20 45, 32 41 S 52 37, 62 41" fill="none" stroke="#9FD3DC" stroke-width="2" stroke-linecap="round"/><path d="M6 30 C 13 40, 49 41, 58 29 Z" fill="#F5EEE1" stroke="#2F2B28" stroke-width="2" stroke-linejoin="round"/><path d="M33 5 L33 30" stroke="#2F2B28" stroke-width="2" stroke-linecap="round"/><path d="M35 8 C 46 15, 51 23, 53 28 L35 28 Z" fill="#E8C77A" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/><path d="M31 12 C 24 17, 20 23, 17 28 L31 28 Z" fill="#CFE1E4" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+      var LKv = window.RiverBoatLooks, cb = LKv ? LKv.current() : null;
+      el.innerHTML = LKv ? LKv.svg(LKv.lookOf(cb), LKv.keepsakesFor(cb)) : '<svg viewBox="0 0 64 48"><path d="M2 41 C 12 37, 20 45, 32 41 S 52 37, 62 41" fill="none" stroke="#9FD3DC" stroke-width="2" stroke-linecap="round"/><path d="M6 30 C 13 40, 49 41, 58 29 Z" fill="#F5EEE1" stroke="#2F2B28" stroke-width="2" stroke-linejoin="round"/><path d="M33 5 L33 30" stroke="#2F2B28" stroke-width="2" stroke-linecap="round"/><path d="M35 8 C 46 15, 51 23, 53 28 L35 28 Z" fill="#E8C77A" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/><path d="M31 12 C 24 17, 20 23, 17 28 L31 28 Z" fill="#CFE1E4" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/></svg>';
       e.layer.insertBefore(el, e.layer.firstChild);
     }
     return el;

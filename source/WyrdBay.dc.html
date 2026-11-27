@@ -340,6 +340,8 @@ class Component extends DCLogic {
   componentDidMount() {
     var self = this, rb = window.RiverBoat;
     if (!this.state.open) { return; }
+    var paint = function () { var LK = window.RiverBoatLooks, g = document.querySelector('.moored'); if (LK && g) { var cb = LK.current(); g.innerHTML = LK.inner(LK.lookOf(cb), LK.keepsakesFor(cb)); } };
+    setTimeout(paint, 60); setTimeout(paint, 1200); this.paintBoat = paint;
     var through = false; try { through = sessionStorage.getItem('rr.wyrd.through') === '1' || sessionStorage.getItem('rr.wyrd.seen') !== '1'; sessionStorage.removeItem('rr.wyrd.through'); sessionStorage.setItem('rr.wyrd.seen', '1'); } catch (x) {}
     if (through) { this.setState({ scene: 'pre' }); setTimeout(function () { self.crossing(); }, 30); }
     if (rb && rb.wyrdList) { rb.wyrdList().then(function (rows) { self.setState({ list: Array.isArray(rows) ? rows : [] }); }, function (e) { self.setState({ list: [], problem: e.message }); }); }
@@ -351,11 +353,13 @@ class Component extends DCLogic {
   crossing() {
     var self = this, still = !!(window.RiverWyrd && window.RiverWyrd.still());
     try { window.scrollTo(0, 0); } catch (x) {}
+    var LK = window.RiverBoatLooks, cb = LK ? LK.current() : null;
+    var boatSvg = LK ? LK.svg(LK.lookOf(cb), LK.keepsakesFor(cb)) : '<svg viewBox="0 0 64 48"><path d="M2 41 C 12 37, 20 45, 32 41 S 52 37, 62 41" fill="none" stroke="#9FD3DC" stroke-width="2" stroke-linecap="round"/><path d="M6 30 C 13 40, 49 41, 58 29 Z" fill="#F5EEE1" stroke="#2F2B28" stroke-width="2" stroke-linejoin="round"/><path d="M33 5 L33 30" stroke="#2F2B28" stroke-width="2" stroke-linecap="round"/><path d="M35 8 C 46 15, 51 23, 53 28 L35 28 Z" fill="#E8C77A" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/><path d="M31 12 C 24 17, 20 23, 17 28 L31 28 Z" fill="#CFE1E4" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/></svg>';
     var ov = document.createElement('div');
     ov.className = 'wy-entry'; ov.setAttribute('aria-hidden', 'true');
     ov.innerHTML = '<div class="we-sea"></div>' +
       '<svg class="we-lines" viewBox="0 0 1200 800" preserveAspectRatio="none"><g fill="none" stroke="#9FD3DC" stroke-linecap="round"><path d="M0 520 C 200 505, 400 535, 600 520 S 1000 505, 1200 522" stroke-opacity="0.35" stroke-width="1.4"></path><path d="M0 600 C 220 585, 420 615, 640 600 S 1000 585, 1200 602" stroke-opacity="0.28" stroke-width="1.2"></path><path d="M0 690 C 180 676, 380 704, 600 690 S 980 676, 1200 692" stroke-opacity="0.22" stroke-width="1.2"></path></g></svg>' +
-      '<div class="we-boat"><svg viewBox="0 0 64 48"><path d="M2 41 C 12 37, 20 45, 32 41 S 52 37, 62 41" fill="none" stroke="#9FD3DC" stroke-width="2" stroke-linecap="round"/><path d="M6 30 C 13 40, 49 41, 58 29 Z" fill="#F5EEE1" stroke="#2F2B28" stroke-width="2" stroke-linejoin="round"/><path d="M33 5 L33 30" stroke="#2F2B28" stroke-width="2" stroke-linecap="round"/><path d="M35 8 C 46 15, 51 23, 53 28 L35 28 Z" fill="#E8C77A" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/><path d="M31 12 C 24 17, 20 23, 17 28 L31 28 Z" fill="#CFE1E4" stroke="#2F2B28" stroke-width="1.6" stroke-linejoin="round"/></svg></div>' +
+      '<div class="we-boat">' + boatSvg + '</div>' +
       '<div class="we-fog f1"></div><div class="we-fog f2"></div><div class="we-fog f3"></div><div class="we-thick"></div>' +
       '<p class="we-word">Not knowing, you go on.</p>';
     var skip = document.createElement('button');
@@ -371,7 +375,7 @@ class Component extends DCLogic {
     var finish = function () {
       if (done) { return; } done = true;
       ov.remove(); document.body.style.overflow = prevOverflow; document.removeEventListener('keydown', onKey);
-      self.setState({ scene: still ? '' : 'bloom' });
+      self.setState({ scene: still ? '' : 'bloom' }); if (self.paintBoat) { setTimeout(self.paintBoat, 80); }
       setTimeout(function () { var h = document.querySelector('.bayh1'); if (h) { try { h.focus({ preventScroll: true }); } catch (x) {} } }, 60);
     };
     var onKey = function (e) { if (e.key === 'Escape') { finish(); } };
