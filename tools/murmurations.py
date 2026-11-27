@@ -51,7 +51,7 @@ RIVER = {
     'linked_schemas': [ORG],
     'name': 'Relational River',
     'primary_url': SITE,
-    'tags': ['relational being', 'remembrance', 'nature connection', 'bioregional',
+    'tags': ['relational being', 'remembrance', 'kinship with the living world', 'bioregional',
              'regenerative culture', 'commons', 'open source', 'more-than-human'],
     'description': ('An open commons tended by the Institute of Relational Being: a global remembrance '
                     'and relational development meshwork. Small practices, circles, local currents and '

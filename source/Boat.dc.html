@@ -675,7 +675,7 @@ class Component extends DCLogic {
   // ---- render ----
   renderVals() {
     var self = this, s = this.state, b = s.boat;
-    var LABEL = { curious: 'Curious', worried: 'Worried', numb: 'Numb', overwhelmed: 'Overwhelmed', hopeful: 'Hopeful', rather: 'Rather not think about it', tree: 'A tree', water: 'Water', garden: 'A garden', animals: 'Animals and birds', sky: 'The sky and Moon', park: 'A city park', watching: 'Watching', reading: 'Reading', listening: 'Listening', doing: 'Doing', others: 'Being with others' };
+    var LABEL = { curious: 'Curious', worried: 'Worried', numb: 'Numb', overwhelmed: 'Overwhelmed', hopeful: 'Hopeful', rather: 'Rather not think about it', tree: 'A tree', water: 'Water', garden: 'A garden', animals: 'Mammals and birds', sky: 'The sky and Moon', park: 'A city park', watching: 'Watching', reading: 'Reading', listening: 'Listening', doing: 'Doing', others: 'Being with others' };
     var lab = function (l) { return (l || []).map(function (k) { return LABEL[k] || k; }); };
     var KINDS = [['being', 'A Being', '#A9C79A'], ['place', 'A place', '#D9B48F'], ['water', 'A water', '#9FD3DC'], ['food', 'A food', '#E8C77A'], ['ancestor', 'An ancestor', '#B9A3D9'], ['people', 'A person or people', '#E8A598'], ['other', 'Something else', '#D8D2C8']];
     var KIND = {}; KINDS.forEach(function (k) { KIND[k[0]] = k; });

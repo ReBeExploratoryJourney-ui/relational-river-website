@@ -114,7 +114,7 @@ a:focus-visible,button:focus-visible{outline:2px dashed #9FD3DC;outline-offset:3
 </fieldset>
 
 <fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
-<legend style="font-size: 19px; font-weight: 600; padding: 0; margin-bottom: 12px">Which Beings beyond the human do you already feel in relationship with? <span style="font-weight: 400; font-style: italic; font-size: 15px">(choose any)</span></legend>
+<legend style="font-size: 19px; font-weight: 600; padding: 0; margin-bottom: 12px">Which fellow Beings do you already feel in relationship with? <span style="font-weight: 400; font-style: italic; font-size: 15px">(choose any)</span></legend>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <sc-for list="{{loves}}" as="c" hint-placeholder-count="6"><button class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
 </div>
@@ -202,7 +202,7 @@ class Component extends DCLogic {
       tree: ['A Sit Spot with a tree near you', 'Choose one tree you pass often and sit with them for ten minutes. Come back tomorrow, and notice what has changed.'],
       water: ['Listening to water', 'Find a creek, a fountain or the sea, and simply listen for five minutes, noticing what changes.'],
       garden: ['Making a picture with a garden Being', 'Pick one plant, greet them, and make a picture together, at their pace.'],
-      animals: ['Meeting the creatures nearby', 'Notice the birds, insects and animals around your home this week, one at a time.'],
+      animals: ['Meeting the creatures nearby', 'Notice the birds, insects and other animals around your home this week, one at a time.'],
       sky: ['Making with Moon', 'Step outside at dusk and notice where Moon is tonight, and how the light changes.'],
       park: ['A city Being', 'Every city park holds old trees and visiting birds. Choose one to return to.']
     };
@@ -231,7 +231,7 @@ class Component extends DCLogic {
     all.forEach(function (c, i) { c.tilt = i % 2 ? 'tr' : 'tl'; c.idLink = /Relational ID/.test(c.title); });
     return {
       feelings: this.chips([['curious', 'Curious'], ['worried', 'Worried'], ['numb', 'Numb'], ['overwhelmed', 'Overwhelmed'], ['hopeful', 'Hopeful'], ['rather', "I'd rather not think about it"]], 'feel'),
-      loves: this.chips([['tree', 'A tree'], ['water', 'Water'], ['garden', 'A garden'], ['animals', 'Animals and birds'], ['sky', 'The sky and Moon'], ['park', 'A city park']], 'love'),
+      loves: this.chips([['tree', 'A tree'], ['water', 'Water'], ['garden', 'A garden'], ['animals', 'Mammals and birds'], ['sky', 'The sky and Moon'], ['park', 'A city park']], 'love'),
       ways: this.chips([['watching', 'Watching'], ['reading', 'Reading'], ['listening', 'Listening'], ['doing', 'Doing'], ['others', 'Being with others']], 'way'),
       show: function () { self.setState({ done: true, kept: false }); },
       boatStartLabel: this.boatRead() ? 'Open your Boat' : 'Build your Boat',

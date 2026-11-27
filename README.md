@@ -66,3 +66,23 @@ To open the Well:
 
 Each person gets a private link (`/well/#manage=...`) to read or withdraw their offering;
 withdrawing deletes it. No IP addresses, device identifiers or tracking are stored.
+
+## Voice and language
+
+The River's words are part of how it helps people remember they belong to the living world.
+
+- **Humans are woven in.** Write entangled versions of reality, where people are part of nature,
+  never apart from it. Humans are animals too: say "other animals", "mammals and birds" or
+  "fellow Beings", not "animals" as if we were not; "the rest of nature" or "the living world",
+  not "nature" as somewhere we go. Prefer "out on the land" to "in nature".
+- **Beings** take a capital B and are they/them, never "it". **Moon** is a name: "Moon", not "the moon".
+- **You and your.** The River is a personal experience: "Your Boat", "your lunar journal", never "my".
+- **Collaborators**, not "users". **Wellsprings**, not "partners", unless a partnership is formal.
+- **No one knows the way.** Guides help to reveal potentially beneficial and regenerative ways
+  forward; the work is navigating mystery with curiosity and humility, in service of life, love,
+  kindness and care for all.
+- **Land, gently.** Rather than "whose land are you on", invite people to wonder who lived on these
+  lands before they became this nation or state, and whether they still live here now. Indigenous
+  sources first, credited by name.
+- Never use the phrase "Earth is every human's first home".
+- Warm, unhurried, plain English. No hype.

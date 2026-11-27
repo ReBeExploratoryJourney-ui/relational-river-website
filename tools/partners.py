@@ -30,7 +30,7 @@ PARTNERS = [
  {
   "name": "Unearthodox",
   "place": "Versoix, near Geneva, Switzerland, working worldwide",
-  "text": "Grown from the legacy of the Luc Hoffmann Institute, Unearthodox drives systems change through social innovation, so that nature and people can thrive together. It supports edge-walking innovators through its Exploration Co-Lab, rethinks innovation with the Post Growth Institute, and shares essays from the people it convenes in its Deep Dives.",
+  "text": "Grown from the legacy of the Luc Hoffmann Institute, Unearthodox drives systems change through social innovation, so that people and the rest of nature can thrive together. It supports edge-walking innovators through its Exploration Co-Lab, rethinks innovation with the Post Growth Institute, and shares essays from the people it convenes in its Deep Dives.",
   "theme": "Regenerative innovation",
   "k": "see",
   "href": "https://unearthodox.substack.com",
@@ -190,7 +190,7 @@ PARTNERS = [
  {
   "name": "The Xerces Society for Invertebrate Conservation",
   "place": "Portland, Oregon, working across North America and beyond",
-  "text": "Protecting the natural world through the conservation of invertebrates and their habitats: bees, butterflies, fireflies, freshwater mussels and the many small Beings who hold food webs together. Science-led, with community science, habitat restoration, pesticide reduction and advocacy, and plenty of ways to help close to home.",
+  "text": "Caring for the living world through the conservation of invertebrates and their habitats: bees, butterflies, fireflies, freshwater mussels and the many small Beings who hold food webs together. Science-led, with community science, habitat restoration, pesticide reduction and advocacy, and plenty of ways to help close to home.",
   "theme": "Woodland and land",
   "k": "land",
   "href": "https://xerces.org/",
