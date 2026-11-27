@@ -186,14 +186,12 @@ const HYLO_API = 'https://hylo.com/noo/graphql';
 const HYLO_EVENT_GROUPS = ['institute-of-relational-being'];
 
 async function hyloQuery(query, variables) {
-  const r = await fetch(HYLO_API, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json', accept: 'application/json', 'user-agent': 'RelationalRiver/1.0 (relationalriver.org)' },
-    body: JSON.stringify({ query, variables }),
-  });
-  if (!r.ok) throw new Error('upstream ' + r.status);
-  const d = await r.json();
-  if (d.errors && !d.data) throw new Error('graphql ' + JSON.stringify(d.errors).slice(0, 200));
+  // GraphQL over GET, so the request survives Hylo's redirects intact.
+  const u = HYLO_API + '?query=' + encodeURIComponent(query) + '&variables=' + encodeURIComponent(JSON.stringify(variables || {}));
+  const r = await fetch(u, { headers: { accept: 'application/json', 'user-agent': 'RelationalRiver/1.0 (relationalriver.org)' } });
+  const text = await r.text();
+  let d; try { d = JSON.parse(text); } catch (e) { throw new Error('upstream ' + r.status + ' ' + text.slice(0, 120)); }
+  if (d.errors && !d.data) throw new Error('graphql ' + JSON.stringify(d.errors).slice(0, 240));
   return d.data || {};
 }
 
